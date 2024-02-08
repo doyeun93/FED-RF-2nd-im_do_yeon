@@ -45,7 +45,10 @@
         값을 안주면 기본값 auto로 설정됨*/
         /* height: 300px; */
         /* height: auto; */
-        border: 1px solid #000;
+        border: 2px solid #000;
+
+        /* 보더 모서리 둥글게 */
+        border-radius: 20px;
         /* 패딩 
         padding: 수치;(4방향 모두)
         padding: 수치 수치;(위아래 양쪽)
@@ -94,9 +97,19 @@
     }
     /* 하단 영역 */
     #info-area{
+      /* 배경색 :bgc */
       background-color: #fbffca;
+      /* 글자체 : ff */
       font-family: 'Nanum Pen Script', cursive;
+      /* 글자크기 */
       font-size: 24px;
+    }
+
+    /* 주소요소 */
+    #info-area address{
+      /* 이탤릭해제 */
+      font-style: normal;
+      color: #222;
     }
 
     /* 타이틀 */
@@ -120,13 +133,13 @@
       font-size: 28px;
     }
 
-    /* 메뉴 링크 오버시 */
+    /* 메뉴 링크 오버시 
+    : hover는 가상클래스(마우스 오버시) */
     .menu a+a:hover {
       text-decoration: underline;
       text-decoration-style: wavy;
       color: purple;
     }
-  
 
     /* 
     [선택자들]
@@ -136,6 +149,8 @@
     4. 자손 선택자 : 띄어쓰기
     5. 직계자식 선택자 : 꺽쇠(>)
     6. 그룹 선택자 : 콤마(,)
+    7. 형제 선택자 : 플러스(+)
+        예) a+a -> 앞에 a요소가 있는 a요소 선택
      */
   </style>
 </head>
