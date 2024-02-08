@@ -6,6 +6,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- 탭에 출력되는 타이틀 -->
   <title>네이버 요약뉴스</title>
+  <!-- CSS 인터널방식 코드 -->
+  <style>
+    /* CSS 코딩 구역 */
+    /* 
+     CSS 설정 코딩방식
+
+     선택자{
+      속성: 값;
+     }
+
+     -> 선택자를 요소명/ 클래스명/ 아이디명 등으로 사용
+    */
+    /*  메인 이미지 크기 변경하기 */
+    main > img{
+      /* main > img = #main-area img */
+      width: 100%;
+    }
+  </style>
 </head>
 <body>
    <!-- 1.상단 영역 : 제목, 메뉴-->
@@ -15,7 +33,8 @@
         <!-- 1-2. 메뉴 -->
         <div class="menu">
           <a href="#">
-            <img src="./images/logo.png" alt="네이버로고">
+            <img src="./images/logo.png" alt="네이버로고" style="width: 50px; vertical-align: middle;">
+            <!-- style 속성으로 개별요소에 CSS를 설정할 수 있다. -> 인라인 방식 -->
           </a>
           <a href="">정치</a>
           <a href="">경제</a>
@@ -36,6 +55,13 @@
    </footer>
 
    <!-- 
+    [이름 규칙]
+    1. 파스칼 케이스(JS에서) : PascalCase -> 단어마다 대문자
+    2. 캐믈 케이스(JS에서) : camelCase -> 첫단어빼고 단어마다 대문자
+    3. 스네이크 케이스(파일명/폴더명) : snake_case -> 모두 소문자고 단어사이 언더바_ 
+    4. 케밥 케이스 (요소명): kebab-case -> 모두 소문자고 단어사이 데쉬-
+
+
     [요소 명명법]
     1. 아이디는 #, 클래스는 . (약어로 만들기)
     2. 이름은 구체적으로 만들고 단어마다 데쉬(-)를 사용함(케밥케이스)
