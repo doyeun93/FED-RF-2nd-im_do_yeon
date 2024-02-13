@@ -7,7 +7,26 @@
  이것의 이점은 웹요청(http request)이 줄어들어 html의 랜더링 속도가 향상된다
 */
 
-.sub-title{
-  font-size: 50px;
-  color: red;
-}
+
+/*  서브페이지 타이틀 */
+h2.sub-title{
+ /* 글자색 : c */
+ color: #20cb02fc; 
+ /* =color: rgb(32 203 2 / 0.988); */
+/* = color: rgba(32, 203, 2, 0.988); */
+
+/* 글자크기 : font-size (fz) */
+font-size: 38px;
+/* 글자두께 : font-weight (fw)*/
+font-weight: normal;
+/* font-weight: bold;  fwb*/
+
+/* 글자체 : font-family 
+- 콤마로 구분된 글자체는 대체제임
+앞의 글자체가 없으면 뒤의 글자체가 적용됨. 
+만약 모두 없으면 브라우저 기본체가 적용됨*/
+font-family: 'Orbit', system-ui;
+
+/* 텍스트 정렬 - text-align:center (tac:중앙정렬 */
+text-align: center;
+} 
