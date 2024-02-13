@@ -72,11 +72,7 @@
         margin: 20px auto;
     }
 
-    /*  메인 이미지 크기 변경하기 */
-    main > img{
-      /* main > img = #main-area img */
-      width: 100%;
-    }
+    
 
     /* 상단영역, 하단영역 공통 - 콤마(,)는 그룹선택자, 해당 클래스(.) 지정안해주면 다른 header와 footer도 다 먹힘 */
     header.part,footer.part{
