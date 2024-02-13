@@ -5,157 +5,11 @@
   <!-- 뷰포트: 모바일 기기에서 실제 픽셀을 맞춰주는 메타설정 -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- 탭에 출력되는 타이틀 -->
-  <title>네이버 요약뉴스</title>
+  <title>네이버 요약뉴스 - IT/과학 뉴스</title>
   <!-- CSS 인터널방식 코드 -->
-  <style>
-  /* 웹폰트 구글CDN(Content Delivery Network) */
-    @import url('https://fonts.googleapis.com/css2?family=East+Sea+Dokdo&family=Gowun+Dodum&family=Nanum+Pen+Script&display=swap');
-  /* 
-    font-family: 'East Sea Dokdo', sans-serif;
-    font-family: 'Gowun Dodum', sans-serif;
-    font-family: 'Nanum Pen Script', cursive;
-  */
-    /* CSS 코딩 구역 */
-    /* 
-     CSS 설정 코딩방식
-
-     선택자{
-      속성: 값;
-     }
-
-     -> 선택자를 요소명/ 클래스명/ 아이디명 등으로 사용
-
-     [CSS 박스 모델]
-     - 모든 html 요소는 사각형으로 되어있고 가로,세로, 패딩, 마진, 보더의 속성으로 구성됨
-     width/height/padding/margin/border
-     -> 기본 박스 디자인은 가로, 세로 크기를 줄 경우 패딩과 보더는 박스 크기에 포함되지 않는다.
-     ->> 이런 박스를 컨텐트 박스라고 함
-
-    */
-
-    /* 공통 디자인 : 클래스를 주로 사용 */
-    .part{
-        /* 박스모델의 5가지 셋팅 */
-        /* 가로 크기 - 기본값 auto
-        블록의 기본값은 부모박스 채우기
-        인라인의 기본값은 내용물만큼 */
-        width: 750px;
-        /* 세로 크기 - 기본값 auto 
-        모든 요소에서 기본값은 내용물만큼 
-        값을 안주면 기본값 auto로 설정됨*/
-        /* height: 300px; */
-        /* height: auto; */
-
-        /* border 숫자px solid 한 줄, double 두 줄 */
-        border: 2px solid #000;
-
-        /* 보더 모서리 둥글게 */
-        border-radius: 20px;
-        /* 패딩 
-        padding: 수치;(4방향 모두)
-        padding: 수치 수치;(위아래 양쪽)
-        padding: 수치 수치 수치;(위 양쪽 아래)
-        padding: 수치 수치 수치 수치;(위 오른 아래 왼)
-        */
-        
-        padding: 50px;
-
-        /* 박스가 패딩, 보더를 포함하는 설정 */
-        box-sizing: border-box;
-
-        /* content-box가 기본값임 */
-        /* box-sizing: content-box; */
-
-        /* 마진
-        margin: 수치;(4방향 모두)
-        margin: 수치 수치;(위아래 양쪽)
-        margin: 수치 수치 수치;(위 양쪽 아래)
-        margin: 수치 수치 수치 수치;(위 오른 아래 왼)
-
-        [블록박스 가로방향 중앙정렬 마진설정]
-        마영오
-        margin:0 auto;
-
-        */
-        margin: 20px auto;
-    }
-
-    /*  메인 이미지 크기 변경하기 */
-    main > img{
-      /* main > img = #main-area img */
-      width: 100%;
-    }
-
-    /* 상단영역, 하단영역 공통 - 콤마(,)는 그룹선택자, 해당 클래스(.) 지정안해주면 다른 header와 footer도 다 먹힘 */
-    header.part,footer.part{
-      text-align: center;
-      /* color: red; */
-    }
-
-    /*  상단영역 */
-    #top-area{
-      background-color: #b8e1f8;
-
-    }
-    /* 하단 영역 */
-    #info-area{
-      /* 배경색 :bgc */
-      background-color: #fbffca;
-      /* 글자체 : ff */
-      font-family: 'Nanum Pen Script', cursive;
-      /* 글자크기 */
-      font-size: 24px;
-    }
-
-    /* 주소요소 */
-    #info-area address{
-      /* 이탤릭해제 */
-      font-style: normal;
-      color: #222;
-    }
-
-    /* 타이틀 */
-    .tit{
-      font-family: 'East Sea Dokdo', sans-serif;
-      font-size: 50px;
-    }
-
-    /* 메뉴 */
-   
-    .menu{
-      font-family: 'Gowun Dodum', sans-serif;
-    }
-    /* 메뉴 링크 */
-    .menu a{
-       /* 글자색 */
-      color: #222;
-      /* 글자 밑줄 없앰 */
-      text-decoration: none;
-      /* 글자 크기 */
-      font-size: 28px;
-    }
-
-    /* 메뉴 링크 오버시 
-    : hover는 가상클래스(마우스 오버시) */
-    .menu a+a:hover {
-      text-decoration: underline;
-      text-decoration-style: wavy;
-      color: purple;
-    }
-
-    /* 
-    [선택자들]
-    1. 타입선택자 : 태그명
-    2. 아이디/ 클래스 선택자 : 요소이름
-    3. 종속 선택자 : 요소명 + 이름(h1#my)
-    4. 자손 선택자 : 띄어쓰기
-    5. 직계자식 선택자 : 꺽쇠(>)
-    6. 그룹 선택자 : 콤마(,)
-    7. 형제 선택자 : 플러스(+)
-        예) a+a -> 앞에 a요소가 있는 a요소 선택
-     */
-  </style>
-  <link rel="stylesheet" href="./css/main.css">
+  <style></style>
+  <!-- CSS 익스터널방식 코드 -->
+  <link rel="stylesheet" href="./css/sub.css">
 </head>
 <body>
    <!-- 1.상단 영역 : 제목, 메뉴-->
@@ -177,7 +31,8 @@
    </header>
    <!-- 2. 메인 영역 : 컨텐츠 -->
    <main id="main-area" class="part">
-    <img src="./images/main_news.png" alt="메인이미지">
+    <!-- 2-1. 서브 타이틀 -->
+    <h2 class="sub-title">IT/과학 뉴스</h2>
 
    </main>
 
