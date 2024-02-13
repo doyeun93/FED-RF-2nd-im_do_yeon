@@ -70,6 +70,9 @@ background-size: cover;
 
 
 } 
+/* 배경이미지 background-image (bgi) 
+ 각 페이지(html)의 서브 타이틀 이름 설정 후 클래스 사용하여 각 이미지 설정 */
+
 /* 정치 */
 .politics{ background-image: url(../images/titbg1.jpg);}
 /* 경제 */
