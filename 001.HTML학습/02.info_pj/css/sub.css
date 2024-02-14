@@ -11,7 +11,7 @@
 /*  서브페이지 타이틀 */
 h2.sub-title{
  /* 글자색 : c */
- color: #fffffffc; 
+ /* color: #fffffffc;  */
  /* =color: rgb(255 255 255 / 0.988); */
 /* = color: rgba(255, 255, 255, 0.988); */
 
@@ -74,15 +74,35 @@ background-size: cover;
  각 페이지(html)의 서브 타이틀 이름 설정 후 클래스 사용하여 각 이미지 설정 */
 
 /* 정치 */
-.politics{ background-image: url(../images/titbg1.jpg);}
+.politics{ 
+  /* 글자색 */
+  color: #b5f415;
+  /* 배경이미지 : bgi ->개별적으로 줌 */
+  background-image: url(../images/titbg1.jpg);}
+
 /* 경제 */
-.economy{background-image: url(../images/titbg2.jpg);}
+.economy{
+  color: #0a0a0a;
+  /* 배경이미지 : bgi ->개별적으로 줌 */
+  background-image: url(../images/titbg2.jpg);}
+
 /* 사회 */
-.society{background-image: url(../images/titbg3.jpg);}
+.society{
+  color: #ff06ff;
+  /* 배경이미지 : bgi ->개별적으로 줌 */
+  background-image: url(../images/titbg3.jpg);}
+
 /* IT/과학 */
-.it{background-image: url(../images/titbg4.jpg);}
+.it{
+  color: #5710fe;
+  /* 배경이미지 : bgi ->개별적으로 줌 */
+  background-image: url(../images/titbg4.jpg);}
+  
 /* TV/연예 */
-.tv{background-image: url(../images/titbg5.jpg);}
+.tv{
+  color: #fdee41;
+  /* 배경이미지 : bgi ->개별적으로 줌 */
+  background-image: url(../images/titbg5.jpg);}
 
 
 
