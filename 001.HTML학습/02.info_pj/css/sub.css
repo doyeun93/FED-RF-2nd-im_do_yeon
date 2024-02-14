@@ -11,9 +11,9 @@
 /*  서브페이지 타이틀 */
 h2.sub-title{
  /* 글자색 : c */
- color: #20cb02fc; 
- /* =color: rgb(32 203 2 / 0.988); */
-/* = color: rgba(32, 203, 2, 0.988); */
+ color: #fffffffc; 
+ /* =color: rgb(255 255 255 / 0.988); */
+/* = color: rgba(255, 255, 255, 0.988); */
 
 /* 글자크기 : font-size (fz) */
 font-size: 38px;
