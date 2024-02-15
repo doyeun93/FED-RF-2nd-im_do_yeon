@@ -7,16 +7,19 @@ html,body{
   height: 100%;
 }
 body{
-
-  background-image: 
-  linear-gradient(to bottom,rgb(205, 255, 227),rgb(247, 206, 255));
+ 
+   background : url(../images/bgi.jpg) no-repeat center/cover;
+  /* linear-gradient(to bottom,rgb(205, 255, 227),rgb(247, 206, 255)); */
   /* 
       [ 선형 그라데이션 ]
       background-image: 
       linear-gradient(방향,색1,색2,색3,...)
       - 방향: 
       to top, to left, to right, to bottom
+
   */
+
+
 }
 .wrap{
   border: 2px dashed darkblue;
