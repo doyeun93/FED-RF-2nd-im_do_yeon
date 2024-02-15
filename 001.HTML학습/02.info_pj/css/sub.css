@@ -182,10 +182,9 @@ background-size: cover;
   /* 배경색 */
   background-color: rgb(242, 242, 242);
   /* 글자색 */
-  color: brown;
+  color: rgb(174, 59, 59);
   /* 글자체 : 웹폰트 */
   font-family: 'Diphylleia', serif;
   font-weight: bold;
-
 }
 
