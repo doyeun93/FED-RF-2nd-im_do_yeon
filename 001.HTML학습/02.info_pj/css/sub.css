@@ -193,6 +193,7 @@ background-size: cover;
   border-top: 2px dashed #ccc;
   border-bottom: 2px dashed #ccc;
   margin: 20px 0;
+  padding: 15px 0;
 }
 
 /* 인용구 제목 */
@@ -232,6 +233,11 @@ background-size: cover;
   이것을 해결하기 위한 한가지 방법으로 넘치는 요소 숨기기
   속성을 세팅하면 된다 */
   overflow: hidden; /* oh */
+
+  /* 넘치는 자식요소 숨기는 설정때문에 그림자가 잘리므로 이를 패딩으로 처리함 */
+  padding-left: 0;
+  /* = padding: 5PX 5PX 5PX 0; */
+
 }
 /* 블록인용 이미지 */
 .quote-box img{
@@ -245,6 +251,8 @@ background-size: cover;
 
   /* 이미지 옆에 공간주기 */
   margin-left: 10px ;
+  /* 상단여백으로 이미지 이동 */
+  margin-top: 11px;
   /* 둥근모서리 */
   border-radius: 20px;
   /* 박스그림자 */
