@@ -29,7 +29,7 @@
   body{
     /* html에 배경을 넣지 말자, 전체 배경은 body에 */
     /* 1. 배경색 : bgc */
-    background-color: pink;
+    background-color: rgb(227, 214, 171);
 
     /* 2. 배경이미지 : bgi ->url(경로)
     -> 기본적으로 반복됨 */
@@ -59,20 +59,77 @@
     -> 방향별 개별속성은
     background-position-x: 값;
     background-position-y: 값;
-    
+
     */
     
-    
-
-
     background-position: right bottom;
     /* background-position: center */
     /* background-position: 100px 200px; */
     /* background-position: 50% 60%; */
 
+    /* 6. 배경이미지 크기 : bgz ->가로 세로 
+        정해진 값 :
+        1. contain - 이미지가 화면을 채우고 모두 보임
+        2. cover - 이미지가 박스를 모두 채움(잘리는 부분이 있을 수 있음)
+        3. 수치값 - 가로 세로 중 하나만 주면 이미지가 비율유지함
+    */
+    /* background-size: contain; */
+    /* background-size: cover; */
+    background-size: 200px;
+    /* background-size: 200px auto; */
+    /* background-size: auto 500px; */
+    /* background-size: 100px 400px; */
+    
+    /* 
+      [ 배경 한꺼번에 쓰기 ]
+      background : 배경색 이미지 반복 고정 위치 /크기
+      background : 색 이 반 고 윙 /크
+
+      -> 주의사항 : 위에서 개별배경 세팅을 하고 아래쪽에서 한꺼번에 세팅하는 배경 속성을 쓰면
+      위에서 개별세팅한 배경 속성이 초기화된다
+    */
+
+  }
+  /* body아래 .wrap박스 */
+  .wrap{
+    height: 100%;
+    /* 높이값을 body에 채움 */
+
+    /* 배경 한번에 쓰기를 사용하면 여러개의 배경이미지를 넣을 수 있다.
+    background : 색 이 반 고 윙 /크, 색 이 반 고 윙 /크, 색 이 반 고 윙 /크....;
+    
+    (특징) : 위쪽에 세팅된 배경이미지가 위에 위치함
+    -> 위치값은 가로는 left, 세로는 center가 기본값이다
+    -> 위치나 크기의 특정값을 쓰지않으면 기본값 적용됨
+    -> 위치값을 0을 쓰면 기본값인 left center가 적용됨
+    -> 위치값을 %로 쓰면 설정박스의 %위치를 이미지 중심을 기준으로 위차하게됨
+    
+    */
+    
+    background: 
+    /* 도깨비 이름  */
+    url(./imgs/d01.png) no-repeat 50% 67%/120px,
+    /* 도깨비 */ 
+    url(./imgs/dc1.png) no-repeat center/450px, 
+    /* 지은탁 이름 */
+    url(./imgs/d02.png) no-repeat 91% 28%/120px,
+    /* 지은탁 */
+    url(./imgs/dc2.png) no-repeat right top/450px, 
+    /* 저승사자 이름 */
+    url(./imgs/d03.png) no-repeat 19.2% 93.5%/120px, 
+    /* 저승사자 */
+    url(./imgs/dc3.png) no-repeat left bottom/350px, 
+    /* 써니 이름 */
+    url(./imgs/d04.png) no-repeat 93% 63.5%/120px,
+    /* 써니 */
+    url(./imgs/dc4.png) no-repeat right center/350px, 
+    
+    url(./imgs/bg_mainvisual.jpg) no-repeat left/850px,
+
+    url(./imgs/eachBG.jpg) no-repeat center/700px;
+
     
   }
-
 
   </style>
 </head>
