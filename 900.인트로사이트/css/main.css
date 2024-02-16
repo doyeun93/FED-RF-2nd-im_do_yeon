@@ -13,7 +13,7 @@ html,body,.page{
 }
 body{
  
-   background : url(../images/panda1.PNG) no-repeat center/cover;
+   background : url(../images/panda1.PNG) no-repeat fixed center/cover;
   /* linear-gradient(to bottom,rgb(205, 255, 227),rgb(247, 206, 255)); */
   /* 
       [ 선형 그라데이션 ]
@@ -23,16 +23,30 @@ body{
       to top, to left, to right, to bottom
 
   */
+}
 
+/*  메뉴 박스 */
+.menu{
+  width: 700px;
+  margin: 0 auto;
+  /* background-color: hwb(203 53% 2%); */
+  padding: 15px;
 
 }
-.wrap{
+
+/* 메뉴 하위 h1,h2 옆으로 흐르게 display변경하기 */
+.menu>*{
+  display: inline-block;
+}
+
+.link-box{
   border: 2px dashed darkblue;
   border-radius: 20px;
   width: 600px;
   margin: 0 auto;
   padding: 20px;
   text-align: center;
+  /* background-color: rgb(255, 255, 255); */
   
 }
 
