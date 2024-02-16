@@ -8,7 +8,7 @@ html,body{
 }
 body{
  
-   background : url(../images/panda.PNG) no-repeat center/cover;
+   background : url(../images/panda1.PNG) no-repeat center/cover;
   /* linear-gradient(to bottom,rgb(205, 255, 227),rgb(247, 206, 255)); */
   /* 
       [ 선형 그라데이션 ]
@@ -28,5 +28,6 @@ body{
   margin: 0 auto;
   padding: 20px;
   text-align: center;
+  
 }
 
