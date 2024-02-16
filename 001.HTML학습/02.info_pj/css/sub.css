@@ -321,3 +321,42 @@ margin: 0;
   box-shadow: 0 0 10px 5px darkblue;
   /* box-shadow: x y blur (spread) color; */
 }
+
+/* 오늘의 작품 & 느낌 */
+.work{
+    /* 글자크기, 글자정렬은 자식요소로 상속된다 */
+    text-align: center;
+    /* 그라데이션 
+      [선형 그라데이션 : linear-gradient]
+      linear-gradient(방향, 색1, 색2,...);
+      linear-gradient(방향, 색1 몇 %, 색2 몇%,...);
+      linear-gradient(각도, 색1 몇 %, 색2 몇%,...);
+      - 옵션 :
+      1. 방향 : to top, to bottom, to left, to right
+      2. 각도 : 각도 deg
+      3. 콤마로 나열된 색상 뒤에 %수치를 쓰면 비율 조정가능    
+    */
+    /* background-image:linear-gradient(to bottom, red 10%, blue 20%, blue 60%, yellow); */
+  background-image: linear-gradient(to bottom, #f0a09e 10%, #f9e981 50%, #7dc1eb);
+
+  /* padding */
+  padding: 1px;
+  /* 
+    부모박스에 패딩이 없는 상태에서 첫번째 자식 블록박스의 마진은
+    부모 바깥쪽으로 나가서 세팅된다
+    이유는 마진은 바깥쪽으로 세팅하는 개념이고 부모가 이를 세팅하지 않았다면
+    첫번쨰 블록박스에서 마진을 세팅할 수 있도록 기본 설계가 되어있다
+    -> 패딩을 주는 순간 자식의 마진은 패딩의 내부공간을 밀게된다
+  */
+  }
+
+/* 작품 타이틀 */
+.work h4{
+  font-family: "Black And White Picture", system-ui;
+  font-weight: normal;
+  font-size: 28px;
+  color: #333;
+  margin: 0;
+  /* 부모에 패딩없는 상태에서 첫번째 자식마진은 부모바깥으로 나감
+  참고) 마지막 자식 블록 요소도 부모 박스 하단 마진은 바깥으로 나감 */
+}
