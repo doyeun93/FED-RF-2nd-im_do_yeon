@@ -3,13 +3,14 @@
 /* Info PJ 공통 CSS - common.css */
 
 /* 웹폰트 구글CDN(Content Delivery Network) */
-@import url("https://fonts.googleapis.com/css2?family=Black+And+White+Picture&family=Orbit&family=East+Sea+Dokdo&family=Gowun+Dodum&family=Nanum+Pen+Script&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Gugi&family=Black+And+White+Picture&family=Orbit&family=East+Sea+Dokdo&family=Gowun+Dodum&family=Nanum+Pen+Script&display=swap");
 /* 
     기사 본문용 - font-family: "Orbit", sans-serif;
     서브 타이틀용 - font-family: 'East Sea Dokdo', sans-serif;
     font-family: 'Gowun Dodum', sans-serif;
     font-family: 'Nanum Pen Script', cursive;
     font-family: "Black And White Picture", system-ui;
+    font-family: "Gugi", sans-serif;
   */
 /* CSS 코딩 구역 */
 /* 

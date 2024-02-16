@@ -339,6 +339,8 @@ margin: 0;
     /* background-image:linear-gradient(to bottom, red 10%, blue 20%, blue 60%, yellow); */
   background-image: linear-gradient(to bottom, #f0a09e 10%, #f9e981 50%, #7dc1eb);
 
+  /* background-color: pink; */
+
   /* padding */
   padding: 20px;
   border: 3px dotted #000;
@@ -349,10 +351,27 @@ margin: 0;
     첫번쨰 블록박스에서 마진을 세팅할 수 있도록 기본 설계가 되어있다
     -> 패딩을 주는 순간 자식의 마진은 패딩의 내부공간을 밀게된다
   */
-  /* 배경색관련 영역지정 */
+  /* [ 배경관련 표시 영역지정 : background-clip] 
+      값 : border-box 보더 영역까지 표시(기본값)
+      값 : padding-box 패딩 영역까지 표시
+      값 : content-box 내용 영역까지 표시
+  */
   background-clip: border-box;
-  /* 배경이미지관련 영역지정 */
+
+
+  /* 배경관련 시작 영역지정 : background-origin]
+      값 : border-box 보더 영역부터 시작
+      값 : padding-box 패딩 영역부터 시작(기본값)
+      값 : content-box 내용 영역부터 시작
+  */
   background-origin: padding-box;
+  
+  /* 배경 반복 제거 */
+  background-repeat: no-repeat;
+
+  /* 박스 내부 그림자(inset) */
+  box-shadow: inset 0 0 10px #333;
+
 
   }
 
@@ -365,4 +384,26 @@ margin: 0;
   margin: 0;
   /* 부모에 패딩없는 상태에서 첫번째 자식마진은 부모바깥으로 나감
   참고) 마지막 자식 블록 요소도 부모 박스 하단 마진은 바깥으로 나감 */
+}
+
+/* 작품 이미지 */
+.work img{
+  border: 12px ridge goldenrod;
+}
+
+.work figcaption{
+  font-family: "Gugi", sans-serif;
+  font-size: 20px;
+  margin-top: 20px;
+
+}
+
+/* 작품명 인용구 */
+.work cite{
+  /* 이탤릭해제 */
+  font-style: normal;
+  /* 글자색 */
+  color: palevioletred;
+  font-size: 30px;
+  
 }
