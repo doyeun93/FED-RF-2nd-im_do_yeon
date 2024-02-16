@@ -340,7 +340,8 @@ margin: 0;
   background-image: linear-gradient(to bottom, #f0a09e 10%, #f9e981 50%, #7dc1eb);
 
   /* padding */
-  padding: 1px;
+  padding: 20px;
+  border: 3px dotted #000;
   /* 
     부모박스에 패딩이 없는 상태에서 첫번째 자식 블록박스의 마진은
     부모 바깥쪽으로 나가서 세팅된다
@@ -348,6 +349,11 @@ margin: 0;
     첫번쨰 블록박스에서 마진을 세팅할 수 있도록 기본 설계가 되어있다
     -> 패딩을 주는 순간 자식의 마진은 패딩의 내부공간을 밀게된다
   */
+  /* 배경색관련 영역지정 */
+  background-clip: border-box;
+  /* 배경이미지관련 영역지정 */
+  background-origin: padding-box;
+
   }
 
 /* 작품 타이틀 */
