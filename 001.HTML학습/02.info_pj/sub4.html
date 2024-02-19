@@ -213,7 +213,74 @@
         > 닫는 꺽쇠 &gt; (gt는 greater than : ~보다 큰)
        -->
 
+       <!-- 
+        반대방향부터 출력하기
+        <bdo dir="rtl">우리나라대한민국만세</bdo> -->
 
+        <!-- [순서없는 리스트 : ul ] 
+            unordered list
+            (참고: 블릿옵션 https://www.w3schools.com/tags/tryit.asp?filename=tryhtml_ul_type_css )
+
+            [순서있는 리스트 : ol ] 
+            ordered list 
+            (참고: 순서표시옵션 https://www.w3schools.com/tags/tryit.asp?filename=tryhtml_ol_type_all_css)
+
+            [ ul/ol 공통사항]
+            - 하위필수요소 : li (개별리스트)
+            - 주의 : 하위에 li 이외의 블록요소나 그 어떤 요소도 직계자식으로 사용할 수 없다
+            예) <ul><li></li><div></div></ul> -> 사용불가
+        -->
+
+
+
+        <!-- 주요뉴스 : ul -->
+        <article class="main-news news-box">
+          <h3>주요뉴스</h3>
+          <!-- <ul style="list-style-type: square;"> </ul> -->
+            <ul>
+            <li>
+              <a href="http://www.inews24.com/view/1685881" target="_blank">"1500만원만 내세요"…미분양 해소 '안간힘'</a>
+            </li>
+            <li>
+              <a href="http://www.inews24.com/view/1686160" target="_blank">'서울의 봄' 불법 유출본 확산에…제작·배급사 "법적 책임 물을 것"</a>
+            </li>
+            <li>
+              <a href="http://www.inews24.com/view/1686096" target="_blank">공시지원금 인상에 불법보조금까지...'성지'에선 갤24가 8만원</a>
+            </li>
+            <li>
+              <a href="http://www.inews24.com/view/1684671" target="_blank">박지윤 측 "미리 잡혀있던 일정"…최동석 "아들 생일은 1년 전부터 잡혀있어"</a>
+            </li>
+            <li>
+              <a href="http://www.inews24.com/view/1686124" target="_blank">저출산위 부위원장 1년 만 교체 왜?…尹 '국가존망 직결' 의지</a>
+            </li>
+          </ul>
+        </article>
+
+        <!-- 랭킹뉴스 : ol -->
+        <article class="rank-news news-box">
+          <h3>랭킹뉴스</h3>
+          <!-- <ol style="list-style-type: upper-roman;" start="3" reversed> </ol>  -->
+           <!-- ol은 start로 시작번호 지정옵션, resersed를 주면 역순으로 순서를 보여준다 -->
+           <ol>
+           <li>
+              <a href="https://n.news.naver.com/mnews/ranking/article/031/0000813564?ntype=RANKING" target="_blank">김경율, 카이스트 강제 퇴장 "우발적 아냐…사전 준비한 듯"</a>
+            </li>
+            <li>
+              <a href="https://n.news.naver.com/mnews/ranking/article/031/0000813542?ntype=RANKING" target="_blank">한동훈 "개혁신당, 돈때문에 모였나…이혼하면 보조금 사기"</a>
+            </li>
+            <li>
+              <a href="https://n.news.naver.com/mnews/ranking/article/031/0000813588?ntype=RANKING" target="_blank">개혁신당 '선거 전권' 이준석에게…김종민 "전두환 국보위냐"</a>
+            </li>
+            <li>
+              <a href="https://n.news.naver.com/mnews/ranking/article/031/0000813576?ntype=RANKING" target="_blank">'KAIST 강제 퇴장' 신민기 "구두 경고 없었다…사실상 감금"</a>
+            </li>
+            <li>
+              <a href="https://n.news.naver.com/mnews/ranking/article/031/0000813600?ntype=RANKING" target="_blank">이재명, 尹 겨냥 "사과탄 멘 '백골단' 다시 등장"</a>
+            </li>
+          </ol>
+          
+        </article>
+             
 
     </main>
 
