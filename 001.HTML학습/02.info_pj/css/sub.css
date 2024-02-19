@@ -445,6 +445,9 @@ margin: 0;
 .main-news ul{
   /* 기본리스트 숨기기 lin*/
   list-style: none;
+  /* 기본 마진, 패딩없애기 */
+  margin: 0;
+  padding: 0;
 }
 
 /* 주요뉴스에 가상 요소로 아이콘 넣기 */
