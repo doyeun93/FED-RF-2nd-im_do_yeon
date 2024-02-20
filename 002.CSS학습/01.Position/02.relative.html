@@ -16,16 +16,27 @@
         }
 
         /* 첫번째 박스에 포지션 체크 */
-        #s1{
-            position: static;
+        #r1{
+            position: relative; /* por */
+           
+            background:url(./images/ab5.jpg) no-repeat center/cover;
 
-            /* 위치 이동속성 적용안됨! */
+            /* 위치이동값 */
             top: 100px;
             left: 100px;
 
-            margin-top: 50px;
-            margin-left: 50px;
 
+            /*********************************************************************** 
+                [2. relative 포지션]
+                - 렐러티브
+                1. 위치이동 속겅이 적용된다
+                2. 위치이동의 기준은 원래있던 위치
+                    (그래서 상대적인 즉, relative라는 단어를 사용함)
+                3. 이동시 다른 요소에 영향 없이 겹쳐질 수 있다    
+                    (static요소보다는 위, 다른 포지션요소는 나중것이 위)
+                4. 원래있던 위치는 그래도 보존된다
+                    (의미: 기존위치가 보존되기 때문에 본래의 디자인이 망가지지 않는다)    
+             ***********************************************************************/
            /* 
            [ CSS 포지션이 뭐지? ]
                 - 위치를 효과적으로 배치하기 위한
@@ -47,22 +58,36 @@
                     top, bottom, left, right
            */
 
+           top: 100px;
+            left: 100px;
 
-            background-color: lightgreen;
+            margin-top: 50px;
+            margin-left: 50px;
+
         }
-        #s2{
+
+        #r2{
+            position: relative; /* por */
+           
+            background:url(./images/ab4.jpg) no-repeat center/cover;
+
+
+        }
+        #s1{
             background-color: lightcoral;
         }
-        #s3{
+        #s2{
             background-color: lightblue;
         }
 
     </style>
 </head>
 <body>
+    <div class="bx" id="r1">r1</div>
     <div class="bx" id="s1">s1</div>
+    <div class="bx" id="r2">r2</div>
     <div class="bx" id="s2">s2</div>
-    <div class="bx" id="s3">s3</div>
+    
    
 
     <!-- 
