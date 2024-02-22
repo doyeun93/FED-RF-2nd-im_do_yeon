@@ -53,7 +53,7 @@ body * {
     margin: 0 auto;
     /*  모서리 라운드처리 
     왼쪽위부터 시계방향 수치입력 */
-    border-radius: 90px 90px 30px 30px;
+    border-radius: 60px 60px 120px 120px;
 }
 /* 눈공통 */
 .eye{
@@ -102,7 +102,6 @@ body * {
     height: 48px;
     background: url(../images/mouth.png) no-repeat 0/100% 100%;
     
-
 }
 /* 귀 공통 */
 .ear{
@@ -120,5 +119,15 @@ body * {
     right: -58px;
      /* 라운드 처리 */
     border-radius: 0 30px 40px 0;
+}
+/* 2-1-2. 몸통 */
+.body{
+    position: relative;
+    /* 부모자격 - 하위직계 자식 div들 */
+    width: 220px;
+    height: 400px;
+    /*  마영오 */
+    margin: 0 auto;
+    margin-top: 50px;
 }
 /******************************************* 3.하단영역 *******************************************/
