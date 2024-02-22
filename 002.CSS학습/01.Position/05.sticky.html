@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>04. fixed 포지션</title>
+    <title>05. sticky 포지션</title>
     <style>
         .bx{
             width: 300px;
@@ -15,43 +15,38 @@
             line-height: 300px;
         }
 
+        /* sticky박스 */
+        .stkbx{
+             position: sticky;
+             /******************************************************************* 
+                [5. sticky 포지션]
+
+                1. 위치값 top 설정에 따라 화면에 고정되는 포지션이다
+
+                2. 고정되는 원리 : 처음에는 relative(left값 적용됨)하게 가만히
+                현재 위치를 점유하고 있음 top값을 세팅한 경우 보이는 화면 상단
+                위치로부터 스티키 요소가 위치하게되면 fixed로 위치를 고정하여 
+                화면에서 사라지지 않도록 변경한다
+
+                3. sticky 적용 구간
+
+             *******************************************************************/
+
+             /* 위치이동값 적용 여부 */
+             top: 100px;
+             left: 100px;
+             width: 50%;
+             text-align: center;
+             font-size: 30px;
+             padding: 50px;
+             background-color: lightblue;
+             border: 5px dotted blue;
+             z-index: 999999999;
+        }
+
         /* 첫번째 fixed 요소 */
         #f1{
             position: fixed; /* pof */
-            /**************************************
-                [ 4. fixed 포지션 ] 
-
-                1. 보이는 화면을 기준한 포지션이다!
-                -> 대부분의 속성은 absolute와 같으나
-                부모만 다르다고 보면 된다!
-
-                2. 스크롤이 내려갈때 요소가 그대로 화면에 멈춰있다!
-
-                3. 위치속성값을 설정하지 않으면 젠틀하다!
-                -> 젠틀픽스드!!! (젠틀앱솔루트와 같음!)
-
-                4. 크기설정을 하지 않으면 내용만큼 자동크기설정됨!
-                -> 픽스드 판타롱스타킹!!! (앱솔루트와 같음)
-
-                5. 인라인요소도 fixed를 주면 block으로 자동전환됨!
-
-                6. 부모요소가 아무리 많이 싸여있어도 fixed를 주면
-                화면을 기준하여 위치를 잡는다!
-
-                7. 이미 부모가 fixed이면 자손요소는 fixed를 
-                할 필요가 없다!
-
-                8. 활용도
-                1) 스크롤에 관계없이 화면고정시
-                2) 화면바깥에 숨겼다가 나타나기를 할때
-                3) 보이는 화면을 기준하는 구현의 모든경우
-
-                (유의: 배경고정과는 다르다! 배경고정은
-                보이는 화면을 기준한 박스의 배경이미지를
-                고정해 주는 것! 박스가 움직이면 배경이미지도
-                안보이게됨! 반명  fixed포지션은 요소를 고정함!)
-            
-            **************************************/
             width: 800px;
             height: 200px;
             background-color: yellow;
@@ -473,11 +468,57 @@
             font-size: 30px;
             z-index: 99999;
         }
+
+
+        /* 스티키 적용 구간 부모박스 
+        3. sticky 적용구간
+                    -> 싸고 있는 박스가 기준이된다!
+                    주의사항)
+                    1) 전체 스크롤시 적용요소가
+                    body 바로 아래 자식요소로 있어야함
+
+                    2) 부모요소를 만들고 그 부모요소들중
+                    overflow: auto / hidden / scroll
+                    이 적용된 경우 스티키가 작동안함!
+
+                    3) 특정박스 하위요소인 경우 스티키는
+                    박스 내부에서만 보이는 화면기준으로 작동하기
+                    때문에 반드시 height값이 셋팅되어야함!
+                    height:auto 또는 height값이 없으면 
+                    스티키 작동안함! (높이값을 기준으로 작동하기
+                    때문임!!!)
+        
+        */
+        .wrap-stk{
+            padding: 15px;
+            border: 5px dotted red;
+            height: 500px;
+            /* 스티키 구간적용을 위한 높이값 필수
+             overflow: hidden/auto/scroll; 
+            구간 박스에 순수 높이값 세팅을 방해하는 설정을 하면 스티키가 적용안됨
+            */
+
+        }
+        /* 스티키를 포함하는 부모박스 */
+        .wrap{
+            padding: 15px;
+            border: 5px dotted blue;
+            /* overflow: hidden/auto/scroll; 
+            조상들 중 박스에 순수 높이값 세팅을 방해하는 설정을 하면 스티키가 적용안됨
+            */
+        }
     </style>
 </head>
 <body>
     <div class="bx" id="r1">r1</div>
     <div class="bx" id="s1">s1</div>
+        <!-- /* 스티키를 포함하는 부모박스 */ -->
+    <div class="wrap">
+    <div class="wrap-stk"> 
+        <!-- sticky 포지션 박스 -->
+        <div class="stkbx">나는 sticky다. 사라지지않아!</div>
+    </div>
+</div>
     <div class="bx" id="f1">나는 젠틀픽스드다</div>
     <div class="bx" id="f2">나는 보이는 화면을 기준한다</div>
     <div class="bx" id="a1" title="나는 젠틀앱솔루트다">a1</div>
