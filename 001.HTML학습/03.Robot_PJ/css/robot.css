@@ -154,6 +154,42 @@ body * {
     width: 50px;
     height: 180px;
 }
+/* 팔 원형 관절 가상요소 공통 */
+/* 큰 원 */
+.arm::before{
+    content:'' ;
+    position: absolute;
+    /* 부모는 .arm */
+    top: calc(100% - 50px/2);
+    left: 0px;
+    width: 50px;
+    height: 50px;
+    z-index: 1;
+    border-radius: 50%;
+    border: 2px solid black;
+    background-color: #ccc;
+    /* 보더때문에 박스가 커지므로 패딩, 보더 포함박스 설정하기 */
+}
+/* 작은 원 */
+.arm::after{
+    content:'' ;
+    position: absolute;
+    /* 부모는 .arm */
+    top: calc(100% - 38px/2);
+    /* 부모박스 바깥으로 모두 밀고 원크기 절반 빼기 */
+    left: calc(50% - 38px/2);
+    /* 부모박스  */
+    width: 40px;
+    height: 40px;
+    z-index: 1;
+    border-radius: 50%;
+    /* 그라데이션 배경 */
+    background-image: linear-gradient(to bottom,#ccc,#222);
+    /* 박스 내부 그림자 : bsh -> inset 키워드(내부그림자) */
+    box-shadow: inset 0 0 5px #222;
+    
+    /* 보더때문에 박스가 커지므로 패딩, 보더 포함박스 설정하기 */
+}
 /* 팔 하단 공통 */
 .arm span{
     position: absolute;
@@ -163,6 +199,38 @@ body * {
     width: 80%;
     height: 80%;
 }
+/* 팔 하단 가상요소 손만들기 공통 */
+.arm span::after{
+    content: '';
+    position: absolute;
+    /* 부모는 span */
+    top: 100%;
+    width: 80px;
+    height: 110px;
+    /* outline: 2px dotted lime; */
+    /* 배경공통 */
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+/* 왼손 */
+.arm1 span::after{
+    /* 배경이미지 경로 */
+    background-image: url(../images/hand_left.png);
+    /* left 위치값 */
+    top: 146px;
+    left: -14px;
+
+}
+/* 오른손 */
+.arm2 span::after{
+    /* 배경이미지 경로 */
+    background-image: url(../images/hand_right.png);
+    /* left 위치값 */
+    top: 146px;
+    right: -14px;
+}
+
 /* 왼팔  */
 .arm1{
     left: -50px;
@@ -180,7 +248,7 @@ body * {
     width: 70px;
     height: 200px;
 }
-/* 팔 하단 공통 */
+/* 다리 하단 공통 */
 .leg span{
     position: absolute;
     /* 부모는 .leg */
@@ -197,6 +265,8 @@ body * {
 .leg2{
     right: 0px;
 }
+
+
 
 /* 어깨공통 */
 .shdr{
@@ -219,8 +289,33 @@ body * {
 /* TV */
 .tv{
     position: absolute;
-    width: 120px;
-    height: 70px;
+    width: 179px;
+    top: 28px;
+    left: 22px;
+    height: 120px;
     background: url(../images/tv.jpg) no-repeat 0/100% 100%;
 }
+/* screen */
+.screen{
+    position: absolute;
+    /* 부모는 .tv */
+    top: 14px;
+    left: 11px;
+    width: 119px;
+    height: 79px;
+    border: 2px dashed blue;
+    /*border-radius: 10px;*/
+    overflow: hidden;
+}
+/* 유튜브 아이프레임 */
+.screen iframe{
+    position: absolute;
+    /* 부모는 .screen */
+    top: -2px;
+    left: -38px;
+    width: 199px;
+    height: 82px;
+}
+
+
 /******************************************* 3.하단영역 *******************************************/
