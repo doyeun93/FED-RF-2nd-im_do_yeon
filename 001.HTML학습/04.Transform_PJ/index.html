@@ -154,6 +154,8 @@
 
             /* 회전축 변경하기 */
             #trans6 img {
+                /* tro */
+                transform-origin: 40% 40%
                 /* 
                 [ 트랜스폼 회전축 변경속성 ]
                 transform-origin: 가로 세로;
@@ -169,7 +171,9 @@
                 - 각도가 양수/음수에 따라 기울임 방향이 달라짐
             */
             #trans7:hover img {
-                
+                /* tf:sk */
+                transform: skewY(30deg);
+            
             }
 
             /* 
@@ -183,11 +187,12 @@
             */
             #trans8:hover img {
                 /* 트랜스폼 스케일 tf:s */
-                
-                
+                transform: scale(2);
+            
             }
             /* 초기배율설정 */
             #trans8 img {
+                transform: scale(.8);
                    
             }
 
@@ -197,7 +202,9 @@
             */
 
             #trans9:hover img {
-                
+                transform: rotateX(1200deg) translate(-200%, -100%) scale(5) skewX(50deg) rotate(5300deg);
+                /* 트랜지션 시간 늘리기 */
+                transition-duration: 30s;
             }
 
             /* 
