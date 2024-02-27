@@ -178,9 +178,10 @@
         }
         .part1 li:nth-child(2):hover{
           font:  20px '굴림';
+          font-weight: bold;
           color: cornflowerblue;
           word-spacing: 20px;
-          background-color: beige;
+          /* background-color: beige; */
         }
         .part1 li:nth-child(3){
           font:  30px '굴림';
@@ -208,14 +209,59 @@
           display: none;
         }
         /*  4번째 li이후 모든 li를 전부 선택하기
-          틸드(~) 는 다중 형제 선택자
-          선택요소~요소명
-          -> 선택요소 뒤에 있는 모든 형제 요소를 선택함
+          [틸드(~)는 다중형제 선택자] 선택요소~요소명
+        -> 선택요소 뒤에 있는 모든 형제 요소를 선택함
+          [시작부터 특정 순번까지만 선택하려면?]
+          -> 틸드 뒤에 선택가상클래스를 nth-child()를 사용하여
+          마지막 대입 순번을 만들어준다 : ntn-child(-n+원하는 순번)
+          -> n은 0부터 대입된다
+
+          예) ntn-child(-n+20) ->20,19,18,.....
+          -> 주의 : -n을 반드시 먼저 써야함
         */
-        .part1 li:nth-child(4)~li{
-          font-size: 20px '바탕';
+        /* .part1 li:nth-child(4)~li{ */
+      
+        .part1 li:nth-child(4)~li:nth-child(-n+9){
+          /* 5번째부터 9번째까지 선택됨 */
+          font: 20px '바탕';
           color: goldenrod;
         }
+
+        /* 짝수번째 li 그라데이션 넣기 
+          :nth-child(even) -> even은 짝수
+          :nth-child(odd) -> odd는 홀수
+        */
+
+        .part1 li:nth-child(even){
+          background-image: linear-gradient(to right,rgb(186, 229, 255) ,rgb(255, 254, 182));
+        }
+        .part1 li:nth-child(odd){ 
+          background-image: linear-gradient(to left, rgb(167, 255, 178),rgb(209, 201, 255));
+        }
+        
+        /* nth-child(3n+1) 가상요소 아이콘 넣기 
+          nth-child(n이 들어간 수식)
+          -> n에 0부터 대입된 순번이 계산되어 선택된다
+          예)
+          3n+1 -> 1, 4, 7, 10,....
+        */
+        
+        .part1 li:nth-child(3n+1)::before{
+          content: '💐';
+        }
+        /* 마지막 li선택 */
+        .part1 li:last-child{
+          font: 40px '함초롬바탕';
+          font-weight: bolder;
+          /* 글자에 배경 그라데이션 반영하기 */
+          /* 1. 배경 그라데이션 넣기 */
+          background-image: linear-gradient(to right, #ff49dd, #20fd6e);
+          /* 배경 부분보이기 'text'로 설정 */
+          -webkit-background-clip: text;
+          /* 글자 채우기 색 'transparent' 투명설정 */
+          -webkit-text-fill-color: transparent;
+        }
+
       
   </style>
 </head>
