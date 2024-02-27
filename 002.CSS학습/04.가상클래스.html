@@ -71,6 +71,151 @@
         h1,h2{
           text-align: center;
         }
+        /* a요소 가상클래스 */
+        /* 처음 링크 :link */
+        h2 a:link{
+          color: palevioletred;
+          text-decoration: none;
+        }
+        /* 방문후 :visited */
+        h2 a:visited{
+          color: plum;
+          
+        }
+        /* 마우스 오버시 :hover */
+        h2 a:hover{
+          color: purple;
+          /* 텍스트 데코레이션에 스타일은 뒤에 띄어쓰기로 추가해서 쓸 수 있음 */
+          text-decoration: overline wavy;
+          /* text-decoration-style: wavy; */
+        }
+        /* 마우스 누르고 있는 상태 :active */
+        h2 a:active{
+          color: lightskyblue;
+          text-decoration: underline double blue;
+        }
+        /* 요즘은 a요소를 바로 선택하여 세팅하고 :hover 정도만 변경한다 */
+        h2 a{
+          color: chocolate ;
+        }
+
+        /* 포커스 가상 클래스 :focus */
+        h2 a:focus{
+          outline: 10px dotted lightpink;
+        }
+
+        /* 시인이름 */
+        h3 {
+                /* 가로크기 */
+                width: 800px;
+                /* 부모박스보다 작은 크기를 가지는
+            블록요소에 적용된다 -> 마.영.오! */
+                margin: 0 auto;
+                /* 내부 인라인요소 오른쪽정렬 */
+                text-align: right;
+
+                /* outline: 1px solid red; */
+                padding: 20px;
+                box-sizing: border-box;
+            }
+
+            /* 
+            요소명.클래스명 / 요소명#아이디명
+
+            [ 종속 선택자를 쓰는 경우 ]
+            1. 개발자가 요소를 밝히고 싶을때
+            2. 같은 클래스를 다르게 셋팅할때
+        */
+
+            /* ul / ol 요소 기본초기화! */
+            ul,ol {
+                /* 3가지 없애기! 3無! */
+                margin: 0; /* m0 */
+                padding: 0; /* p0 */
+                list-style: none; /* lin */
+            }
+
+            /* 부모박스 셋팅 */
+            ul.part1, div.part2 {
+                width: 800px;
+                margin: 30px auto;
+                padding: 20px;
+                border: 2px solid #ccc;
+                /* 둥근모서리 */
+                border-radius: 20px;
+                /* 보더,패딩 설정크기 내부로
+            포함시키는 속성은? 
+            box-sizing:border-box 
+            bxb */
+                box-sizing: border-box;
+                /* 글자중앙 */
+                text-align: center;
+            }
+
+            /* 
+            [ font 한번에 셋팅하기! ]
+            font : 스타일 두께 크기/줄간격 글자체
+            font : 스두크/줄체
+            ->>> font 한번에 쓰기에서 글자체는 필수!
+            ->>> 2개이상 셋팅필수
+        */
+        /* 모든 li에 오버서 손가락모양 */
+        .part1 li{
+            /* pointer 손가락모양 */
+            cursor: pointer;
+        }
+        .part1 li:first-child{
+          font: 50px '궁서';
+          color: deeppink;
+        }
+        .part1 li:first-child:hover{
+          font: 40px '고딕';
+          color: red;
+        }
+        .part1 li:nth-child(2){
+          font:  20px '돋움';
+          color: chocolate;
+        }
+        .part1 li:nth-child(2):hover{
+          font:  20px '굴림';
+          color: cornflowerblue;
+          word-spacing: 20px;
+        }
+        .part1 li:nth-child(3){
+          font:  30px '굴림';
+          color: lightseagreen;
+        }
+        .part1 li:nth-child(3):hover{
+          font:  30px '궁서';
+          color: blue;
+          letter-spacing: 10px;
+        }
+        .part1 li:nth-child(4){
+          font:  35px '고딕';
+          color: blueviolet;
+        }
+        /* 한글이 있는 b요소만 숨기기 */
+        .part1 li:nth-child(4) b{
+          display: none;
+        }
+        /* 오버시 한자(span)숨기고 한글(b) 보이기 */
+        .part1 li:nth-child(4):hover b{
+          display: inline;
+        }
+        
+        .part1 li:nth-child(4):hover span{
+          display: none;
+        }
+        /*  4번째 li이후 모든 li를 전부 선택하기
+          틸드(~) 는 다중 형제 선택자
+          선택요소~요소명
+          -> 선택요소 뒤에 있는 모든 형제 요소를 선택함
+        */
+        .part1 li:nth-child(4)~li{
+          font-size: 20px '바탕';
+          color: goldenrod;
+        }
+      
   </style>
 </head>
 <body>
