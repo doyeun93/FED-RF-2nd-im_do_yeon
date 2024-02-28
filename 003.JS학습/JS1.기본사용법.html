@@ -342,7 +342,37 @@
       기능 : 전체가 사각형으로 화면을 채우며 애니메이션 됨
      ********************************************************************/
 
-     function 사각사삭(){
+     function 사각사각(){
+      // 1. 함수호출 확인
+      console.log("사각사각하세요~");
+
+      // 2. 대상선정 : .넌뭐냐
+      var 나야나 = document.querySelector('.넌뭐냐');
+      // 선택요소 확인
+      console.log(나야나);
+
+      // 3. 변경내용 : top, 트랜지션, width, height
+       나야나.style.top = '0';
+       나야나.style.borderRadius = '0';
+       나야나.style.width = '100%';
+       나야나.style.height = '100%';
+       나야나.style.transition = '3s 1s, top 1s';
+       나야나.style.zIndex = 100;
+
+       // 4. 추가변경 : 글자넣기
+       // innerText = 글자내용 -> 태그없는 글자 데이터 넣기
+       나야나.innerText = 'JS입문을 환영합니다';
+
+       // 5. 글자관련 css넣기
+       나야나.style.fontSize = '70px';
+       나야나.style.color = 'pink';
+       나야나.style.fontweight = 'bold';
+       나야나.style.textShadow = '5px 5px 3px #000';
+       나야나.style.lineHegiht = window.innerHeight + 'px';
+       //window.innerHeight - 현재 화면의 높이값을 리턴
+
+       // 화면 높이값
+       console.log('화면높이값:',window.innerHeight);
 
      } ///////////// 사각사각 함수///////////////
     </script>
@@ -464,6 +494,10 @@
       <div class="원이야 on" onmouseover="맘대로해라(1,'론강의 별이 빛나는 밤')"></div>
       <div class="원이야 on" onmouseover="맘대로해라(2,'밤의 카페 테라스')"></div>
     </div>
+
+    <!-- 사각형으로 변할 전체 마무리 원박스 -->
+    <div class="넌뭐냐" title="더블클릭해주세요!" ondblclick="사각사각()"></div>
+    
   
 
     <!-- <div class="pbox"></div>
