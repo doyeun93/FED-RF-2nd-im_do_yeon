@@ -125,6 +125,12 @@
         document.getElementById("name").innerHTML =
           '<img src="./images/kim.png" alt="김비서가 왜그럴까">';
 
+
+        // 콘솔에 아이디요소 찍기
+        console.log(document.getElementById("name"));
+        // 아이디 요소는 한번에 요소를 선택함
+        
+
         // 3. css 변경하기///
         // 변경대상 : .pbox
         // css 변경 객체 : style.속성명
@@ -138,6 +144,10 @@
           document.getElementsByClassName('pbox')
           .item(0)
 
+        // 여러개를 만들 수 있는 클래스,태그 선택은 Html collection에 담는다
+        // 그래서 구체적인 요소를 선택할 때는 ITEM(순번)/[순번]을 사용하여 선택함
+
+
           // 구체적인 클래스 요소 선택하기 : item(n)
           // 반복적으로 사용되는 요소는 특정 공간에
           // 저장하여 사용하면 메모리 사용관리가 효율적으로 운영된다
@@ -146,7 +156,9 @@
           // 변수는 여기를 봐 -> var 로 선언
           // var 변수명 = 값
 
-          var 피박스 = document.getElementsByClassName('pbox').item(0);
+          var 피박스 = document.getElementsByClassName('pbox')[0];
+         // =  document.getElementsByClassName('pbox').item(0);
+
 
           // 변수(저장 메모리 공간 주소) 를 사용하는 이유 : 재사용
           // 변수는 따옴표 안쓴 문자, 띄어쓰기 안함, 호출시 값 출력
@@ -276,6 +288,34 @@
           z-index: 1;
         }
 
+        /* 원모양 */
+        .원이야{
+          position: absolute;
+          top: 0;
+          right: 0;
+          /* 부모는 window 보이는 화면 */
+          width: 200px;
+          height: 200px;
+          border-radius: 50%;
+          /* 배경공통 */
+          background-repeat: no-repeat;
+          background-size: cover;
+          /* 보더박스 : 보더, 패딩포함박스 */
+          box-sizing: border-box;
+        }
+        /* 원모양 개별세팅 */
+        .원이야:nth-child(1){
+          right: 400px;
+          background-image: url(./images/01.png);
+        }
+        .원이야:nth-child(2){
+          right: 200px;
+          background-image: url(./images/02.png);
+        }
+        .원이야:nth-child(3){
+          background-image: url(./images/03.png);
+        }
+
 
     </style>
   </head>
@@ -286,6 +326,14 @@
       도대체 <span id="name"> </span>
     </p>
     
+    <!-- 원모양 박스 -->
+    <div class="박스야">
+      <!-- 원모양 -->
+      <div class="원이야"></div>
+      <div class="원이야"></div>
+      <div class="원이야"></div>
+    </div>
+  
 
     <!-- <div class="pbox"></div>
     <a href="" class="pbox"></a>
