@@ -242,6 +242,28 @@
 
       
       } // 김비서 함수
+
+      /*********************************************************************** 
+        함수명 : 맘대로 해라
+        기능 : 선택요소의 style과 html을 변경함
+      ***********************************************************************/
+     function 맘대로해라(헐,헉스){
+      // 헐 - .원이야 순번 / 헉스 - 그림제목
+      // 1. 함수호출 확인
+      console.log("니맘대로 하세요~",헐,헉스);
+
+      // 2. 대상선정 : .박스야 .원이야
+      var 멍청이 = document.querySelectorAll('.박스야 .원이야');
+      // 주의 : 따옴표 안은 CSS 선택자 문법을 써야함
+      
+      // 기존 기본 선택방식이 너무 길어서 간단한 CSS 선택자 선택법이 있다
+      // 1. querySelector(CSS선택자) - 하나만 바로 선택
+      // 2. querySelectorAll(CSS선택자) - 컬렉션에 담는다 -> .item(순번)/[순번]으로 세부선택 , length로 컬렉션 길이도 알 수 있음
+      // document.getElementsByClassName('박스야').item(0).getElementsByClassName('원이야');
+
+      console.log(멍청이);
+
+     } /////// 맘대로해라 함수 /////////
     </script>
     <style>
       html,body{
@@ -329,9 +351,9 @@
     <!-- 원모양 박스 -->
     <div class="박스야">
       <!-- 원모양 -->
-      <div class="원이야"></div>
-      <div class="원이야"></div>
-      <div class="원이야"></div>
+      <div class="원이야" onmouseover="맘대로해라(0,'별이 빛나는 밤')"></div>
+      <div class="원이야" onmouseover="맘대로해라(1,'론강의 별이 빛나는 밤')"></div>
+      <div class="원이야" onmouseover="맘대로해라(2,'밤의 카페 테라스')"></div>
     </div>
   
 
