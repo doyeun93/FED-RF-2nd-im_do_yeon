@@ -20,7 +20,7 @@
       - html의 script 요소 내부에 데이터로 코딩함
       2. 익스터널(external) 방식
       - JS 외부파일로 확장자가 .js
-      - html 페이지에서 script 요소애 src속성의 값으로 파일 
+      - html 페이지에서 script 요소에 src속성의 값으로 파일 
       위치를 지정하여 호출함
       예) <script src='파일경로/파일명.js'>
       3. 이벤트 속성으 인라인(inline) 코딩
@@ -49,7 +49,7 @@
           -> 콘솔창에 로그가 찍힌 라인번호를 알려준다
         _______________________________________________________
         [JS코드의 특징]
-          -> JS명령러 실행코드는 만나는 즉시 실행됨
+          -> JS명령어 실행코드는 만나는 즉시 실행됨
           그래서 내가 원하는 시점의 이벤트에 명령어 코드가
           실행되려면 함수가 필요하다
         _______________________________________________________
@@ -122,8 +122,9 @@
         // 변경대상 : #name
         // 선택요소에 html넣기 : innerHTML 속성에 할당
         // 전체문서.가져와아이디요소(아이디명).html넣기
-        document.getElementById("name").innerHTML =
+        document.getElementById("name").innerHTML = 
           '<img src="./images/kim.png" alt="김비서가 왜그럴까">';
+         
 
 
         // 콘솔에 아이디요소 찍기
@@ -207,6 +208,8 @@
 
 
 
+
+
           /* 
           [ JS의 요소 선택 메서드 ]
           
@@ -242,6 +245,8 @@
 
       
       } // 김비서 함수
+
+      
 
       /*********************************************************************** 
         함수명 : 맘대로 해라
@@ -363,13 +368,14 @@
        // innerText = 글자내용 -> 태그없는 글자 데이터 넣기
        나야나.innerText = 'JS입문을 환영합니다';
 
-       // 5. 글자관련 css넣기
-       나야나.style.fontSize = '70px';
-       나야나.style.color = 'pink';
-       나야나.style.fontweight = 'bold';
-       나야나.style.textShadow = '5px 5px 3px #000';
-       나야나.style.lineHegiht = window.innerHeight + 'px';
-       //window.innerHeight - 현재 화면의 높이값을 리턴
+        // 5. 글자 관련 CSS넣기
+        나야나.style.fontSize = '70px';
+        나야나.style.color = 'pink';
+        나야나.style.fontWeight = 'bold';
+        나야나.style.textShadow = '5px 5px 3px #000';
+        나야나.style.lineHeight = 
+        window.innerHeight + 'px';
+        // window.innerHeight - 현재 화면의 높이값을 리턴
 
        // 화면 높이값
        console.log('화면높이값:',window.innerHeight);
@@ -477,6 +483,8 @@
             background: #bbd3b3 url(./images/prog.jpg) no-repeat center/auto 100%;
         }
 
+       
+
 
     </style>
   </head>
@@ -486,6 +494,7 @@
       나는 요즘 매일 생각한다! <br />
       도대체 <span id="name"> </span>
     </p>
+    
     
     <!-- 원모양 박스 -->
     <div class="박스야">
