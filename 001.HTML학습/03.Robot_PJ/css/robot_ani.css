@@ -69,7 +69,7 @@
         - 대체경로 설정하기 : alternate : 시작->끝,끝->시작
         - 대체경로는 반복횟수가 2이상 또는 infinite 이여야함
     7) 마지막상태(animation-fill-mode) : 애니메이션이 끝났을때
-        - 처음상태로 돌아가는 것이 기본!
+        - 처음상태로 돌아가는 것이 기본! (backwards))
         - 마지막 상태를 유지하고 싶을때 forwards(앞쪽에...즉,애니끝장면)
 
 
@@ -78,12 +78,112 @@
 
 /* 1. 로고애니 */
 .logo{
-  animation: logo-ani 2s ease-in-out 1s alternate forwards;
+  /* 처음 출발 크기지정 */
+  transform: scale(1.5);
+  animation: 
+  /* 1초후 3초간 이동애니 세팅 */
+  logo-ani 3s linear 1s alternate forwards, 
+  /* 4초 후  스윙 애니 영원히 세팅 */
+  swing-ani .4s ease-in-out 4s infinite alternate;
+  /* animation: logo-ani 8s ease-in-out 1s forwards; */
 }
 
 @keyframes logo-ani {
+  /* 정가운데 출발 */
+  0%{
+    top: calc(50% - 15vw);
+    left: calc(50% - 15vw);
+    transform: scale(.15);
+  }
+  /* 첫번째위치이동 : 왼쪽 위 */
+  20%{
+    top: calc(0% + 5vw);
+    left: calc(0% + 5vw);
+    transform: scale(.25);
+  }
+  /* 두번째 위치이동 : 오른쪽 위 */
+  40%{
+    top: calc(0% + 5vw);
+    left: calc(100% - 25vw);
+    transform: scale(.5);
+  }
+  /* 세번째위치이동 : 오른쪽 아래 */
+  60%{
+    top: calc(100% - 25vw);
+    left: calc(100% - 25vw);
+    transform: scale(.75);
+  }
+  /* 네번째위치이동 : 왼쪽 아래 */
+  90%{
+    top: calc(100% - 25vw);
+    left: calc(0% + 5vw);
+    transform: scale(1);
+  }
+  /* 각도 돌리기 : 다음 스윙애니 출발각도로 변경 */
+  100%{
+    top: calc(0% + 5vw);
+    left: calc(0% + 5vw);
+    transform: scale(1) rotate(30deg);
+  }
+}
+
+
+/* 제자리 스윙 애니 */
+@keyframes swing-ani {
+  from{
+    transform: scale(1) rotate(30deg);
+  }
   to{
-    top: 3vw;
-    left: 3vw;
+    transform: scale(1) rotate(-30deg);
+  }
+}
+
+/* 2. 로봇이동애니 */
+
+.robot-box{
+  /* 4초 후 4초간 한번만 끝상태 유지 */
+  animation: move-robot 4s ease-in-out 4s forwards;
+}
+
+@keyframes move-robot{
+  to{
+     transform: translate(-50%, 0%) scale(0.7);
+  }
+}
+
+/* 3. 로봇다리 작동 애니 */
+.leg1{
+  animation: move-leg1 1s ease-in-out 2s alternate ;
+}
+.leg2{
+  animation: move-leg2 1s ease-in-out 2s alternate;
+}
+
+@keyframes move-leg1{
+  0%{
+    top : ;
+    
+  }
+  50%{
+    top : ;
+   
+  }
+  100%{
+    top : ;
+    
+  }
+}
+@keyframes move-leg2{
+  0%{
+    top :;
+    
+  }
+  50%{
+    top : );
+    
+  }
+  100%{
+    top : ;
+    
   }
 }
