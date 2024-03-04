@@ -682,7 +682,25 @@
         today = '맑음';
         showAction();
 
-        document.write(``);
+
+
+        //삼항 연산자는 출력자리에 바로 사용할 수 있다
+        var answerNow = function(answer){ // 함수 호출시 값을 전달하면 함수 전달 변수에 담긴다
+            document.write(`
+                <h2>조건 연산자 자리 출력</h2>
+                아빠, 아이스크림 사줘! <br>
+                아빠왈 ${answer == '좋아'?'사줄게':'안돼!'} 
+                <br><br>
+            
+            `);
+            
+            
+         };////////////////// answerNow 함수////////////////////
+        
+        // 조건연산자 자리출력1
+        answerNow('좋아');
+        // 조건연산자 자리출력2
+        answerNow('안돼!');
 
 
     </script>
