@@ -45,11 +45,51 @@ ul::after,ol::after,.clb::after{
     margin: 0 auto;
     outline: 1px solid salmon;
 }
+/* 로고박스 */
+.logo{
+    padding: 13px, 0;
+}
 /*  gnb 메뉴 */
-.gnb li{
+.gnb{
+    margin-left: 64px;
+}
+/* 상위메뉴만 적용하기 - 직계자식(>) 선택드로 상위메뉴만 선택함
+ (기존 gnb밑에 있는 li들에 float 명령어가 다 먹혀서 ul밑에 있는 li만 float 먹게 만듦 )
+*/
+.gnb ul > li{
+    position: relative;
+    /* 부모자격 - .smenu의 left값 */
     float: left;
     line-height: 78px;
     padding: 0 32px;
+    font-weight: bold;
+    /* 글자관련세팅은 하위요소로 모두 상속됨 */
+}
+/* 서브메뉴 */
+.smenu{
+    position: absolute;
+    left: 50%;
+    /* x축 중앙이동 */
+    transform: translatex(-50%);
+    width: 200px;
+    background-color: #00000058;
+    border-radius: 10px;
+    text-align: center;
+    line-height: 38px;
+    /* 패딩이 있으면 높이값 0 숨기기가 안됨 그래서 하위 요소인 ol태그에 패딩줌 */
+    /* padding: 10px;*/
+    height: 0;
+    overflow: hidden; 
+    transition: height .4s;
+}
+/* 상위 li오버시 서브메뉴 보이기 */
+.gnb ul>li:hover .smenu{
+    height: 200px;
+    
+    
+}
+.smenu ol{
+    padding: 10px;
 }
 /* 메인영역 */
 .main-area {
