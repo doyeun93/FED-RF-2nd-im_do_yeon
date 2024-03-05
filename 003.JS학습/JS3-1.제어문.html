@@ -40,9 +40,46 @@
              // 60점 이상 : 노력요함
              // 60점 미만 : 재시험
              // -> 점수가 담긴 score 변수를 검사함
+
+             // 메시지 변수
+             var msg;
+             // 글자색 변수
+             var fcolor;
+
+             // 90점 이상일 때
+            if(score >= 90 ){
+                msg = '매우잘함';
+                fcolor = "red";
+            }
+           // if(score >= 80 && score < 90) -> else if를 안쓰고 if를 쓰면 구간설정을 해야함
+           // 80점 이상일 때
+            else if(score >= 80){
+                msg = '잘함';
+                fcolor = "orange";
+            }
+            // 70점 이상일 때
+            else if(score >= 70){
+                msg = '보통';
+                fcolor = "green";
+            }
+            // 60점 이상일 때
+            else if(score >= 60){
+                msg = '노력요함';
+                fcolor = "blue";
+            }
+            // 60점 미만(그밖의 모든 경우 -> else , 맨 마지막에 사용)
+            else {
+                msg = '재시험';
+                fcolor = "hotpink";
+            }
             
+            // 6. 화면 출력하기
+            // innerText는 텍스트 출력
+            jexp.innerText = msg;
+            // 글자색 처리하기
+            jexp.style.color = fcolor;
 
-
+           
 
            } ///////////////// showJumsu 함수 ///////////////////
 
@@ -180,7 +217,11 @@
             <h2 class="tit">if문 연습</h2>
             <h3 class="jexp">평가 출력</h3>
             <label for="jumsu">점수입력:</label>
-            <input type="text" id="jumsu" placeholder="점수를 입력하세요!" maxlength="3">
+            <input type="text" id="jumsu" 
+            placeholder="점수를 입력하세요!" maxlength="3" 
+            onkeypress="
+             if(event.keyCode == 13) showJumsu()
+            ">
             <!-- 
                 [ label요소 ]
             input요소의 설명라벨요소
@@ -190,6 +231,21 @@
             - type = "text" -> 글자입력창
             - placeholder  -> 안내문구출력
             - maxlength -> 최대입력 글자수 제한
+
+            ______________________________________________________
+
+            [ onkeypress 이벤트 속성 ]
+            -> 키보드를 치면 발생하는 이벤트 속성
+            if조건문
+            조건식 : event.keyCode === 13
+            -> 키보드의 키코드가 13번이냐? 엔터키 눌렀냐?
+            -> 엔터키의 키코드는 13번이다!
+            -> true이면 showJumsu() 라는 함수를 호출해라!
+            -> event 브라우저 내장객체 : 이벤트관련 객체
+    
+            참고) 키코드 참조: 아스키코드 
+            (리턴키는 carriage return)
+            https://www.w3schools.com/charsets/ref_html_ascii.asp
              -->
              <button class="sbtn" onclick="showJumsu()">평가하기</button>
         </div>
