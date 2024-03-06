@@ -186,7 +186,83 @@
     .t2 li:nth-child(4){
       line-height: 30px;
     }
+    
+    /*  타이틀3 */
+    .t3{
+      top: 400px;
+      display: flex;
+      /* 진행방향 수직정렬 : aic */
+      align-items: center;
+    }
 
+    /* 4번째 li부터 오른쪽 끝으로 보내기 */
+    .t3 li:nth-child(4){
+      margin-left: auto;
+      /* 선택요소의 떨어뜨리려는 방향으로 마진을 auto처리하면 flex박스 오른쪽 끝으로 이동시켜준다 */
+    }
+
+    /* 타이틀박스 4
+      오른쪽을 기준한 박스 */
+    .t4{
+      left: 10px;
+      transform: none;
+      width: 130px;
+      height: 500px;
+
+      /* 플렉스박스 */
+      display: flex;
+      /* 플렉스 진행방향 : fxdc */
+      flex-direction: column;
+      /* 
+        [ flex-direction 속성 ]
+        - 진행방향과 순서를 정함
+
+        1) row : 좌->우(기본값)
+        2) row-reverse : 우->좌
+        3) column : 위->아래
+        4) column-reverse : 아래->위
+      */
+
+      /* 진행방향 수직정렬 : aic */
+      align-items: center;
+      /* 진행방향정렬은? jcc */
+      /* justify-content: center; */
+
+    }
+    /* 수직방향일때 3번째 li부터 끝으로 보내기 */
+    .t4 li:nth-child(3){
+      margin-top: auto;
+      /* 위쪽마진 auto면 끝으로 감 */
+    }
+
+    /* 타이틀박스 5 */
+    .t5{
+      top: 10px;
+      width: 150px;
+      height: 80px;
+      display: flex;
+    }
+    /*  자식 플렉스 박스의 flex-shrink :1이 기본값임 
+    줄어들래? 응(1) 이것을 수정해야 강제로 줄어든 박스의 크기를 유지해야할 경우 변경해야한다 */
+    .t5 li{
+      flex-shrink: 0;
+      /* 
+        [flex-shrink 속성 ]
+        부모박스가 줄어들때 같이 자동으로 줄어들래?
+        설정의 기본값은 1이다! 즉 줄어든다!
+        0으로 변경하면 자기크기를 유지한다!
+      */
+    }
+
+    /* 타이틀박스 6 */
+    .t6{
+      top: 520px;
+      height: 250px;
+      display: flex;
+      /* 플렉스 랩핑박스 -> 내용이 넘치면 줄바꿈함 */
+      flex-wrap: wrap;
+    }
+   
   </style>
 </head>
 <body>
@@ -217,6 +293,49 @@
     <li>L</li>
     <li>D</li>
 </ol>
+ <!-- 타이틀박스 3 -->
+ <ol class="tit t3">
+  <li>W</li>
+  <li>O</li>
+  <li>R</li>
+  <li>L</li>
+  <li>D</li>
+</ol>
+<!-- 타이틀박스 4 -->
+ <ol class="tit t4">
+     <li>W</li>
+     <li>O</li>
+     <li>R</li>
+     <li>L</li>
+     <li>D</li>
+ </ol>
+ <!-- 타이틀박스 5 -->
+ <ol class="tit t5">
+  <li>W</li>
+  <li>O</li>
+  <li>R</li>
+  <li>L</li>
+  <li>D</li>
+</ol>
+<!-- 타이틀박스 6 -->
+<ol class="tit t6">                
+  <li>L</li>
+  <li>O</li>
+  <li>T</li>
+  <li>T</li>
+  <li>E</li>
 
+  <li>W</li>
+  <li>O</li>
+  <li>R</li>
+  <li>L</li>
+  <li>D</li>
+  
+  <li>L</li>
+  <li>O</li>
+  <li>T</li>
+  <li>T</li>
+  <li>E</li>
+</ol>
 </body>
 </html>
