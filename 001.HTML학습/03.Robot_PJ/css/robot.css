@@ -65,7 +65,7 @@ h1.logo{
 /* 1-2. 탑이동버튼 */
 .btn-top{
     position: fixed;
-    bottom: 10vw;
+    bottom: 1vw;
     right: 1vw;
     width: 7vw;
     height: 7vw;
@@ -661,7 +661,7 @@ h1.logo{
 #bottom-area{
     position: relative;
     /* z-index 적용위해 포지션줌 */
-    z-index: 100;
+    z-index: 10;
     color: #fff;
     /* 글자크기 : 30px, 글자체 'Black Ops One' */
     font : 3rem 'Black Ops One';
