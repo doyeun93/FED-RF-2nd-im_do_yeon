@@ -212,6 +212,7 @@ h1.logo{
 /* 팔 공통 */
 .arm{
     position: absolute;
+    z-index: 1;
     top: 25px;
     /* 부모는 .body */
     width: 50px;
@@ -402,6 +403,7 @@ h1.logo{
 /* 어깨공통 */
 .shdr{
     position: absolute;
+    z-index: 1;
     width: 70px;
     height: 70px;
 }

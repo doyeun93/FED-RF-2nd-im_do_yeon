@@ -152,39 +152,64 @@
 }
 
 /* 3. 로봇다리 작동 애니 */
-.leg1{
-  animation: move-leg1 1s ease-in-out 2s alternate ;
+.leg{
+  animation: leg-ani .3s ease-in-out 4s 12 alternate ;
+  /* 0.3초 애니시간으로 4초 후에 12번 작동 alternate때문에 반대로 작동하는 횟수가 더해짐 .from->to(6회), to->from(6회)  */
 }
+/* 한쪽 다리는 올라간 다음 올라가야하므로 애니 시작 지연시간을 준다 */
 .leg2{
-  animation: move-leg2 1s ease-in-out 2s alternate;
+  /* 한방향이 0.3초이므로 0.3초 기다리면됨 + 전체기다림 시간 4초를 더함  */
+  animation-delay: 4.3s;
 }
 
-@keyframes move-leg1{
-  0%{
-    top : 76%;
-    
-    
-  }
-  50%{
-     
-   
-  }
-  100%{
-    
-    
-  }
+@keyframes leg-ani{
+  to {transform: scale(1); }
+  from {transform: scale(0.9); }
 }
-@keyframes move-leg2{
-  0%{
-    
-    
-  }
-  50%{
-    
-    
-  }
-  100%{
-    
-    
-  }
+
+
+/* 팔공통 트랜스폼 세로축 기준 top으로 변경 */
+.arm, .arm span, .arm span:after{
+  transform-origin: top;
+}
+/* 4. 로봇 왼쪽팔 허리에 올리기 */
+.arm1{
+  animation: left-arm-ani1 .4s 8s forwards;
+}
+@keyframes left-arm-ani1{
+  to {
+      transform: rotate(45deg); }
+}
+/* 왼쪽팔 하단 애니 */
+.arm1 span{
+  animation: left-arm-ani2 .4s 8s forwards;
+}
+@keyframes left-arm-ani2{
+  to {
+      transform: rotate(-90deg); }
+}
+.arm span:after{
+  animation: left-arm-ani3 .4s 8s forwards;
+}
+@keyframes left-arm-ani3{
+  to{ transform:  rotate(30deg);}
+}
+
+@keyframes right-arm-ani3{
+  to{ transform:  rotate(-60deg);}
+  from{ transform:  rotate(60deg);}
+}
+.arm2{
+  animation: right-arm-ani1 .4s 8s forwards;
+}
+@keyframes right-arm-ani1{
+  to {
+      transform: rotate(-90deg); }
+}
+.arm2 span{
+  animation: right-arm-ani2 .4s 8s forwards;
+}
+@keyframes right-arm-ani2{
+  to {
+      transform: rotate(-100deg); }
 }
