@@ -188,7 +188,7 @@
   to {
       transform: rotate(-90deg); }
 }
-.arm span:after{
+.arm span::after{
   animation: left-arm-ani3 .4s 8s forwards;
 }
 @keyframes left-arm-ani3{
@@ -219,12 +219,26 @@
 @keyframes right-arm-ani2{
   to {
       transform: rotate(-135deg); }
+    }
+    
+      /* 오른손 팔꿈치 살짝 움직이기 */
+ .arm2 span{
+  animation: right-arm-ani3 .4s ease-in-out 9.4s forwards;
 }
-/* .arm2 span{
-  animation: right-arm-ani2 .4s 8s forwards;
-}
-@keyframes right-arm-ani2{
+@keyframes right-arm-ani3{
   to {
-    transform: rotate(-50eg); }
-  } */
+    transform: rotate(-15deg); }
+  } 
   
+  /* 오른쪽 Y축회전 */
+  .arm2 span::after{
+    animation: right-arm-ani4 .2s 9s forwards;
+  }
+  /* 오른쪽 y축회전 키프레임 */
+  @keyframes right-arm-ani4{
+    to {
+      transform: rotateY(180deg); 
+     left: -13px;}
+  }
+  
+ 
