@@ -253,7 +253,34 @@
 
           function showLocal() {
             // 1. 함수호출 확인
-            console.log('지역국번이 뭐야?');
+            //console.log('지역국번이 뭐야?');
+            // 2. 대상선정 : 변경대상
+            // 2-1. 입력요소 : input#local
+            var local = document.querySelector('#local');
+            // 2-2. 출력요소 : h3#info 
+            var info = document.querySelector('#info');
+            //console.log('대상선정:', local,info);
+
+            // 3. 입력된 값 읽어오기
+            var txt = local.value;
+            // input 요소의 값은 value 속성으로 읽어온다
+            // console.log('입력값:', txt);
+
+            // 4. 빈값 걸러내기 //
+            // trim() 문자열 앞뒤공백 제거 메서드
+            if(txt.trim()==""){
+                // 경고창 띄우기
+                alert('값을 입력 후 조회하세요');
+                // 입력창 데이터 초기화
+                local.value = "";
+                // 입력창에 포커스
+                local.focus();
+                // 함수나감, 리턴 안하면 아래로 함수 하단이 실행됨(반드시 리턴 사용해야함!)
+                return;
+            } /// if ///
+
+            // 5. 지역명을 switch case문으로 분류하여 메시지 넣기
+            
 
           }/////////////////// showLocal 함수 ///////////////////////////
 
