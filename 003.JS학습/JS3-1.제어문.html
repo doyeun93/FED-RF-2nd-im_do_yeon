@@ -23,6 +23,9 @@
              // 2-2. 출력요소 : #jexp
              var jexp = document.querySelector('.jexp');
 
+             // 2-3. 칭찬스티커요소 : #jshow
+             var jshow = document.querySelector('.jshow');
+
             //  console.log('선택요소들:',jumsu,jexp);
 
              // 3. 입력값 읽어오기 //
@@ -37,15 +40,17 @@
             // 4번 필터링을 위한 공통 처리 함수 //
             var doItNow = function(message) {
                 // message 전달변수는 에러메시지임 
-                // 메시지 넣기
+                // 1. 메시지 넣기
                 jexp.innerHTML = message;
-                // 메시지 글자색 복원하기(변경가능성 있기 때문)
+                // 2. 메시지 글자색 복원하기(변경가능성 있기 때문)
                 jexp.style.color = 'black';
-                // 기존값 지우기
+                // 3. 기존값 지우기
                 jumsu.value = "";
-                // 포커스 넣기 : focus() 내장함수
+                // 4. 포커스 넣기 : focus() 내장함수
                 jumsu.focus();
-                // 리턴문(함수나가기)
+                // 5. 칭찬스티커 배경위치값 초기화
+                jshow.style.backgroundPosition = "-50% 0%";
+           
 
             }; /// doItNow 함수 ///////
 
@@ -80,7 +85,7 @@
              }
              
 
-             // 5. 출력 메시지 만들기
+             ///////////////////// 5. 출력 메시지 만들기///////////////////
              //((점수별 메시지))
              // 90점 이상 : 매우잘함
              // 80점 이상 : 잘함
@@ -93,39 +98,49 @@
              var msg;
              // 글자색 변수
              var fcolor;
+             // 배경 위치 변수
+             var bgPos;
 
              // 90점 이상일 때
             if(score >= 90 ){
                 msg = "매우잘함";
                 fcolor = "red";
+                bgPos = "99% 50%";
             }
            // if(score >= 80 && score < 90) -> else if를 안쓰고 if를 쓰면 구간설정을 해야함
            // 80점 이상일 때
             else if(score >= 80){
                 msg = "잘함";
                 fcolor = "orange";
+                bgPos = "0% 99%";
             }
             // 70점 이상일 때
             else if(score >= 70){
                 msg = "보통";
                 fcolor = "green";
+                bgPos = "50% 50%";
             }
             // 60점 이상일 때
             else if(score >= 60){
                 msg = "노력요함";
                 fcolor = "blue";
+                bgPos = "100% 100%";
             }
             // 60점 미만(그밖의 모든 경우 -> else , 맨 마지막에 사용)
             else {
                 msg = "재시험";
                 fcolor = "hotpink";
+                bgPos = "50% 0%";
             }
             
             // 6. 화면 출력하기
-            // innerText는 텍스트 출력
+            // 6-1.innerText는 텍스트 출력
             jexp.innerText = "평과결과는 " + msg;
-            // 글자색 처리하기
+            // 6-2.글자색 처리하기
             jexp.style.color = fcolor;
+            // 6-3. 칭찬스티커 배경위치 변경하기
+            jshow.style.backgroundPosition = bgPos;
+            
 
            
 
@@ -229,7 +244,25 @@
 
                 if(aa>10) my = "ㅎㅎㅎ";
            *************************************************************************/
+
+            
+           /******************************************************************** 
+                함수명 : showLocal
+                기능 : 지역명을 입력하면 지역국번을 안내한다
+           ********************************************************************/
+
+          function showLocal() {
+            // 1. 함수호출 확인
+            console.log('지역국번이 뭐야?');
+
+          }/////////////////// showLocal 함수 ///////////////////////////
+
+
+
+
         </script>
+
+        
         <!-- css코드구역 -->
         <style>
             h1 {
@@ -252,6 +285,38 @@
 
             body{
                 text-align: center;
+            }
+
+            /* 칭찬스티커박스 */
+            .jshow {
+                position: absolute;
+                top: 13vw;
+                left: 73vw;
+                /* 부모는? .bx-if */
+                width: 15vw;
+                height: 15vw;
+                outline: 3px solid lightblue;
+                border-radius: 50%;
+                background: url(./images/ifshow.jpg) no-repeat;
+                /* 배경위치 : 처음에 안보임 */
+                background-position: -50% 0%;
+                /* 배경크기 */
+                background-size: 300%;
+
+                /* 트랜지션 : 배경위치만! */
+                transition: background-position 1s;
+            }
+
+            /* 가상요소를 주어 점수입력 전 칭찬스티커박스 나타내기 */
+            .jshow::before{
+                /* 글자를 배경보다 아래로 하려면 z-index -1주면 됨, 이때 포지션이 있어야함 */
+                position: relative;
+                z-index: -1;
+                content: '♥칭찬스티커♥';
+                line-height: 15vw;
+                font-size: 2vw;
+                color: hotpink;
+                font-weight: bold;
             }
 
            
@@ -296,6 +361,28 @@
             https://www.w3schools.com/charsets/ref_html_ascii.asp
              -->
              <button class="sbtn" onclick="showJumsu()">평가하기</button>
+             <!-- 칭찬스티커 박스 -->
+             <div class="jshow"></div>
+
+
+             <br /><br />
+             <hr />
+     
+             <!-- switch case문 연습 -->
+             <h2 class="tit">switch case문 연습</h2>
+             <h3 id="info">국번안내</h3>
+             <label for="local">지역명 입력:</label>
+             <input
+                 type="text"
+                 id="local"
+                 placeholder="지역명을 '도'를 빼고 쓰세요!"
+                 maxlength="10"
+                 onkeypress="if(event.keyCode==13)showLocal()"
+             />
+             <button class="sbtn" onclick="showLocal()">국번문의</button>
+     
+             <br /><br />
+             <hr />
         </div>
     </body>
 </html>
