@@ -199,17 +199,32 @@
   to{ transform:  rotate(-60deg);}
   from{ transform:  rotate(60deg);}
 }
+
+/* 5. 로봇 오른쪽팔 허리에 올리기  */
 .arm2{
-  animation: right-arm-ani1 .4s 8s forwards;
+  animation: 
+  /* 팔올리기 */
+  right-arm-ani1 0.4s 9s forwards,
+  /* 팔 흔들기 : 팔 올린다음(지연 9.4초) */
+  right-arm-ani2 0.4s ease-in-out 9.4s infinite alternate;
+
 }
+/* 팔 올리기 키프레임 */
 @keyframes right-arm-ani1{
   to {
-      transform: rotate(-90deg); }
+      transform: rotate(-150deg); }
 }
-.arm2 span{
+
+/* 팔 흔들기 키프레임 */
+@keyframes right-arm-ani2{
+  to {
+      transform: rotate(-135deg); }
+}
+/* .arm2 span{
   animation: right-arm-ani2 .4s 8s forwards;
 }
 @keyframes right-arm-ani2{
   to {
-      transform: rotate(-100deg); }
-}
+    transform: rotate(-50eg); }
+  } */
+  
