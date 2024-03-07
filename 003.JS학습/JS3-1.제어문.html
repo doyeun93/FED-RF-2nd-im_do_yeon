@@ -323,9 +323,28 @@
             message = "064";
             break;
           default:
-            message = "esc";
+            message = "etc";
         } /// switch case ///
         console.log("스위치결과:", message);
+
+        // 6. 메시지 만들기 ////
+        // message 변수에 쵲봉 출력내용을 다시 담아서 저장한 후 출력한다
+        if(message == 'etc'){
+            message = '등록되지 않은 지역입니다.';
+
+        } // if // 
+        else{
+            message = '${txt}의 지역번호는 ${message}입니다'; // ${message}에 들어온 값이 else문의 message 값에 할당됨
+        
+        } // else //
+
+        // 7. 화면 출력하기 ///
+        // 출력대상 : #info -> info 변수
+        info.innerText = message;
+
+        // 선택요소.innerText -> 요소의 문자데이터 넣기 | html태그를 넣을때는 innerHTML 사용
+
+
       } /////////////////// showLocal 함수 ///////////////////////////
 
       /********************************************** 
@@ -474,8 +493,7 @@
         id="local"
         placeholder="지역명을 '도'를 빼고 쓰세요!"
         maxlength="10"
-        onkeypress="if(event.keyCode==13)showLocal()"
-      />
+        onkeypress="if(event.keyCode==13)showLocal()"/>
       <button class="sbtn" onclick="showLocal()">국번문의</button>
 
       <br /><br />
