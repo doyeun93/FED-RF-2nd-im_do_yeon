@@ -328,19 +328,21 @@
         console.log("스위치결과:", message);
 
         // 6. 메시지 만들기 ////
-        // message 변수에 쵲봉 출력내용을 다시 담아서 저장한 후 출력한다
+        // message 변수에 최종 출력내용을 다시 담아서 저장한 후 출력한다
         if(message == 'etc'){
             message = '등록되지 않은 지역입니다.';
 
         } // if // 
         else{
-            message = '${txt}의 지역번호는 ${message}입니다'; // ${message}에 들어온 값이 else문의 message 값에 할당됨
+            message = `${txt}의 지역번호는 
+            <span style="color:hotpink;font-size:40px">${message}</span>입니다`; 
+            // ${message}에 들어온 값이 else문의 message 값에 할당됨, 변수 ${}를 쓸때는 ''이 아닌 백틱(``)을 쓴다!
         
         } // else //
 
         // 7. 화면 출력하기 ///
         // 출력대상 : #info -> info 변수
-        info.innerText = message;
+        info.innerHTML = message;
 
         // 선택요소.innerText -> 요소의 문자데이터 넣기 | html태그를 넣을때는 innerHTML 사용
 
