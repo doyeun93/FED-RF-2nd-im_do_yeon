@@ -242,5 +242,12 @@
   }
   
 
-  
+  .link-title{
+    animation: link-ani .8s ease-in-out 9s forwards;
+  }
+
+   @keyframes link-ani{
+    to {
+      transform: translateX(200px); }
+  }
  
