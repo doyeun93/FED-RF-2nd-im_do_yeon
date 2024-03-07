@@ -1,204 +1,192 @@
 <!DOCTYPE html>
 <html lang="ko">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>JS3-1. 제어문 - if문, switch case문, for문, while문</title>
-        <!-- JS코드구역 -->
-        <script>
-            /****************************************************************** 
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JS3-1. 제어문 - if문, switch case문, for문, while문</title>
+    <!-- JS코드구역 -->
+    <script>
+      /****************************************************************** 
                 함수명 : showJumsu
                 설명 : 점수에 따른 평가출력하기
                     1. 점수에 따른 메시지 출력
                     2. 점수에 따른 메시지 글자색 변경
                     3. 점수에 따른 칭찬스티커 보이기
             ******************************************************************/
-           function showJumsu(){
-             // 1. 함수 호출확인! 
-            //  console.log('점수함보자!');
-             // 2. 대상 선정 //
-             // 2-1. 점수입력요소 : input#jumsu
-             var jumsu = document.querySelector('#jumsu');
+      function showJumsu() {
+        // 1. 함수 호출확인!
+        //  console.log('점수함보자!');
+        // 2. 대상 선정 //
+        // 2-1. 점수입력요소 : input#jumsu
+        var jumsu = document.querySelector("#jumsu");
 
-             // 2-2. 출력요소 : #jexp
-             var jexp = document.querySelector('.jexp');
+        // 2-2. 출력요소 : #jexp
+        var jexp = document.querySelector(".jexp");
 
-             // 2-3. 칭찬스티커요소 : #jshow
-             var jshow = document.querySelector('.jshow');
+        // 2-3. 칭찬스티커요소 : #jshow
+        var jshow = document.querySelector(".jshow");
 
-            //  console.log('선택요소들:',jumsu,jexp);
+        //  console.log('선택요소들:',jumsu,jexp);
 
-             // 3. 입력값 읽어오기 //
-             var score = jumsu.value;
-             // value 속성 - 입력된 값을 읽기/쓰기
-             console.log('입력된 값:', score);
+        // 3. 입력값 읽어오기 //
+        var score = jumsu.value;
+        // value 속성 - 입력된 값을 읽기/쓰기
+        console.log("입력된 값:", score);
 
-             // 숫자인지 여부
-             console.log('숫자가 아니니?', isNaN(score));
+        // 숫자인지 여부
+        console.log("숫자가 아니니?", isNaN(score));
 
+        // 4번 필터링을 위한 공통 처리 함수 //
+        var doItNow = function (message) {
+          // message 전달변수는 에러메시지임
+          // 1. 메시지 넣기
+          jexp.innerHTML = message;
+          // 2. 메시지 글자색 복원하기(변경가능성 있기 때문)
+          jexp.style.color = "black";
+          // 3. 기존값 지우기
+          jumsu.value = "";
+          // 4. 포커스 넣기 : focus() 내장함수
+          jumsu.focus();
+          // 5. 칭찬스티커 배경위치값 초기화
+          jshow.style.backgroundPosition = "-50% 0%";
+        }; /// doItNow 함수 ///////
 
-            // 4번 필터링을 위한 공통 처리 함수 //
-            var doItNow = function(message) {
-                // message 전달변수는 에러메시지임 
-                // 1. 메시지 넣기
-                jexp.innerHTML = message;
-                // 2. 메시지 글자색 복원하기(변경가능성 있기 때문)
-                jexp.style.color = 'black';
-                // 3. 기존값 지우기
-                jumsu.value = "";
-                // 4. 포커스 넣기 : focus() 내장함수
-                jumsu.focus();
-                // 5. 칭찬스티커 배경위치값 초기화
-                jshow.style.backgroundPosition = "-50% 0%";
-           
+        // 4. 입력된 값 필터링 처리
+        // 4-1. 빈값 여부 : 공백제거 후 검사
+        // 스페이스바도 문자로 취급하므로 공백제거 함수인 trim()을 사용한다
+        if (score.trim() == "") {
+          // 공통처리함수 호출
+          doItNow("값을 꼭 입력하세요!");
+          // if 문에서 끝나면 아래쪽 함수의 코드(line 95)를 실행하지 않으려면 return문을 쓰면
+          // 리턴을 만나는 순간 함수를 나간다 | return 값 -> 값을 생략가능
+          return;
+        }
+        // 4-2. 숫자 여부 : isNaN() 내장함수로 검사
+        // isNaN : is Not a Number? (숫자가 아니니?) -? 응(true) / 아니(false)
+        else if (isNaN(score)) {
+          // isNaN(변수) -> 결과가 true이면 숫자아님
+          // 공통처리 함수 호출
+          doItNow("숫자만 입력하세요!");
+          return;
+        }
+        // 4-3. 범위 여부 : 조건문 검사
+        // 조건 : score가 0미만이거나 100초과일 때
+        // 바로 위의 else if 조건에 숫자여부를 검사했으므로 숫자 여부 검사는 다시 할 필요 없음
+        else if (score < 0 || score > 100) {
+          // 공통처리 함수 호출
+          doItNow("0~100사이의 숫자만 입력하세요!");
+          // 리턴문(함수나가기)
+          return;
+        }
 
-            }; /// doItNow 함수 ///////
+        ///////////////////// 5. 출력 메시지 만들기///////////////////
+        //((점수별 메시지))
+        // 90점 이상 : 매우잘함
+        // 80점 이상 : 잘함
+        // 70점 이상 : 보통
+        // 60점 이상 : 노력요함
+        // 60점 미만 : 재시험
+        // -> 점수가 담긴 score 변수를 검사함
 
+        // 메시지 변수
+        var msg;
+        // 글자색 변수
+        var fcolor;
+        // 배경 위치 변수
+        var bgPos;
 
-             // 4. 입력된 값 필터링 처리
-             // 4-1. 빈값 여부 : 공백제거 후 검사
-             // 스페이스바도 문자로 취급하므로 공백제거 함수인 trim()을 사용한다
-             if(score.trim() == ""){
-                 // 공통처리함수 호출
-                 doItNow("값을 꼭 입력하세요!");
-                // if 문에서 끝나면 아래쪽 함수의 코드(line 95)를 실행하지 않으려면 return문을 쓰면 
-                // 리턴을 만나는 순간 함수를 나간다 | return 값 -> 값을 생략가능
-                return;
-             }
-             // 4-2. 숫자 여부 : isNaN() 내장함수로 검사
-             // isNaN : is Not a Number? (숫자가 아니니?) -? 응(true) / 아니(false) 
-             else if (isNaN(score)){
-                // isNaN(변수) -> 결과가 true이면 숫자아님
-                // 공통처리 함수 호출
-                doItNow("숫자만 입력하세요!");
-                return;
-            }
-            // 4-3. 범위 여부 : 조건문 검사
-            // 조건 : score가 0미만이거나 100초과일 때
-            // 바로 위의 else if 조건에 숫자여부를 검사했으므로 숫자 여부 검사는 다시 할 필요 없음
-            else if (score < 0 || score > 100) {
-                // 공통처리 함수 호출
-                doItNow("0~100사이의 숫자만 입력하세요!");
-                // 리턴문(함수나가기)
-                return;
-                
-             }
-             
+        // 90점 이상일 때
+        if (score >= 90) {
+          msg = "매우잘함";
+          fcolor = "red";
+          bgPos = "99% 50%";
+        }
+        // if(score >= 80 && score < 90) -> else if를 안쓰고 if를 쓰면 구간설정을 해야함
+        // 80점 이상일 때
+        else if (score >= 80) {
+          msg = "잘함";
+          fcolor = "orange";
+          bgPos = "0% 99%";
+        }
+        // 70점 이상일 때
+        else if (score >= 70) {
+          msg = "보통";
+          fcolor = "green";
+          bgPos = "50% 50%";
+        }
+        // 60점 이상일 때
+        else if (score >= 60) {
+          msg = "노력요함";
+          fcolor = "blue";
+          bgPos = "100% 100%";
+        }
+        // 60점 미만(그밖의 모든 경우 -> else , 맨 마지막에 사용)
+        else {
+          msg = "재시험";
+          fcolor = "hotpink";
+          bgPos = "50% 0%";
+        }
 
-             ///////////////////// 5. 출력 메시지 만들기///////////////////
-             //((점수별 메시지))
-             // 90점 이상 : 매우잘함
-             // 80점 이상 : 잘함
-             // 70점 이상 : 보통
-             // 60점 이상 : 노력요함
-             // 60점 미만 : 재시험
-             // -> 점수가 담긴 score 변수를 검사함
+        // 6. 화면 출력하기
+        // 6-1.innerText는 텍스트 출력
+        jexp.innerText = "평과결과는 " + msg;
+        // 6-2.글자색 처리하기
+        jexp.style.color = fcolor;
+        // 6-3. 칭찬스티커 배경위치 변경하기
+        jshow.style.backgroundPosition = bgPos;
+      } ///////////////// showJumsu 함수 ///////////////////
 
-             // 메시지 변수
-             var msg;
-             // 글자색 변수
-             var fcolor;
-             // 배경 위치 변수
-             var bgPos;
+      // if문 튜닝
+      if (true) {
+        //console.log('조건통과!');
+      }
+      if (false) {
+        //console.log('조건통과!');
+      } else {
+        // console.log('불통과!');
+      }
 
-             // 90점 이상일 때
-            if(score >= 90 ){
-                msg = "매우잘함";
-                fcolor = "red";
-                bgPos = "99% 50%";
-            }
-           // if(score >= 80 && score < 90) -> else if를 안쓰고 if를 쓰면 구간설정을 해야함
-           // 80점 이상일 때
-            else if(score >= 80){
-                msg = "잘함";
-                fcolor = "orange";
-                bgPos = "0% 99%";
-            }
-            // 70점 이상일 때
-            else if(score >= 70){
-                msg = "보통";
-                fcolor = "green";
-                bgPos = "50% 50%";
-            }
-            // 60점 이상일 때
-            else if(score >= 60){
-                msg = "노력요함";
-                fcolor = "blue";
-                bgPos = "100% 100%";
-            }
-            // 60점 미만(그밖의 모든 경우 -> else , 맨 마지막에 사용)
-            else {
-                msg = "재시험";
-                fcolor = "hotpink";
-                bgPos = "50% 0%";
-            }
-            
-            // 6. 화면 출력하기
-            // 6-1.innerText는 텍스트 출력
-            jexp.innerText = "평과결과는 " + msg;
-            // 6-2.글자색 처리하기
-            jexp.style.color = fcolor;
-            // 6-3. 칭찬스티커 배경위치 변경하기
-            jshow.style.backgroundPosition = bgPos;
-            
+      // 변수를 사용한 불린값 체크
+      var condition;
+      //console.log('할당안된 변수값',condition);
 
-           
+      // if문 처리결과 찍기함수
+      var showResult = function () {
+        if (condition) {
+          console.log(condition, "통과");
+        } else {
+          console.log(condition, "는 false 처리됨");
+        }
+      }; ////////////////// showResult 함수 /////////////
 
-           } ///////////////// showJumsu 함수 ///////////////////
+      // 테스트1 : undefined
+      // 선언 후 할당되지 않은 변수값은 undefined임
+      //showResult();
 
-           // if문 튜닝
-            if(true){
-                //console.log('조건통과!');
-            }
-            if(false){
-                //console.log('조건통과!');
-            }
-            else{
-               // console.log('불통과!');
-            } 
+      // 테스트2 : 숫자
+      // -> 0은 false, 이외의 모든 수는 true
+      // true는 1, false는 0과 1:1 매칭됨
+      condition = 1;
+      //showResult();
+      condition = 0;
+      //showResult();
+      condition = -243.21;
+      //showResult();
 
-            // 변수를 사용한 불린값 체크
-            var condition;
-            //console.log('할당안된 변수값',condition);
-            
-            // if문 처리결과 찍기함수
-            var showResult = function(){
-                if(condition){
-                console.log(condition,'통과');
-                }
-                else{
-                console.log(condition,'는 false 처리됨');
-                }
-            }; ////////////////// showResult 함수 /////////////
+      // 테스트3 : null -> '빈값'을 의미하는 데이터
+      condition = null;
+      //showResult();
 
-            // 테스트1 : undefined
-            // 선언 후 할당되지 않은 변수값은 undefined임
-            //showResult();
+      // 테스트 4 : 비교 연산자는 결과로 true/false가 나옴
+      condition = 34 < 1;
+      //showResult();
 
-            // 테스트2 : 숫자
-            // -> 0은 false, 이외의 모든 수는 true
-            // true는 1, false는 0과 1:1 매칭됨
-            condition = 1;
-            //showResult();
-            condition = 0;
-            //showResult();
-            condition = -243.21;
-            //showResult();
+      // 테스트 5 : 선언된 적이 없는 변수
+      // -> 선언 안된 변수를 사용하면 에러처리됨
+      //condition = mymy;
+      //showResult();
 
-            // 테스트3 : null -> '빈값'을 의미하는 데이터
-            condition = null;
-            //showResult();
-
-            // 테스트 4 : 비교 연산자는 결과로 true/false가 나옴
-            condition = 34<1;
-            //showResult();
-
-            // 테스트 5 : 선언된 적이 없는 변수
-            // -> 선언 안된 변수를 사용하면 에러처리됨
-            //condition = mymy;
-            //showResult();
-
-           /************************************************************************* 
+      /************************************************************************* 
             [ if문 ]
             - 조건문을 검사하여 true이면
             중괄호안의 코드가 실행되는 제어문
@@ -245,124 +233,207 @@
                 if(aa>10) my = "ㅎㅎㅎ";
            *************************************************************************/
 
-            
-           /******************************************************************** 
+      /******************************************************************** 
                 함수명 : showLocal
                 기능 : 지역명을 입력하면 지역국번을 안내한다
            ********************************************************************/
 
-          function showLocal() {
-            // 1. 함수호출 확인
-            //console.log('지역국번이 뭐야?');
-            // 2. 대상선정 : 변경대상
-            // 2-1. 입력요소 : input#local
-            var local = document.querySelector('#local');
-            // 2-2. 출력요소 : h3#info 
-            var info = document.querySelector('#info');
-            //console.log('대상선정:', local,info);
+      function showLocal() {
+        // 1. 함수호출 확인
+        //console.log('지역국번이 뭐야?');
+        // 2. 대상선정 : 변경대상
+        // 2-1. 입력요소 : input#local
+        var local = document.querySelector("#local");
+        // 2-2. 출력요소 : h3#info
+        var info = document.querySelector("#info");
+        //console.log('대상선정:', local,info);
 
-            // 3. 입력된 값 읽어오기
-            var txt = local.value;
-            // input 요소의 값은 value 속성으로 읽어온다
-            // console.log('입력값:', txt);
+        // 3. 입력된 값 읽어오기
+        var txt = local.value;
+        // input 요소의 값은 value 속성으로 읽어온다
+        // 일반적으로 선택요소의 속성을 이퀄 오른쪽에 쓰면 값을 읽어오고,
+        // 이퀄 왼쪽에 쓰고 오른쪽에 값을 쓰면 값이 세팅된다
+        // ex) document.querySelector('aa').src = 값
+        // var bb = document.querySelector('aa').src
+        // console.log('입력값:', txt);
 
-            // 4. 빈값 걸러내기 //
-            // trim() 문자열 앞뒤공백 제거 메서드
-            if(txt.trim()==""){
-                // 경고창 띄우기
-                alert('값을 입력 후 조회하세요');
-                // 입력창 데이터 초기화
-                local.value = "";
-                // 입력창에 포커스
-                local.focus();
-                // 함수나감, 리턴 안하면 아래로 함수 하단이 실행됨(반드시 리턴 사용해야함!)
-                return;
-            } /// if ///
+        // 4. 빈값 걸러내기 //
+        // trim() 문자열 앞뒤공백 제거 메서드
+        if (txt.trim() == "") {
+          // 경고창 띄우기
+          alert("값을 입력 후 조회하세요");
+          // 입력창 데이터 초기화
+          local.value = "";
+          // 입력창에 포커스
+          local.focus();
+          // 함수나감, 리턴 안하면 아래로 함수 하단이 실행됨(반드시 리턴 사용해야함!)
+          return;
+        } /// if ///
 
-            // 5. 지역명을 switch case문으로 분류하여 메시지 넣기
-            
+        // 5. 지역명을 switch case문으로 분류하여 메시지 넣기
+        // 메시지 변수
+        var message;
+        switch (txt) {
+          case "서울":
+            message = "02";
+            break;
+          case "경기":
+            message = "031";
+            break;
+          case "인천":
+            message = "032";
+            break;
+          case "강원":
+            message = "033";
+            break;
+          case "대구":
+            message = "053";
+            break;
+          case "광주":
+            message = "062";
+            break;
+          case "전북":
+            message = "063";
+            break;
+          case "전남":
+            message = "061";
+            break;
+          case "경북":
+            message = "054";
+            break;
+          case "경남":
+            message = "055";
+            break;
+          case "세종":
+            message = "044";
+            break;
+          case "울산":
+            message = "052";
+            break;
+          case "대전":
+            message = "042";
+            break;
+          case "충북":
+            message = "043";
+            break;
+          case "충남":
+            message = "041";
+            break;
+          case "제주":
+            message = "064";
+            break;
+          default:
+            message = "esc";
+        } /// switch case ///
+        console.log("스위치결과:", message);
+      } /////////////////// showLocal 함수 ///////////////////////////
 
-          }/////////////////// showLocal 함수 ///////////////////////////
+      /********************************************** 
+            [ switch case문 ]
+            - 단일조건을 분류하여 실행문을 만들어 줄때 사용하는 제어문
 
+            ((구문구조))
+            ________________________________________
 
-
-
-        </script>
-
-        
-        <!-- css코드구역 -->
-        <style>
-            h1 {
-                font-size: 4vw;
+            switch(변수){
+                case 경우1: 실행코드; break;
+                case 경우2: 실행코드; break;
+                case 경우3: 실행코드; break;
+                ...
+                default: 실행문;
             }
-            h2 {
-                font-size: 3vw;
-            }
-            body,
-            h3,
-            input,
-            button,
-            select {
-                font-size: 2vw;
-            }
-            .tit {
-                text-align: center;
-                background-image: linear-gradient(to bottom, lightblue, lightyellow);
-            }
+            ________________________________________
 
-            body{
-                text-align: center;
-            }
+            ((구문해석))
 
-            /* 칭찬스티커박스 */
-            .jshow {
-                position: absolute;
-                top: 13vw;
-                left: 73vw;
-                /* 부모는? .bx-if */
-                width: 15vw;
-                height: 15vw;
-                outline: 3px solid lightblue;
-                border-radius: 50%;
-                background: url(./images/ifshow.jpg) no-repeat;
-                /* 배경위치 : 처음에 안보임 */
-                background-position: -50% 0%;
-                /* 배경크기 */
-                background-size: 300%;
+            1. 변수값에 해당하는 경우 그 값에 해당하는
+            case에 들어가서 실행코드를 실행함
 
-                /* 트랜지션 : 배경위치만! */
-                transition: background-position 1s;
-            }
+            2. 각 case 끝에 break 예약어를 반드시 써야함!
+            -> 안쓰면 다른 case에 또 들어가는 경우가 생김!
+            -> 일반적으로 break 키워드는 제어문을 빠져나갈때 씀!
 
-            /* 가상요소를 주어 점수입력 전 칭찬스티커박스 나타내기 */
-            .jshow::before{
-                /* 글자를 배경보다 아래로 하려면 z-index -1주면 됨, 이때 포지션이 있어야함 */
-                position: relative;
-                z-index: -1;
-                content: '♥칭찬스티커♥';
-                line-height: 15vw;
-                font-size: 2vw;
-                color: hotpink;
-                font-weight: bold;
-            }
+            3. default 는 if문의 else문과 비슷하여 해당 케이스가 
+            없으면 이 부분이 실행됨(단, 필요시 사용)
+            -> default문에는 break를 쓰지 않는다!
+        **********************************************/
+    </script>
 
-           
-        </style>
-    </head>
-    <body>
-        <h1 class="tit">JS 제어문</h1>
-        <hr>
-        <!-- if문 연습 -->
-        <div class="bx-if">
-            <h2 class="tit">if문 연습</h2>
-            <h3 class="jexp">평가 출력</h3>
-            <label for="jumsu">점수입력:</label>
-            <input type="text" id="jumsu" 
-            placeholder="점수를 입력하세요!" maxlength="3" 
-            onkeypress="
+    <!-- css코드구역 -->
+    <style>
+      h1 {
+        font-size: 4vw;
+      }
+      h2 {
+        font-size: 3vw;
+      }
+      body,
+      h3,
+      input,
+      button,
+      select {
+        font-size: 2vw;
+      }
+      .tit {
+        text-align: center;
+        background-image: linear-gradient(to bottom, lightblue, lightyellow);
+      }
+
+      body {
+        text-align: center;
+      }
+
+      /* 칭찬스티커박스 */
+      .jshow {
+        position: absolute;
+        top: 13vw;
+        left: 73vw;
+        /* 부모는? .bx-if */
+        width: 15vw;
+        height: 15vw;
+        outline: 3px solid lightblue;
+        border-radius: 50%;
+        background: url(./images/ifshow.jpg) no-repeat;
+        /* 배경위치 : 처음에 안보임 */
+        background-position: -50% 0%;
+        /* 배경크기 */
+        background-size: 300%;
+
+        /* 트랜지션 : 배경위치만! */
+        transition: background-position 1s;
+      }
+
+      /* 가상요소를 주어 점수입력 전 칭찬스티커박스 나타내기 */
+      .jshow::before {
+        /* 글자를 배경보다 아래로 하려면 z-index -1주면 됨, 이때 포지션이 있어야함 */
+        position: relative;
+        z-index: -1;
+        content: "♥칭찬스티커♥";
+        line-height: 15vw;
+        font-size: 2vw;
+        color: hotpink;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 class="tit">JS 제어문</h1>
+    <hr />
+    <!-- if문 연습 -->
+    <div class="bx-if">
+      <h2 class="tit">if문 연습</h2>
+      <h3 class="jexp">평가 출력</h3>
+      <label for="jumsu">점수입력:</label>
+      <input
+        type="text"
+        id="jumsu"
+        placeholder="점수를 입력하세요!"
+        maxlength="3"
+        onkeypress="
              if(event.keyCode == 13) showJumsu()
-            ">
-            <!-- 
+            "
+      />
+      <!-- 
                 [ label요소 ]
             input요소의 설명라벨요소
             - for속성 : 클릭시 아이디 input요소로 포커스이동
@@ -387,29 +458,28 @@
             (리턴키는 carriage return)
             https://www.w3schools.com/charsets/ref_html_ascii.asp
              -->
-             <button class="sbtn" onclick="showJumsu()">평가하기</button>
-             <!-- 칭찬스티커 박스 -->
-             <div class="jshow"></div>
+      <button class="sbtn" onclick="showJumsu()">평가하기</button>
+      <!-- 칭찬스티커 박스 -->
+      <div class="jshow"></div>
 
+      <br /><br />
+      <hr />
 
-             <br /><br />
-             <hr />
-     
-             <!-- switch case문 연습 -->
-             <h2 class="tit">switch case문 연습</h2>
-             <h3 id="info">국번안내</h3>
-             <label for="local">지역명 입력:</label>
-             <input
-                 type="text"
-                 id="local"
-                 placeholder="지역명을 '도'를 빼고 쓰세요!"
-                 maxlength="10"
-                 onkeypress="if(event.keyCode==13)showLocal()"
-             />
-             <button class="sbtn" onclick="showLocal()">국번문의</button>
-     
-             <br /><br />
-             <hr />
-        </div>
-    </body>
+      <!-- switch case문 연습 -->
+      <h2 class="tit">switch case문 연습</h2>
+      <h3 id="info">국번안내</h3>
+      <label for="local">지역명 입력:</label>
+      <input
+        type="text"
+        id="local"
+        placeholder="지역명을 '도'를 빼고 쓰세요!"
+        maxlength="10"
+        onkeypress="if(event.keyCode==13)showLocal()"
+      />
+      <button class="sbtn" onclick="showLocal()">국번문의</button>
+
+      <br /><br />
+      <hr />
+    </div>
+  </body>
 </html>
