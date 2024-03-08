@@ -1,0 +1,91 @@
+@charset "utf-8";
+
+/* Open Door CSS - opendoor.css */
+
+/* 웹폰트 */
+@import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&display=swap");
+/* font-family: 'Comfortaa', cursive; */
+
+/* 초기화 */
+html,body,h1{
+    margin: 0;
+    padding: 0;
+}
+/* 공사중 표시 */
+body * {
+  outline: 2px dashed black;
+}
+
+body{
+    background-color: rgb(44, 204, 0);
+}
+
+/* 전체 타이틀 */
+.tit{
+  /* height: 50px;
+  -> auto로 유동적인 글자크기만큼만
+  사이즈 주지 말자! */
+  font-family: 'Comfortaa', cursive;
+  /* 최대글자크기 지정 */
+  font-size: min(5vw,42px);
+  margin: 5vh 0;
+  text-align: center;
+  color: #fff;
+  text-shadow: 2px 2px 2px #222;
+  overflow: hidden;
+}
+
+/* 전체 랩핑박스 */
+.wrap{
+  padding: 50px 0;
+}
+/* 전체 문 부모 */
+.cont{
+  width: 400px;
+  height: 600px;
+  margin: 0 auto;
+  background-color: #5b0e00;
+}
+/* 문 프레임 */
+.frame{
+  position: relative;
+  top: 28px;
+  width: 350px;
+  height: 568px;
+  margin: 0 auto;
+  background: url(../images/seashore.jpg) no-repeat center/auto 100%;
+  /************************************************ 
+    [3D 원근설정]
+    1. 세팅위치: 3D원근 설정을 할 대상의 부모요소
+    2. 설정방법: perspective(수치) -> px단위 또는 구체적인 상대단위(em,rem,vw,vh등)로 설정
+    -> 기준축으로부터 소실점까자의 거리, 이 값이 커지면 원근각도가 완만해짐
+  ************************************************/
+  perspective: 480px;
+}
+
+
+/* 문짝 */
+.door{
+  position: relative;
+  width: 350px;
+  height: 568px;
+  background-color: rgb(140, 84, 0);
+  /* Y축 회전 */
+  transform: rotateY(0deg);
+
+  /* 회전 축 왼쪽으로 변경 */
+  transform-origin: left;
+
+  /* 애니메이션 */
+  animation: open-door-ani 1s ease-in-out infinite alternate;
+}
+
+/* 문여닫기 키프레임 */
+@keyframes open-door-ani{
+  from{
+    transform: rotateY(-83deg);
+  }
+  to{
+    transform: rotateY(83deg);
+  }
+}
