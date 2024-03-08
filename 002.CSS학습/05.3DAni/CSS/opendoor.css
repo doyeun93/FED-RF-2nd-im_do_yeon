@@ -155,26 +155,19 @@ body{
   }
 }
 
-.olaf{
+.simpson{
   position: relative;
-  top: -111px;
+  top: -165px;
   left: 210px;
   width: 100px;
   height: 100px;
   overflow: hidden;
-  
+  transform: rotateY(17deg);
+  animation: simpson-ani .5s ease-in-out infinite alternate;
+  background: url(../images/simpson.png) no-repeat center/100% 100%;
 }
 
-.olaf img{
-  transform: rotateY(10deg);
-  animation: elsa-ani 1s ease-in-out infinite alternate;
-}
-
-.cont:hover .olaf img{
-  animation-play-state: running;
-}
-
-@keyframes olaf-ani{
+@keyframes simpson-ani{
   to{
     transform: rotateY(-12deg);
   }
