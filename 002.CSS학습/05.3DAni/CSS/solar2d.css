@@ -1,0 +1,18 @@
+@charset "utf-8";
+
+/* 태양계 2D 애니메이션 CSS - solar2d.css */
+
+/* 초기화 */
+html, body{
+  margin: 0 ;
+  padding: 0;
+  width: 100vw;
+  height: 100vw;
+
+}
+/*  body세팅 */
+body{
+  background: url(../images/space.jpg) no-repeat center/cover;
+  /* 스크롤바 없앰 */
+  overflow: hidden;
+}
