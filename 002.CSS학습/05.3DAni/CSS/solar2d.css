@@ -29,6 +29,24 @@
   --earth-size: 80px;
   /* 3. 지구 거리 */
   --earth-trans-size: -250px;
+  /* 4. 목성 크기 */
+  --jupiter-size: 150px;
+  /* 5. 목성 거리 */
+  --jupiter-trans-size: 370px;
+  /* 6. 토성 크기 */
+  --saturn-size: 160px;
+  /* 7. 토성 거리 */
+  --saturn-trans-size: -460px;
+  /* 8. 명왕성 크기 */
+  --pluto-size: 50px;
+  /* 9. 명왕성 거리 */
+  --pluto-trans-size: 500px;
+  /* 10. 달 크기 */
+  --moon-size: 40px;
+  /* 11. 달 거리 */
+  --moon-trans-size: 80px;
+
+
 
 
 }
@@ -129,17 +147,149 @@ body * {
   left: calc(50% - var(--earth-size)/2);
   width: var(--earth-size);
   height: var(--earth-size);
+  border-radius: 50%;
   /* 배경이미지 */
   background: url(../images/earth.png) no-repeat 0/100% 100%;
   /* 애니메이션 호출 */
-  animation: earth-ani 10s linear infinite;
+  animation: earth-ani 10.5s linear infinite;
   
 
  }
 
  /* 지구 회전 키프레임 */
  @keyframes earth-ani {
-  to{
-    transform: rotate(360deg);
+  from{
+    transform: rotate(0deg) translateX(var(--earth-trans-size)) rotate(0deg);
   }
+  to{
+    transform: rotate(360deg) translateX(var(--earth-trans-size)) rotate(-360deg);
+  }
+  
+ }
+ #moon{
+  position: absolute;
+  /* 부모는 : 지구 */
+  /* 달 중앙이동 : calc(50% - 크기절반) */
+  top: calc(50% - var(--moon-size)/2);
+  left: calc(50% - var(--moon-size)/2);
+  width: var(--moon-size);
+  height: var(--moon-size);
+  border-radius: 50%;
+  /* 배경이미지 */
+  background: url(../images/moon.png) no-repeat 0/100% 100%;
+  /* 애니메이션 호출 */
+  animation: moon-ani 5s linear infinite;
+  
+
+ }
+
+ /* 달 회전 키프레임 */
+ @keyframes moon-ani {
+  from{
+    transform: rotate(0deg) translateX(var(--moon-trans-size)) rotate(0deg);
+  }
+  to{
+    transform: rotate(360deg) translateX(var(--moon-trans-size)) rotate(-360deg);
+  }
+  
+ }
+ /* 
+ [키 프레임 회전시 2번째 회전의 의미는?]
+ rotate(360deg) : 중앙회전 
+ translateX(300px) : 위치이동
+ rotate(-360deg) : 이동된 요소의 회전 
+ */
+ #jupiter{
+  position: absolute;
+  /* 부모는 : 솔라 */
+  /* 지구 중앙이동 : calc(50% - 크기절반) */
+  top: calc(50% - var(--jupiter-size)/2);
+  left: calc(50% - var(--jupiter-size)/2);
+  width: var(--jupiter-size);
+  height: var(--jupiter-size);
+  border-radius: 50%;
+  /* 배경이미지 */
+  background: url(../images/jupiter.png) no-repeat 0/100% 100%;
+  /* 애니메이션 호출 */
+  animation: jupiter-ani 40s linear infinite;
+  
+
+ }
+
+ /* 지구 회전 키프레임 */
+ @keyframes jupiter-ani {
+  from{
+    transform: rotate(0deg) translateX(var(--jupiter-trans-size)) rotate(0deg);
+  }
+  to{
+    transform: rotate(360deg) translateX(var(--jupiter-trans-size)) rotate(-360deg);
+  }
+  
+ }
+
+ #saturn{
+  position: absolute;
+  /* 부모는 : 솔라 */
+  /* 지구 중앙이동 : calc(50% - 크기절반) */
+  top: calc(50% - var(--saturn-size)/2);
+  left: calc(50% - var(--saturn-size)/2);
+  width: var(--saturn-size);
+  height: var(--saturn-size);
+  border-radius: 50%;
+  /* 배경이미지 */
+  /* background: url(../images/saturn.png) no-repeat 0/100% 100%; -> 가상요소에 이미지 넣어줬기 때문*/
+  /* 애니메이션 호출 */
+  animation: saturn-ani 40s linear infinite;
+  
+
+ }
+
+ /* 지구 회전 키프레임 */
+ @keyframes saturn-ani {
+  from{
+    transform: rotate(0deg) translateY(var(--saturn-trans-size)) rotate(0deg);
+  }
+  to{
+    transform: rotate(360deg) translateY(var(--saturn-trans-size)) rotate(-360deg);
+  }
+  
+ }
+
+ /* 가상요소로 토성이미지 배경으로 넣기 */
+#saturn::before{
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -30%;
+  width: 160%;
+  height: 100%;
+  background: url(../images/saturn.png) no-repeat 0/100% 100%;
+}
+
+ #pluto{
+  position: absolute;
+  /* 부모는 : 솔라 */
+  /* 지구 중앙이동 : calc(50% - 크기절반) */
+  top: calc(50% - var(--pluto-size)/2);
+  left: calc(50% - var(--pluto-size)/2);
+  width: var(--pluto-size);
+  height: var(--pluto-size);
+  border-radius: 50%;
+  /* 배경이미지 */
+  background: url(../images/pluto.png) no-repeat 0/100% 100%;
+  /* 애니메이션 호출 */
+  animation: pluto-ani 50s linear infinite;
+  
+
+ }
+
+ /* 지구 회전 키프레임 */
+ @keyframes pluto-ani {
+  from{
+    transform: rotate(0deg) translateY(var(--pluto-trans-size)) rotate(0deg);
+  }
+  to{
+    transform: rotate(360deg) translateY(var(--pluto-trans-size)) rotate(-360deg);
+  }
+  
  }
