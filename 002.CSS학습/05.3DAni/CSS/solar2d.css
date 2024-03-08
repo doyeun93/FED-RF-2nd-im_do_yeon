@@ -89,10 +89,11 @@ body{
   padding-top: 20px;
 }
 
-/* 공사중표시 */
+/* 공사중표시
 body * {
   outline: 2px dashed yellow;
-}
+} */
+
 /* 태양계박스 */
 #solar{
   /* 부모는: 보이는 화면 */
@@ -114,6 +115,8 @@ body * {
   height: var(--sun-size);
   /* 넘치는 태양이미지 숨기기 */
   overflow: hidden;
+  /* 박스 글로우 효과(박스그림자) */
+  box-shadow:  0 0 15px 5px yellow;
   border-radius: 50%;
   /* 마우스 오버시 오버플로우 후 네모난게 아닌 동그랗게 보이기 위함 */
 }
@@ -146,10 +149,56 @@ animation-play-state: paused; -> 멈춤상태
   animation-play-state: paused !important;
   /* 손가락 모양 */
   cursor: pointer;
+  /* 다른 행성보다 위 */
+  z-index: 1;
+  
 }
 
- /* 지구 */
- #earth{
+/* 행성 설명박스 공통 */
+.info{
+  position: absolute;
+  top: 0;
+  left: 100%;
+  width: 0;
+  max-height: 2px;
+  /* 내부 패딩이 없어야 완벽하게 숨겨짐 */
+  overflow: hidden;
+  /* 트랜지션 아웃시 : max-heigh먼저 보이고 twidth는 나중에 */
+  transition: width .4s, max-height .4s .4s;
+  
+  border-top: 2px solid lightgreen; 
+  border-bottom: 2px solid lightgreen; 
+  color: rgb(147, 227, 26);
+  font-size: 12px;
+  line-height: 1.8;
+  font-weight: bold;
+  
+  /* 백드롭필터 */
+  backdrop-filter: blur(2px);
+  
+}
+/* 정보제목, 내용 */
+.info h2,p{
+  margin: 0;
+  padding: 10px;
+  width: 200px;
+  box-sizing: border-box;
+}
+
+/* 행성에 마우스 오버시 행성 정보 보이기 애니 */
+.planet:hover > .info , #earth:hover .info {
+  width: 200px;
+  /* 최대 높이값은 컨텐츠 중 가장 큰 사이즈를 준다 */
+  max-height: 300px;
+  transition: width .4s, max-height .4s .4s;
+  
+}
+
+
+
+
+ /* 지구+달 랩핑박스 : 실제로 도는 박스*/
+ .earth-wrap{
   position: absolute;
   /* 부모는 : 솔라 */
   /* 지구 중앙이동 : calc(50% - 크기절반) */
@@ -158,10 +207,23 @@ animation-play-state: paused; -> 멈춤상태
   width: var(--earth-size);
   height: var(--earth-size);
   border-radius: 50%;
-  /* 배경이미지 */
-  background: url(../images/earth.png) no-repeat 0/100% 100%;
   /* 애니메이션 호출 */
   animation: earth-ani 10.5s linear infinite;
+ }
+
+ /* 지구 */
+ #earth{
+  position: absolute;
+  /* 부모는 : 솔라 */
+  /* 지구 중앙이동 : calc(50% - 크기절반) */
+  top: 0;
+  left: 0;
+  width: var(--earth-size);
+  height: var(--earth-size);
+  border-radius: 50%;
+  /* 배경이미지 */
+  background: url(../images/earth.png) no-repeat 0/100% 100%;
+  
  }
 
  /* 지구 회전 키프레임 */
@@ -176,7 +238,7 @@ animation-play-state: paused; -> 멈춤상태
 
  #moon{
   position: absolute;
-  /* 부모는 : 지구 */
+  /* 부모는 : .earth-wrap */
   /* 달 중앙이동 : calc(50% - 크기절반) */
   top: calc(50% - var(--moon-size)/2);
   left: calc(50% - var(--moon-size)/2);
