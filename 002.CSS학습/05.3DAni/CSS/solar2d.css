@@ -44,7 +44,7 @@
   /* 10. 달 크기 */
   --moon-size: 40px;
   /* 11. 달 거리 */
-  --moon-trans-size: 80px;
+  --moon-trans-size: 70px;
 
 
 
@@ -116,7 +116,6 @@ body * {
   overflow: hidden;
   border-radius: 50%;
   /* 마우스 오버시 오버플로우 후 네모난게 아닌 동그랗게 보이기 위함 */
-
 }
 /* 태양이미지 */
 #sun img{
@@ -125,7 +124,6 @@ body * {
   /* 애니메이션 호출 */
   animation: flame-ani 10s linear infinite alternate;
   /* 20초간 등속도로 무한히 왔다갔다함 */
-
 }
 
 /* 태양이 이글거리는 애니메이션 키프레임 */
@@ -137,6 +135,18 @@ body * {
 /* #sun:hover img
    transform: scale(1.5); = tf:sc
  } */
+
+/* 행성공통 - 애니메이션 멈춤설정 
+[애니메이션 2가지 상태]
+animation-play-state: running; -> 실행상태(기본값)
+animation-play-state: paused; -> 멈춤상태
+*/
+.planet:hover{
+  /* 기존 애니메이션이 id로 세팅되어서 기본값 running이 더 우선됨 -> !important로 우선순위를 높임  */
+  animation-play-state: paused !important;
+  /* 손가락 모양 */
+  cursor: pointer;
+}
 
  /* 지구 */
  #earth{
@@ -152,8 +162,6 @@ body * {
   background: url(../images/earth.png) no-repeat 0/100% 100%;
   /* 애니메이션 호출 */
   animation: earth-ani 10.5s linear infinite;
-  
-
  }
 
  /* 지구 회전 키프레임 */
@@ -164,8 +172,8 @@ body * {
   to{
     transform: rotate(360deg) translateX(var(--earth-trans-size)) rotate(-360deg);
   }
-  
  }
+
  #moon{
   position: absolute;
   /* 부모는 : 지구 */
@@ -179,8 +187,6 @@ body * {
   background: url(../images/moon.png) no-repeat 0/100% 100%;
   /* 애니메이션 호출 */
   animation: moon-ani 5s linear infinite;
-  
-
  }
 
  /* 달 회전 키프레임 */
@@ -190,9 +196,9 @@ body * {
   }
   to{
     transform: rotate(360deg) translateX(var(--moon-trans-size)) rotate(-360deg);
-  }
-  
+  } 
  }
+
  /* 
  [키 프레임 회전시 2번째 회전의 의미는?]
  rotate(360deg) : 중앙회전 
@@ -212,8 +218,6 @@ body * {
   background: url(../images/jupiter.png) no-repeat 0/100% 100%;
   /* 애니메이션 호출 */
   animation: jupiter-ani 40s linear infinite;
-  
-
  }
 
  /* 지구 회전 키프레임 */
@@ -223,8 +227,7 @@ body * {
   }
   to{
     transform: rotate(360deg) translateX(var(--jupiter-trans-size)) rotate(-360deg);
-  }
-  
+  }  
  }
 
  #saturn{
@@ -240,8 +243,6 @@ body * {
   /* background: url(../images/saturn.png) no-repeat 0/100% 100%; -> 가상요소에 이미지 넣어줬기 때문*/
   /* 애니메이션 호출 */
   animation: saturn-ani 40s linear infinite;
-  
-
  }
 
  /* 지구 회전 키프레임 */
@@ -251,8 +252,7 @@ body * {
   }
   to{
     transform: rotate(360deg) translateY(var(--saturn-trans-size)) rotate(-360deg);
-  }
-  
+  }  
  }
 
  /* 가상요소로 토성이미지 배경으로 넣기 */
@@ -279,8 +279,6 @@ body * {
   background: url(../images/pluto.png) no-repeat 0/100% 100%;
   /* 애니메이션 호출 */
   animation: pluto-ani 50s linear infinite;
-  
-
  }
 
  /* 지구 회전 키프레임 */
@@ -291,5 +289,4 @@ body * {
   to{
     transform: rotate(360deg) translateY(var(--pluto-trans-size)) rotate(-360deg);
   }
-  
  }
