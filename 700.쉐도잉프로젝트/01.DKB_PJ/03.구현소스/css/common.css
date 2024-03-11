@@ -31,10 +31,12 @@
   display: flex;
   justify-content: flex-end;
 }
-/*  */
+/*  
 .gnb ul li {
 
 }
+*/
+
 /* gnb a 링크 */
 .gnb ul a{
  display: block;
