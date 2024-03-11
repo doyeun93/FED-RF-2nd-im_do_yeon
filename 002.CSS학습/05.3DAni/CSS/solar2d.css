@@ -281,7 +281,7 @@ animation-play-state: paused; -> 멈춤상태
     height: var(--jupiter-size);
     border-radius: 50%;
     box-shadow:  0 0 10px 5px lightgoldenrodyellow;
-    /* 배경이미지, 박스그림자를 위해 이미지 크기 변경 */
+    /* 배경이미지, 박스그림자를 위해 이미지 크기 변경(다른 것들은 100%인데 이미지때문에 박스그림자가 적용안되어 크기 조정함) */
     background: url(../images/jupiter.png) no-repeat center/120% 120%;
     /* 애니메이션 호출 */
     animation: jupiter-ani 40s linear infinite;
