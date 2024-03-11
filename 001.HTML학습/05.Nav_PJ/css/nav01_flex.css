@@ -211,11 +211,15 @@ ul::after,ol::after,.clb::after{
 }
 
 .multi-lang ul li{
-    padding: 27px 10px;
+    padding: 27px 6px;
 }
 /*  2번째 li 이후 가상요소 after 지우기 */
 .multi-lang ul li:nth-child(2)~li a::after{
     display: none;
+}
+/*  2번째 li 이후 오버시 색상변경 */
+.multi-lang ul li:nth-child(2)~li a:hover{
+    color: lightpink;
 }
 
 
