@@ -76,7 +76,7 @@ ul::after,ol::after,.clb::after{
     position: relative;
     /* 부모자격 - .smenu의 left값 */
     /* float: left; -> flex로 전환*/
-    padding: 32px 32px;
+    padding: 27px 32px;
     /* line-height: 78px; - 블록 가상요소 밑줄이 아래로 밀려서 주석*/
     font-weight: bold;
     /* 글자관련세팅은 하위요소로 모두 상속됨 */
@@ -87,6 +87,8 @@ ul::after,ol::after,.clb::after{
     left: 50%;
     /* x축 중앙이동 */
     transform: translatex(-50%);
+    /* top을 쓰지 않고 마진탑으로 이동한 이유는 젠틀앲솔루트의 위치에서부터 이동하려고 */
+    margin-top: 26px;
     width: 200px;
     background-color: rgba(0, 0, 0, 0.345);
     border-radius: 10px;
@@ -171,9 +173,9 @@ ul::after,ol::after,.clb::after{
      position: relative;
 } */
 
-
-/* gnb 상위메뉴 오버시 밑줄애니 */
-.gnb ul>li>a::after{
+/* 다른 같은 구조의 요소에도 모두 적용위해 클래스를 주고 세팅되도록 만든다 -> .uline이라는 클래스를 주면 됨*/
+/*  상위메뉴 오버시 밑줄애니 */
+.uline ul>li>a::after{
     content: '';
     /* 디자인 적용위해 display: block을 씀 */
     display: block;
@@ -182,6 +184,7 @@ ul::after,ol::after,.clb::after{
     /* top: 53px; */
     /* 마우스 나갈때 margin-left 값 밀기 */
     margin-left: 100%;
+    margin-top: 4px;
     width: 0;
     height: 2px;
     background-color: lavender;
@@ -189,11 +192,11 @@ ul::after,ol::after,.clb::after{
     
 }
 /* 오버시 밑줄박스 애니 */
-.gnb ul>li:hover>a::after{
-    left: 0;
+.uline ul>li:hover>a::after{
+    margin-left: 0;
     width: 100%;
     
-    /* 오버시 트랜지션 -> left는 트랜지션 적용말 것*/
+    /* 오버시 트랜지션 -> margin-left는 트랜지션 적용말 것*/
     transition:  width .3s;
     
 }
