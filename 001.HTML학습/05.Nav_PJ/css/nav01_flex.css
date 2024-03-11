@@ -202,6 +202,22 @@ ul::after,ol::after,.clb::after{
 }
 
 
+/* 다국어 메뉴 파트 */
+
+.multi-lang ul{
+    display: flex;
+    justify-content: center;
+    white-space: nowrap;
+}
+
+.multi-lang ul li{
+    padding: 27px 10px;
+}
+/*  2번째 li 이후 가상요소 after 지우기 */
+.multi-lang ul li:nth-child(2)~li a::after{
+    display: none;
+}
+
 
 /* 메인영역 */
 .main-area {
@@ -213,3 +229,4 @@ ul::after,ol::after,.clb::after{
     border: 10px dashed salmon;
     margin: 100px auto;
 }
+
