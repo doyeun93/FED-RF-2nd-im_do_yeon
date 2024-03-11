@@ -76,8 +76,8 @@ ul::after,ol::after,.clb::after{
     position: relative;
     /* 부모자격 - .smenu의 left값 */
     /* float: left; -> flex로 전환*/
-    padding: 0 32px;
-    line-height: 78px;
+    padding: 32px 32px;
+    /* line-height: 78px; - 블록 가상요소 밑줄이 아래로 밀려서 주석*/
     font-weight: bold;
     /* 글자관련세팅은 하위요소로 모두 상속됨 */
 }
@@ -165,19 +165,23 @@ ul::after,ol::after,.clb::after{
 }
 */
 
-
-.gnb ul>li>a{
-     /* 가상 요소 밑줄을 위한 부모자격 */
+/* 부모자격 불필요 */
+/* .gnb ul>li>a{
+     /* 가상 요소 밑줄을 위한 부모자격 
      position: relative;
-}
+} */
+
+
 /* gnb 상위메뉴 오버시 밑줄애니 */
 .gnb ul>li>a::after{
     content: '';
-    position: absolute;
+    /* 디자인 적용위해 display: block을 씀 */
+    display: block;
+    /* position: absolute; */
     /* 앱솔루트는 자동블럭됨 */
-    top: 53px;
-    /* 마우스 나갈때 left 값 밀기 */
-    left: 100%;
+    /* top: 53px; */
+    /* 마우스 나갈때 margin-left 값 밀기 */
+    margin-left: 100%;
     width: 0;
     height: 2px;
     background-color: lavender;
