@@ -64,7 +64,7 @@ ul::after,ol::after,.clb::after{
 .gnb ul{
     display: flex;
     /* 진행방향 오른쪽끝정렬 */
-    justify-content: flex-end;
+    justify-content: space-around;
     /* 메뉴 글자 줄바꿈방지 */
     white-space: nowrap;
 }
