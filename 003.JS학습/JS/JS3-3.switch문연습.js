@@ -1,4 +1,4 @@
-/////// JS3-2.if문연습 ///////
+/////// JS3-3.switch문연습 ///////
 
 /*********************************************************** 
       함수명 : changeImg
@@ -19,11 +19,30 @@ function changeImg() {
 
   // 1. 함수 호출 확인
 
-  console.log("나야나",btnTxt);
+  //console.log("나야나",btnTxt);
 
   // 2. 버튼별 src 이미지 경로 만들기
   var isrc;
-  if (btnTxt == "포스터"){
+
+ // switch 문 ///////////
+ switch(btnTxt){
+   case "포스터" :
+      isrc = "./images/ala1.jpg";
+      break;
+   case "장면1" :
+      isrc = "./images/ala4.jpg";
+      break;
+   case "장면2" :
+      isrc = "./images/ala3.jpg";
+      break;
+   case "장면3" :
+      isrc = "./images/ala2.jpg";
+      break;
+ }
+
+
+
+  /* if (btnTxt == "포스터"){
      isrc = "./images/ala1.jpg";
   }/// if 문 ////
   else if (btnTxt == "장면1"){
@@ -34,12 +53,49 @@ function changeImg() {
   }/// else if 문 ////
   else if (btnTxt == "장면3"){
      isrc = "./images/ala2.jpg";
-  }/// else if 문 ////
+  }/// else if 문 //// */
 
 
   // 3. 변경대상 : #scene -> scene 변수
-  // 4. 변경내용 : src 속성값 바꾸기
-  scene.src = isrc;
+
+
+  /**************************************************************** 
+    [클래스를 컨트롤하는 JS classList 객체]
+    1. 클래스 넣기 : add(클래스명)
+    예) document.querySelector('.my').classList.add('on');
+    2. 클래스 빼기 : remove(클래스명)
+    예) document.querySelector('.my').classList.remove('on');
+    3. 클래스 토글 : toggle(클래스명)
+    예) document.querySelector('.my').classList.toggle('on');
+    
+    [ 타이밍 내장 함수 : setTimeout(함수,시간)]
+    -> 함수호출 또는 코드실행을 일정시간 후 할 수 있는 JS 내장함수
+    사용법 : setTimeout(함수/익명함수코드구역, 시간); 
+    -> 시간은 1/1000초를 사용함(예 : 1000을 쓰면 1초임)
+    -> 시간에 s단위를 쓰지 않는다
+  ****************************************************************/
+
+  // 4. 클래스 off를 넣어서 왼쪽으로 사라지기
+
+  scene.classList.add('off');
+  
+  // 5. 0.5초 후 클래스 off를 지우고 on을 넣어서 들어올 준비
+  setTimeout(function(){
+  scene.classList.remove('off');
+  scene.classList.add('on');
+
+},500);
+
+  // 6. 1초 후 이미지 변경하고 클래스 on지우기
+  setTimeout(function(){
+     // 변경내용 : src 속성값 바꾸기
+     scene.src = isrc;
+  scene.classList.remove('on');
+  
+
+},1000);
+
+ 
 
 } //////////////// changeImg 함수 /////////////////////
 
