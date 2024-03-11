@@ -40,15 +40,36 @@
                 font-size: 42px;
             }
         </style>
+        <!--  외부 JS 호출하기 : defer키워드로  html 코드 로딩 후 실행가능 -->
+        <script src="./JS/JSif문연습.js"defer></script>
 
         <!-- JS코드구역 -->
         <script>
-            
-        </script>
+           
+           // html요소를 수집하려면 html요소 코드가 그려진 후 수집해야만 한다
+           // [로딩 후 수집방법 3가지]
+           // 1. script 구역을 body 최하단에 위치함
+           // 2. load 이벤트 함수 구역을 만들고 그 안에 수집코드를 쓴다
+           // 3. 외부 JS로 만들때 defer 키워드를 쓴다
+           //
+
+
+
+          /*  // 로드 구역 예시
+           window.onload = function(){
+                console.log('로딩완료');
+                // 이벤트 설정하기
+                var btns = 
+                document.querySelectorAll('.btns');
+                console.log('버튼들:', btns);
+            }; //// load 구역 ////
+          */
+
+           </script>
         
         
     </head>
-
+    
     <body>
         <!-- 전체 타이틀 -->
         <h1 class="tit">All New Aladin</h1>
@@ -57,13 +78,16 @@
         <div class="photo">
             <img id="scene" src="./images/ala1.jpg" alt="알라딘스틸컷" />
         </div>
-
+        
         <!-- 선택버튼박스 -->
         <div class="btnbx">
             <button class="btns">포스터</button>
             <button class="btns">장면1</button>
             <button class="btns">장면2</button>
             <button class="btns">장면3</button>
+            <script>
+                
+            </script>
         </div>
     </body>
 </html>
