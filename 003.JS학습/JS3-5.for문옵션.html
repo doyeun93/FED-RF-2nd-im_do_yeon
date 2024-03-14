@@ -98,13 +98,20 @@
                         break;
                     }
 
-
-                    if(btxt == 'for문옵션연습1' && (i== 2 || i==3 || i==4 || i==9)){
+                    // 3. 2~4,9 빼고 출력하기     
+                    // i가 2이상이고 4이하이고 또는 9일때  = (i== 2 || i==3 || i==4 || i==9 )
+                    if(btxt == 'for문옵션연습1' && ((i>=2&&i<=4) || i==9)){
                     continue;
-                    // 아래 코드를 안내려하고 for문 증감으로 감
                     }
 
-                    // if(btxt == 'for문옵션연습1' && (i*2)){continue;}
+                    // 4. 짝수만 빼고 돌리기
+                    // 나머지 연산자 %를 사용함 -> 2로 나눈 나머지가 0이면 짝수
+                    if(btxt == 'for문옵션연습2' && (i % 2 == 0)){
+                        continue;}
+
+
+                    if(btxt == 'for문옵션연습3' && (i % 2 == 1)){
+                        continue;}
 
                     // 출력코드
                     target.innerHTML += `<img src="./images/num/num_0${i}.png" alt="숫자">`;
