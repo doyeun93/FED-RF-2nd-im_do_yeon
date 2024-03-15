@@ -1,0 +1,95 @@
+@charset "utf-8";
+
+/* 큐브 애니메이션 CSS - cube.css */
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-image: linear-gradient(to bottom, powderblue, rgb(233, 208, 251));
+  height: 100vh;
+  
+}
+
+/* css 변수 세팅 */
+:root{
+  /* 큐브공통크기 */
+  --cube-size: 300px;
+}
+
+/* 큐브 */
+.cube{
+  position: absolute;
+  /* 정가운데 정렬 -> 50%밀고 박스의 절반크기 빼기 */
+  top: calc(50% - var(--cube-size)/2);
+  left: calc(50% - var(--cube-size)/2);
+  /* 부모는 보이는 화면 */
+  /* 박스 크기 설정 */
+  width: var(--cube-size);
+  height: var(--cube-size);
+  outline: 2px solid red;
+  /******************************************************** 
+   [입체로 설정하기]
+   - 입체로 설정할 요소의 부모박스에 아래와 같이 설정해준다
+     (부모는 싸고 있는 요소)
+      transform-style 속성값은 2가지
+      1. flat (기본값) : 2D
+      2. preserve-3d : 3D -> 이 값으로 설정함
+  ********************************************************/
+  transform-style: preserve-3d; /* 부모에게 3d 효과 줌 */
+
+  /* 입체를 잘보이게 약간 회전함 */
+  transform: rotateX(10deg) rotateY(30deg);
+}
+
+/* 큐브각면 공통 */
+.cube span{
+  position: absolute;
+  /* 앱솔루트는 자동 block */
+  width: 100%;
+  height: 100%;
+  outline: 2px dotted blue;
+  /* 투명도 */
+  opacity: .8;
+}
+
+/* 1. 앞면 */
+.cube span:nth-child(1){
+  /* 배경 이미지 넣기 */
+  background: url(../images/seoulCity.jpg) no-repeat center/cover;
+
+  /* 화면 방향 z축 이동 -> translateZ 속성을 사용 / 양의 값은 앞쪽 , 음의 값은 뒤쪽*/
+  transform: translateZ(calc(var(--cube-size)/2));
+  /* 큐브의 앞쪽이동은 큐브 크기의 절반 */
+}
+
+/* 2. 오른쪽면 */
+.cube span:nth-child(2){
+  /* 배경 이미지 넣기 */
+  background: url(../images/newyorkCity.jpg) no-repeat center/cover;
+
+  /*y축 회전 + 화면방향(z축) 이동*/
+  transform: rotateY(90deg) translateZ(calc(var(--cube-size)/2));
+  /* 큐브의 앞쪽이동은 큐브 크기의 절반 */
+}
+
+/* 3. 뒷면 */
+.cube span:nth-child(3){
+  /* 배경 이미지 넣기 */
+  background: url(../images/parisCity.jpg) no-repeat center/cover;
+
+  /*y축 회전 + 화면방향(z축) 이동*/
+  transform: rotateY(180deg) translateZ(calc(var(--cube-size)/2));
+  /* 큐브의 앞쪽이동은 큐브 크기의 절반 */
+}
+/* 4. 뒷면 */
+.cube span:nth-child(4){
+  /* 배경 이미지 넣기 */
+  background: url(../images/parisCity.jpg) no-repeat center/cover;
+
+  /*y축 회전 + 화면방향(z축) 이동*/
+  transform: rotateY(180deg) translateZ(calc(var(--cube-size)/2));
+  /* 큐브의 앞쪽이동은 큐브 크기의 절반 */
+}
