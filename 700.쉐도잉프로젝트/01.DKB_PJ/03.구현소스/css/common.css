@@ -170,17 +170,35 @@
   background-image: url(../images/bg_mainvisual3.jpg);
 }
 
-/* 캐릭터박스 */
+/* 캐릭터박스 -> 캐릭터 속박스가 있는 공간을 확보해준다*/
 .cat-box{
   position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  bottom: 0;
+  left: 0;
+  bottom: 5%;
   /* 부모는 ban-area */
-  width: 1360px;
-  height: 300px;
+  width: 100%;
+  /* height: 300px; */
   outline-color: red;
-  background-color: rgba(250, 235, 215, 0.552);
+ 
 }
-
+/* 캐릭터 속박스 - static한 박스(공간차지) */
+.cat-inbox{
+  /* 플렉스박스 */
+  display: flex;
+  /* 플렉스 자식 사이 간격 - gap :위아래 양쪽*/
+  gap: 0 1vw;
+ /* 가로 최대 크기 설정 */
+ max-width: 1360px;
+ /* 가로 중앙 정렬 */
+ margin: 0 auto;
+}
+/* 캐릭터 개별박스 등분할 */
+.cat-inbox article{
+  flex: 1;
+ 
+}
+/* 캐릭터 이미지박스 */
+.imbx img{
+  width: 100%;
+}
 /************* 3. 하단영역 ************/
