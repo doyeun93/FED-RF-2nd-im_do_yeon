@@ -21,6 +21,22 @@ body {
   --divide-num: 2;
 }
 
+/* 작동상태 */
+.btngo{
+ position: fixed;
+ top: 5%;
+ left: 50%;
+ transform: translateX(-50%);
+ font-size: 40px;
+ border-radius: 10px;
+ cursor: pointer;
+}
+
+/* 버튼 오버시 */
+.btngo:hover{
+  background-color:rgb(206, 122, 255);
+}
+
 /* 큐브 */
 .cube {
   position: absolute;
