@@ -34,7 +34,7 @@ body {
 
 /* 버튼 오버시 */
 .btngo:hover{
-  background-color:rgb(206, 122, 255);
+  background-color: skyblue;
 }
 
 /* 큐브 */
@@ -149,6 +149,11 @@ body {
   animation-play-state: paused;
   /* paused (정지상태)
   running(작동상태 -> 기본값) */
+}
+
+/* 애니메이션 작동 클래스(.on) */
+.rotate-cube.on{
+  animation-play-state: running;
 }
 
 /* 큐브 애니메이션 키프레임 */

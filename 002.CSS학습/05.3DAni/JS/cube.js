@@ -15,4 +15,29 @@ const btngo = document.querySelector('.btngo');
 // 1-2. 변경대상 : .cube
 const cube = document.querySelector('.cube');
 
-console.log("대상:",btngo,cube);
+// console.log("대상:",btngo,cube);
+
+// 2. 이벤트 속성 세팅하기
+// 대상 : .btngo -> btngo 변수
+
+// function은 코드 저장소, 변수는 값 저장소
+// 이벤트 속성에 익명함수를 할당하면 이벤트 발생시 익명함수 내부의 코드가 실행됨
+btngo.onclick = function (){
+  // 1. 함수 호출 확인(this는 버튼 자신)  
+  console.log('나야나', this.innerText);
+
+  // 2. 변경대상 : .cube -> Cube변수
+  // 3. 변경내용 : 큐브에 클래스 on을 없으면 넣고 있으면 제거 -> 미리 세팅된 애니 작동/ 멈춤됨
+  cube.classList.toggle('on');
+  // classList 는 요소의 클래스만 전문적으로 다뤄주는 JS 내장객체
+  // 메서드로  'add(), remove(), toggle() - 넣기 또는 지우기' 이 있다
+
+  // 4. 버튼 글자 변경하기
+  // -읽어 온 버튼 글자가 "실행"이면 "정지"
+  // "실행"이 아니면 "실행"을 텍스트로 넣는다 -> 조건 연산자(삼항연산자) 사용 : 비?집:놀이동산
+  // 두번째 쓴 this.innerText는 값을 읽어와서 조건 연산자를 할당해서 첫번째 쓴 this.innerText에 값을 보여줌
+  this.innerText = this.innerText == '실행' ? '정지' : '실행' 
+
+}; //// click 이벤트 함수  //// 
+
+
