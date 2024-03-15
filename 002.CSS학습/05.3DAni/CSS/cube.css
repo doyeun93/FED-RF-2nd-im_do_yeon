@@ -131,6 +131,8 @@ body {
   animation: cube-ani 3.5s linear infinite;
   /* 처음에 정지상태 */
   animation-play-state: paused;
+  /* paused (정지상태)
+  running(작동상태 -> 기본값) */
 }
 
 /* 큐브 애니메이션 키프레임 */
