@@ -187,10 +187,12 @@
   display: flex;
   /* 플렉스 자식 사이 간격 - gap :위아래 양쪽*/
   gap: 0 1vw;
- /* 가로 최대 크기 설정 */
- max-width: 1360px;
- /* 가로 중앙 정렬 */
- margin: 0 auto;
+  /* 가로 최대 크기 설정 */
+  max-width: 1360px;
+  /* 가로 중앙 정렬 */
+  margin: 0 auto;
+  /* 양쪽패딩 */
+  padding: 0 1vw;
 }
 /* 캐릭터 개별박스 등분할 */
 .cat-inbox article{
@@ -201,4 +203,30 @@
 .imbx img{
   width: 100%;
 }
+/* 캐릭터 이름 이미지 박스 */
+.iname{
+  display: block;
+  margin-top: -19%;
+  /* 앱솔루트없이 마진으로 상단이미지와 겹치게하기
+  %의 기준은 마진주기 전 박스의 세로 크기를 기준한다 */
+  text-align: center;
+}
+/* 캐릭터 이름 이미지 */
+.iname img{
+    width: 40%;
+}
+/* 두번째 이미지 숨기기*/
+.iname img:last-child{
+  display: none;
+}
+/* 오버시 두번째 이미지 보이기 */ 
+.cat-inbox article:hover .iname img:last-child{
+  display: inline;
+}
+/* 오버시 첫번째 이미지 숨기기 */
+.cat-inbox article:hover .iname img:first-child{
+  display: none;
+}
+
+
 /************* 3. 하단영역 ************/
