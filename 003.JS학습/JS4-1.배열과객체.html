@@ -47,7 +47,7 @@
     </style>
     <script>
       // 로딩구역 //////////////////////
-      // DOMContentLoaded는 html태그로딩후 발생하는 이벤트임(load 이벤트와 비교)
+      // DOMContentLoaded는 html 태그로딩후 발생하는 이벤트임(load 이벤트와 비교)
       window.addEventListener("DOMContentLoaded", loadFn);
 
     /****************************************************************************** 
@@ -71,7 +71,51 @@
 
         // new 키워드로 선언과 할당을 동시에 할 수 있다
         // 소괄호 안에 콤마로 값을 구분하여 사용함
+        // 배열변수에 할당한 데이터 불러오기
+        // 호출방법 : 배열변수명[순번] -> 순번은 0부터
 
+        console.log('arr1:',arr1, typeof arr1); 
+        console.log('arr1은 배열인가?:',Array.isArray(arr1)); 
+        // typeof(변수) / typeof 변수 -> 데이터형 출력
+        // 숫자는 number / 문자는 string / 배열, 객체는 object라고 찍힘
+        // 배열,객체일 경우 object라고 출력됨
+        //배열인지 알고자 할 경우, Arrays.isArray(변수)를 사용하여 출력
+
+        // 출력대상 : target[0]
+        target[0].innerHTML = `
+            이름 :${arr1[5]} / 
+            키 :${arr1[1]} / 
+            몸무게 :${arr1[2]} / 
+            대표작 :${arr1[3]} 
+        `;
+
+        // 3-2. 배열 리터럴 방식의 선언과 할당 
+        // 배열변수명 = [값1, 값2, 값3,.....]
+        // new 키워드없이 바로 쓸 수 있는 객체임
+        // 이런 배열과 같은 객체를 정적객체(static object)라고 함
+
+        const arr2= ["삼일절", "태극기", 1919, function(){alert('대한독립만세!')},];
+        // 배열 끝의 콤마는 원래 쓰면 에러나지만 최신 브라우저에서 에러안나도록 처리됨
+        // 요즘은 추가 배열 데이터를 위해 마지막 콤마를 쓰는 것이 일반적임
+
+        console.log('arr2는 배열인가?',Array.isArray(arr2));
+
+        // 출력대상 target[1]
+        target[1].innerHTML = `
+            ${arr2[0]}은 ${arr2[2]}년에 일제에 항거하여 ${arr2[1]}를 들고 일어난 민중봉기를 기념하는 날이다
+        `;
+
+        // 툴팁띄우기
+        target[1].title = '만세를 하시려면 클릭하세요!';
+        // 손가락모양 커서
+        target[1].style.cursor = 'pointer';
+
+        // 배열의 함수를 클릭이벤트에 연결하기
+        target[1].onclick = arr2[3];
+
+     
+
+    
       } /// loadFn 함수 ///////////////////////////////
 
 
