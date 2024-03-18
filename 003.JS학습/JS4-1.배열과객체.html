@@ -50,32 +50,39 @@
       // DOMContentLoaded는 html 태그로딩후 발생하는 이벤트임(load 이벤트와 비교)
       window.addEventListener("DOMContentLoaded", loadFn);
 
-    /****************************************************************************** 
+      /****************************************************************************** 
                 함수명 : loadFn
                 기능 : 로딩 후 실행함수
     ******************************************************************************/
-      
-    function loadFn() {
+
+      function loadFn() {
         // 1. 함수 호출확인
         console.log("로딩완료");
 
         // 2. 출력대상 : .cont
-        const target = document.querySelectorAll('.cont');
+        const target = document.querySelectorAll(".cont");
 
-        console.log('타겟:', target);
+        console.log("타겟:", target);
 
         // 3. 내용 출력하기
         // 3-1. new 키워드와 함께 배열 선언, 할당하기
 
-        const arr1 = new Array("1993년 10월 12일","183cm","78kg","너도 인간이니?,치인트",4528,"서강준");
+        const arr1 = new Array(
+          "1993년 10월 12일",
+          "183cm",
+          "78kg",
+          "너도 인간이니?,치인트",
+          4528,
+          "서강준"
+        );
 
         // new 키워드로 선언과 할당을 동시에 할 수 있다
         // 소괄호 안에 콤마로 값을 구분하여 사용함
         // 배열변수에 할당한 데이터 불러오기
         // 호출방법 : 배열변수명[순번] -> 순번은 0부터
 
-        console.log('arr1:',arr1, typeof arr1); 
-        console.log('arr1은 배열인가?:',Array.isArray(arr1)); 
+        console.log("arr1:", arr1, typeof arr1);
+        console.log("arr1은 배열인가?:", Array.isArray(arr1));
         // typeof(변수) / typeof 변수 -> 데이터형 출력
         // 숫자는 number / 문자는 string / 배열, 객체는 object라고 찍힘
         // 배열,객체일 경우 object라고 출력됨
@@ -89,28 +96,33 @@
             대표작 :${arr1[3]} 
         `;
 
-        // 3-2. 배열 리터럴 방식의 선언과 할당 
+        // 3-2. 배열 리터럴 방식의 선언과 할당
         // 배열변수명 = [값1, 값2, 값3,.....]
         // new 키워드없이 바로 쓸 수 있는 객체임
         // 이런 배열과 같은 객체를 정적객체(static object)라고 함
 
-        const arr2= ["삼일절", "태극기", 1919, 
-        function(){ alert('대한독립만세!'); console.log('this는 누구?', this);
-        // this는 호출한 요소 자신
-         this.style.background = 'url(https://blog.kakaocdn.net/dn/H4k8p/btqUUqx7TLT/VAMfjsV79wqyKIfOGXn5P0/img.jpg) repeat-x 0/auto 100%';
-         // 트랜스폼 변경하기
-         this.style.transform = 'scale(1.5) rotate(720deg)';
-         // 트랜지션
-         this.style.transition = '2s ease-in-out';
-        },
-    ];
+        const arr2 = [
+          "삼일절",
+          "태극기",
+          1919,
+          function () {
+            alert("대한독립만세!");
+            console.log("this는 누구?", this);
+            // this는 호출한 요소 자신
+            this.style.background =
+              "url(https://blog.kakaocdn.net/dn/H4k8p/btqUUqx7TLT/VAMfjsV79wqyKIfOGXn5P0/img.jpg) repeat-x 0/auto 100%";
+            // 트랜스폼 변경하기
+            this.style.transform = "scale(1.5) rotate(720deg)";
+            // 트랜지션
+            this.style.transition = "2s ease-in-out";
+          },
+        ];
         // 배열 끝의 콤마는 원래 쓰면 에러나지만 최신 브라우저에서 에러안나도록 처리됨
         // 요즘은 추가 배열 데이터를 위해 마지막 콤마를 쓰는 것이 일반적임
 
-    //function(){} 익명함수 - 이름없고 코드만 저장 -> 배열값으로 문자, 숫자, 배열, 객체, 함수 등 사용가능
+        //function(){} 익명함수 - 이름없고 코드만 저장 -> 배열값으로 문자, 숫자, 배열, 객체, 함수 등 사용가능
 
-
-        console.log('arr2는 배열인가?',Array.isArray(arr2));
+        console.log("arr2는 배열인가?", Array.isArray(arr2));
 
         // 출력대상 target[1]
         target[1].innerHTML = `
@@ -118,9 +130,9 @@
         `;
 
         // 툴팁띄우기
-        target[1].title = '만세를 하시려면 클릭하세요!';
+        target[1].title = "만세를 하시려면 클릭하세요!";
         // 손가락모양 커서
-        target[1].style.cursor = 'pointer';
+        target[1].style.cursor = "pointer";
 
         // 배열의 함수를 클릭이벤트에 연결하기
         target[1].onclick = arr2[3];
@@ -138,7 +150,7 @@
         arr3.length = 8;
         // 중요 : 배열개수를 미리 세팅했어도 더 추가가 얼마든지 가능함
 
-        console.log('arr3 배열개수:',arr3);
+        console.log("arr3 배열개수:", arr3);
 
         // 각 배열주소에 값을 할당하기
         arr3[0] = "산";
@@ -149,31 +161,63 @@
         arr3[5] = "훨훨";
         arr3[6] = "훠어얼";
         arr3[7] = "날아서~";
-     
+
         // 배열값 전체찍기 : valueOf()
-        console.log('arr3배열전체값:',arr3.valueOf());
-        console.log('arr3배열전체값:',arr3);
+        console.log("arr3배열전체값:", arr3.valueOf());
+        console.log("arr3배열전체값:", arr3);
         // 참고로 변수만 찍어도 브라우저가 valueOf()를 찍어줌
 
         // 변수 값 사이에 구분자를 넣고 문자형으로 배열값을 변경하기
         // join(구분자) -> 구분자를 넣고 문자값 생성 (문자데이터가 됨)
-        console.log('arr3배열 구분자로 문자찍기:',arr3.join('^'));
+        console.log("arr3배열 구분자로 문자찍기:", arr3.join("^"));
 
         // 배열값 맨뒤에 동적으로 배열값 추가하기
         // push(값) -> 배열의 맨 뒤에 값을 추가하는 메서드
 
-        arr3.push('김창완작사');
+        arr3.push("김창완작사");
 
         // 배열값 사이에 별(★)을 넣어서 출력하기
         // 출력대상 : target[2]
 
-        target[2].innerHTML = arr3.join('★');
+        target[2].innerHTML = arr3.join("★");
 
         // 배열 메서드는 중요하므로 별도로 훈련함
-        
+
+        // 4. 객체를 선언하여 생성해 보자
+        // new Object()를 사용하여 생성
+        // 배열과 마찬가지로 객체는 형식이 변경되지 않도록 let보다는 const를 많이 씀
+
+        const SSG = new Object({
+          "너의 이름은?": "손석구",
+          생일: "1983년 2월 7일",
+          키: "178cm",
+          몸무게: "80kg",
+          혈액형: "c형",
+          성별: "남성",
+          대표작: "나의 해방일지, 범죄도시2",
+          소속사: "샛별당엔터",
+          비밀번호: 7777,
+          팬레터: function (){},
+        });
+
+        // 객체 확인
+        console.log('석구객체:', SSG);
+
+        // 객체출력하기  | 배열은 ${[]}에 []에 숫자를 넣고 객체를 이름을 써줌
+        // 출력대상 : target[3]
+        target[3].innerHTML = `
+            당신이 좋아하는 남자배우는?  ${SSG["너의 이름은?"]}
+            / 몸무게를 아세요? ${SSG.몸무게} <br>
+            생년월일은?  ${SSG["생일"]}
+            / 대표작은? ${SSG["대표작"]}
+        `;
+
+        // 2줄이니 줄간격 조정
+        target[3].style.lineHeight = "40px";
+
+
+
       } /// loadFn 함수 ///////////////////////////////
-
-
 
       /********************************************** 
                 [ 배열(Array) 변수란? ]
@@ -204,7 +248,7 @@
 
             **********************************************/
 
- /******************************************** 
+      /******************************************** 
                   [ 객체(Object) 란? ]
 
             - 일반적으로 JS에서 객체란 속성과 메서드를 가지는 프로그램 단위체
