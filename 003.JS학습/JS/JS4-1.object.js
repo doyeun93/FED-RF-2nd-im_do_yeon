@@ -168,7 +168,7 @@ yjObj.director = "장재현";
 // 3. 배우
 yjObj.actor = "최민식,김고은,유해진,이도현";
 // 4. 장르
-(yjObj.genre = 미스터리), 스릴러, 오컬트;
+yjObj.genre = "미스터리, 스릴러, 오컬트";
 // 5. 관람가
 yjObj.ratings = "15세";
 // 6. 예고편
