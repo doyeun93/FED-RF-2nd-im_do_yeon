@@ -202,18 +202,18 @@ lekObj.trailer = function () {
 }; /// trailer 메서드
 
 //지현 오브젝트 -> 변경가능하게 let으로
-let jjob = {};
+let jhObj = {};
 //object 에다가 오브젝트 형만 만들고 객체내용은 아래에서
 
 //1. 영화제목
-jjob.title = "7광구";
+jhObj.title = "7광구";
 //2. 감독
-jjob.drector = "김지훈";
+jhObj.drector = "김지훈";
 //3. 배우
-jjob.actor = "하지원,안성기";
-jjob.ganre = "SF";
-jjob.ratings = "15세";
-jjob.trailer = function () {
+jhObj.actor = "하지원,안성기";
+jhObj.ganre = "SF";
+jhObj.ratings = "15세";
+jhObj.trailer = function () {
   console.log("예고편:영화아이디");
   //예고편 플레이 함수 호출
   playMovie("CrVrk5Vy96o");
