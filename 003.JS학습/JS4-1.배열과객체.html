@@ -408,16 +408,33 @@
           // 2. 영화박스에 아이프레임 넣기
           mvbox.innerHTML = `
             <div id="mv">
-               //유튜브 아이프레임
-                <iframe width="640" height="360" src="https://www.youtube.com/embed/LmS5KMJTWlA" 
-                title="[코코] 메인 예고편" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; 
-                gyroscope; picture-in-picture; web-share" allowfullscreen>
                 
-                </iframe>
-                // 닫기버튼
+                <iframe src="https://www.youtube.com/embed/${mcode}?autoplay=1" 
+                allow="autoplay"> </iframe>
+                
                 <button class="cbtn">×</button> 
             </div>
           `;
+
+          // 3. 삽입 된 동영상 박스 CSS 설정하기
+            let mv = document.querySelector('#mv');
+            let css = mv.style;
+
+            css.position = "fixed";
+            css.top = "50%";
+            css.left = "50%";
+            css.transform = "translate(-50%, -50%)";
+            css.width = "700px";
+            css.height = "450px";
+            css.backgroundColor = "#000";
+
+            // 아이프레임 css설정
+            let ifr = mv.querySelector('iframe');
+            let ifrcss = ifr.style;
+
+            ifrcss.border = "none";
+            ifrcss.width = "100%";
+            ifrcss.height = "100%";
 
         }  //////// playMovie 함수 /////////////
 
