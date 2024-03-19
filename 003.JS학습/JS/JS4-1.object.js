@@ -37,7 +37,7 @@ mjObj.actor = "김민희,김태리";
 // 4. 장르
 mjObj.genre = "드라마";
 // 5. 관람가
-mjObj.rating = "19세";
+mjObj.ratings = "19세";
 // 6. 예고편
 mjObj.trailer = function () {
   console.log("예고편:영화아이디");
@@ -82,7 +82,7 @@ jaeObj.actor = "마동석,손석구";
 // 4. 장르
 jaeObj.genre = "범죄";
 // 5. 관람가
-jaeObj.rating = "19세";
+jaeObj.ratings = "19세";
 // 6. 예고편
 jaeObj.trailer = function () {
   console.log("예고편:영화아이디");
@@ -296,3 +296,24 @@ suObj.trailer = function () {
         }; ////// trailer 함수 //////
 
 
+     // 현우의 오브젝트!
+                // 자신만의 오브젝트! -> 변경가능하게 let으로 선언한다!
+                let koObj = {};
+                // 오브젝트 형만 만들고 객체내용은 아래에서!
+
+                // 1. 영화 제목
+                koObj.title = "악마를 보았다";
+                // 2. 감독
+                koObj.director = "김지운";
+                // 3. 배우
+                koObj.actor = "이병헌,최민식";
+                // 4. 장르
+                koObj.genre = "범죄";
+                // 5. 관람가
+                koObj.ratings = "19세";
+                // 6. 예고편
+                koObj.trailer = function () {
+                    console.log("예고편:영화아이디");
+                    // 예고편 플레이 함수 호출!
+                    playMovie("xwWgp1bqVwE");
+                }; /////////// trailer 메서드 ///////////
