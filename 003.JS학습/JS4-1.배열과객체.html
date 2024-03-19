@@ -349,6 +349,7 @@
         dyObj.trailer = function(){
             console.log('예고편:영화아이디');
             // 예고편 플레이 함수호출
+            playMovie('LmS5KMJTWlA');
 
         };  ////// 트레일러 메서드 /////////////
 
@@ -407,8 +408,12 @@
           // 2. 영화박스에 아이프레임 넣기
           mvbox.innerHTML = `
             <div id="mv">
-                //유튜브 아이프레임
+               //유튜브 아이프레임
+                <iframe width="640" height="360" src="https://www.youtube.com/embed/LmS5KMJTWlA" 
+                title="[코코] 메인 예고편" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; 
+                gyroscope; picture-in-picture; web-share" allowfullscreen>
                 
+                </iframe>
                 // 닫기버튼
                 <button class="cbtn">×</button> 
             </div>
