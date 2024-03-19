@@ -42,7 +42,7 @@ mjObj.ratings = "19세";
 mjObj.trailer = function () {
   console.log("예고편:영화아이디");
   // 예고편 플레이 함수 호출!
-  platMovie("whldChqCsYk");
+  playMovie("whldChqCsYk");
 }; /////////// trailer 메서드 ///////////
 
 //이지영의 오브젝트 -> 변경 가능하게 let으로
@@ -202,18 +202,18 @@ lekObj.trailer = function () {
 }; /// trailer 메서드
 
 //지현 오브젝트 -> 변경가능하게 let으로
-let jhObj = {};
+let jjob = {};
 //object 에다가 오브젝트 형만 만들고 객체내용은 아래에서
 
 //1. 영화제목
-jhObj.title = "7광구";
+jjob.title = "7광구";
 //2. 감독
-jhObj.drector = "김지훈";
+jjob.director = "김지훈";
 //3. 배우
-jhObj.actor = "하지원,안성기";
-jhObj.ganre = "SF";
-jhObj.ratings = "15세";
-jhObj.trailer = function () {
+jjob.actor = "하지원,안성기";
+jjob.genre = "SF";
+jjob.ratings = "15세";
+jjob.trailer = function () {
   console.log("예고편:영화아이디");
   //예고편 플레이 함수 호출
   playMovie("CrVrk5Vy96o");
