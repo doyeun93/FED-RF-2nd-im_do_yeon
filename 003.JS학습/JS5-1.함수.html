@@ -11,8 +11,8 @@
                 기본적으로 body가 보이는 화면을 유지하다가
                 컨텐츠가 많아져서 스크롤 생성시 body도 늘어남! */
 
-        background: url(https://images.adsttc.com/media/images/5f73/76e0/63c0/17bc/c900/04e8/large_jpg/HK_1_N3.jpg?1601402564)
-          no-repeat fixed center/cover;
+        /* background: url(https://images.adsttc.com/media/images/5f73/76e0/63c0/17bc/c900/04e8/large_jpg/HK_1_N3.jpg?1601402564)
+           no-repeat fixed center/cover; */
       }
       /* 배경박스 */
       .bgbox {
@@ -420,12 +420,63 @@
 
 
          } ////////////// showFireworks 함수 //////////////
+
+
+         ////// 로딩시 호출설정 //////////////////
+         window.addEventListener('load',loadFn);
+
+         /***************************************************
+          * 함수명 : loadFn
+          * 기능 : 페이지 로딩 후 실행함수 
+          ***************************************************/
+         function loadFn(){
+          // 1. 함수호출 확인
+          console.log('로딩 완료');
+
+          // [배경박스에 ul>li를 넣고 배경이미지 세팅하기]
+          // 1. 대상선정 : .bgbox
+          const bgbox = document.querySelector('.bgbox');
+
+          // 2. html 넣기 : 기준은 scene 배열변수만큼 넣기
+          // 2-1. 배열개수
+          let cntScene = scene.length;
+          console.log('배열개수:',cntScene);
+
+          // 2-2. 배열 개수만큼 for문 돌려서 li만들기
+          // html 코드를 담을 변수
+          let hcode = '<ul>';
+
+          // 배열개수만큼 li 만들어서 hcode변수에 할당  
+          // li에 배경 css 넣기
+          
+          for(let i=0; i<cntScene; i++){
+            hcode += ` <li
+            style="background:url(${scene[i]}) no-repeat center/cover"
+            ></li>`;
+
+          } /////// for 문 ///////////////////
+
+          // 닫는 ul 넣기
+          hcode += '</ul>';
+
+          
+          // 코드 확인
+          console.log('hcode:',hcode);
+
+
+          // 2-3. 대상에 html넣기
+          bgbox.innerHTML = hcode;
+
+         } ///////////////////// loadFn 함수 ////////////////////
+         ///////////////////////////////////////////////////////
     </script>
   </head>
 
   <body>
     <!-- 배경박스 -->
-    <div class="bgbox"></div>
+    <div class="bgbox">
+
+    </div>
 
     <!-- 프로젝트 버튼 
       - function korea에서 마지막 리턴 값 이후 입력한 값 출력을 위해 처음 호출된 onclick=korea에 호출해줌-->
