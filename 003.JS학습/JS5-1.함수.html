@@ -448,9 +448,11 @@
 
           // 배열개수만큼 li 만들어서 hcode변수에 할당  
           // li에 배경 css 넣기
-          
+          // 첫번째 li만 클래스 on 넣기 -> ${i==0?'class="on"':''} : i가 0이면(true) 클래스on, 0이 아니면(false) 빈 스트링(= '')
+
           for(let i=0; i<cntScene; i++){
             hcode += ` <li
+            ${i===0?'class="on"':''}
             style="background:url(${scene[i]}) no-repeat center/cover"
             ></li>`;
 
@@ -466,6 +468,24 @@
 
           // 2-3. 대상에 html넣기
           bgbox.innerHTML = hcode;
+
+          // 3. 순차적으로 li에 클래스 on 넣어서 장면 넘기기
+          // setInterval() 타이밍 내장함수 사용
+
+          let listSeq = 0;
+          // 배경 li 변수에 할당
+          const bgList = bgbox.querySelectorAll('li'); 
+
+          setInterval(() => {
+            // 1. 리스트 이전순번 클래스 제거하기
+            bgList[listSeq].classList.remove('on');
+            // 2. 순번변수 1씩 증가
+            listSeq++;
+            // 3. 한계값 체크 (9가 한계값, 10이되면 처음번호 0으로 변경)
+            if(listSeq == 10) listSeq = 0;
+            // 4. 리스트 다음 순번 클래스 넣기
+            bgList[listSeq].classList.add('on');
+          }, 3000);
 
          } ///////////////////// loadFn 함수 ////////////////////
          ///////////////////////////////////////////////////////
