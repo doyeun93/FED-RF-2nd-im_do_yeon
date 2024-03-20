@@ -410,9 +410,12 @@
           console.log(fireworks);
           // 3. 변경 적용하기 : 보이게하기
           fireworks.style.display = 'block';
-
+          
           // 4. 3초 후 다시 안보이게 처리하기
-          setTimeout(showFireworks,3000);
+          setTimeout(() => {
+            fireworks.style.display = 'none';
+          }, 3000);
+          
 
 
          } ////////////// showFireworks 함수 //////////////
