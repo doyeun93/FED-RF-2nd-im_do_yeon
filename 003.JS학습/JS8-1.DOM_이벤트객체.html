@@ -54,6 +54,20 @@
             // 함수호출
             console.log('로딩완료!');
 
+             // 타겟 로그찍기
+             const showLog = 
+             x => console.log(x,":",
+                    "\n cTg:",event.currentTarget,
+                    "\n tg:",event.target,
+                    "\n cancelable:",event.cancelable,
+                    "\n bubbles:",event.bubbles,
+                    "\n type:",event.type,
+                    "\n view:",event.view,
+                    "\n eventPhase:",event.eventPhase,
+                    "\n isTrusted:",event.isTrusted,
+                    );
+
+
         // [공통요구사항]
         // 각 포함 요소들에 클릭 이벤트 발생시 배경색 변경하기 기능구현
         // 대상들 : body, div, p, a
@@ -66,6 +80,9 @@
             // 이벤트 버블링 막기
             e.stopPropagation();
             // event.stopPropagation();
+
+            // 이벤트 로그 찍기
+            showLog('아들방');
         };
 
         // Event객체를 사용한 경우와 이벤트 함수 내부에 전달되는 
