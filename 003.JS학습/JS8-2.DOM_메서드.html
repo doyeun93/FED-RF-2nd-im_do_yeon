@@ -69,10 +69,34 @@
 
          // 1. 대상 선정 : .smenu
          const smenu =  qsa('.smenu');
+         // 대상개수
+         let cntSmenu = smenu.length;
 
-         console.log('메뉴:',smenu);
+         console.log('메뉴:',smenu,cntSmenu);
 
-         
+         // 2. 이벤트 설정하기 
+         for(let i=0; i<cntSmenu; i++){
+            smenu[i].onmouseover = () => {
+                // 변경대상 
+                smenu[i].querySelector('div').style.height = "200px";
+                
+            }; /// mouseover 이벤트 함수 //////////
+            
+            smenu[i].onmouseout = () => {
+                smenu[i].querySelector('div').style.height = "0";
+
+
+            }; /// mouseout 이벤트 함수 //////////
+
+         } /////// for문 /////////////
+
+         // [이벤트 비교]
+         // mouseover / mouseout => 사용시 버블링 발생함
+         // -> 요소위에 오버시 / 아웃시
+         // mouseenter / mouseleave => 사용시 버블링 발생 안함
+         // -> 요소 경계선 안으로 들어갈 때 / 경계선을 나갈 때 
+
+
       } ///////////////////////// loadFn 함수 ///////////////////
     </script>
   </head>
