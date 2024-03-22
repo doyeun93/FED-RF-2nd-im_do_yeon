@@ -80,6 +80,8 @@ function loadFn() {
   function goSlide() {
     // 오른쪽 버튼인 .ab2인가?
     let isRbtn = this.classList.contains('ab2'); 
+    // [classList 객체의 contains() 메서드] -> 해당요소의 특정 클래스인지 여부를 리턴함
+    // 해당 클래스가 있으면 true, 없으면 false
     
     console.log("나 슬라이드야",this,isRbtn);
     // this는 호출한 버튼 자신(abtn ab)
@@ -87,6 +89,32 @@ function loadFn() {
     // 2. 오른쪽 버튼이면 ++, 아니면 --
     isRbtn?  snum++ : snum--;
     
+    // 3. 한계값 설정하기
+    // 한계값일때 각 버튼 숨기기
+    // 3-1. 오른쪽 버튼일 경우 0보다 작으면 숨기기
+    if(snum<0){
+        // snum 0으로 고정
+        snum = 0;
+        
+        
+    }
+    else if(snum>4){
+        // snum 4로 고정
+        snum = 4;
+        
+    } /// else if //
+    
+    // 4. 마지막 구역에서 버튼 숨기기
+    if(snum ===0 || snum === 4){
+        // 해당 버튼 숨기기
+        this.style.display = 'none';
+    }
+    else {
+        // 버튼 다시 보이기
+        for(let x of abtn){
+         x.style.display = 'block';     
+        }  //// for of //////
+    } ///// else //////////
 
     
     console.log("이동%:", -100 * snum + "%");
