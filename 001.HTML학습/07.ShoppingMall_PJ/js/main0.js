@@ -6,11 +6,10 @@ const qsa = (x) => document.querySelectorAll(x);
 
 // addEvent 함수
 // ele - 요소, evt - 이벤트, fn - 함수
-const addEvt = 
-(ele, evt, fn) => ele.addEventListener(evt, fn);
+const addEvt = (ele, evt, fn) => ele.addEventListener(evt, fn);
 
 // HTML태그 로딩후 loadFn함수 호출! ///
-addEvt(window,"DOMContentLoaded", loadFn);
+addEvt(window, "DOMContentLoaded", loadFn);
 
 /***************************************************** 
     [ 슬라이드 이동 기능정의 ]
@@ -39,35 +38,60 @@ addEvt(window,"DOMContentLoaded", loadFn);
     기능: 로딩 후 버튼 이벤트 및 기능구현
 ******************************************/
 function loadFn() {
-    console.log("로딩완료!");
+  console.log("로딩완료!");
 
-    // 이동버튼 대상 : .abtn
-    const abtn = qsa('.abtn');
-    // 변경대상 : #slide
-    const slide = qs('#slide');
-    //console.log(abtn, slide);
+  // 이동버튼 대상 : .abtn
+  const abtn = qsa(".abtn");
+  // 변경대상 : #slide
+  const slide = qs("#slide");
+  //console.log(abtn, slide);
 
-    // 슬라이드 순번 전역변수
-    let snum = 0;
+  // 슬라이드 순번 전역변수
+  let snum = 0;
 
-    // 2. 오른쪽 버튼 클릭시 기능 구현
+  // 2. 버튼을 모두 이벤트 설정하기
+  for (let x of abtn) {
+    x.onclick = goSlide;
+  } ///// for of ////////////
+
+  /*  2. 오른쪽 버튼 클릭시 기능 구현
     abtn[1].onclick = () =>{
         // 슬라이드 순번 증가
-        snum++;
+         snum++;
         console.log('이동%:',(-100*snum)+'%')
         slide.style.left = (-100*snum)+'%';
-        slide.style.transition = ".6s ease-in-out";
+        slide.style.transition = ".6s ease-in-out"; 
    
     };
-    // 3. 왼쪽 버튼 클릭시 기능 구현
+     3. 왼쪽 버튼 클릭시 기능 구현
     abtn[0].onclick = () =>{
         // 슬라이드 순번 증가
-        snum--;
+        /* snum--;
         console.log('이동%:',(-100*snum)+'%')
         slide.style.left = (-100*snum)+'%';
-        slide.style.transition = ".6s ease-in-out";
+        slide.style.transition = ".6s ease-in-out"; 
    
-    };
+    }; */
+
+  /******************************************************
+   * 함수명 : goSlide
+   * 기능 : 슬라이드 이동
+   ******************************************************/
+  function goSlide() {
+    // 오른쪽 버튼인 .ab2인가?
+    let isRbtn = this.classList.contains('ab2'); 
     
+    console.log("나 슬라이드야",this,isRbtn);
+    // this는 호출한 버튼 자신(abtn ab)
+
+    // 2. 오른쪽 버튼이면 ++, 아니면 --
+    isRbtn?  snum++ : snum--;
+    
+
+    
+    console.log("이동%:", -100 * snum + "%");
+    slide.style.left = -100 * snum + "%";
+    slide.style.transition = ".6s ease-in-out";
+  } ////// goSlide 함수 ///////////////
 } //////////////// loadFn 함수 ///////////////
 /////////////////////////////////////////////
