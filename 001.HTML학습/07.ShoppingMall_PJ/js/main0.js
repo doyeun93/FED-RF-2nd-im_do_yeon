@@ -91,7 +91,7 @@ function loadFn() {
     // this는 호출한 버튼 자신(abtn ab)
 
     // 2. 오른쪽 버튼이면 ++, 아니면 --
-    isRbtn?  snum++ : snum--;
+    isRbtn? snum++ : snum--;
     
     // 3. 한계값 설정하기
     // 한계값일때 각 버튼 숨기기
