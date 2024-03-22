@@ -38,13 +38,17 @@ addEvt(window, "DOMContentLoaded", loadFn);
     기능: 로딩 후 버튼 이벤트 및 기능구현
 ******************************************/
 function loadFn() {
-  console.log("로딩완료!");
+    console.log("로딩완료!");
+    
+    // 이동버튼 대상 : .abtn
+    const abtn = qsa(".abtn");
+    // 변경대상 : #slide
+    const slide = qs("#slide");
+    //console.log(abtn, slide);
 
-  // 이동버튼 대상 : .abtn
-  const abtn = qsa(".abtn");
-  // 변경대상 : #slide
-  const slide = qs("#slide");
-  //console.log(abtn, slide);
+    // 왼쪽 버튼 처음에 숨기기
+
+    abtn[0].style.display = "none";
 
   // 슬라이드 순번 전역변수
   let snum = 0;
