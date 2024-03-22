@@ -120,7 +120,7 @@
             // 2. 버튼명과 배열 변수와 매칭하기
             // 2-1. 정보 변수만들기
             let mvInfo;
-            
+
             // 2-2. switch 문으로 변수 할당하기
             switch (btxt) {
               case "조제":
@@ -149,37 +149,65 @@
                 break;
             } ///// switch case 문 /////
 
-            console.log('선택데이터 :', mvInfo,Array.isArray(mvInfo));
+            console.log("선택데이터 :", mvInfo, Array.isArray(mvInfo));
 
             // 3. 출력박스에 정보 배분하기
             // 출력박스 요소 : .minfo -> .minfo변수
             // 여러개니까 for of문 사용
             // mvInfo에 담기 배열 데이터를 기준
             let seq = 0;
-            for(let x of mvInfo){
-               console.log('배열값:',x);
-               // 출력박스별로 값 넣기
-               minfo[seq].innerText = x;
-               seq++;
+            for (let x of mvInfo) {
+              console.log("배열값:", x);
+              // 출력박스별로 값 넣기
+              minfo[seq].innerText = x;
+              seq++;
             } /////// for of 문//////////
-
           }; //// click 이벤트 함수 //////////////////////////
-
         } //////// for of 문
-
 
         /***********************************************************
          * 추가기능 : .wrap 박스에 마우스 무브시 포스터박스 포인터 따라다니기
          ***********************************************************/
-        // 1. 대상선정 : 
+        // 1. 대상선정 :
         // 1-1. 이벤트 대상 : .wrap
 
-        const wrap = document.querySelector('.wrap');
+        const wrap = document.querySelector(".wrap");
         // 1-2. 변경대상 : .flying-poster
-        const moving = document.querySelector('.flying-poster');
+        const moving = document.querySelector(".flying-poster");
 
-        console.log(wrap,moving);
-          
+        console.log(wrap, moving);
+
+        // 2. 이벤트 설정 + 기능 구현
+        // mousemove 이벤트 : 요소위에 마우스 움직일 때 계속 발생함
+        wrap.onmousemove = (e) => {
+          // 이벤트 객체로부터 x,y 포인터 위치값
+          // event.pageX -> x축 좌표
+          // event.pageY -> y축 좌표
+          // 위치값 기준은 document 문서 전체이며 x축은 왼쪽 끝, y축은 상단 끝이 기준
+          // 숫자는 단위 표시 없는 px값
+          // console.log("x:", e.pageX, "\ny:", e.pageY);
+
+          // 3. 변경대상의 top,left 값을 변경한다
+          moving.style.top = e.pageY + "px";
+          moving.style.left = e.pageX + "px";
+        }; //// mousemove 이벤트 함수
+
+        // .wrap에 마우스엔터 시 포스터 보이기
+        wrap.onmouseenter = () => {
+          console.log('삼항연산결과 :', minfo[0].innerText == ''? "기본" :minfo[0].innerText);
+          // 포스터 박스 배경이미지 초기 세팅하기
+          // 영화제목박스가 비어있으면 "기본" 포스터. 아니면 영화제목과 같은 포스터 출력
+          // 첫번째입력박스비었음? "기본" : 포스터명
+          // minfo[0]가 첫번째 박스임
+          moving.style.backgroundImage = `
+          url(${img_src[minfo[0].innerText == ''? "기본" :minfo[0].innerText]})
+          `;
+          moving.style.display = 'block';
+        }; //mouseenter //////////
+        // .wrap에 마우스리브 시 포스터 숨기기
+        wrap.onmouseleave = () => {
+        moving.style.display = 'none';
+      }; // mouseleave ////////
 
       } //////////// loadFn 함수 ///////////
       //////////////////////////////////////
@@ -225,7 +253,7 @@
         font-size: 24px;
         line-height: 2;
 
-        cursor: none;
+        /* cursor: none; */
         /* 커서 none은 마우스 포인터가 없어짐!*/
         /* 참고: https://www.w3schools.com/cssref/tryit.php?filename=trycss_cursor */
       }
@@ -264,18 +292,31 @@
         background-color: #d0ffd3;
       }
 
-
       /* 따라다니는 포스터박스 */
-      .flying-poster{
+      .flying-poster {
         position: absolute;
         top: 0;
         left: 0;
-        width: 200px;
+        width: 200px; 
         height: 300px;
-        background: url(./images/ala1.jpg)no-repeat center / cover;
+        background: url(./images/ala1.jpg) no-repeat center / cover;
         border: 4px dashed hotpink;
         border-radius: 20px;
-
+        /* 스크립트 마우스 오버시 포스터 위치 중앙 이동 조절 */
+        transform: translate(-50%, -50%);
+        /* 트랜지션 설정 -> 마우스 커서 이미지 이징주기(ease-out :처음에 빨리 움직이고 나중에 천천히) */
+        transition: .3s ease-out;
+        pointer-events: none;
+      /************************************** 
+        [ 포인터 이벤트 속성 ]  
+        pointer-events : auto;
+        -> 기본값 : 대상 요소에 이벤트 발생함
+        pointer-events : none;
+        -> none : 대상 요소에 이벤트 무시함
+        -> 아래쪽 요소의 이벤트가 발생함!
+      **************************************/
+        /* 처음에 안보이게 하기 */
+        display: none;
       }
     </style>
   </head>
