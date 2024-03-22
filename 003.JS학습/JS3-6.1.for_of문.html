@@ -118,8 +118,10 @@
             let btxt = x.innerText;
             console.log(btxt);
             // 2. 버튼명과 배열 변수와 매칭하기
-            // 정보 변수
+            // 2-1. 정보 변수만들기
             let mvInfo;
+            
+            // 2-2. switch 문으로 변수 할당하기
             switch (btxt) {
               case "조제":
                 mvInfo = mv1;
@@ -146,10 +148,39 @@
                 mvInfo = mv8;
                 break;
             } ///// switch case 문 /////
-            
-            console.log('선택데이터 :', mvInfo);
-          };
+
+            console.log('선택데이터 :', mvInfo,Array.isArray(mvInfo));
+
+            // 3. 출력박스에 정보 배분하기
+            // 출력박스 요소 : .minfo -> .minfo변수
+            // 여러개니까 for of문 사용
+            // mvInfo에 담기 배열 데이터를 기준
+            let seq = 0;
+            for(let x of mvInfo){
+               console.log('배열값:',x);
+               // 출력박스별로 값 넣기
+               minfo[seq].innerText = x;
+               seq++;
+            } /////// for of 문//////////
+
+          }; //// click 이벤트 함수 //////////////////////////
+
         } //////// for of 문
+
+
+        /***********************************************************
+         * 추가기능 : .wrap 박스에 마우스 무브시 포스터박스 포인터 따라다니기
+         ***********************************************************/
+        // 1. 대상선정 : 
+        // 1-1. 이벤트 대상 : .wrap
+
+        const wrap = document.querySelector('.wrap');
+        // 1-2. 변경대상 : .flying-poster
+        const moving = document.querySelector('.flying-poster');
+
+        console.log(wrap,moving);
+          
+
       } //////////// loadFn 함수 ///////////
       //////////////////////////////////////
 
@@ -231,6 +262,20 @@
       /* 정보출력박스 */
       .minfo {
         background-color: #d0ffd3;
+      }
+
+
+      /* 따라다니는 포스터박스 */
+      .flying-poster{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 200px;
+        height: 300px;
+        background: url(./images/ala1.jpg)no-repeat center / cover;
+        border: 4px dashed hotpink;
+        border-radius: 20px;
+
       }
     </style>
   </head>
