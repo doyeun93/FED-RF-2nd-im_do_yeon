@@ -153,6 +153,7 @@
             // 선택정보 : mvInfo 배열
             // 출력박스 요소 : .minfo -> .minfo변수
             // 배열을 forEach()메서드로 순회함
+
             mvInfo.forEach((val, idx)=>{
                 // var : 배열값 , idx : 배열순번(0,1,2.....)
                 // 배열값의 순번과 동일한 순번의 요소에 출력함
@@ -163,6 +164,52 @@
 
           }; //// click /////
         }); //// forEach //////////////////////
+
+
+         /***********************************************************
+         * 추가기능 : .wrap 박스에 마우스 무브시 포스터박스 포인터 따라다니기
+         ***********************************************************/
+        // 1. 대상선정 :
+        // 1-1. 이벤트 대상 : .wrap
+
+        const wrap = document.querySelector(".wrap");
+        // 1-2. 변경대상 : .flying-poster
+        const moving = document.querySelector(".flying-poster");
+
+        console.log(wrap, moving);
+
+        // 2. 이벤트 설정 + 기능 구현
+        // mousemove 이벤트 : 요소위에 마우스 움직일 때 계속 발생함
+        wrap.onmousemove = (e) => {
+          // 이벤트 객체로부터 x,y 포인터 위치값
+          // event.pageX -> x축 좌표
+          // event.pageY -> y축 좌표
+          // 위치값 기준은 document 문서 전체이며 x축은 왼쪽 끝, y축은 상단 끝이 기준
+          // 숫자는 단위 표시 없는 px값
+          // console.log("x:", e.pageX, "\ny:", e.pageY);
+
+          // 3. 변경대상의 top,left 값을 변경한다
+          moving.style.top = e.pageY + "px";
+          moving.style.left = e.pageX + "px";
+        }; //// mousemove 이벤트 함수
+
+        // .wrap에 마우스엔터 시 포스터 보이기
+        wrap.onmouseenter = () => {
+          console.log('삼항연산결과 :', minfo[0].innerText == ''? "기본" :minfo[0].innerText);
+          // 포스터 박스 배경이미지 초기 세팅하기
+          // 영화제목박스가 비어있으면 "기본" 포스터. 아니면 영화제목과 같은 포스터 출력
+          // 첫번째입력박스비었음? "기본" : 포스터명
+          // minfo[0]가 첫번째 박스임
+          moving.style.backgroundImage = `
+          url(${img_src[minfo[0].innerText == ''? "기본" :minfo[0].innerText]})
+          `;
+          moving.style.display = 'block';
+        }; //mouseenter //////////
+        // .wrap에 마우스리브 시 포스터 숨기기
+        wrap.onmouseleave = () => {
+        moving.style.display = 'none';
+      }; // mouseleave ////////
+
 
         // 전달 변수의 순서가 중요함
         // btngo.forEach((헐, 할, 헬)=>{
