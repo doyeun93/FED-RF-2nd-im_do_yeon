@@ -21,12 +21,12 @@ console.log('대상:',pMenu,ifr);
 
 // 2. 영화 아이디 정보 객첵로 구성하기
 const movieId =  {
-  "파묘" : "rjW9E1BR_30",
-  " 웡카" : "Bldf9SWRPFM",
-  " 이프온리" : "WGFapljXfnU",
-  " 소풍" : "7VHsScXQyw0",
-  " 시민덕희" : "wQwhmn6Dimsg",
-  " DMZ 동물 특공대" : "zgWPvI-J8euU",
+  파묘 : "rjW9E1BR_30",
+  웡카 : "Bldf9SWRPFM",
+  이프온리 : "WGFapljXfnU",
+  소풍 : "7VHsScXQyw0",
+  시민덕희 : "Qwhmn6Dimsg",
+  " DMZ 동물 특공대" : "zzR7jfMYmqE",
 }
 
  
