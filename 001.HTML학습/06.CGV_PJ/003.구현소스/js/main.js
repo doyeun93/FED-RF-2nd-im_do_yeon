@@ -26,7 +26,7 @@ const movieId =  {
   이프온리 : "WGFapljXfnU",
   소풍 : "7VHsScXQyw0",
   시민덕희 : "Qwhmn6Dimsg",
-  " DMZ 동물 특공대" : "zzR7jfMYmqE",
+  " DMZ 동물 특공대" : "gWPvI-J8euU",
 }
 
  
