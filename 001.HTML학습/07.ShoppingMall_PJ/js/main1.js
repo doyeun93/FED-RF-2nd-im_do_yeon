@@ -61,7 +61,7 @@ function loadFn() {
   const slide = qs("#slide");
   //console.log(abtn, slide);
   // 블릿버튼 : .indic
-  const indic = qs(".indic");
+  let indic = qs(".indic");
 
   /////////////////// 초기 세팅하기 ///////////////////
   /// 5개의 슬라이드와 블릿을 만들어준다
