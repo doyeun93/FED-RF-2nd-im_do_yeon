@@ -40,11 +40,15 @@ addEvt(window, "DOMContentLoaded", loadFn);
 function loadFn() {
     console.log("로딩완료!");
     
+    // [대상 선정]
     // 이동버튼 대상 : .abtn
     const abtn = qsa(".abtn");
     // 변경대상 : #slide
     const slide = qs("#slide");
     //console.log(abtn, slide);
+    // 블릿대상 : =  const indic = qsa(".indic li");
+    const indic =  document.querySelectorAll('.indic li');
+    // console.log(abtn,slide,indic);
 
     // 왼쪽 버튼 처음에 숨기기
 
@@ -124,6 +128,20 @@ function loadFn() {
     console.log("이동%:", -100 * snum + "%");
     slide.style.left = -100 * snum + "%";
     slide.style.transition = ".6s ease-in-out";
+
+    // 5. 블릿 표시 구현하기
+    // 5-1. 모든 클래스 on 지우기 + 현재 순번 클래스 넣기
+        indic.forEach((ele,idx)=>{
+            // ele : 각각의 li / idx : 각각의 순번
+            if(idx === snum){ // 현재 순번 on 넣기
+                ele.classList.add('on');
+            }//// if ////////
+            else{
+                ele.classList.remove('on');
+            } ///// else //////////
+        });
+     
+
   } ////// goSlide 함수 ///////////////
 } //////////////// loadFn 함수 ///////////////
 /////////////////////////////////////////////
