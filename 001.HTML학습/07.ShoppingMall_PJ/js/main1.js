@@ -68,8 +68,8 @@ function loadFn() {
   for (let i = 0; i < 5; i++) {
     // 슬라이드 넣기
     slide.innerHTML += `
-            <li>
-            <img src="images/slide0${i+1}.jpg" data-seq="${i}" alt="slide">
+            <li data-seq="${i}">
+            <img src="images/slide0${i+1}.jpg" alt="slide">
             </li>
         `;
     // 블릿넣기
@@ -192,14 +192,23 @@ function loadFn() {
         slide.style.transition = ".6s ease-in-out";
       }, 0);
     } /// else /////
+    
+    // 3. 블릿을 위해 읽어올 슬라이드 순번 구하기
+    // 현재 순번은 몇번 째 슬라이드의 data-seq 속성값이다
+    // 오른쪽 버튼은 이동 후 잘라내므로 두번째 순번[1]
+    // 왼쪽 버튼은 먼저 앞에 붙이고 이동하므로 첫번째 순번[0]
+    let seq = slide.querySelectorAll('li')[isRbtn? 1 : 0]
+    .getAttribute('data-seq');
+    console.log('블릿이 읽어올 순번:',seq,'데이터형:',typeof seq);
+    // string : 문자형, number: 숫자형
 
-    // 3. 블릿 변경하기
+    // 4. 블릿 변경하기
         indic.forEach((ele,idx)=>{
-            // 현재 순번은 몇번 째 슬라이드의 data-seq 속성값이다
-            let seq = slide.querySelectorAll('li')[isRbtn ? 1 : 0]
-            .getAttribute('data-seq');
             // ele : 각각의 li / idx : 각각의 순번
             if(idx == seq){ // 현재 순번 on 넣기
+                // == 으로 비교해야 결과가 나옴(data-seq 속성은 문자형숫자이므로)
+                // ===은 형까지 비교하기때문에 안나옴
+                
                 ele.classList.add('on');
             }//// if ////////
             else{
