@@ -123,7 +123,19 @@ function loadFn() {
    * 함수명 : goSlide
    * 기능 : 슬라이드 이동
    ******************************************************/
-  function goSlide() {
+  function goSlide(evt,sts=true){  
+    //// evt = 이벤트 객체전달 : pointerEvent{}
+    // sts = 버튼클릭인지 자동호출인지 구분하는 변수 -> true면 버튼 클릭, false면 자동호출로 구분
+    // sts 라는 변수가 evt 객체에 담김
+    // 만약 전달값이 없으면 기본값으로 세팅함
+    // -> ES6문법에서 전달변수 초기값 주기 문법생김
+
+    // 함수를 호출시에 아무값도 보내지 않으면 함수의 전달변수 하나를 쓸 경우 또는
+    // 여러 전달변수 중 첫번째 변수는 이벤트 객체가 전달된다
+  
+    console.log('전달변수:',evt,sts);
+    
+    
     // 광클금지 설정하기 -> 클릭신호를 막아서 못들어오게 하고
     // 일정시간 후 다시 열어준다
     if (prot) return; // 함수나감
@@ -133,8 +145,11 @@ function loadFn() {
     }, 600);
     ///////////////////////////////////////
 
-    // 오른쪽 버튼인 .ab2인가?
-    let isRbtn = this.classList.contains("ab2");
+    // 1. 오른쪽 버튼인 .ab2인가?
+    let isRbtn = 
+    sts? this.classList.contains("ab2"):true;
+    // sts가 true냐? 맞으면 버튼을 클릭할 것이므로 this 키워드에 의한 클래스 .ab2 존재여부를 물어라
+    // sts가 false냐? 맞으면 무조건 true 값을 할당해라. -> 자동넘김은 오른쪽 버튼 클릭한 방향으로 가야하니까
     // [classList 객체의 contains() 메서드] -> 해당요소의 특정 클래스인지 여부를 리턴함
     // 해당 클래스가 있으면 true, 없으면 false
 
@@ -216,5 +231,42 @@ function loadFn() {
             } ///// else //////////
         }); /////// foreach /////////////////
   } ////// goSlide 함수 ///////////////
+
+
+  // 인터발용 변수(지울목적)
+  let autoI;
+  // 자동넘김호출 함수 최초호출하기
+  autoSlide();
+
+
+  // 자동 넘김 호출 함수 //////////////////
+  function autoSlide(){  
+  // setInterval(함수, 시간) : 비동기 함수, 일정시간간격으로 함수 호출
+  /* 
+  setInterval(() => {
+   abtn[1].onclick();
+  }, 3000);
+  */
+  // clearInterval(인터발변수) : 변수에 담긴 인터발을 지움(멈춤)
+  autoI = setInterval(() => {
+    // 값을 2개 보내야함
+    // 첫번째 전달값은 이벤트객체가 들어가는 변수이므로 false 값을 쓰고
+    // 두번째 전달값은 자동호출임을 알리는 변수이므로 false 값을 전달한다
+    goSlide(false, false);
+  }, 3000);
+
+ 
+} ///////////// autoslide 함수 //////////
+
+
+/////////// [인터발 지우기 함수]
+function clearAuto(){
+  // 지우기 확인
+  console.log('인터발 지워!');
+  clearInterval(autoI);
+
+
+} /////////// clearAuto 함수 ///////////
+
 } //////////////// loadFn 함수 ///////////////
 /////////////////////////////////////////////
