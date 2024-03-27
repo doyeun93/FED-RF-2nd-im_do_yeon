@@ -90,7 +90,7 @@ function loadFn() {
   //abtn[0].style.display = "none";
 
   // 슬라이드 순번 전역변수
-  let snum = 0;
+  // let snum = 0;
 
   // 2. 버튼을 모두 이벤트 설정하기
   for (let x of abtn) {
@@ -240,6 +240,8 @@ function loadFn() {
 
   // 인터발용 변수(지울목적)
   let autoI;
+  // 타임아웃용 변수(지울목적)
+  let autoT;
   // 자동넘김호출 함수 최초호출하기
   autoSlide();
 
@@ -264,11 +266,19 @@ function loadFn() {
 } ///////////// autoslide 함수 //////////
 
 
-/////////// [인터발 지우기 함수]
+/////////// [인터발 지우기 함수] /////////////////
 function clearAuto(){
   // 지우기 확인
   console.log('인터발 지워!');
+  // 1. 인터발 지우기
   clearInterval(autoI);
+  // 2. 타임아웃 지우기 : 실행쓰나미 방지
+  clearTimeout(autoT);
+  
+  // 5초후 아무 작동도 안하면 다시 인터발 호출
+  autoT = setTimeout(() => {
+    autoSlide();
+  }, 5000);
 
 
 } /////////// clearAuto 함수 ///////////
