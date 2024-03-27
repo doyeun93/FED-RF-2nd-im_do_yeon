@@ -245,6 +245,7 @@
 } 
 /* 상위 캐릭터 개별박스에 오버시 이미지박스 트랜지션 설명박스와 동일하게 설정하기 */
 .cat-inbox article .imbx{
+  margin-top: 5%;
   transition: .4s ease-in-out;
 }
 
