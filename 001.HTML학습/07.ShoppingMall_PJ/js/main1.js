@@ -126,7 +126,8 @@ function loadFn() {
   function goSlide(evt,sts=true){  
     //// evt = 이벤트 객체전달 : pointerEvent{}
     // sts = 버튼클릭인지 자동호출인지 구분하는 변수 -> true면 버튼 클릭, false면 자동호출로 구분
-    // sts 라는 변수가 evt 객체에 담김
+    // -> 버튼 클릭시엔 아무것도 안보내므로 기본값 true할당되어 적용됨
+    // sts 라는 변수가 evt 객체에 담김 , evt만 쓰면 이벤트 객체만 담기므로 변수가 없어서 값이 안나옴(할당되지않은 undefined 출력됨)
     // 만약 전달값이 없으면 기본값으로 세팅함
     // -> ES6문법에서 전달변수 초기값 주기 문법생김
 
@@ -135,6 +136,10 @@ function loadFn() {
   
     console.log('전달변수:',evt,sts);
     
+    // 만약 버튼 클릭일 경우 인터발지우기 함수 호출(자동넘기기 멈춤)
+    if(sts){
+      clearAuto();
+    } ///////// if문 
     
     // 광클금지 설정하기 -> 클릭신호를 막아서 못들어오게 하고
     // 일정시간 후 다시 열어준다
@@ -149,7 +154,7 @@ function loadFn() {
     let isRbtn = 
     sts? this.classList.contains("ab2"):true;
     // sts가 true냐? 맞으면 버튼을 클릭할 것이므로 this 키워드에 의한 클래스 .ab2 존재여부를 물어라
-    // sts가 false냐? 맞으면 무조건 true 값을 할당해라. -> 자동넘김은 오른쪽 버튼 클릭한 방향으로 가야하니까
+    // sts가 false냐? 맞으면 무조건 true 값의 결과를 isRbtn에 할당해라. -> 자동넘김은 오른쪽 버튼 클릭한 방향으로 가야하니까
     // [classList 객체의 contains() 메서드] -> 해당요소의 특정 클래스인지 여부를 리턴함
     // 해당 클래스가 있으면 true, 없으면 false
 
