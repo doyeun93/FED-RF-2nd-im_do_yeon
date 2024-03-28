@@ -224,8 +224,10 @@
         // 3. 이벤트 설정 : 로딩 후 바로 실행
         makeList();
 
+        // 4. 객체를 forEach 메서드로 사용하면 에러!!!
+        // -> 에러메시지:mvi.forEach is not a function
+        // mvi.forEach(v=>console.log(v));
 
-        
 
       /*****************************************************
        * 함수명 : makeList
