@@ -151,7 +151,10 @@
 }
 /* 양분박스 aside */
 .evt-cover aside{
+  /* 등분할 */
   flex: 1;
+  /* 손가락 모양 */
+  cursor: pointer;
 }
 /* 버튼 요소 */
 .abtn{
