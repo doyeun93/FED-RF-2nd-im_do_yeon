@@ -134,9 +134,24 @@
 
 /* 슬라이드 박스 */
 .slide-box{
+  position: relative;
+  /* 부모자격 - 이벤트커버박스 */
   width: 100%;
   height: 100%;
   overflow: hidden;
+}
+/* 이벤트 커버박스 */
+.evt-cover{
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  display: flex;
+}
+/* 양분박스 aside */
+.evt-cover aside{
+  flex: 1;
 }
 .slider{
   position: relative;
