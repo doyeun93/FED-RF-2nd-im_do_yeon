@@ -3,38 +3,39 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./css/main.css" />
     <title>쓸쓸하고 찬란하神 도깨비 드라마 소개</title>
     <link rel="shortcut icon" href="./images/pavicon_tvN.png" />
-    <!-- 메인 js 불러오기 : 모듈로 불러오기 -->
+    <link rel="stylesheet" href="./css/main.css" />
+    <!-- 메인JS 불러오기 : 모듈로 불러오기 -->
     <script type="module" src="./js/main.js"></script>
     <!-- 
-      type="module"로 js를 호출하면 모듈 문법이 적용된다
-      다른 js 외부파일을 모듈로 호출한 파일에서 부를 수 있다
-      기본적으로 모듈을 사용하는 호출은 defer 처리된다
-      즉, html요소 로딩 후 호출하게 된다
-      주의사항 : 반드시 서버형 호출은 해야 본 문법을 사용할 수 있다
-      로컬에서 바로 열기하면 js는 호출되지 않는다
-      그래서 서버에 올리거나 가상서버로 열어야함
+      type="module"로 JS를 호출하면 모듈 문법이 적용된다!
+      다른 JS외부파일을 모듈로 호출한 파일에서 부를수 있다!
+      기본적으로 모듈을 사용하는 호출은 defer처리된다!
+      즉, html요소 로딩후 호출하게 된다!
+      주의사항: 반드시 서버형 호출을 해야 본 문법을 사용가능
+      로컬에서 바로 열기하면 JS는 호출되지 않는다!
+      그래서 서버에 올리거나 가상서버로 열어야함!
      -->
   </head>
   <body class="scbar">
     <!-- 1. 상단영역 -->
     <div id="top-area">
       <header class="top-area inbox">
-        <!-- <h2 class="temp-tit">1. 상단영역</h2> -->
-        <!-- 1-1. 로고/gnb 파트 -->
+        <!-- 
+            <h2 class="temp-tit">1. 상단영역</h2> 
+        -->
+        <!-- 1-1.로고/GNB파트 -->
         <div class="cont-box">
-          <!-- 1-1-1. 로고 -->
+          <!-- 1-1-1.로고 -->
           <div class="col-2">
             <h1 class="mlogo">
-              <img src="./images/tvnlogo2.png" alt="메인tvn로고" />
+              <img src="./images/tvnlogo2.png" alt="메인tvN로고" />
             </h1>
           </div>
-          <!-- 1-1-2. gnb 파트 -->
+          <!-- 1-1-2.GNB -->
           <div class="col-10">
-            <!-- top 메뉴 -->
-            <!--  -->
+            <!-- Top메뉴 -->
             <nav class="top-menu">
               <ul>
                 <li>
@@ -48,6 +49,7 @@
                 </li>
               </ul>
             </nav>
+            <!-- GNB메뉴 -->
             <nav class="gnb">
               <ul>
                 <li>
@@ -61,9 +63,10 @@
                 </li>
                 <li>
                   <a href="#">드라마</a>
+                  <!-- 서브메뉴 -->
                   <div class="smenu">
                     <div class="swrap">
-                      <h2></h2>
+                      <h2>드라마</h2>
                       <ol>
                         <li>
                           <a href="#">[예정] 선재 업고 튀어</a>
@@ -86,9 +89,10 @@
                 </li>
                 <li>
                   <a href="#">연예오락</a>
+                  <!-- 서브메뉴 -->
                   <div class="smenu">
                     <div class="swrap">
-                      <h2></h2>
+                      <h2>연예오락</h2>
                       <ol>
                         <li>
                           <a href="#">[월] 줄 서는 식당2</a>
@@ -126,9 +130,10 @@
                 </li>
                 <li>
                   <a href="#">인사이트</a>
+                  <!-- 서브메뉴 -->
                   <div class="smenu">
                     <div class="swrap">
-                      <h2></h2>
+                      <h2>인사이트</h2>
                       <ol>
                         <li>
                           <a href="#">[목] 김창옥쇼2</a>
@@ -157,18 +162,19 @@
     </div>
     <!-- 2. 배너영역 -->
     <div id="ban-area">
-      <!-- 배너는 중앙속박스 적용안함 -->
+      <!-- 배너는 중앙속박스 적용안함! -->
       <section class="ban-area">
         <h2 class="temp-tit">2. 배너영역</h2>
         <!-- 임시버튼 -->
-        <div style="font-size: 24px; position: relative; z-index: 99999;">
+        <div style="font-size: 24px;position: relative;z-index: 99999;">
           <a href="#" class="abtn ab1">이전</a>
           <a href="#" class="abtn ab2">다음</a>
         </div>
-        <!-- 임시 블릿 -->
-        <div style="font-size: 24px; position: relative; z-index: 99999;" class="indic">
-          
-        </div>
+        
+        <!-- 임시블릿 -->
+        <ol style="font-size: 24px;position: relative;z-index: 99999;" class="indic">
+        </ol>
+
         <div class="cont-box">
           <div class="col-12">
             <!-- 슬라이드 박스 -->
@@ -178,15 +184,15 @@
             <!-- 캐릭터 박스 -->
             <div class="cat-box">
               <div class="cat-inbox">
-                <!-- 개별 캐릭터박스 -->
+                <!-- 개별캐릭터박스 -->
                 <article>
-                  <!-- 이미지박스1 -->
+                  <!-- 이미지박스 -->
                   <div class="imbx">
                     <img src="./images/dc1.png" alt="공유" />
-                    <!-- 이름 이미지박스 1 -->
+                    <!-- 이름이미지박스 -->
                     <span class="iname">
-                      <img src="./images/d011.png" alt="흐린 이름" />
-                      <img src="./images/d01.png" alt="진한 이름" />
+                      <img src="./images/d011.png" alt="흐린이름" />
+                      <img src="./images/d01.png" alt="진한이름" />
                     </span>
                   </div>
                   <!-- 설명박스 -->
@@ -219,14 +225,15 @@
                     </p>
                   </div>
                 </article>
+                <!-- 개별캐릭터박스 -->
                 <article>
-                  <!-- 이미지박스2 -->
+                  <!-- 이미지박스 -->
                   <div class="imbx">
                     <img src="./images/dc2.png" alt="김고은" />
-                    <!-- 이름 이미지박스 2 -->
+                    <!-- 이름이미지박스 -->
                     <span class="iname">
-                      <img src="./images/d022.png" alt="흐린 이름" />
-                      <img src="./images/d02.png" alt="진한 이름" />
+                      <img src="./images/d022.png" alt="흐린이름" />
+                      <img src="./images/d02.png" alt="진한이름" />
                     </span>
                   </div>
                   <!-- 설명박스 -->
@@ -255,14 +262,15 @@
                     </p>
                   </div>
                 </article>
+                <!-- 개별캐릭터박스 -->
                 <article>
-                  <!-- 이미지박스3 -->
+                  <!-- 이미지박스 -->
                   <div class="imbx">
                     <img src="./images/dc3.png" alt="이동욱" />
-                    <!-- 이름 이미지박스 3 -->
+                    <!-- 이름이미지박스 -->
                     <span class="iname">
-                      <img src="./images/d033.png" alt="흐린 이름" />
-                      <img src="./images/d03.png" alt="진한 이름" />
+                      <img src="./images/d033.png" alt="흐린이름" />
+                      <img src="./images/d03.png" alt="진한이름" />
                     </span>
                   </div>
                   <!-- 설명박스 -->
@@ -292,14 +300,15 @@
                     </p>
                   </div>
                 </article>
+                <!-- 개별캐릭터박스 -->
                 <article>
-                  <!-- 이미지박스4 -->
+                  <!-- 이미지박스 -->
                   <div class="imbx">
                     <img src="./images/dc4.png" alt="유인나" />
-                    <!-- 이름 이미지박스 4 -->
+                    <!-- 이름이미지박스 -->
                     <span class="iname">
-                      <img src="./images/d044.png" alt="흐린 이름" />
-                      <img src="./images/d04.png" alt="진한 이름" />
+                      <img src="./images/d044.png" alt="흐린이름" />
+                      <img src="./images/d04.png" alt="진한이름" />
                     </span>
                   </div>
                   <!-- 설명박스 -->
@@ -333,7 +342,7 @@
       </section>
     </div>
     <!-- 서브파트메뉴 -->
-    <div class="spart-menu">
+    <div id="spart-menu">
       <nav class="spart-menu inbox">
         <h2 class="temp-tit">서브파트메뉴</h2>
         <div class="cont-box">
@@ -372,7 +381,7 @@
     <!-- 6. 대표이미지 영역 -->
     <div id="main-photo-area">
       <section class="main-photo-area inbox">
-        <h2 class="temp-tit">6. 대표이미지</h2>
+        <h2 class="temp-tit">6. 대표이미지 영역</h2>
         <div class="cont-box">
           <div class="col-12"></div>
         </div>

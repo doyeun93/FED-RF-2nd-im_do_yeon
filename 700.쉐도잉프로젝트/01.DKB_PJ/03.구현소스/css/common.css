@@ -160,13 +160,13 @@
   background-size: cover;
 }
 /* 슬라이드 1번 li */
-.snum-1{
+.snum-01{
   background-image: url(../images/bg_mainvisual0.jpg);
 }
-.snum-2{
+.snum-02{
   background-image: url(../images/bg_mainvisual2.jpg);
 }
-.snum-3{
+.snum-03{
   background-image: url(../images/bg_mainvisual3.jpg);
 }
 
