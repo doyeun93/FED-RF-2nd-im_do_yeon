@@ -153,6 +153,18 @@
 .evt-cover aside{
   flex: 1;
 }
+/* 버튼 요소 */
+.abtn{
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 99;
+  font-size: 24px;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 0 0 20px #000;
+  display: none ; /* 처음에 숨기기 */
+}
 .slider{
   position: relative;
   /* 슬라이드 위치이동 초기값 */
