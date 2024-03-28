@@ -300,14 +300,12 @@ export default function slideFn() {
 
       // 이벤트 세팅하기3 : mousemove -> 버튼 따라오기
       ele.onmousemove = (e)=>{
-        abtn[idx].style.top = e.pageX+'px';
-        abtn[idx].style.left = e.pageY+'px';
+        abtn[idx].style.top = e.pageY+'px';
+        abtn[idx].style.left = e.pageX+'px';
       }; ///// mousemove /////
-     /*  ele.onmousemove = (e)=>{
-        abtn[idx].style.top = e.pageX+'px';
-        abtn[idx].style.left = e.pageY+'px';
-      };  *////// mousemove /////
     
+      // 이벤트 세팅하기4 : click -> 이동함수 호출
+      ele.onclick = goSlide;
     }); ///// for each /////////
 
 
