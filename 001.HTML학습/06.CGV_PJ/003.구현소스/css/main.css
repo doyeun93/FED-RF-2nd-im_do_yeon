@@ -315,8 +315,11 @@ body * {
 /********************************************* 3. 하단영역 *********************************************/
 .footer-area {
   /* 플렉스 박스 */
-  height: 100px;
   display: flex;
+  /* 진행방향 수직정렬(한줄) */
+  align-items: center;
+  padding: 20px;
+  gap: 0 20px;
 }
 
 
@@ -332,9 +335,14 @@ body * {
   font-size: 1.7rem;
 }
 /* 3-3. sns */
+.sns-box{
+  /* 플렉스 자식에서 왼쪽마진을 auto로 주면 오른쪽 끝으로 이동함 */
+  margin-left: auto;
+}
 .sns-box ol{
   /* 플렉스 박스 */
   display: flex;
+  gap: 0 30px;
 
 
 }
