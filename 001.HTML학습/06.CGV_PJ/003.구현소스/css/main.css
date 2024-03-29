@@ -34,8 +34,17 @@ body * {
   color: aquamarine;
   line-height: 80px;
   text-align: center;
+  /* 글자 글로우 효과 */
+  text-shadow: 0 0 4px aqua;
+  /* 애니메이션 호출 */
+  animation: tit-ani 1s ease-in infinite alternate;
 }
-
+/* 타이틀 애니 키프레임 */
+@keyframes tit-ani{
+  to{
+    text-shadow: 0 0 12px aqua;
+  }
+}
 /********************************************* 1. 상단영역 *********************************************/
 .top-area {
   position: relative;
