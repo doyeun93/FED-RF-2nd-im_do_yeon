@@ -173,7 +173,7 @@ body * {
 .gnb:hover .beam{
   width: 200px;
   /* 트랜지션 : 오버시 지연 */
-  transition: .3s .3s;
+  transition: width .3s .3s;
   animation: beam-ani .1s linear infinite alternate;
 }
 /* 빔떨림 애니 */
@@ -190,11 +190,12 @@ body * {
   width: 0px;
   height: 70px;
   /* outline: 2px dashed yellow; */
-  background: url(../images/bim.png) no-repeat right/auto 100%;
+  background: url(../images/bim.png) no-repeat right/auto 100%,
+   url(../images/cgj_mv.gif) no-repeat -50%  center/auto 80%;
   /* 메뉴, 카메라 보다 아래 */
   z-index: -1;
   /* 트랜지션 : 돌아올 때 지연없음 */
-  transition: .3s;
+  transition: width .3s;
  
   
 }
