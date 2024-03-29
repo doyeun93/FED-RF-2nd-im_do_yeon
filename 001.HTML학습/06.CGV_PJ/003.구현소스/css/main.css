@@ -148,6 +148,57 @@ body * {
 .bd-top{
   border-top: 1px solid #ccc;
 }
+
+/* 영사기 박스 */
+.cam{
+  position: absolute;
+  top: -14px;
+  right: -74px;
+}
+.cam img{
+  width: 55px;
+  transform: rotate(30deg);
+/* 트랜지션 : 돌아올 때 지연 */
+  transition: .3s .3s;
+}
+/* 오버시 영사기 이미지 회전 */
+.gnb:hover .cam img{
+  transform: rotate(0deg);
+  /* 트랜지션 : 오버시 지연없음 */
+  transition: .3s;
+}
+
+
+/* 오버시 빔박스 보이기 */
+.gnb:hover .beam{
+  width: 200px;
+  /* 트랜지션 : 오버시 지연 */
+  transition: .3s .3s;
+  animation: beam-ani .1s linear infinite alternate;
+}
+/* 빔떨림 애니 */
+@keyframes beam-ani{
+    to{
+      opacity: .5;
+    } 
+  }
+/* 빔 박스 */
+.beam{
+  position: absolute;
+  top: -14px;
+  right: 30px;
+  width: 0px;
+  height: 70px;
+  /* outline: 2px dashed yellow; */
+  background: url(../images/bim.png) no-repeat right/auto 100%;
+  /* 메뉴, 카메라 보다 아래 */
+  z-index: -1;
+  /* 트랜지션 : 돌아올 때 지연없음 */
+  transition: .3s;
+ 
+  
+}
+
 /********************************************* 2. 메인영역 *********************************************/
 .main-area {
   position: relative;
