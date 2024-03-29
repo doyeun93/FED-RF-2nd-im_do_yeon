@@ -210,7 +210,7 @@ body * {
   background:  url(../images/cgj_mv.gif) no-repeat -50%  center/auto 80%;
   z-index: -2;
   opacity: 0;
-  transition: opacity .4s;
+  transition: opacity .3s;
 }
 /* 오버시 스크린 보이기 */
 .gnb:hover .cam::after{
@@ -314,5 +314,31 @@ body * {
 }
 /********************************************* 3. 하단영역 *********************************************/
 .footer-area {
+  /* 플렉스 박스 */
   height: 100px;
+  display: flex;
+}
+
+
+/* 3-1. 하단로고 */
+
+/* 3-2. 회사정보 */
+.co-info address{
+  font-family: 'cute font';
+  color: #fff;
+  /* 이탤릭체 해제 */
+  font-style: normal;
+  line-height: 2;
+  font-size: 1.7rem;
+}
+/* 3-3. sns */
+.sns-box ol{
+  /* 플렉스 박스 */
+  display: flex;
+
+
+}
+.sns-box a{
+  color: #fff;
+  font-size: 4rem;
 }

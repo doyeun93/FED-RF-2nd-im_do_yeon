@@ -4,7 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CGV에 오신것을 환영합니다!</title>
+
     <link rel="stylesheet" href="./css/main.css" />
+    <!-- 폰트어썸 아이콘 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
     <!-- 메인 JS 불러오기 
     defer 속성을 넣어서 html 로딩후 실행함-->
     <script src="./js/main.js" defer></script>
@@ -95,10 +98,9 @@
         <!-- 영사기 박스 -->
         <aside class="cam">
           <!-- 영사기 이미지 -->
-          <img src="./images/gnb.png" alt="영사기">
+          <img src="./images/gnb.png" alt="영사기" />
           <!-- 빔 박스 -->
-          <div class="beam">
-          </div>
+          <div class="beam"></div>
         </aside>
       </nav>
     </header>
@@ -203,6 +205,39 @@
       </nav>
     </main>
     <!-- 3. 하단영역 -->
-    <footer class="footer-area part"></footer>
+    <footer class="footer-area part">
+      <!-- 3-1. 하단로고 -->
+      <div class="logo">
+        <img src="./images/blogo.png" alt="하단로고" />
+      </div>
+      <!-- 3-2. 회사정보 -->
+      <div class="co-info">
+        <address>
+          (04377)서울특별시 용산구 한강대로 23길 55, 아이파크몰 6층(한강로동)
+          <br />
+          대표이사 : 최병환사업자등록번호 : 104-81-45690통신판매업신고번호 :
+          2017-서울용산-0662 <br />
+          개인정보보호 책임자 : 정종민대표이메일 : cjcgvmaster@cj.netCGV고객센터
+          : 1544-1122
+        </address>
+      </div>
+      <!-- 3-3. sns -->
+      <div class="sns-box">
+        <ol>
+          <li>
+            <a class="fa-brands fa-square-facebook" href="#"></a>
+          </li>
+          <li>
+            <a  class="fa-brands fa-square-twitter" href="#"></a>
+          </li>
+          <li>
+            <a class="fa-brands fa-square-instagram" href="#"></a>
+          </li>
+          <li>
+            <a class="fa-brands fa-square-youtube" href="#"></a>
+          </li>
+        </ol>
+      </div>
+    </footer>
   </body>
 </html>
