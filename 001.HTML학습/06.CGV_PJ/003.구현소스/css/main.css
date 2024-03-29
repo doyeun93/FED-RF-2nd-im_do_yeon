@@ -190,14 +190,32 @@ body * {
   width: 0px;
   height: 70px;
   /* outline: 2px dashed yellow; */
-  background: url(../images/bim.png) no-repeat right/auto 100%,
-   url(../images/cgj_mv.gif) no-repeat -50%  center/auto 80%;
+  background: url(../images/bim.png) no-repeat right/auto 100%;
   /* 메뉴, 카메라 보다 아래 */
   z-index: -1;
   /* 트랜지션 : 돌아올 때 지연없음 */
   transition: width .3s;
  
   
+}
+
+/*  가상요소로 스크린 만들기 */
+.cam::after{
+  content: '';
+  position: absolute;
+  width: 150px;
+  height: 70px;
+  top: -13px;
+  right: 150px;
+  background:  url(../images/cgj_mv.gif) no-repeat -50%  center/auto 80%;
+  z-index: -2;
+  opacity: 0;
+  transition: opacity .4s;
+}
+/* 오버시 스크린 보이기 */
+.gnb:hover .cam::after{
+  opacity: 1;
+  transition: opacity .3s .6s;
 }
 
 /********************************************* 2. 메인영역 *********************************************/
