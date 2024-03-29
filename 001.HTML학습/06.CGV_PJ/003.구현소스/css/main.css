@@ -64,20 +64,80 @@ body * {
 .gnb>ul>li{
   position: relative;
   /* 부모 자격 - .smenu */
+  /* 가상요소 사이에 공간이 생겨 오버시 smenu가 사라져서 패딩을 줌 (하위메뉴와 연결되게 함)*/
+  padding-bottom: 10px;
 }
 /* 서브메뉴 */
 .smenu{
   position: absolute;
   /* 가운데 위치 주기 위해 left, transform 사용 */
+  top: 40px;
   left: 50%;
   transform: translate(-50%);
-  width: 140px;
-  outline: 2px solid yellow;
+  width: 160px;
+  /* outline: 2px solid yellow; */
+  /* box-shadow: 0 0 5px #fff; */
+  /* 모든 외곽선에 그림자(글로우)효과를 주기위해, 가상요소 부분도 같이 glow 효과 들어감 */
+  filter: drop-shadow(0 0 5px #fff);
   border-radius: 5px;
   font-size: 1.8rem;
   line-height: 1.6;
   padding: 3px;
   background: url(../images/bg_smenu.png) no-repeat center/cover;  
+  /* 처음에 안보임 */
+  display: none;
+}
+/* 상위메뉴 오버시 서브보이기 */
+.gnb ul>li:hover .smenu{
+  display: block;
+}
+/* 가상요소로 삼각형 만들기 */
+.smenu::before{
+  content: '';
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 15px;
+  background-color: #303030;
+  /* 클립패스로 자르기 */
+  clip-path: polygon(0 100%,  50% 0%,  100% 100%);
+}
+/* 서브메뉴 오버시 글자색 */
+.smenu li:hover a{
+  color: red;
+}
+/* 서브메뉴 오버시 아이콘 */
+.smenu li:hover a::after{
+  content: '🥯';
+  float: right;
+}
+
+/* 예매 */
+.gnb ul>li:nth-child(2) .smenu li:hover a::after{
+  content: '🥞';
+}
+/* 극장 */
+.gnb ul>li:nth-child(3) .smenu li:hover a::after{
+  content: '🍰';
+}
+/* 이벤트 */
+.gnb ul>li:nth-child(4) .smenu li:hover a::after{
+  content: '🍮';
+}
+
+
+/* 서브메뉴 ol */
+.smenu ol{
+  border: 1px solid #ccc;
+  padding: 10px;
+  white-space: nowrap;
+}
+
+/* 사이 구분선 클래스 */
+.bd-top{
+  border-top: 1px solid #ccc;
 }
 /********************************************* 2. 메인영역 *********************************************/
 .main-area {
