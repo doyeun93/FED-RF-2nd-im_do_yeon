@@ -1,0 +1,408 @@
+@charset "utf-8";
+
+/* 태양계 2D 애니메이션 CSS - solar2d.css */
+/* 웹폰트 */
+@import url('https://fonts.googleapis.com/css2?family=Big+Shoulders+Stencil+Text:wght@900&display=swap');
+
+/* font-family: 'Big Shoulders Stencil Text', cursive; */
+
+/********************************************************************* 
+     [CSS에서 변수 사용하기]
+
+     1. 변수 설정하기
+     : root{
+          --변수명1 : 값1;
+          --변수명2 : 값2;
+     }
+     2. 변수 호출하기 : var(--변수명)
+     3. 변수는 언제 사용하나? 
+     (1) 같은 값이 여러부분에서 사용될 때
+     (2) 미디어 쿼리에서 변경이 필요한 경우 변수값만 변경하면 복잡한 값 변경이 불필요하게됨
+     (3)전역적으로 지정된 색상 또는 지정된 값 등 프로젝트내의 공유되는 값을 변수로 세팅한다
+*********************************************************************/
+
+/* 변수 설정 구역 */
+:root{
+  /* 1. 태양크기 */
+  --sun-size: 250px;
+  /* 2. 지구 크기 */
+  --earth-size: 80px;
+  /* 3. 지구 거리 */
+  --earth-trans-size: -250px;
+  /* 4. 목성 크기 */
+  --jupiter-size: 150px;
+  /* 5. 목성 거리 */
+  --jupiter-trans-size: 370px;
+  /* 6. 토성 크기 */
+  --saturn-size: 160px;
+  /* 7. 토성 거리 */
+  --saturn-trans-size: -460px;
+  /* 8. 명왕성 크기 */
+  --pluto-size: 50px;
+  /* 9. 명왕성 거리 */
+  --pluto-trans-size: 550px;
+  /* 10. 달 크기 */
+  --moon-size: 40px;
+  /* 11. 달 거리 */
+  --moon-trans-size: 70px;
+
+
+
+
+}
+
+/* 초기화 */
+html, body{
+  margin: 0 ;
+  padding: 0;
+  width: 100vw;
+  height: 100vw;
+
+}
+
+/* 공통 css */
+/* 배경이미지 설명 숨기기 : Image replacement - 배경이미지에 설명을 넣고 그 글자는 숨긴다(웹접근성) */
+.ir{
+  /* display : none을 쓰면 쉽게 숨길 수있지만 화면 리더기가 읽지못함 */
+  display: block;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+
+/*  body세팅 */
+body{
+  background: url(../images/space.jpg) no-repeat center/cover;
+  /* 스크롤바 없앰 */
+  overflow: hidden;
+}
+
+/* 타이틀 */
+.tit{
+  margin: 0;
+  padding: 0;
+  font-family:'Big Shoulders Stencil Text', cursive;
+  color: #fff;
+  font-size: 80px;
+  text-align: center;
+  padding-top: 20px;
+}
+
+/* 공사중표시
+body * {
+  outline: 2px dashed yellow;
+} */
+
+/* 태양계박스 */
+#solar{
+  /* 부모는: 보이는 화면 */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: var(--sun-size);
+  height: var(--sun-size);
+  transform: translate(-50%, -50%); /* 태양 중앙 이동 */
+
+}
+
+/* 태양박스 */
+#sun{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: var(--sun-size);
+  height: var(--sun-size);
+  /* 넘치는 태양이미지 숨기기 */
+  overflow: hidden;
+  /* 박스 글로우 효과(박스그림자) */
+  box-shadow:  0 0 15px 5px yellow;
+  border-radius: 50%;
+  /* 마우스 오버시 오버플로우 후 네모난게 아닌 동그랗게 보이기 위함 */
+}
+/* 태양이미지 */
+#sun img{
+  width: 100%;
+  height: 100%;
+  /* 애니메이션 호출 */
+  animation: flame-ani 10s linear infinite alternate;
+  /* 20초간 등속도로 무한히 왔다갔다함 */
+}
+
+/* 태양이 이글거리는 애니메이션 키프레임 */
+@keyframes flame-ani{
+  to {
+    transform: scale(1.5);
+  }
+}
+/* #sun:hover img
+   transform: scale(1.5); = tf:sc
+ } */
+
+/* 행성공통 - 애니메이션 멈춤설정 
+[애니메이션 2가지 상태]
+animation-play-state: running; -> 실행상태(기본값)
+animation-play-state: paused; -> 멈춤상태
+*/
+.planet:hover{
+  /* 기존 애니메이션이 id로 세팅되어서 기본값 running이 더 우선됨 -> !important로 우선순위를 높임  */
+  animation-play-state: paused !important;
+  /* 손가락 모양 */
+  cursor: pointer;
+  /* 다른 행성보다 위 */
+  z-index: 1;
+  
+}
+
+/* 행성 설명박스 공통 */
+.info{
+  position: absolute;
+  top: 0;
+  left: 100%;
+  width: 0;
+  max-height: 2px;
+  /* 내부 패딩이 없어야 완벽하게 숨겨짐 */
+  overflow: hidden;
+  /* 트랜지션 아웃시 : max-height 먼저 보이고 width는 나중에 */
+  transition: width .4s , border-bottom-color .4s, max-height .4s .4s;
+  
+  border-top: 2px solid lightgreen; 
+  border-bottom: 2px solid transparent; 
+  color: rgb(147, 227, 26);
+  font-size: 12px;
+  line-height: 1.8;
+  font-weight: bold;
+  
+  /* 백드롭필터 */
+  backdrop-filter: blur(2px);
+  
+}
+/* 정보제목, 내용 */
+.info h2,p{
+  margin: 0;
+  padding: 10px;
+  width: 200px;
+  box-sizing: border-box;
+}
+
+/* 행성에 마우스 오버시 행성 정보 보이기 애니 */
+.planet:hover > .info , #earth:hover .info {
+  width: 200px;
+  /* 최대 높이값은 컨텐츠 중 가장 큰 사이즈를 준다 */
+  border-bottom-color: lightgreen;
+  max-height: 300px;
+  /* 트랜지션 아웃시 : max-height 먼저 보이고 하단 보더색과 width는 나중에 */
+  transition: width .4s, border-bottom-color .4s .4s , max-height .4s .4s;
+
+  
+}
+
+
+
+
+ /* 지구+달 랩핑박스 : 실제로 도는 박스*/
+ .earth-wrap{
+  position: absolute;
+  /* 부모는 : 솔라 */
+  /* 지구 중앙이동 : calc(50% - 크기절반) */
+  top: calc(50% - var(--earth-size)/2);
+  left: calc(50% - var(--earth-size)/2);
+  width: var(--earth-size);
+  height: var(--earth-size);
+  border-radius: 50%;
+  /* 애니메이션 호출 */
+  animation: earth-ani 15s linear infinite;
+ }
+
+ /* 지구 */
+ #earth{
+  position: absolute;
+  /* 부모는 : 솔라 */
+  /* 지구 중앙이동 : calc(50% - 크기절반) */
+  top: 0;
+  left: 0;
+  width: var(--earth-size);
+  height: var(--earth-size);
+  border-radius: 50%;
+  /* 배경이미지 */
+  background: url(../images/earth.png) no-repeat 0/100% 100%;
+  box-shadow:  0 0 10px 5px lightcyan;
+}
+
+/* 지구 회전 키프레임 */
+@keyframes earth-ani {
+  from{
+    transform: rotate(0deg) translateX(var(--earth-trans-size)) rotate(0deg);
+  }
+  to{
+    transform: rotate(360deg) translateX(var(--earth-trans-size)) rotate(-360deg);
+  }
+}
+
+#moon{
+  position: absolute;
+  /* 부모는 : .earth-wrap */
+  /* 달 중앙이동 : calc(50% - 크기절반) */
+  top: calc(50% - var(--moon-size)/2);
+  left: calc(50% - var(--moon-size)/2);
+  width: var(--moon-size);
+  height: var(--moon-size);
+  border-radius: 50%;
+  /* 배경이미지 */
+  background: url(../images/moon.png) no-repeat 0/100% 100%;
+  box-shadow:  0 0 7px 2px lightyellow;
+  /* 애니메이션 호출 */
+  animation: moon-ani 10s linear infinite;
+ }
+
+ /* 달 회전 키프레임 */
+ @keyframes moon-ani {
+   from{
+     transform: rotate(0deg) translateX(var(--moon-trans-size)) rotate(0deg);
+    }
+    to{
+      transform: rotate(360deg) translateX(var(--moon-trans-size)) rotate(-360deg);
+    } 
+  }
+  
+  /* 
+  [키 프레임 회전시 2번째 회전의 의미는?]
+  rotate(360deg) : 중앙회전 
+  translateX(300px) : 위치이동
+  rotate(-360deg) : 이동된 요소의 회전 
+  */
+  #jupiter{
+    position: absolute;
+    /* 부모는 : 솔라 */
+    /* 지구 중앙이동 : calc(50% - 크기절반) */
+    top: calc(50% - var(--jupiter-size)/2);
+    left: calc(50% - var(--jupiter-size)/2);
+    width: var(--jupiter-size);
+    height: var(--jupiter-size);
+    border-radius: 50%;
+    box-shadow:  0 0 10px 5px lightgoldenrodyellow;
+    /* 배경이미지, 박스그림자를 위해 이미지 크기 변경(다른 것들은 100%인데 이미지때문에 박스그림자가 적용안되어 크기 조정함) */
+    background: url(../images/jupiter.png) no-repeat center/120% 120%;
+    /* 애니메이션 호출 */
+    animation: jupiter-ani 40s linear infinite;
+  }
+
+ /* 지구 회전 키프레임 */
+ @keyframes jupiter-ani {
+   from{
+     transform: rotate(0deg) translateX(var(--jupiter-trans-size)) rotate(0deg);
+    }
+    to{
+      transform: rotate(360deg) translateX(var(--jupiter-trans-size)) rotate(-360deg);
+    }  
+  }
+  
+  #saturn{
+    position: absolute;
+    /* 부모는 : 솔라 */
+    /* 지구 중앙이동 : calc(50% - 크기절반) */
+    top: calc(50% - var(--saturn-size)/2);
+    left: calc(50% - var(--saturn-size)/2);
+    width: var(--saturn-size);
+    height: var(--saturn-size);
+    border-radius: 50%;
+    /* 배경이미지 */
+    /* background: url(../images/saturn.png) no-repeat 0/100% 100%; -> 가상요소에 이미지 넣어줬기 때문*/
+    /* 애니메이션 호출 */
+  animation: saturn-ani 40s linear infinite;
+ }
+ 
+ /* 지구 회전 키프레임 */
+ @keyframes saturn-ani {
+   from{
+     transform: rotate(0deg) translateY(var(--saturn-trans-size)) rotate(0deg);
+    }
+    to{
+      transform: rotate(360deg) translateY(var(--saturn-trans-size)) rotate(-360deg);
+    }  
+ }
+ 
+ /* 가상요소로 토성이미지 배경으로 넣기 */
+ #saturn::before{
+   content: '';
+   position: absolute;
+   top: 0;
+   left: -30%;
+   width: 160%;
+   height: 100%;
+   background: url(../images/saturn.png) no-repeat 0/100% 100%;  
+  }
+
+  /* 가상요소로 박스그림자 효과 나타내기  */
+ #saturn::after{
+   content: '';
+   position: absolute;
+   top: 25px;
+   left: 19%;
+   width: 63%;
+   height: 69%;
+   border-radius: 50%;
+   box-shadow:  0 0 10px 5px lightslategray;
+  }
+  
+  #pluto{
+    position: absolute;
+    /* 부모는 : 솔라 */
+    /* 지구 중앙이동 : calc(50% - 크기절반) */
+    top: calc(50% - var(--pluto-size)/2);
+    left: calc(50% - var(--pluto-size)/2);
+    width: var(--pluto-size);
+    height: var(--pluto-size);
+    
+    box-shadow:  0 0 10px 5px lightgray;
+    border-radius: 50%;
+    /* 배경이미지 */
+    background: url(../images/pluto.png) no-repeat 0/100% 100%;
+    /* 애니메이션 호출 */
+    animation: pluto-ani 50s linear infinite;
+ }
+
+ /* 지구 회전 키프레임 */
+ @keyframes pluto-ani {
+  from{
+    transform: rotate(0deg) translateY(var(--pluto-trans-size)) rotate(0deg);
+  }
+  to{
+    transform: rotate(360deg) translateY(var(--pluto-trans-size)) rotate(-360deg);
+  }
+ }
+
+ /* 행성 경로 원그리기 */
+ .path-way div{
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+   border: 2px solid #ccc;
+   border-radius: 50%;
+   opacity: 0.5;
+   /* 다른 행성보다 아래위치 */
+   z-index: -1;
+  }
+  
+  /* 지구경로크기 : -2를 곱한 것은 양수값으로 2배수 만들기함 */
+  .path-way div.earth{
+    width: calc(var(--earth-trans-size)*-2);
+    height: calc(var(--earth-trans-size)*-2);
+  }
+  /* 목성경로크기 */
+  .path-way div.jupiter{
+    width: calc(var(--jupiter-trans-size)*2);
+    height: calc(var(--jupiter-trans-size)*2);
+  }
+  /* 토성경로크기 */
+  .path-way div.saturn{
+    width: calc(var(--saturn-trans-size)*-2);
+    height: calc(var(--saturn-trans-size)*-2);
+  }
+  /* 명왕성경로크기 */
+  .path-way div.pluto{
+    width: calc(var(--pluto-trans-size)*2);
+    height: calc(var(--pluto-trans-size)*2);
+  }
+ /* 지구경로크기 */
