@@ -69,25 +69,30 @@ body{
 }
 
 #enter span{
-  /* 나란히 있던 이미지와 글자->글자를 밑으로 내리기 */
+  /* 나란히 있던 이미지와 글자 -> 글자를 밑으로 내리기 */
   display: block;
   text-align: center;
   font-size: 3.4rem; /* 글자크키 34px */
   font-family: 'Audiowide';
+  transition: .2s ease-out .2s;
 }
 
+#enter:hover span{
+  color : chartreuse;
+  transform: scale(2);
+}
+
+/* 엔터박스 오버시 로고 이미지 애니적용하기 */
 #enter img{
   position: relative;
   width: 210px;
   height: 210px;
+  transition: .4s ease-out;
+}
+#enter:hover img{
+  transform: scale(1.5) rotate(-15deg);
 }
 
 
-#enter img:hover{
-  transform: rotate(344deg);
-}
 
-#enter span:hover{
-  font-size: 5em;
-  color : chartreuse;
-}
+
