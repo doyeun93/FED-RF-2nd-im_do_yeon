@@ -32,10 +32,10 @@
     /* 높이값을 이용한 메뉴 숨기기 */
     height: 0;
     overflow: hidden;
-    transition: height .4s ease-in-out;
+    transition: height 0.4s ease-in-out;
   }
   /* gnb 오버시 ul보이기 */
-  .gnb:hover ul{
+  .gnb:hover ul {
     height: 127px;
   }
   /* 서브메뉴 오버시 숨기기 */
@@ -54,33 +54,44 @@
 /****************** 최대 1024px 이하 미디어쿼리 종료 ******************/
 
 /****************** 최대810px 이하 미디어쿼리 시작 ******************/
-  /* 하단 영역 박스  */
-@media screen and (max-width:810px) {
+/* 하단 영역 박스  */
+@media screen and (max-width: 810px) {
   /* gnb 위치이동 */
   .footer-area {
     gap: 20px;
     flex-direction: column;
-   }
-   /* SNS */
-   .sns-box {
+  }
+  /* SNS */
+  .sns-box {
     margin-left: 0;
-}
-.poster-menu ul {
-  flex-wrap: wrap;
-  /* 가로방향 사이갭이 가로폭의 2%로 변경 */
-  gap: 0 2%;
+  }
+  .poster-menu ul {
+    flex-wrap: wrap;
+    /* 가로방향 사이갭이 가로폭의 2%로 변경 */
+    gap: 0 2%;
   }
   .poster-menu > ul > li {
-  flex-basis: calc(100%/3 - 1.4%);
-  /* 100%의 3등분에 gap값 2%에서 오른쪽에 남는 갭을 등분할한 적당한 수치인 1.4%를 빼줌 
+    flex-basis: calc(100% / 3 - 1.4%);
+    /* 100%의 3등분에 gap값 2%에서 오른쪽에 남는 갭을 등분할한 적당한 수치인 1.4%를 빼줌 
   -(빼기)는 띄어쓰기를 꼭 해줘야함! -> 안그럼 에러남 */
   }
 }
 
 /****************** 최대810px 이하 미디어쿼리 종료 ******************/
 /****************** 최대810px 이하 미디어쿼리 시작 ******************/
-  /* 하단 영역 박스  */
-@media screen and (max-width:810px) {
- 
+/* 하단 영역 박스  */
+@media screen and (max-width: 810px) {
+  .main-area {
+    position: relative;
+    aspect-ratio: 1 / 1.25;
+    background: url(../images/bg.jpg) no-repeat center -37% / 148%;
+  }
+
+  .screen {
+    top: 5.2%;
+    left: 7.3%;
+    width: 87%;
+    height: 39.5%;
+  }
 }
 /****************** 최대810px 이하 미디어쿼리 종료 ******************/
