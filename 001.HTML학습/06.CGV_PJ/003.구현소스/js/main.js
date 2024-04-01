@@ -34,7 +34,8 @@ const movieId =  {
 
 // 3. 이벤트 설정 및 기능구현
 // 포스터 버튼에 foreach() 메서드로 순회한다
-pMenu.forEach((ele)=>{
+pMenu.forEach((ele,idx)=>{
+  // ele : 각 a 요소 , idx : 각 요소의 순번
   ele.onclick = () =>{
 
     // 1. 클릭된 a요소를 구분하기 위해 하위 img 포스터의 alt 속성 읽어오기
@@ -51,8 +52,23 @@ pMenu.forEach((ele)=>{
     // 객체호출 코드 : movieId[txt]
     ifr.setAttribute('src',`https://www.youtube.com/embed/${movieId[txt]}?autoplay=1`);
 
+    // 3. 클릭된 a의 부모인 li에 클래스 on 넣기
+    // for of문 사용
+    pMenu.forEach((x,i) =>{
+      // x는 요소 , i는 순번
+      // x.parentElement는 a요소 상위부모 li요소
+      if(i===idx){
+        x.parentElement.classList.add('on');
+      } // if 문 /////
+      else{  
+        x.parentElement.classList.remove('on');
+      }
+    }); ///// for each //////////
+   
 
+    
   }; ///// click 함수 /////////
 }); ////// foreach //////
+
 
 

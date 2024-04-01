@@ -287,12 +287,15 @@ body * {
   /* 자식요소의 영화정보박스 숨기기 */
 }
 
-/* li에 오버시 이미지 일어나기 */
+/* li에 오버시 이미지 일어나기 + .on줄때 일어나기*/
+.poster-menu > ul > li.on,
 .poster-menu > ul > li:hover {
   /* x축 회전 */
   transform: rotateX(0deg);
   /* 오버요소 항상 위 */
   z-index: 1;
+  /* 아웃라인 */
+  outline: 1px solid aqua;
   
 }
 
