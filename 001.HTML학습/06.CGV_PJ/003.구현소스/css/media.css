@@ -1,0 +1,70 @@
+@charset "utf-8";
+
+/* CGV PJ 미디어쿼리  css - media.css */
+
+/* max-width를 사용한 미디어쿼리를 큰 사이즈부터 작은 사이즈 순으로 세팅 */
+
+/****************** 최대 1370px 이하 미디어쿼리 시작 ******************/
+
+@media screen and (max-width: 1370px) {
+  /* gnb 위치이동 */
+  .gnb {
+    right: 70px;
+  }
+}
+
+/****************** 최대 1370px 이하 미디어쿼리 종료 ******************/
+
+/****************** 최대 1024px 이하 미디어쿼리 시작 ******************/
+
+@media screen and (max-width: 1024px) {
+  /* GNB메뉴 위치 및 배치 변경하기 */
+  .gnb {
+    /* 기존 위치기준을 auto로 초기화함 */
+    bottom: auto;
+    right: 17px;
+    /* 새로운 기준인 top을 사용함 */
+    top: 77px;
+  }
+  .gnb ul {
+    flex-direction: column;
+    align-items: flex-end;
+    /* 높이값을 이용한 메뉴 숨기기 */
+    height: 0;
+    overflow: hidden;
+    transition: height .4s ease-in-out;
+  }
+  /* gnb 오버시 ul보이기 */
+  .gnb:hover ul{
+    height: 127px;
+  }
+  /* 서브메뉴 오버시 숨기기 */
+  .gnb ul > li:hover .smenu {
+    display: none;
+  }
+  /* 영사기 위치변경 */
+  .cam {
+    top: -62px;
+    right: -12px;
+    /* 하단 gnb와 오버시 연결필요 */
+    padding-bottom: 20px;
+  }
+}
+
+/****************** 최대 1024px 이하 미디어쿼리 종료 ******************/
+
+/****************** 최대810px 이하 미디어쿼리 시작 ******************/
+  /* 하단 영역 박스  */
+@media screen and (max-width:810px) {
+  /* gnb 위치이동 */
+  .footer-area {
+    gap: 20px;
+    flex-direction: column;
+   }
+   /* SNS */
+   .sns-box {
+    margin-left: 0;
+}
+}
+
+/****************** 최대810px 이하 미디어쿼리 종료 ******************/
