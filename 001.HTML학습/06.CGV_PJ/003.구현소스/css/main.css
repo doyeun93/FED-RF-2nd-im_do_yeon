@@ -267,16 +267,33 @@ body * {
 
 /* 포스터 리스트 */
 .poster-menu ul {
+  /* 원근설정 : 하위 li에 적용 */
+  perspective: 100vh;
   display: flex;
   /* 하위 요소 사이 간격 */
   gap: 0 15px;
 }
 /* 상위 ul>li 리스트 */
 .poster-menu > ul > li {
+  /* 트랜지션 */
+  transition: .3s ease-in-out;
+  /* 기본 회전축 하단 변경 */
+  transform-origin: bottom;
+  /* x축 회전 */
+  transform: rotateX(40deg);
   position: relative;
   /* 부모자격: 영화정보박스 */
   overflow: hidden;
   /* 자식요소의 영화정보박스 숨기기 */
+}
+
+/* li에 오버시 이미지 일어나기 */
+.poster-menu > ul > li:hover {
+  /* x축 회전 */
+  transform: rotateX(0deg);
+  /* 오버요소 항상 위 */
+  z-index: 1;
+  
 }
 
 /* 포스터 이미지 */
