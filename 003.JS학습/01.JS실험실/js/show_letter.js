@@ -15,12 +15,12 @@ const domFn = {
 
 // 1. 구현 요구사항 : 글자를 박스에 넣고 하나씩 일어나면서 등장(style3)
 
-// 2. 대상 선정 : .stage-letters
-const stage =  domFn.qs('.stage-letters');
+// 2. 대상 선정 : .stage
+const stage =  myFn.qs('.stage');
 console.log('대상:', stage);
 
 // 3. 글자데이터 변수 할당
-const myText =' 떡볶이 마라탕 곱창 먹고싶어!!!!';
+const myText =' 신카이 마코토';
 // console.log('g',myText);
 
 // 4. 데이터 글자 한 글자씩 태그로 싸기 -> for of 사용
