@@ -13,7 +13,7 @@ const myFn = {
 
   // 바운딩 함수
   getBCR : ele => ele.getBoundingClientRect().top,
-  // 오프셋탑값 반환함수
+  // 오프셋탑(offsetTop: 화면의 맨 위에 대상이 닿는 값)값 반환함수
   getOT : ele => ele.offsetTop,
 
 }; /////// myFn 객체 /////////////
@@ -152,6 +152,7 @@ setTimeout(() => {
 // 이벤트 대상 : window
 myFn.addEvt(window, 'scroll', moveTit);
 
+
 // 기준이 되는 포스터 박스 위치 구하기
 const posTop = [];
 
@@ -159,7 +160,15 @@ scAct.forEach((ele,idx) => {
  posTop[idx] = myFn.getOT(ele);
 }); ////////// for Each ///////
 
-console.log('포스터위치 :', posTop);
+// -> 특정요소의 offsetTop값은 최상위 라인으로부터 떨어진 위치를 의미함
+// 이것은 스크롤바 이동 위치가 해당요소가 화면 맨 위에 걸린 상태와 같음
+// ==>> 그러므로 화면 중간에 위치할 때의 값은 화면 높이값의 절반을 빼주면 됨
+// posTop[순번] - window.innerHeight/2
+
+// 화면 절반크기 변수
+const gap = window.innerHeight/2;
+
+console.log('포스터위치 :', posTop ,gap);
 // 포스터 위치 :  755 , 1416 ,2077
 
 //// 글자 이동함수
@@ -169,12 +178,37 @@ function moveTit(){
   // 호출 확인 
   console.log('타이틀 이동!!', scTop);
 
-  if(scTop > 300) {
+
+  // 1. 맨 위 원위치 하기
+  if(scTop < posTop[0]-gap) {
+    stage.style.top = '50%';
+    stage.style.left = '25%';
+    stage.style.transition = '1s';
+  }
+  
+
+  // 2. 첫번째 포스터 옆으로 이동
+  if(scTop > posTop[0]-gap && scTop < posTop[0]) {
     stage.style.top = '50%';
     stage.style.left = '25%';
     stage.style.transition = '2s';
   }
-  else stage.style.top = '0%';
+  //  else stage.style.top = '0%';
+
+  // 2. 두번째 포스터 옆으로 이동
+  if(scTop > posTop[1]-gap && scTop < posTop[1]) {
+    stage.style.top = '70%';
+    stage.style.left = '65%';
+    stage.style.transition = '1s';
+  }
+
+  // 2. 세번째 포스터 옆으로 이동
+  if(scTop > posTop[2]-gap && scTop < posTop[2]) {
+    stage.style.top = '50%';
+    stage.style.left = '25%';
+    stage.style.transition = '1.5s';
+  }
+ 
 
 } /////// moveTit 함수 ///////////
 } //////// showLetters 함수 /////////////
