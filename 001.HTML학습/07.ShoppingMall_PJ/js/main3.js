@@ -102,6 +102,8 @@ function loadFn() {
   // (4) 해당 순번의 슬라이드에 클래스 on 넣기 -> 나머지 슬라이드는 on제거하기(외부함수구성)
   // (5) 블릿 표시자도 슬라이드가 같은 순번에 클래스 on 넣고 나머지는 빼준다(외부함수구성)
   // (6) 자동넘김 구성 함수를 호출하여 인터발호출 작동 -> 버튼 클릭시 인터발지우기/ 일정시간 뒤 인터발 작동
+  
+  //////////////////  [goSlide] ///////////////////////////////
   function goSlide(){
 
     ////////////////// 광클 금지 설정 (0.6초동안 광클 막아줌) ///////////////////
@@ -110,6 +112,9 @@ function loadFn() {
     setTimeout(() => {
       stop = false; // 해제
     }, SLIDE_TRANS_TIME);
+
+    // 0. 인터발 지우기 함수 호출
+    clearAuto();
 
     // 1. 오른쪽 버튼 여부
     let isRbtn = this.classList.contains('ab2');
@@ -137,7 +142,7 @@ function loadFn() {
     // target - 변경할 요소대상
     // className - 변경할 클래스명
     // seq - 클래스가 들어갈 순번
-    console.log('대상:',target, '/클래스명:',className, '/순번',seq);
+    // console.log('대상:',target, '/클래스명:',className, '/순번',seq);
 
     // 1. 타겟은 HTML 컬렉션이므로 forEach 메서드로 순회함
     target.forEach((ele,idx)=>{
@@ -149,5 +154,84 @@ function loadFn() {
 
     }); ///// forEach /////////////////
   } ////////////// setClass 함수 /////////////////
+
+  ////////// [블릿 클릭 이벤트 세팅구역] //////////////////
+  // 대상 : .indic li -> indic 변수
+  // 1. 이벤트 설정하기 : forEach 메서드 사용
+  indic.forEach((ele,idx)=>{ 
+    // ele: 요소 , idx : 순번
+    addEvt(ele,'click',()=>indicSlide(idx));
+  }); /////// forEach /////////
+  
+
+  // 2. 이벤트 처리함수 만들기
+ function indicSlide(seq){
+  // seq : 변경할 순번
+  console.log('블릿클릭!',seq);
+
+   // (1)인터발 지우기 함수 호출
+   clearAuto(); 
+
+   // (2)현재 슬라이드 순번 블릿 순번으로 업데이트
+   snum = seq;
+   // (3)슬라이드 순번 클래스 제어함수 호출
+   setClass(slide,'on',snum);
+   // (4)블릿 순번 클래스 제어함수 호출하기(그래야 슬라이드 넘김시 블릿도 같이 넘어가니까)
+   setClass(indic,'on',snum);
+
+ } ////////// indicSlide 함수 ////////////
+
+
+
+
+
+  // [자동넘김 세팅 구역]
+  // 인터발용 변수(지울목적)
+  let autoI;
+  // 타임아웃용 변수(지울목적)
+  let autoT;
+  // 자동넘김호출 함수 최초호출하기
+  autoSlide();
+
+
+  // 자동 넘김 호출 함수 //////////////////
+  function autoSlide(){  
+  // setInterval(함수, 시간) : 비동기 함수, 일정시간간격으로 함수 호출
+  /* 
+  setInterval(() => {
+   abtn[1].onclick();
+  }, 3000);
+  */
+  // clearInterval(인터발변수) : 변수에 담긴 인터발을 지움(멈춤)
+  autoI = setInterval(() => {
+    // 현재 슬라이드 순번 증가
+    snum === SLIDE_CNT-1 ? (snum = 0 ) : snum++;
+    // 슬라이드 순번 클래스 제어함수 호출
+    setClass(slide,'on',snum);
+    // 블릿 순번 클래스 제어함수 호출하기(그래야 슬라이드 넘김시 블릿도 같이 넘어가니까)
+    setClass(indic,'on',snum);
+  }, 3000);
+
+ 
+} ///////////// autoslide 함수 //////////
+
+
+/////////// [인터발 지우기 함수 : 버튼 조작시 호출함] /////////////////
+function clearAuto(){
+  // 지우기 확인
+  console.log('인터발 지워!');
+  // 1. 인터발 지우기
+  clearInterval(autoI);
+  // 2. 타임아웃 지우기 : 실행쓰나미 방지
+  clearTimeout(autoT);
+  
+  // 5초후 아무 작동도 안하면 다시 인터발 호출
+  autoT = setTimeout(() => {
+    autoSlide();
+  }, 5000);
+
+
+} /////////// clearAuto 함수 ///////////
+
   
 } /////////////// loadFn 함수 //////////////
