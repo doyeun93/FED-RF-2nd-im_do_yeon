@@ -42,15 +42,20 @@ function loadFn() {
   // 변경대상 : #slide
   const slide = qs("#slide");
   // 블릿버튼 : .indic
-  let indic = document.querySelector(".indic");
+  let indic =qs(".indic");
   // console.log(abtn,slide);
+
+  // 슬라이드(블릿)개수 상수로 세팅하기
+  // 상수는 대문자로 쓰고 단어구분은 언더바로함
+
+  const SLIDE_CNT = 5; 
 
   //////////// 초기셋팅하기 ////////
   // 5개의 슬라이드와 블릿을 만들어준다!
-  for (let i = 0; i < 5; i++) {
-    // 슬라이드 넣기
+  for (let i = 0; i < SLIDE_CNT; i++) {
+    // 슬라이드 넣기(i가 0이면 클래스에 on을 넣고 아니면 빈값)
     slide.innerHTML += `
-    <li data-seq="${i}">
+    <li ${i === 0?'class="on"':''}> 
         <img 
         src="images/slide0${i + 1}.jpg"         
         alt="slide">
@@ -72,4 +77,36 @@ function loadFn() {
   // 슬라이드 순번 전역변수
   let snum = 0; 
 
+  // 1. 이벤트 연결 설정하기 
+  // 대상: .abtn 
+  // 이벤트 : addEvt(대상, 이벤트, 함수) 
+  abtn.forEach(ele=>{
+    addEvt(ele,'click',goSlide); 
+
+  }); //// for each /////////////
+
+  // 2. 이벤트 처리 함수 만들기
+  // (1) 오른쪽 버튼이면 전역슬라이드 변수 snum++;
+  // (2) 왼쪽 버튼이면 전역슬라이드 변수 snum--;
+  // (3) 이때 한계값을 체크하여 순환되게 함 -> 끝번호 뒤는 첫번호, 첫번호 앞은 끝번호
+  // (4) 해당 순번의 슬라이드에 클래스 on 넣기 -> 나머지 슬라이드는 on제거하기(외부함수구성)
+  // (5) 블릿 표시자도 슬라이드가 같은 순번에 클래스 on 넣고 나머지는 빼준다(외부함수구성)
+  // (6) 자동넘김 구성 함수를 호출하여 인터발호출 작동 -> 버튼 클릭시 인터발지우기/ 일정시간 뒤 인터발 작동
+  function goSlide(){
+    // 1. 오른쪽 버튼 여부
+    let isRbtn = this.classList.contains('ab2');
+    // 호출확인
+    //console.log('오른쪽버튼이니?',isRbtn,this);
+    // 2. 버튼에 따른 전역 슬라이드 번호 증감하기
+    // (1) 오른쪽 버튼일 경우 증가 ->한계설정 : snum이 개수-1과 같으면 첫번호 0
+    if(isRbtn) snum === SLIDE_CNT-1 ? (snum = 0 ) : snum++;
+    
+    // (2) 왼쪽 버튼일 경우 감소 ->한계설정 : snum이 0보다 작으면 마지막 순번
+    else snum === 0 ? (snum = SLIDE_CNT-1)  : snum--;
+
+    console.log('snum:' + snum);
+    
+
+  } ///// goSlide 함수 //////////////
+  
 } /////////////// loadFn 함수 //////////////
