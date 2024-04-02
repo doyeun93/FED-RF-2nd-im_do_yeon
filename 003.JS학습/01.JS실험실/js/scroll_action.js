@@ -10,6 +10,9 @@ const myFn = {
 
   // 이벤트셋팅함수
   addEvt: (ele, evt, fn) => ele.addEventListener(evt, fn),
+
+  // 바운딩 함수
+  getBCR : ele => ele.getBoundingClientRect().top,
 }; /////// myFn 객체 /////////////
 
 
@@ -32,7 +35,14 @@ const myFn = {
 
   3. 스크롤 등장 대상요소의 보이는 화면에서의 top값
     getBoundingClientRect().top
-    -> 보이는 화면상단을 기준으로 이것보다 위로 갈경우
+    -> Bounding: 경계선(바운딩박스-> 경계선을 가지는 직사각형 박스)
+    -> rect: 사각형
+    ->>>> BoundingClientRect : 보이는 화면 사각형 경계선으로부터의 거리를 리턴해주는 메서드
+    -> 상단으로부터의 거리는 TOP 속성
+    -> 왼쪽으로부터의 거리는 LEFT 속성
+    -> 공통적으로 경계선 아래쪽은 양수, 위쪽은 음수
+
+    -> 보이는 화면(client)상단을 기준으로 이것보다 위로 갈경우
     마이너스값을 리턴한다!
     -> 기준: 보이는 화면크기를 기준하면 된다!
     -> 윈도우화면 전체: window.innerHeight
