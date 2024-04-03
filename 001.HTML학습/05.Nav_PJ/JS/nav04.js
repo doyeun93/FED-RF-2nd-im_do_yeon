@@ -27,7 +27,10 @@ console.log('대상:', gnbList);
 
 // 3. 이벤트 설정하기 //////////////
 gnbList.forEach(ele=>{
+  // 1. 클릭시 메뉴 열기 / 가타서브 닫기
   myFn.addEvt(ele, 'click', showMenu);
+  // 2. 마우스 떠날때 메뉴 닫기
+  // myFn.addEvt(ele, 'mouseleave', hideMenu); -> 모바일에서는 적용안됨
 });   ///// for each //////////
 
 
@@ -63,6 +66,14 @@ function showMenu(){
     // smenu의 높이값(clientHeight)이 0이면 높이값(hval) 적용, 
     // 0이 아니면 0값 적용하여 열었다/닫았다를 가능하게 함
 
+    // 4. 기타 다른 서브메뉴가 열렸다면 모두 닫아준다
+    // gnb 상위 li를 모두 순회한다
+    gnbList.forEach(ele => {
+      // isSameNode() 메서드는 순회중 같은 노드(요소)인지 판별해주는 기능을 가짐(같으면 true)
+      let isSame = ele.isSameNode(this);
+      console.log('서브닫기체크:',ele,isSame);
+    });
+
   } //////////// if 문 //////////////////////
 
 } ////// showMenu 함수 /////////////////
@@ -71,6 +82,18 @@ function showMenu(){
 
 // 4-2. 서브메뉴 숨기기 함수
 function hideMenu(){
+   // 1. 하위의 서브메뉴 가져오기 : 서브메뉴 없으면 null
+   let smenu = myFn.qsEl(this,'.smenu');
   console.log('메뉴숨겨');
+
+
+  if (smenu){
+    // 서브가 있는 경우 높이값 0
+    if(smenu.clientHeight != 0){
+      console.log('0만들어');
+    
+      smenu.style.height = '0px';
+    }
+  } ////// if문 ///////////
 
 } /////// hideMenu 함수 ///////////////////
