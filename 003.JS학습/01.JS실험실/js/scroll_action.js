@@ -224,6 +224,7 @@ function moveTit(){
 // -> 비례식 사용 - 스크롤 한계값 : 윈도우 높이 = 스크롤 이동값 : 이미지이동값
 // 이미지 이동값 = 윈도우 높이 * 스크롤 이동값 / 스크롤 한계값
 
+
 // 0. 변수값 세팅하기
 // (1) 스크롤 한계값 : 전체 document 높이 - 화면 높이
 // 전체 document 높이
@@ -231,8 +232,8 @@ let docH = document.body.clientHeight;
 // 화면 높이 
 let winH = window.innerHeight;
 // 스크롤 한계값
-let scLimit = docH - winH;
-console.log('문서높이 :', docH, '\n화면높이:', winH, '\n한계값:', scLimit);
+let sclLimit = docH - winH;
+console.log('문서높이 :', docH, '\n화면높이:', winH, '\n한계값:', sclLimit);
 
 // 1. 대상선정 : 떨어지는 여자 요소
 const woman = myFn.qs('#woman');
@@ -242,6 +243,18 @@ myFn.addEvt(window,'scroll',moveWoman);
 
 // 3. 함수 만들기
 function moveWoman(){
+  // (1) 스크롤 위치값
   let scTop = window.scrollY;
-  console.log('스크롤위치:',scTop);
+  
+  // (2)이미지 top 값
+  // 이미지 이동값 = 윈도우 높이(winH) * 스크롤 이동값(scTop) / 스크롤 한계값(sclLimit)
+  let wTop = winH * scTop / sclLimit;
+  console.log('스크롤위치:',scTop,'\n여자:',wTop);
+
+  // (3) 이미지에게 적용하기
+  woman.style.top = wTop + 'px';
+
+  // (4) 맨위일 때 윗쪽으로 숨기기
+  if(scTop === 0) woman.style.top = '-20%'; // 원래 이미지 top값
+
 } //// moveWoman 함수 ///////////
