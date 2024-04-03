@@ -74,8 +74,9 @@ myFn.addEvt(window,'scroll', showIt);
 function showIt(){
 
   // 클래스 on 넣기 함수 호출하기
-  // for of 문 호출
-  for(let x of scAct) addOn(x);
+  // for each 문 처리 방법
+  scAct.forEach(ele=>addOn(ele));
+  // = for(let x of scAct) addOn(x); 
 
   //let pos = myFn.getBCR(scAct[0]);
   // 함수 호출 확인 
@@ -93,6 +94,7 @@ console.log('기준값:',CRITERIA);
 function addOn(ele){ // ele : 대상 요소
   // 바운딩 값 구하기
   let bcrVal = myFn.getBCR(ele);
+  // console.log(bcrVal);
 
   // 기준값보다 작을때 등장
   if(bcrVal < CRITERIA) ele.classList.add('on');
