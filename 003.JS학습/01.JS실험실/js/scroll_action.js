@@ -85,9 +85,10 @@ function showIt(){
 
 } /////////// showIt 함수 //////////////
 
+
 // 스크롤 등장 기준 설정 : 화면의 2/3
 const CRITERIA = window.innerHeight / 3 * 2;
-console.log('기준값:',CRITERIA);
+// console.log('기준값:',CRITERIA);
 
 
 //// [ class on 넣기 함수] /////////
@@ -170,7 +171,7 @@ scAct.forEach((ele,idx) => {
 // 화면 절반크기 변수
 const gap = window.innerHeight/2;
 
-console.log('포스터위치 :', posTop ,gap);
+// console.log('포스터위치 :', posTop ,gap);
 // 포스터 위치 :  755 , 1416 ,2077
 
 //// 글자 이동함수
@@ -178,19 +179,19 @@ function moveTit(){
   // 스크롤 위치값 구하기
   let scTop = window.scrollY;
   // 호출 확인 
-  console.log('타이틀 이동!!', scTop);
+  // console.log('타이틀 이동!!', scTop);
 
 
   // 1. 맨 위 원위치 하기
-  if(scTop < posTop[0]-gap) {
-    stage.style.top = '50%';
-    stage.style.left = '25%';
+  if(scTop < posTop[0] - gap) {
+    stage.style.top = '0%';
+    stage.style.left = '50%';
     stage.style.transition = '1s';
   }
   
 
   // 2. 첫번째 포스터 옆으로 이동
-  if(scTop > posTop[0]-gap && scTop < posTop[0]) {
+  if(scTop > posTop[0] - gap && scTop < posTop[0]) {
     stage.style.top = '50%';
     stage.style.left = '25%';
     stage.style.transition = '2s';
@@ -198,14 +199,14 @@ function moveTit(){
   //  else stage.style.top = '0%';
 
   // 2. 두번째 포스터 옆으로 이동
-  if(scTop > posTop[1]-gap && scTop < posTop[1]) {
+  if(scTop > posTop[1] - gap && scTop < posTop[1]) {
     stage.style.top = '70%';
     stage.style.left = '65%';
     stage.style.transition = '1s';
   }
 
   // 2. 세번째 포스터 옆으로 이동
-  if(scTop > posTop[2]-gap && scTop < posTop[2]) {
+  if(scTop > posTop[2] - gap && scTop < posTop[2]) {
     stage.style.top = '50%';
     stage.style.left = '25%';
     stage.style.transition = '1.5s';
@@ -214,3 +215,33 @@ function moveTit(){
 
 } /////// moveTit 함수 ///////////
 } //////// showLetters 함수 /////////////
+
+
+
+//////////////////////////////////////////////////////////////
+////////////////// 떨어지는 여자 구현하기 ///////////////////// 
+// 기본원리 : 스크롤 이동에 따른 화면 높이값 범위안에서 떨어지는 여자 이미지가 아래쪽으로 이동애니
+// -> 비례식 사용 - 스크롤 한계값 : 윈도우 높이 = 스크롤 이동값 : 이미지이동값
+// 이미지 이동값 = 윈도우 높이 * 스크롤 이동값 / 스크롤 한계값
+
+// 0. 변수값 세팅하기
+// (1) 스크롤 한계값 : 전체 document 높이 - 화면 높이
+// 전체 document 높이
+let docH = document.body.clientHeight;
+// 화면 높이 
+let winH = window.innerHeight;
+// 스크롤 한계값
+let scLimit = docH - winH;
+console.log('문서높이 :', docH, '\n화면높이:', winH, '\n한계값:', scLimit);
+
+// 1. 대상선정 : 떨어지는 여자 요소
+const woman = myFn.qs('#woman');
+
+// 2. 스크롤 이벤트 설정하기 : window 가 이벤트 대상임
+myFn.addEvt(window,'scroll',moveWoman);
+
+// 3. 함수 만들기
+function moveWoman(){
+  let scTop = window.scrollY;
+  console.log('스크롤위치:',scTop);
+} //// moveWoman 함수 ///////////
