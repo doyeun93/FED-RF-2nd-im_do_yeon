@@ -27,7 +27,7 @@ console.log('대상:', gnbList);
 
 // 3. 이벤트 설정하기 //////////////
 gnbList.forEach(ele=>{
-  // 1. 클릭시 메뉴 열기 / 가타서브 닫기
+  // 1. 클릭시 메뉴 열기 / 기타서브 닫기
   myFn.addEvt(ele, 'click', showMenu);
   // 2. 마우스 떠날때 메뉴 닫기
   // myFn.addEvt(ele, 'mouseleave', hideMenu); -> 모바일에서는 적용안됨
@@ -66,15 +66,36 @@ function showMenu(){
     // smenu의 높이값(clientHeight)이 0이면 높이값(hval) 적용, 
     // 0이 아니면 0값 적용하여 열었다/닫았다를 가능하게 함
 
-    // 4. 기타 다른 서브메뉴가 열렸다면 모두 닫아준다
-    // gnb 상위 li를 모두 순회한다
-    gnbList.forEach(ele => {
-      // isSameNode() 메서드는 순회중 같은 노드(요소)인지 판별해주는 기능을 가짐(같으면 true)
-      let isSame = ele.isSameNode(this);
-      console.log('서브닫기체크:',ele,isSame);
-    });
+  } //////////// if 문 : smenu가 있는 경우 //////////////////////
 
-  } //////////// if 문 //////////////////////
+  //////////// 서브메뉴가 없는 상위 li가 클릭돼도 모두 닫기 처리 //////////////
+  // 4. 기타 다른 서브메뉴가 열렸다면 모두 닫아준다
+  // gnb 상위 li를 모두 순회한다
+  gnbList.forEach(ele => {
+    // ele는 각각의 li요소
+
+    // isSameNode() 메서드는 순회중 같은 노드(요소)인지 판별해주는 기능을 가짐(같으면 true)
+    // -> this 키워드는 함수를 호출한 li
+    // 1. 현재 요소와 같은 요소인지 판별하기
+    let isSame = ele.isSameNode(this);
+    // console.log('서브닫기체크:',ele,isSame);
+
+    // 2. 같은 요소가 아닌 경우만 하위 .smenu를 가져오기
+    if (!isSame){
+      // ! (not연산자)로 false일 때 true 변경
+      let smenu = myFn.qsEl(ele,'.smenu');
+      if(smenu){
+        // 서브메뉴가 있는 경우
+        // 서브메뉴의 높이값이 0이 아닌 경우
+        if(smenu.clientHeight != 0){
+          console.log('0만들어');
+        
+          smenu.style.height = '0px';
+        } //// if문 /////
+      } ////// if //////////
+    } //// if문 /////
+
+  }); ////////// foreach //////////////
 
 } ////// showMenu 함수 /////////////////
 
