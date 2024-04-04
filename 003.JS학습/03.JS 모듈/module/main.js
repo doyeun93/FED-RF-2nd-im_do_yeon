@@ -4,11 +4,32 @@
 import myFn from './my_function.js';
 
 
-// 텍스트 데이터 불러오기
-import { mTitle,sTitle,personInfo,mvData } from './text_data.js';
+// [import 방법 1 : 보내준 이름 그대로 쓰기] 
+// import { mTitle,sTitle,personInfo,mvData } from './text_data.js';
+
+// [import 방법 2 : 별칭지어서 쓰기]  -> 별칭을 지었으면 반드시 별칭으로 사용해야함
+// import { mTitle as mTit,sTitle as sTit,personInfo as pInfo,mvData as mvD } from './text_data.js';
+
+// [import 방법 3 : 한꺼번에 불러오기 - * 사용] -> import * as 별칭 from 경로 
+// =>>>>>>> 별칭 이름으로 한꺼번에 불러온 값을 객체에 담음
+// =>>>>>>> 모듈용 전용객체에 저장하여 객체.변수명(txtData.mTitle) 으로 사용함
+import * as txtData from './text_data.js';
+
+
 
 // 불러온 객체 확인
-console.log(myFn,mTitle,sTitle,personInfo,mvData);
+// console.log(myFn,mTitle,sTitle,personInfo,mvData);
+// console.log(myFn,mTit,sTit,pInfo,mvD);
+ console.log(txtData,txtData.mTitle);
+
+
+// export default로 내보낸 단일 함수 불러오기 
+// -> 불러오는 이름이 같지않아도 됨 다른 이름으로 불러와도 출력됨(에러없음)
+// import ㅎㅎ from './msg_format.js'; =>> 가넝
+  import makeMessage from './msg_format.js';
+
+  console.log(makeMessage);
+
  /*************************************************** 
     
     [ import 형식 ]
