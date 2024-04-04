@@ -26,9 +26,9 @@ import * as txtData from './text_data.js';
 // export default로 내보낸 단일 함수 불러오기 
 // -> 불러오는 이름이 같지않아도 됨 다른 이름으로 불러와도 출력됨(에러없음)
 // import ㅎㅎ from './msg_format.js'; =>> 가넝
-  import makeMessage from './msg_format.js';
+  import makeMsg from './msg_format.js';
 
-  console.log(makeMessage);
+  console.log(makeMsg);
 
  /*************************************************** 
     
@@ -67,4 +67,32 @@ ____________________________________________________
     -> msg_format.js
 
 ***************************************************/
-// DOM 선택함수 객체 불러오기
+
+
+
+// 요구사항 : 값 출력박스에 불러온 메시지 출력하기
+
+// 1. 대상선정 : 출력박스
+// (1) 타이틀 출력박스 : .tpart 
+const titBox =  myFn.qs('.tpart');
+// (2) 내용 출력박스 : #demo 
+const contBox =  myFn.qs('#demo');
+// (3) 영화정보 출력박스 : .mvpart 
+const mvBox =  myFn.qs('.mvpart');
+
+console.log('대상:', titBox,contBox,mvBox)
+
+
+
+// 2. 변경 적용하기
+// (1) 타이틀 출력하기 : 큰제목 + 작은제목
+titBox.innerHTML = `
+  <h2>${txtData.mTitle}</h2>
+  <h3>${txtData.sTitle}</h3>
+`;
+
+
+// (2) 내용 넣기 : 이름과 나이를 소개하는 메시지 넣기
+contBox.innerHTML = makeMsg('공유',46);
+contBox.innerHTML += makeMsg('톰행크스',60);
+contBox.innerHTML += makeMsg('졸리',49);

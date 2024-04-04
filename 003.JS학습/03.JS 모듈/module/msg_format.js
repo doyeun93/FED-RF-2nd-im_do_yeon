@@ -1,6 +1,6 @@
 // 구체적인 데이터 구성처리를 위한 JS : msg_format.js
 
-// 1. 선언적 함수를 만들고 내용 메시지를 구성하는 함수
+// 1. 선언적 함수를 만들고 아래쪽에서 export default하기
 // function makeMessage(name,age){
 //   return`
 //     나의 이름은 ${name}입니다.
