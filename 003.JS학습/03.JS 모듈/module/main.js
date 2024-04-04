@@ -47,6 +47,10 @@ import * as txtData from './text_data.js';
     (http://...) Live Server로 열기때문에 볼 수 있음!
     -> 로컬파일로 열면 작동안됨!
 
+
+    5.  모듈화의 모든 export파일에서도 import는 가능하다
+
+
     [ import의 사용방법]
      1. export default인 경우
         -> import 변수 from 경로 (변수는 내가 지을 수 있음)
@@ -96,3 +100,34 @@ titBox.innerHTML = `
 contBox.innerHTML = makeMsg('공유',46);
 contBox.innerHTML += makeMsg('톰행크스',60);
 contBox.innerHTML += makeMsg('졸리',49);
+
+// (3) 이름과 나이가 세팅된 personInfo 배열을 순회하여 
+// 메시지 함수를 호출해서 메시지를 찍어준다
+// 축약형
+// txtData.personInfo.forEach(
+//   v=>contBox.innerHTML+=makeMsg(v[0],v[1]));
+
+
+// 길게 쓰기 : v[0]은 이름, v[1]은 나이
+txtData.personInfo.forEach(
+  function(v){
+    contBox.innerHTML+=makeMsg(v[0],v[1])
+  });
+
+
+// 3. 영화정보 뿌리기
+// ol >li 형식으로 .mvpart 박스에 영화정보를 구성함, 데이터는 txtData.mvData 배열
+mvBox.innerHTML = "<h2>♥ 영화위시리스트 ♥</h2>";
+
+txtData.mvData.forEach(v=>{
+  mvBox.innerHTML += `
+  <ol>
+    <li>★제목 : ${v[0]}</li>
+    <li>★장르 : ${v[1]}</li>
+    <li>★감독 : ${v[2]}</li>
+    <li>★주연 : ${v[3]}</li>
+    <li>★한마디 : ${v[4]}</li>
+  </ol>
+  `;
+
+}); ///////////////////// foreach /////////////////////

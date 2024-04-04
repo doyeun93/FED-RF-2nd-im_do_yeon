@@ -2,7 +2,7 @@
 
 
 // 객체를 내보내기 : 변수선언과 이름없이 바로 직접 내보냄
-// const myFn =
+// const myFn = -> 선언과 할당 후 export default 하려면 하단에서 해야함
 export default
 {
   // 요소선택함수 ////////
