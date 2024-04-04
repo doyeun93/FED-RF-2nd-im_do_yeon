@@ -242,9 +242,13 @@
 
     /* 500px 이하 미디어쿼리 시작 */
     @media screen and (max-width: 500px) {
+        body{
+            margin: 0;
+        }
         /* 그리드 컬럼수를 1개로 변경 */
         .grid{
             grid-template-columns: repeat(1,1fr);
+            grid-gap: 0;
         }
         .grid > div aside{
             font-size: 4vw;
