@@ -65,6 +65,7 @@ body{
 .stit{
   padding-bottom: 32px;
   font-size: 3.8rem;
+  font-weight: normal
 }
 /* IR(Images Replacement) 
 - 배경이미지 설명 숨기기 클래스 */
