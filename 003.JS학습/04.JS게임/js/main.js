@@ -1,6 +1,6 @@
 // Racing PJ 메인 JS - main.js
 
-//  json은 js에서 사용하는 객체
+//  json은 js에서 사용하는 객체, json에서는 주석 사용이 안됨
 
 // DOM 메서드 모듈( import는 주로 상단에서 사용)
 import myFn from './dom.js';
