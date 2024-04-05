@@ -57,6 +57,9 @@ let r1pos = 0, t1pos = 0;
 
 // 토끼위치 : r1pos / 거북위치 : t1pos
 
+// (7) 거북 이동값 상수
+const T1_NUM = 16;
+
 // console.log('대상:',t1,r1,btns,level,msg);
 
 // 2. 이벤트 설정하기 ////////////
@@ -74,6 +77,22 @@ function goGame() {
  let btxt = this.innerText;
  console.log('고고싱', btxt);
 
+ // 2. 버튼별 기능 분기하기 ///
+    if(btxt === '토끼츨발'){
+    r1.style.left = ++r1pos +'px';
+
+    }  //// if ////////
+    else if(btxt === '거북츨발'){
+        // 거북의 설정된 값만큼 이동하기
+        t1pos += T1_NUM;
+        t1.style.left = t1pos +'px';
+ 
+    } //// else if ///////
+    else if(btxt === '처음으로'){
+        // 페이지 리로드 하기
+        location.reload();
+
+    } //// else if ///////
 } /////////// goGame 함수 ////////////
 
 /*********************************** 
