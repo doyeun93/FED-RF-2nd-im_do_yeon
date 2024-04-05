@@ -89,15 +89,20 @@ function goGame() {
 
   } /// if ///
   else if(btxt === '거북출발'){
-    // 거북멈춤상태값이 true이면 함수 나가(return)
+    // 1. 거북멈춤상태값이 true이면 함수 나가(return)
 
     if(t1Stop) return;
     
-    // 거북의 설정된 값만큼 이동하기
+    // 2. 거북의 설정된 값만큼 이동하기
     t1pos += T1_NUM;
     t1.style.left = t1pos + 'px';
     
-    // 토끼 자동호출
+// 3. 거북 버튼 클릭 후 포커스로 인하여 엔터버튼을 사용할 수 있음으로 막기위해 포커스 해제 -> blur() 사용
+    this.blur();
+    // 초점이 들어가게 하는 메서드 : focus()
+    // 초점이 나가게 하는 메서드 : blur()
+
+    // 4. 토끼 자동호출
     goR1();
 
   } /// else if ///
@@ -153,6 +158,24 @@ function whoWinner(){
         //(2) 거북아 멈춰라 (거북멈춤 상태값 true)
         t1Stop = true;
 
+        // 승자변수(메시지때문에 씀 : 토끼, 거북, 비김)
+        let winner;
+
+        //(3) 승자판별하기
+        if(r1pos > t1pos) winner = '토끼';
+        else if(r1pos < t1pos) winner = '거북';
+        else winner = '비김';
+
+        //(4) 메시지 랜덤으로 커버박스에 넣기
+        msg.innerText = msgTxt[winner][0];
+
+        // 보이기
+        msg.style.display = 'block';
+        
     } ///// if 문 ///////////////
 
-}///////// whoWinner 함수 ////////////////
+
+
+   
+
+}/////////////////////// whoWinner 함수 ////////////////
