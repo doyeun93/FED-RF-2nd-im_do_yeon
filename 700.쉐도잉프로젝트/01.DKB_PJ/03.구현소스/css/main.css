@@ -26,7 +26,7 @@ body * {
   gap: 20px;
 }
 .preview-box li {
-  /* 한줄에 4개 플렉스 배치 */
+  /* 한줄에 4개 플렉스 배치 - gap값 고려해서 뺌 */
   flex-basis: calc(100% / 4 - 15px);
   padding: 24px 20px;
   cursor: pointer;
