@@ -139,4 +139,49 @@ hcode += `</ul>`;
 liveBox.innerHTML = hcode;
 
 
-})(); ////// 미리보기 코드 랩핑 구역 종료 ////////////
+})(); ////// 현장포토 코드 랩핑 구역 종료 ////////////
+
+
+
+////////////////// 4. 대표이미지 파트 내용 넣기 //////////////////////
+////// 대표이미지 구현 코드랩핑 구역  /////////////
+(()=>{
+  
+// 대상 : .poster-box
+const posterBox = myFn.qs('.poster-box');
+
+// 데이터 : dkb-data.js의 posterData 배열 
+// 지역화 되어있기때문에 같은 변수를 선언해도 괜춚
+const pData = dkbData.posterData;
+// 구조 : ul > li > figure > img + figcaption
+
+// 1. 8개만 데이터를 html로 구성하여 넣는다
+// html 코드 변수 
+let hcode = `<ul>`;
+
+// li 구성을 hcode변수에 대입연산자로 할당함
+// posterData 배열은 총 5개임. 모두 돌기 세팅
+
+pData.forEach((v)=>{
+  hcode += `
+    <li>
+      <figure>
+        <img src="./images/poster_img/${v.imgName}.jpg" alt="${v.title}" >
+        <figcaption>${v.title}</figcaption>
+      </figure>
+    </li>
+  `;  
+}); ////// foreach문 ///////////
+
+hcode += `</ul>`;
+
+
+// 데이터 확인 
+// console.log(hcode);
+// console.log('대상:', posterBox, '미리보기 data:',pData);
+
+////// 2.  화면 출력하기 ///////////////
+posterBox.innerHTML = hcode;
+
+
+})(); ////// 대표이미지 코드 랩핑 구역 종료 ////////////

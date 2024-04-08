@@ -162,7 +162,7 @@ body * {
 
 /* 현장포토 리스트 */
 .live-box li{
- cursor: pointer;
+  cursor: pointer;
 }
 
 /* 이미지 */
@@ -177,7 +177,48 @@ body * {
 }
 /************************************ 6. 대표이미지 영역 ************************************/
 .main-photo-area {
-  height: 731px;
+  /* height: 731px; */
+}
+/* 대표이미지 그리드박스 */
+.poster-box ul{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  /* 사이 간격 */
+  gap: min(20px,1.2vw);
+}
+.poster-box li{
+ cursor: pointer;
+}
+
+/* 이미지 */
+.poster-box img{
+  border-radius: 6px;
+  width: 100%;
+}
+/* 이미지 타이틀 */
+.poster-box figcaption{
+  font-size: 2rem;
+  padding-top: 1.4rem;
+}
+/* 대표이미지 리스트 grid-row 세팅하기
+-> 2줄로 세팅하려면 줄번호가 3번이 끝번호임 */
+.poster-box li:first-child{
+  grid-row: 1/2;
+}
+.poster-box li:nth-child(1)~li:nth-child(-n+4){
+  grid-row: 1/3;
+}
+/* = .poster-box li:nth-child(2){
+  grid-row: 1/3;
+}
+.poster-box li:nth-child(3){
+  grid-row: 1/3;
+}
+.poster-box li:nth-child(4){
+  grid-row: 1/3;
+} */
+.poster-box li:last-child{
+  grid-row: 2/3;
 }
 /************************************ 7. 최신동영상영역 ************************************/
 .clip-video-area {
