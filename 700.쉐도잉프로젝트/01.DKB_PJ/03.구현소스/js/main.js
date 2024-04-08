@@ -11,6 +11,10 @@ import { startSS,setScrollPos } from "./smoothScroll23.js";
 
 import slideFn from "./slide.js";
 
+///// 데이터 세팅 불러오기 
+// = import {previewData} from "../data/dkb_data.js";
+import * as dkbData from "../data/dkb_data.js";
+
 /******************************************************
  ******************** 구현 코드 파트 *******************
  ******************************************************/
@@ -40,3 +44,16 @@ introMv.onclick = ()=> {
   introMv.classList.remove('off');
 
 }; ////////////// click 이벤트 함수
+
+////////////////// 2. 미리보기 파트 내용 넣기 //////////////////////
+// 대상 : .preview-box
+const previewBox = myFn.qs('.preview-box');
+
+// 데이터 : dkb-data.js의 previewData 배열
+const pData = dkbData.previewData;
+// 구조 : ul>li>h3+p
+// 8개만 데이터를 구성하여 넣는다
+
+
+// 데이터 확인 
+console.log('대상:',previewBox, '미리보기 data:',pData);
