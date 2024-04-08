@@ -115,23 +115,25 @@ const lvData = dkbData.liveData;
 let hcode = `<ul>`;
 
 // li 구성을 hcode변수에 대입연산자로 할당함
+// liveData 배열은 총 8개임. 모두 돌기 세팅
 
-for(let i=0; i<8; i++) {
+lvData.forEach((v)=>{
   hcode += `
     <li>
       <figure>
-        <img src="" alt="" >
-        <figcaption></figcaption>
+        <img src="./images/live_photo/${v.imgName}.jpg" alt="${v.title}" >
+        <figcaption>${v.title}</figcaption>
       </figure>
     </li>
   `;  
-} ////// for문 ///////////
+}); ////// foreach문 ///////////
+
 hcode += `</ul>`;
 
 
 // 데이터 확인 
 // console.log(hcode);
-// console.log('대상:',livewBox, '미리보기 data:',lvData);
+// console.log('대상:', liveBox, '미리보기 data:',lvData);
 
 ////// 2.  화면 출력하기 ///////////////
 liveBox.innerHTML = hcode;
