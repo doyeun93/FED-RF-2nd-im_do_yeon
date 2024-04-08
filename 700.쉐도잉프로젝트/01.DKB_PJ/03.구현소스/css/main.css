@@ -151,10 +151,29 @@ body * {
 .real-photo-area {
   /* height: 1043px; */
 }
+
 /*  현장 포토 그리드 박스 */
 .live-box ul {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+  /* 사이 간격 */
+  gap: min(20px,1.2vw);
+}
+
+/* 현장포토 리스트 */
+.live-box li{
+ cursor: pointer;
+}
+
+/* 이미지 */
+.live-box img{
+  border-radius: 6px;
+  width: 100%;
+}
+/* 이미지 타이틀 */
+.live-box figcaption{
+  font-size: 2rem;
+  padding-top: 1.4rem;
 }
 /************************************ 6. 대표이미지 영역 ************************************/
 .main-photo-area {
