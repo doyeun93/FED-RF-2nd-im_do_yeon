@@ -38,7 +38,7 @@ body * {
   padding: 24px 20px;
   cursor: pointer;
   border-radius: 5px;
-  box-shadow: 0 0 4px #222;
+  box-shadow: 0 0 10px #6868685e;
   box-sizing: border-box;
 }
 
