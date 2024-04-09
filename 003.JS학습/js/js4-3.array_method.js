@@ -39,27 +39,93 @@ const mbtn = mFn.qsa('.mbtn');
 // 2-3. 전체과일콤보박스 : #sel
 const sel = mFn.qs('#sel');
 // 2-4. 선택과일콤보박스(anum=array number) : #aNum
-const aNum = mFn.qs('#aNum');
+const aNum = mFn.qs('#anum');
 // 2-5. 지울개수입력창 : #delNum
-const delNum = mFn.qs('#delNum');
+const delNum = mFn.qs('#delnum');
 
 // console.log('대상 :',mbtn,showit,cont,sel,aNum,delNum);
 
-// 3. 초기화 작업 : 처음 배열 출력 / 콤보박스 바인딩
+/////// 3. 초기화 작업 : 처음 배열 출력 / 콤보박스 바인딩 ///////////////////////
 
-// 3-1. 처음 배열 출력 
+/////// 3-1. 처음 배열 출력 ///////////////////////////////////////
 showit.innerText = fruit.join('♥');
-// 배열.join(구분자) : 배열값 사이에 구분자를 넣은 문자열 값 변환
+/////// 배열.join(구분자) : 배열값 사이에 구분자를 넣은 문자열 값 변환
 
-// 3-2. 전체과일 콤보박스 바인딩
+// 3-2. 전체과일 콤보박스 바인딩 ///////////////////////////////
 // 대상 : #sel -> sel변수 
 // 데이터 : frObj 객체 -> 객체의 키를 배열로 변환함 
 // =>> Object.keys(객체) : 객체의 키(속성명)로 이루어진 배열
 // ][참고]] Object.values(객체) : 객체의 값(value)으로 이루어진 배열
+// -> 변환 목적 : 배열 메서드를 사용하기 위함
 
 
 const arrFruits = Object.keys(frObj);
 
-console.log('변환전 객체 :', frObj);
-console.log('변환후 키배열 :', arrFruits);
-console.log('변환후 값배열 :', Object.values(frObj));
+// console.log('변환전 객체 :', frObj);
+// console.log('변환후 키배열 :', arrFruits);
+// console.log('변환후 값배열 :', Object.values(frObj));
+
+// 기존 배열값을 태그로 변환하여 다시 배열로 할당하기
+// -> 배열.map((v,i,arr)=>리턴값) 메서드 =>>>> 기존 배열값을 순회하면 변환된 값을 다시 넣어줌
+// =>>>>> 기존 forEach()메서드와 전달값이 같음 : v = 배열값, i = 순번, arr = 전체배열
+// -> 새로운 배열은 새로운 변수에 할당하고, map에 사용한 원본 배열은 보존된다
+
+
+let newArr= arrFruits.map(v=>`<option>${v}</option>`);
+
+// console.log('map 변환 후 배열값:',newArr);
+
+// 배열을 문자화하여 콤보박스에 태그 넣기
+// 그냥 배열을 할당하면 콤마가 사이에 들어간다
+// 그러므로 join() 메서드로 콤마를 없애서 넣는다
+// 빈 문자값 '' 을 넣으면 배열값으로만 구성된 태그 문자열이 완성된다
+sel.innerHTML = newArr.join('');
+
+
+// 한번에 쓸 수도 있다 -> object.keys .map .join
+// sel.innerHTML = Object.keys(frObj).map(v=>`<option>${v}</option>`).join('');
+ 
+///// 3-3. 선택과일 콤보박스 데이터 바인딩
+// 대상 : #anum -> aNum변수
+// 데이터 : fruit 배열
+// 갱신시 계속 재바인딩 되어야 함 (함수화 필요)
+aNum.innerHTML = 
+fruit.map((v,i)=>
+`<option value="${i}">${v}</option>`).join('');
+
+// 4. 이벤트 설정하기 
+mbtn.forEach(ele=>{
+  mFn.addEvt(ele,'click',showFruit);
+}); ///////////////// forEach /////////////////
+
+
+// 5. 함수 만들기
+// 기능 : 배열을 조작하여 과일을 화면에 출력
+
+function showFruit(){
+  // 1. 버튼 텍스트 읽기
+  let btxt = this.innerText;
+
+  console.log(btxt);
+
+  // 2. 버튼별 기능 분기하기
+  // (1) '과일주세요~' 버튼 : 하단과일 이미지 출력
+  if(btxt === '과일주세요~!'){
+    // 출력박스에 배열정보로 태그 넣기
+    // 구조 : ul >li
+    // 과일배열만큼 돌면서 만들기
+      let hcode = `<ul>`;
+      fruit.forEach(v=>{
+        hcode +=`
+          <li style="background:url(./addimg/${frObj[v]}.png) no-repeat center/cover">
+            ${v}
+          </li>
+        `;
+      }); /////// foreach /////
+      hcode += `</ul>`;
+
+      // 출력박스에 태그 넣기 
+      cont.innerHTML = hcode;
+      
+  } ////// if ///////////////
+} /////////////// showFruit ///////////////
