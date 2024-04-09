@@ -189,9 +189,22 @@ function showFruit() {
     // 대상 :  fruit 배열
     fruit.splice(delSeq,delCnt);
     // splice(지울 순번, 지울 개수)
-    // isNaN(delCnt)?1:delCnt = 숫자가 아니니? 응(1) : 아니(delCnt)
 
   } ////// else if //////////
+
+  // (7) '중간배열삽입' 버튼 : splice()
+  // 삽입시 : splice(순번,0,넣을값, 넣을값,....)
+  // -> 순번 뒤에 전달값 0을 쓰고 그 뒤에 넣을값을 나열
+  // -> 결과 : 선택순번 앞쪽에 배열값이 삽입됨
+  else if(btxt === '중간배열삽입'){
+    // 대상 : fruit
+    // fruit.splice(순번,0,넣을값)
+    fruit.splice(aNum.value,0,sel.value);
+
+    console.log('넣을순번앞에 삽입:', aNum.value);
+  } ///// else if //////
+
+
 
   //// 공통 실행 코드구역 ///
 
