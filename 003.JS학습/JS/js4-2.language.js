@@ -53,5 +53,12 @@ function chgLang(){
   }); /////// for each ////////////////////
 
 
+  // 3-2. 메인 이미지 src 값 변경하기
+  // 각 경로의 이미지명은 다국어 코드명으로 되어 있음
+  mainImg.src = `images/${optVal}.jpg`;
+
+
+  // 3-3. 회사 주소 데이터 변경하기
+  addrBox.innerText = selLang['주소'];
 } /////////////////////// chgLang 함수 ////////////////////////
 
