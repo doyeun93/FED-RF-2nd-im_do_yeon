@@ -20,7 +20,7 @@ import * as txtData from './text_data.js';
 // 불러온 객체 확인
 // console.log(myFn,mTitle,sTitle,personInfo,mvData);
 // console.log(myFn,mTit,sTit,pInfo,mvD);
- console.log(txtData,txtData.mTitle);
+ console.log(txtData,txtData.mTitle,txtData.myObj.name,txtData.myFunc('개발자'));
 
 
 // export default로 내보낸 단일 함수 불러오기 
