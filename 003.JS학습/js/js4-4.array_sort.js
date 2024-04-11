@@ -99,11 +99,120 @@ console.log(mFn);
 
 // 숫자값 배열
 const arrNumber = [4, 5, 8, 10, 2, 1, 9, 3, 7, 6];
+
+// 예를 위한 숫자값 배열
+const arrNumber2 = [380, 1000,245,2278];
+
 // 문자값 배열
 const arrString = ["파", "타", "하", "가", "바", "사", "다", "라", "차"];
 
 
 // sort()는 기본 문자로 처리하므로 숫자는 내부함수로 빼기 연산처리함
-console.log('숫자배열:', arrNumber);
-console.log('숫자배열 오름차순정렬sort():', arrNumber.sort());
-console.log('숫자배열 오름차순정렬sort((a,b)=>a-b):', arrNumber.sort((a,b)=>a-b));
+// console.log('숫자배열:', arrNumber2);
+// console.log('숫자배열 오름차순정렬sort():', arrNumber2.sort());
+// console.log('숫자배열 오름차순정렬sort((a,b)=>a-b):', arrNumber2.sort((a,b)=>a-b));
+// console.log('숫자배열 내림차순정렬sort((a,b)=>b-a):', arrNumber2.sort((a,b)=>b-a));
+
+// console.log('문자배열:',arrString);
+// console.log('문자배열 오름차순 sort():',arrString.sort());
+// console.log('문자배열 내림차순 reverse():',arrString.reverse());
+// console.log('문자배열 오름차순정렬sort((a,b)=>a-b):',arrString.sort((a,b)=>a-b)); -> 문자형에서는 안됨
+
+///////////////////////////////////////////////////////////////////
+// 배열 데이터 화면 출력하기
+
+// 1. 숫자로만 된 배열의 화면 뿌리기
+// map() 메서드로 배열값을 태그로 감싸서 출력하기
+
+// (1) 출력대상 : .showNum
+const showNum = mFn.qs('.showNum');
+
+// (2) map() 메서드 없이 배열값을 이미지태그로 변환하여 코드 만들기 함수
+
+// const returnTag = (x) => { /// x는 배열 전달변수
+//   // 1. 태그 저장용 변수 (스트링 리터럴)
+//   let hcode = '';
+//   // 2. 배열만큼 순회하여 태그 만들기 
+//   x.forEach(v => {
+//      //console.log('나야나',v);
+//      hcode += `
+//      <img src="./images/num/num_0${v}.png" alt="숫자${v}이미지">
+//      `;
+//   }); ////////// foreach 
+
+//   // 3. 코드 리턴하기
+//   return hcode;
+
+// }; ////// returnTag 함수 ////////////////
+
+// (3) 배열 숫자 데이터만큼 이미지로 변환하기 
+// const showImgNum = () => {
+//   showNum.innerHTML = returnTag(arrNumber);
+const showImgNum = () => {
+  showNum.innerHTML = arrNumber.map
+  (v=>`<img src="./images/num/num_0${v}.png" alt="숫자${v}이미지">`).join('');
+  
+
+}; /////////////// showImgNum 함수 ////////////////////////////
+
+/***************************************************************************************************** 
+ 
+        [map() 메서드의 특징]   
+  map((배열값, 순번, 전체배열) => {})
+  1. 메서드를 사용한 자리에 결과가 배열로 리턴됨
+  2. 원본 배열은 그대로 보존됨
+  3. 리턴 키워드나 변수, 함수 등 처리 방법 불필요
+  4. 이를 변수에 할당하면 새로운 배열이 생성됨
+  5. 문자열로 찍어주려면 변수메서드 join() 사용
+    -> join('') 빈 문자열 결합을 사용하면 배열값이 깨끗하게 문자열 덩어리로 그대로 출력된다
+    =>>>>> 배열.map().join('') 
+    -> join()을 안쓰면 배열의 기본값이 콤마로 연결되어 할당되는데, 콤마를 없애려면 반드시 써줘야한다
+
+*****************************************************************************************************/
+console.log('원본배열:',arrNumber2);
+console.log('원본배열로 태그 작성:',arrNumber2.map(v=>`<숫자>${v}</숫자>`));
+console.log('원본배열로 태그 작성한 배열을 문자열로 변경하기:',
+arrNumber2.map(v=>`<숫자>${v}</숫자>`).join('🍙')); 
+// join을 사용하면 배열이 문자형으로 변경된다
+console.log('원본배열로 태그 작성:',arrNumber2.map((v,i)=>`🧀회원번호${i+1}:${v}포인트`));
+
+
+// (4) 최초출력 호출
+showImgNum();
+
+// (5) 정렬 기준에 선택박스 변경 이벤트 발생시 
+// 정렬 변경하기 (오름차순/내림차순)
+// (5-1) 대상 : #sel 선택박스
+const selBox =  mFn.qs('#sel');
+
+// (5-2) 이벤트 연결하기 : 이벤트 종류 - change
+mFn.addEvt(selBox,'change',changeSort);
+
+// (5-3) 정렬변경함수 만들기
+function changeSort(){
+  // 1. 선택옶션 값 읽어오기
+  let optVal = this.value;
+  console.log('선택값:',optVal);
+
+  // 2. 정렬변경 분기하기
+  // 2-1. 오름차순 : 값 1
+  if(optVal == 1){
+    // sort() 빼기 연산처리 : 앞수-뒷수(양수결과일경우 순서바꾸기 함)
+    arrNumber.sort((a,b)=>a-b);
+ 
+  } //// if 문
+  // 2-2. 내림차순 : 값 2
+  else if(optVal == 2){
+     // sort() 빼기 연산처리 : 뒷수-앞수(양수결과일경우 순서바꾸기 함)
+     arrNumber.sort((a,b)=>b-a);
+  } //// else if 문
+
+
+  // ((주의!!)) 원본배열을 정렬후엔 원본배열은 없어진다
+  // 3. 정렬변경된 배열 화면에 출력하기
+  showImgNum();
+
+  // 원본 배열 확인하기
+  console.log('정렬 후 원본배열:',arrNumber);
+} ///////////// changeSort 함수 //////////////////////
+
