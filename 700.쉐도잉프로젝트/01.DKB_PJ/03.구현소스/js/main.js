@@ -25,12 +25,38 @@ console.log(gnbData);
 
 // GNB 메뉴 코드 넣기
 // 대상 : .gnb 
+// 데이터 : gnbData는 객체니까 배열용 map()메서드 못씀 -> Object 키배열로 변환해서 사용함
+// 그리고 이 객체의 key는 상위 메뉴이기도 함
+// Object.keys(객체) -> 해당객체의 속성명(키) 배열 생성
+console.log( Object.keys(gnbData));
+
 myFn.qs('.gnb').innerHTML = `
   <ul>
     ${
       Object.keys(gnbData).map(v=>`
         <li>
           <a href="#">${v}</a>
+          ${
+            // 서브메뉴 "없음"이면 빈 값. 아니면 서브메뉴 출력
+            // gnbData[키] -> 값을 가져옴
+            gnbData[v]=="없음" ? "" :
+            `
+            <div class="smenu">
+            <div class="swrap">
+              <h2>${v}</h2>
+              <ol>
+              ${
+                gnbData[v].map(vSub=>`
+                <li>
+                  <a href="#">${vSub}</a>
+                </li>
+                `).join('')
+              }
+              </ol>
+            </div>
+          </div>
+            `
+          }
         </li>
       `).join('')
     }
