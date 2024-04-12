@@ -107,6 +107,8 @@ const arrNumber2 = [380, 1000,245,2278];
 const arrString = ["파", "타", "하", "가", "바", "사", "다", "라", "차"];
 
 
+
+
 // sort()는 기본 문자로 처리하므로 숫자는 내부함수로 빼기 연산처리함
 // console.log('숫자배열:', arrNumber2);
 // console.log('숫자배열 오름차순정렬sort():', arrNumber2.sort());
