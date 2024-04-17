@@ -73,35 +73,64 @@ const dFalse = () => dragSts = false;
 const dMove = (e) => { // e - 이벤트 객체 전달변수
   // 드래그 상태는 dragSts값이 true인 경우에만 허용
   if(dragSts){
-    console.log('드래그중~!');
+    // console.log('드래그중~!');
     // 1. 드래그 상태에서 움직일 때 포인터 위치값
     // - 브라우저용 포인터 위치는 pageX, pageY를 사용
     moveX = e.pageX;
     moveY = e.pageY;
 
+
+    // 2. 움직일 위치 결과값 = 움직일때 위치 포인트 - 첫번째 위치 포인트  
+    // moveX - firstX
+    // moveY - firstY
+    resultX =  moveX - firstX;
+    resultY = moveY - firstY;
+    // -> 순수하게 움직인 거리를 계산함
+
+
+
     // 값 확인
     console.log(`moveX: ${moveX}, moveY: ${moveY}`);
+    console.log(`resultX: ${resultX}, resultY: ${resultY}`);
   } // if문
 
 }; ///////// dMove 함수 //////////////
 
+// (4) 첫번째 위치포인트 세팅 함수 : first x, first y 값 세팅
+const firstPoint =  e => {
+  firstX = e.pageX;
+  firstY = e.pageY;
+   console.log('첫포인트:', firstX,'|', firstY);
+}; ///// firstPoint 함수 /////////////
+
+// (5) 마지막 위치포인트 세팅 함수 : last x, last y 값 세팅
+const lastPoint =  e => {
+  lastX = e.pageX;
+  lastY = e.pageY;
+   console.log('마지막포인트:', lastX,'|', lastY);
+}; ///// lastPoint 함수 /////////////
+
 
 // 4. 드래그 이벤트 설정하기
 // (1) 마우스 다운 이벤트 함수연결하기
-mFn.addEvt(dtg,'mousedown',() => {
+mFn.addEvt(dtg,'mousedown',(e) => {
   // 드래그 상태값 true로 변경
   dTrue();
- 
+  // 첫번째 위치 포인트 세팅
+  firstPoint(e);
+  // 단독할당되지 않고 내부 함수호출로 연결되어 있으므로 
+  // 이벤트 전달을 토스해줘야한다 => (e)
   console.log('마우스다운', dragSts);
 
 }); ////////// mousedown ///////////
 
 
 // (2) 마우스 업 이벤트 함수연결하기
-mFn.addEvt(dtg,'mouseup',() => {
+mFn.addEvt(dtg,'mouseup',(e) => {
    // 드래그 상태값 false로 변경
-   dFalse();
- 
+  dFalse();
+  // 마지막 위치 포인트 세팅
+  lastPoint(e)
    console.log('마우스업', dragSts);
   
 
