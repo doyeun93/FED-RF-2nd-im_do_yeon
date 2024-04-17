@@ -51,8 +51,9 @@ function setDrag(clsName){
 
     // 2. 드래그 함수 호출한다
     // html 컬렉션이므로 forEach 메서드로 호출
-    ele.forEach((x)=> goDrag(x));
-
+    // foreach((요소, 순번, 전체)=>{})
+    ele.forEach((x,y,z)=> goDrag(x,z));
+    // z는 전체 요소집합 컬렉션임(z-index) 초기화로 필요함
   
 } //////////// setDrag 함수 /////////
 
@@ -63,10 +64,12 @@ function setDrag(clsName){
   함수명 : goDrag
   기능 : 다중 드래그 기능 적용
 *************************************************************/
-function goDrag(ele){
+function goDrag(ele, coll){
   // ele - 호출시 보내준 대상을 받는 변수
   // -> 하나씩 전달된 드래그 대상 요소임
-  console.log(ele);
+  // coll - 드래그 요소 전체 컬렉션을 받는 변수
+  // -> 마우스 다운시 z-index 대상 1로 만들때 다른 요소는 0 변경시 사용
+  console.log(ele, coll);
 
 
 // 드래그 적용 대상 및 이벤트 설정하기 //
@@ -177,17 +180,30 @@ mFn.addEvt(dtg,'mousedown',(e) => {
   firstPoint(e);
   // 단독할당되지 않고 내부 함수호출로 연결되어 있으므로 
   // 이벤트 전달을 토스해줘야한다 => (e)
-  console.log('마우스다운', dragSts);
 
+  // 마우스 다운시 주먹손
+  dtg.style.cursor = "grabbing";
+
+  // z-index 0 초기화(전체컬렉션 전달변수 coll 사용)
+  coll.forEach(x=>x.style.zIndex = 0);
+  // z-index 1로 높이기
+  dtg.style.zIndex = 1;
+  
+  console.log('마우스다운', dragSts);
+  
 }); ////////// mousedown ///////////
 
 
 // (2) 마우스 업 이벤트 함수연결하기
 mFn.addEvt(dtg,'mouseup',(e) => {
-   // 드래그 상태값 false로 변경
+  // 드래그 상태값 false로 변경
   dFalse();
   // 마지막 위치 포인트 세팅
   lastPoint(e)
+  
+    // 마우스 업시 편손
+    dtg.style.cursor = "grab";
+    
    console.log('마우스업', dragSts);
   
 
