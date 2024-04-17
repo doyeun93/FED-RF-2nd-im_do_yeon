@@ -35,6 +35,13 @@ import mFn from './my_function.js';
 
 ***************************************/
 
+// [ 함수의 추상화 순서 ]
+
+// 1. 기존 하나만 구현한 저수준의 함수를 하나의 함수로 감싸서 호출시 실행하도록 만든다
+
+// 2. 적용 대상을 추상화 함수에 보내서 처리한다
+
+
 
 /*************************************************************
   [드래그 다중적용 호출 함수]
@@ -218,6 +225,13 @@ mFn.addEvt(dtg,'mousemove', dMove); ////////// mouseup ///////////
 mFn.addEvt(dtg,'mouseleave',()=>{
   // 드래그 상태값 false로 변경
   dFalse();
+
+  // 과도한 드래그로 아웃되면 lastX,lastY 값이 세팅되지 못한다
+  // 이것을 기존 요소의 위치값으로 보정함
+  // 단, style 위치값 코드는 'px' 단위가 있으므로 parseInt처리
+  lastX = parseInt(dtg.style.left);
+  lastY = parseInt(dtg.style.top);
+
   console.log('마우스 나감',dragSts);
 
 }); /////// mouseleave ////////
