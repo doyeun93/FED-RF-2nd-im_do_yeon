@@ -50,7 +50,9 @@ function goDrag(ele){
 
 // 드래그 적용 대상 및 이벤트 설정하기 //
 // 1. 대상 선정 : .dtg2
-const dtg = mFn.qs('.dtg2');
+// const dtg = mFn.qs('.dtg2');
+// 1. 대상 선정 : 보내준 대상 html 컬렉션
+const dtg = ele;
 
 
 // 2. 변수 세팅
