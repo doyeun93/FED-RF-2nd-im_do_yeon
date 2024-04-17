@@ -39,15 +39,58 @@ import mFn from './my_function.js';
 // 1. 대상 선정 : .dtg2
 const dtg = mFn.qs('.dtg2');
 
-// 2. 드래그 상태 변수 만들기
+
+// 2. 변수 세팅
+// (1) 드래그 상태 변수 만들기 ★★★★★★
 let dragSts = false;
 // false는 드래그 아님, true는 드래그 상태
 
-// 3. 드래그 이벤트 설정하기
+// (2) 첫번째 위치 포인트 : first x, first y
+let firstX, firstY;
+
+// (3) 마지막 위치 포인트 : last x, last y
+let lastX = 0, lastY = 0;
+
+// 마지막 위치로 부터 처음 계산이 이루어지므로 초기값 0
+// (4) 움직일 때 위치 포인트 : move x, move y
+let moveX, moveY;
+
+// (5) 위치이동 차이 계산 결과 변수 : result x, result y
+let resultX, resultY;
+
+
+////////////////////////////////////////////////////////////////
+// 3. 함수 만들기  //////////////////
+// 할당형 함수를 만들 경우 이벤트 설정보다 위에서 만들어준다
+
+// (1) 드래그 상태 true로 변경하는 함수
+const dTrue = () => dragSts = true;
+
+// (2) 드래그 상태 false로 변경하는 함수
+const dFalse = () => dragSts = false;
+
+// (3) 드래그 상태시 처리 함수 
+const dMove = (e) => { // e - 이벤트 객체 전달변수
+  // 드래그 상태는 dragSts값이 true인 경우에만 허용
+  if(dragSts){
+    console.log('드래그중~!');
+    // 1. 드래그 상태에서 움직일 때 포인터 위치값
+    // - 브라우저용 포인터 위치는 pageX, pageY를 사용
+    moveX = e.pageX;
+    moveY = e.pageY;
+
+    // 값 확인
+    console.log(`moveX: ${moveX}, moveY: ${moveY}`);
+  } // if문
+
+}; ///////// dMove 함수 //////////////
+
+
+// 4. 드래그 이벤트 설정하기
 // (1) 마우스 다운 이벤트 함수연결하기
 mFn.addEvt(dtg,'mousedown',() => {
   // 드래그 상태값 true로 변경
-  dragSts = true;
+  dTrue();
  
   console.log('마우스다운', dragSts);
 
@@ -57,7 +100,7 @@ mFn.addEvt(dtg,'mousedown',() => {
 // (2) 마우스 업 이벤트 함수연결하기
 mFn.addEvt(dtg,'mouseup',() => {
    // 드래그 상태값 false로 변경
-   dragSts = false;
+   dFalse();
  
    console.log('마우스업', dragSts);
   
@@ -66,20 +109,13 @@ mFn.addEvt(dtg,'mouseup',() => {
 
 
 // (3) 마우스 무브 이벤트 함수연결하기
-mFn.addEvt(dtg,'mousemove',() => {
-  // 드래그 상태는 dragSts값이 true인 경우에만 허용
-  if(dragSts){
-    console.log('드래그중~!');
-
-  } // if문
-
-}); ////////// mouseup ///////////
+mFn.addEvt(dtg,'mousemove', dMove); ////////// mouseup ///////////
 
 
 // (4) 마우스가 대상을 벗어나면 드래그상태값 false 처리하기
 mFn.addEvt(dtg,'mouseleave',()=>{
   // 드래그 상태값 false로 변경
-  dragSts = false;
+  dFalse();
   console.log('마우스 나감',dragSts);
 
 }); /////// mouseleave ////////
