@@ -139,7 +139,7 @@ const dFalse = () => dragSts = false;
 // (3) 드래그 상태시 처리 함수 
 const dMove = (e) => { // e - 이벤트 객체 전달변수
   // 드래그 상태는 dragSts값이 true인 경우에만 허용
-  
+
   if(dragSts){
     // console.log('드래그중~!');
     // 1. 드래그 상태에서 움직일 때 포인터 위치값
@@ -262,8 +262,8 @@ mFn.addEvt(dtg,'mouseleave',()=>{
   // 과도한 드래그로 아웃되면 lastX,lastY 값이 세팅되지 못한다
   // 이것을 기존 요소의 위치값으로 보정함
   // 단, style 위치값 코드는 'px' 단위가 있으므로 parseInt처리
-  // lastX = parseInt(dtg.style.left);
-  // lastY = parseInt(dtg.style.top);
+  lastX = parseInt(dtg.style.left);
+  lastY = parseInt(dtg.style.top);
 
   console.log('마우스 나감',dragSts);
 
