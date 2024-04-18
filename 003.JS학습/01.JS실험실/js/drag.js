@@ -59,10 +59,15 @@ function setDrag(clsName){
     // 2. 드래그 함수 호출한다
     // html 컬렉션이므로 forEach 메서드로 호출
     // foreach((요소, 순번, 전체)=>{})
-    ele.forEach((x,y,z)=> goDrag(x,z));
-    // z는 전체 요소집합 컬렉션임(z-index) 초기화로 필요함
+    ele.forEach((x)=> goDrag(x));
+    // z는 전체 요소집합 컬렉션임(z-index) 초기화로 필요함 => 사용 안함
   
 } //////////// setDrag 함수 /////////
+
+
+
+// z-index 공통관리 변수
+let zNum = 0; // => 전역변수(goDrag 함수에서만 선언됨)
 
 
 
@@ -70,13 +75,18 @@ function setDrag(clsName){
   [드래그 다중적용 함수 만들기]
   함수명 : goDrag
   기능 : 다중 드래그 기능 적용
+  - 수정 필요사항 체크
+  1) 드래그 시 위치이동 안되는 버그
+  => 원인 : top,left 초기값 세팅 안될 경우 에러
+  2) z-index 초기화로 인한 순서변경 어색
 *************************************************************/
-function goDrag(ele, coll){
+
+
+function goDrag(ele){
   // ele - 호출시 보내준 대상을 받는 변수
   // -> 하나씩 전달된 드래그 대상 요소임
-  // coll - 드래그 요소 전체 컬렉션을 받는 변수
-  // -> 마우스 다운시 z-index 대상 1로 만들때 다른 요소는 0 변경시 사용
-  console.log(ele, coll);
+
+  console.log(ele);
 
 
 // 드래그 적용 대상 및 이벤트 설정하기 //
@@ -84,6 +94,15 @@ function goDrag(ele, coll){
 // const dtg = mFn.qs('.dtg2');
 // 1. 대상 선정 : 보내준 대상 html 컬렉션
 const dtg = ele;
+
+// 드래그할 대상의 css 기본 값을 세팅한다(인라인 요소)
+// 필수 세팅 요소는 position:relative, top:0, left:0 (필수값)
+
+dtg.style.position ='relative';
+dtg.style.top = '0';
+dtg.style.left = '0';
+
+
 
 
 // 2. 변수 세팅
@@ -191,10 +210,9 @@ mFn.addEvt(dtg,'mousedown',(e) => {
   // 마우스 다운시 주먹손
   dtg.style.cursor = "grabbing";
 
-  // z-index 0 초기화(전체컬렉션 전달변수 coll 사용)
-  coll.forEach(x=>x.style.zIndex = 0);
-  // z-index 1로 높이기
-  dtg.style.zIndex = 1;
+  
+  // z-index 전역변수(zNum) 숫자를 1씩 높이기
+  dtg.style.zIndex = ++zNum;
   
   console.log('마우스다운', dragSts);
   
