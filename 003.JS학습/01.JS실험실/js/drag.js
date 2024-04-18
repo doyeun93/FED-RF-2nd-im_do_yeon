@@ -139,12 +139,21 @@ const dFalse = () => dragSts = false;
 // (3) 드래그 상태시 처리 함수 
 const dMove = (e) => { // e - 이벤트 객체 전달변수
   // 드래그 상태는 dragSts값이 true인 경우에만 허용
+  
   if(dragSts){
     // console.log('드래그중~!');
     // 1. 드래그 상태에서 움직일 때 포인터 위치값
     // - 브라우저용 포인터 위치는 pageX, pageY를 사용
-    moveX = e.pageX;
-    moveY = e.pageY;
+    // - 모바일용 터치 스크린 터치 위치는 touches[0].screenX, touches[0].screenY 사용
+    // 브라우저와 모바일 둘다 사용하는 방법은 OR문 할당법을 쓴다
+    // -> 변수 =  할당문1 || 할당문2  ==>> 두 할당문중 값이 유효한(true) 값이 할당됨
+    // pc용 코드와 모바일용코드를 동시에 세팅할 수 있다
+
+    // moveX = e.pageX;
+    // moveY = e.pageY;
+    // console.log(e.touches[0]);
+    moveX = e.pageX || e.touches[0].screenX;
+    moveY = e.pageY || e.touches[0].screenY;
 
 
     // 2. 움직일 위치 결과값 = 움직일때 위치 포인트 - 첫번째 위치 포인트  
@@ -180,10 +189,16 @@ const dMove = (e) => { // e - 이벤트 객체 전달변수
 
 // (4) 첫번째 위치포인트 세팅 함수 : first x, first y 값 세팅
 const firstPoint =  e => {
-  firstX = e.pageX;
-  firstY = e.pageY;
+  //firstX = e.pageX;
+  //firstY = e.pageY;
+
+  // pc값과 모바일 값을 동시에 OR문으로 할당함
+  firstX = e.pageX || e.touches[0].screenX;
+  firstY = e.pageY || e.touches[0].screenY;
+
    console.log('첫포인트:', firstX,'|', firstY);
 }; ///// firstPoint 함수 /////////////
+
 
 // (5) 마지막 위치포인트 세팅 함수 : last x, last y 값 세팅
 // -> 이동 후 결과 위치를 저장하여 다음 드래그 이동시  
@@ -224,7 +239,7 @@ mFn.addEvt(dtg,'mouseup',(e) => {
   // 드래그 상태값 false로 변경
   dFalse();
   // 마지막 위치 포인트 세팅
-  lastPoint(e)
+  lastPoint(e);
   
     // 마우스 업시 편손
     dtg.style.cursor = "grab";
@@ -247,12 +262,54 @@ mFn.addEvt(dtg,'mouseleave',()=>{
   // 과도한 드래그로 아웃되면 lastX,lastY 값이 세팅되지 못한다
   // 이것을 기존 요소의 위치값으로 보정함
   // 단, style 위치값 코드는 'px' 단위가 있으므로 parseInt처리
-  lastX = parseInt(dtg.style.left);
-  lastY = parseInt(dtg.style.top);
+  // lastX = parseInt(dtg.style.left);
+  // lastY = parseInt(dtg.style.top);
 
   console.log('마우스 나감',dragSts);
 
 }); /////// mouseleave ////////
+
+
+/////////////// 모바일 이벤트 처리 구역 //////////////////
+
+// (1) 터치 스타트 이벤트 함수연결하기
+mFn.addEvt(dtg,'touchstart',(e) => {
+  // 드래그 상태값 true로 변경
+  dTrue();
+  // 첫번째 위치 포인트 세팅
+  firstPoint(e);
+  // 단독할당되지 않고 내부 함수호출로 연결되어 있으므로 
+  // 이벤트 전달을 토스해줘야한다 => (e)
+
+  
+  // z-index 전역변수(zNum) 숫자를 1씩 높이기
+  dtg.style.zIndex = ++zNum;
+  
+  console.log('터치스타트', dragSts);
+  
+}); ////////// touchstart ///////////
+
+
+// (2) 터치 엔드 이벤트 함수연결하기
+mFn.addEvt(dtg,'touchend',() => {
+  // 드래그 상태값 false로 변경
+  dFalse();
+  // 마지막 위치 포인트 세팅
+  lastPoint();
+  
+    // 마우스 업시 편손
+    dtg.style.cursor = "grab";
+    
+   console.log('터치엔드', dragSts);
+  
+
+}); ////////// touchend ///////////
+
+
+// (3) 터치 무브 이벤트 함수연결하기
+mFn.addEvt(dtg,'touchmove', dMove); 
+////////// touchmove ///////////
+
 
 
 } /////////////////////// goDrag 함수 ///////////////////
