@@ -1,6 +1,6 @@
 // 드래그 기능 + 슬라이드 기능 합친 JS - drag_slide.js
 
-// 슬라이드 배너 모듈 JS - slide_fn.js
+
 
 // DOM 모듈함수
 import mFn from "./my_function.js";
@@ -15,16 +15,18 @@ export default function setSlide(clsName){
     console.log('슬라이드 대상:',banBox);
     
     // 슬라이드 만큼 모두 호출하기!
-    banBox.forEach(ele=>{
+    banBox.forEach((ele)=>{
         // 슬라이드 함수 호출하기
         slideFn(ele);
         // 실제 DOM요소를 보낸다!
 
         // [2] 드래그 요소 선택하여 세팅하기
         // 들어온 이름 "banbx" 하위 "slide" 클래스를 선택한다
+        // 하위 슬라이드 선택요소
+        let subSlide = mFn.qsEl(ele,'.slide')
+        console.log(subSlide);
         // 슬라이드 함수 드래그 호출하기
-        goDrag(mFn.qsEl(ele,'.slide'));
-    
+        goDrag(subSlide);
     }); /////// forEach ///////////
 
 } ////////////////// setSlide 함수 /////////////
@@ -541,14 +543,8 @@ mFn.addEvt(dtg,'touchend',() => {
 mFn.addEvt(dtg,'touchmove', dMove); 
 ////////// touchmove ///////////
 
-
-
 } /////////////////////// goDrag 함수 ///////////////////
 /////////////////////////////////////////////////////////
 
-
-// 내보내기 세팅
-// export default Drag; 내보내기 분업화
-export default setDrag;
 
 
