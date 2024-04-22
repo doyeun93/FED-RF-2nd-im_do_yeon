@@ -17,10 +17,10 @@ export default function setSlide(clsName){
     // 슬라이드 만큼 모두 호출하기!
     banBox.forEach((ele)=>{
       // 하위 슬라이드 선택요소(드래그 대상요소인 슬라이드)
-      let subSlide = mFn.qsEl(ele,'.slide')
+      // let subSlide = mFn.qsEl(ele,'.slide') -> slideFn 함수에서 하위 .slide를 수집하고 있음. 따로 보낼필요 없음
 
         // 슬라이드 함수 호출하기
-        slideFn(ele, subSlide);
+        slideFn(ele);
         // 실제 DOM요소를 보낸다!
 
     }); /////// forEach ///////////
@@ -31,9 +31,9 @@ export default function setSlide(clsName){
     함수명: slideFn
     기능: 로딩 후 버튼 이벤트 및 기능구현 + 드래그 이동기능(goDrag 함수 합침)
  ********************************************************************************/
-function slideFn(selEl,slider) { 
+function slideFn(selEl) { 
     // selEl 선택 슬라이드 부모 요소
-    // slider 드래그할 대상 슬라이드
+  
     // console.log("슬라이드 함수 호출확인!");
 
     // 0.슬라이드 공통변수 /////
@@ -265,17 +265,12 @@ function slideFn(selEl,slider) {
 //////////////// 드래그 기능 구현 구역 /////////////////
 ///////////////////////////////////////////////////////
 
-  // slider - 전달된 대상 슬라이드
-  // -> 하나씩 전달된 드래그 대상 요소임
-
-  // console.log(slider);
-
 
 // 드래그 적용 대상 및 이벤트 설정하기 //
 // 1. 대상 선정 : .dtg2
 // const dtg = mFn.qs('.dtg2');
 // 1. 대상 선정 : 보내준 대상 html 컬렉션
-const dtg = slider;
+const dtg = slide; // -> slide는 선택박스 하위 슬라이드 
 
 // 드래그할 대상의 css 기본 값을 세팅한다(인라인 요소)
 // 필수 세팅 요소는 position:relative, top:0, left:0 (필수값)
