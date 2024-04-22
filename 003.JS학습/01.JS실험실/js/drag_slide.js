@@ -118,6 +118,15 @@ function slideFn(selEl) {
 
     // 4. 자동넘김 멈춤함수 호출하기
     clearAuto();
+
+    // 5. 중앙 li에 클래스 on 넣기
+    // slideSeq 값은 오른쪽 버튼 2, 왼쪽버튼 3
+    let slideSeq = isRight ? 3 : 2;
+    mFn.qsaEl(slide,"li").forEach((ele,idx)=>{
+      if(idx===slideSeq) ele.classList.add("on");
+      else ele.classList.remove("on");
+    })
+    
   } ////////// goSlide 함수 /////////
 
   // 블릿순번 변경 함수 /////////////
@@ -452,6 +461,9 @@ function slideFn(selEl) {
       if(idx===slideSeq) ele.classList.add("on");
       else ele.classList.remove("on");
     })
+
+    // 블릿변경 함수 호출 : 오른쪽이 3일때 true
+    chgIndic(slideSeq===3? true:false);
 
     console.log("마우스업", lastX);
   }); ////////// mouseup ///////////
