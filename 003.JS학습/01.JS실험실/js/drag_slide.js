@@ -462,8 +462,12 @@ mFn.addEvt(dtg,'mouseup',(e) => {
       slide.style.left = "-220%";
       slide.style.transition = ".3s ease-in-out";
     } /// else //////////
+
+    // 드래그 시 더해지는 마지막 위치값 lastX를 -220%의 left px 값으로 초기화해준다(px 안넣어줘도됨! 숫자만)
+    lastX = selEl.offsetWidth * -2.2;
+    // -> 이것을 해줘야 오작동(오른쪽으로 드래그시 튕기는 현상)이 없다
     
-   // console.log('마우스업', dragSts);
+   console.log('마우스업', lastX);
   
 
 }); ////////// mouseup ///////////
@@ -481,7 +485,7 @@ mFn.addEvt(dtg,'mouseleave',()=>{
   // 과도한 드래그로 아웃되면 lastX,lastY 값이 세팅되지 못한다
   // 이것을 기존 요소의 위치값으로 보정함
   // 단, style 위치값 코드는 'px' 단위가 있으므로 parseInt처리
-  lastX = parseInt(dtg.style.left);
+  // lastX = parseInt(dtg.style.left); -> 드래그 배너에서는 불필요(있으면 오작동)
   // lastY = parseInt(dtg.style.top);
 
   // console.log('마우스 나감',dragSts);
