@@ -122,12 +122,19 @@ function slideFn(selEl) {
     // 5. 중앙 li에 클래스 on 넣기
     // slideSeq 값은 오른쪽 버튼 2, 왼쪽버튼 3
     let slideSeq = isRight ? 3 : 2;
+    addOnSlide(slideSeq);
+    
+  } ////////// goSlide 함수 /////////
+  
+
+  // 중앙슬라이드 클래스 on처리 함수
+  function addOnSlide(slideSeq){
     mFn.qsaEl(slide,"li").forEach((ele,idx)=>{
       if(idx===slideSeq) ele.classList.add("on");
       else ele.classList.remove("on");
-    })
+    }) /////// for each /////////////////
     
-  } ////////// goSlide 함수 /////////
+  } //// addOnSlide 함수 ///////////
 
   // 블릿순번 변경 함수 /////////////
   function chgIndic(isRight) {
@@ -388,34 +395,9 @@ function slideFn(selEl) {
     // console.log('마지막포인트:', lastX);
   }; ///// lastPoint 함수 /////////////
 
-  // 4. 드래그 이벤트 설정하기
-  // (1) 마우스 다운 이벤트 함수연결하기
-  mFn.addEvt(dtg, "mousedown", (e) => {
-    // 드래그 상태값 true로 변경
-    dTrue();
-    // 첫번째 위치 포인트 세팅
-    firstPoint(e);
-    // 단독할당되지 않고 내부 함수호출로 연결되어 있으므로
-    // 이벤트 전달을 토스해줘야한다 => (e)
 
-    // 마우스 다운시 주먹손
-    dtg.style.cursor = "grabbing";
-
-    // z-index 전역변수(zNum) 숫자를 1씩 높이기
-    // dtg.style.zIndex = ++zNum;
-
-    // console.log('마우스다운', dragSts);
-  }); ////////// mousedown ///////////
-
-  // (2) 마우스 업 이벤트 함수연결하기
-  mFn.addEvt(dtg, "mouseup", (e) => {
-    // 드래그 상태값 false로 변경
-    dFalse();
-    // 마지막 위치 포인트 세팅
-    lastPoint(e);
-
-    // 마우스 업시 편손
-    dtg.style.cursor = "grab";
+  // (6) 슬라이드 드래그 이동구현 ->[mouseup/touchend] 이벤트 발생시 호출함
+  const moveDragSlide = () => {
 
     // 중앙 li 순번 방향별 세팅하기
     let slideSeq = 2; // 왼쪽버튼(왼쪽이동)
@@ -457,15 +439,48 @@ function slideFn(selEl) {
     // -> 이것을 해줘야 오작동(오른쪽으로 드래그시 튕기는 현상)이 없다
 
     // 중앙 li에 클래스 on 넣기
-    mFn.qsaEl(slide,"li").forEach((ele,idx)=>{
-      if(idx===slideSeq) ele.classList.add("on");
-      else ele.classList.remove("on");
-    })
+    addOnSlide(slideSeq);
 
     // 블릿변경 함수 호출 : 오른쪽이 3일때 true
     chgIndic(slideSeq===3? true:false);
 
-    console.log("마우스업", lastX);
+  }; //////// moveDragSlide 함수 ////////////
+
+
+  /////////////////////////////////////////
+  // 4. 드래그 이벤트 설정하기
+  // (1) 마우스 다운 이벤트 함수연결하기
+  mFn.addEvt(dtg, "mousedown", (e) => {
+    // 드래그 상태값 true로 변경
+    dTrue();
+    // 첫번째 위치 포인트 세팅
+    firstPoint(e);
+    // 단독할당되지 않고 내부 함수호출로 연결되어 있으므로
+    // 이벤트 전달을 토스해줘야한다 => (e)
+
+    // 마우스 다운시 주먹손
+    dtg.style.cursor = "grabbing";
+
+    // z-index 전역변수(zNum) 숫자를 1씩 높이기
+    // dtg.style.zIndex = ++zNum;
+
+    // console.log('마우스다운', dragSts);
+  }); ////////// mousedown ///////////
+
+  // (2) 마우스 업 이벤트 함수연결하기
+  mFn.addEvt(dtg, "mouseup", (e) => {
+    // 드래그 상태값 false로 변경
+    dFalse();
+    // 마지막 위치 포인트 세팅
+    lastPoint(e);
+
+    // 마우스 업시 편손
+    dtg.style.cursor = "grab";
+
+    // 드래그 슬라이드 이동함수 호출
+    moveDragSlide();
+
+    // console.log("마우스업", lastX);
   }); ////////// mouseup ///////////
 
   // (3) 마우스 무브 이벤트 함수연결하기
@@ -511,8 +526,11 @@ function slideFn(selEl) {
     // 마지막 위치 포인트 세팅
     lastPoint();
 
+    // 드래그 슬라이드 이동함수 호출
+    moveDragSlide();
+
     // 마우스 업시 편손
-    dtg.style.cursor = "grab";
+    // dtg.style.cursor = "grab";
 
     // console.log('터치엔드', dragSts);
   }); ////////// touchend ///////////
