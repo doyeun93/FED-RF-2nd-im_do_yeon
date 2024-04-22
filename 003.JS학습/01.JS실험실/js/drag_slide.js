@@ -408,6 +408,13 @@ function slideFn(selEl) {
     // 마우스 업시 편손
     dtg.style.cursor = "grab";
 
+    // 중앙 li 순번 방향별 세팅하기
+    let slideSeq = 2; // 왼쪽버튼(왼쪽이동)
+    // 만약 오른쪽일 경우 순번은 3이 된다
+    // 업데이트는 오른쪽일 경우에만 해준다
+    // 기타일 경우는 세번째 순번인 2를 유지한다
+
+
     // 대상의 left값 찍기(px단위를 parseInt()로 없애기)
     let currentLeft = parseInt(dtg.style.left);
     console.log("슬라이드 left:", currentLeft, "x축 순수이동값:", resultX);
@@ -417,6 +424,9 @@ function slideFn(selEl) {
       // 오른쪽 버튼 클릭시 왼쪽이동과 동일
       // rightSlide() 함수 호출함
       rightSlide();
+      // on 넣을 li순번 업데이트
+      slideSeq = 3;
+
     } //// if ///////
     else if (currentLeft > valSecond) {
       console.log("오른쪽으로 이동");
@@ -436,6 +446,12 @@ function slideFn(selEl) {
     // 드래그 시 더해지는 마지막 위치값 lastX를 -220%의 left px 값으로 초기화해준다(px 안넣어줘도됨! 숫자만)
     lastX = originalValue;
     // -> 이것을 해줘야 오작동(오른쪽으로 드래그시 튕기는 현상)이 없다
+
+    // 중앙 li에 클래스 on 넣기
+    mFn.qsaEl(slide,"li").forEach((ele,idx)=>{
+      if(idx===slideSeq) ele.classList.add("on");
+      else ele.classList.remove("on");
+    })
 
     console.log("마우스업", lastX);
   }); ////////// mouseup ///////////
