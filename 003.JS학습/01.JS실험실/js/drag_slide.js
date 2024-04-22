@@ -155,15 +155,15 @@ function slideFn(selEl,slider) {
         slide.style.left = '-330%';
         //2.트랜지션주기
         slide.style.transition = 
-            TIME_SLIDE+'ms ease-in-out';
+            TIME_SLIDE+'ms ease-out';
         // 이동시간 후 맨앞li 잘라서 맨뒤로 이동하기
         // appendChild(요소)
         setTimeout(() => {
             // 3.맨앞li 맨뒤로 이동
             slide.appendChild(
                 slide.querySelectorAll('li')[0]);
-            // 4.slide left값 -220%
-            slide.style.left = '-220%';
+            // 4.slide left값 -220% -> 최종 left값은 px로
+            slide.style.left = selEl.offsetWidth* - 2.2 + 'px';
             // 5.트랜지션 없애기
             slide.style.transition = 'none';
         }, TIME_SLIDE);
@@ -171,7 +171,14 @@ function slideFn(selEl,slider) {
 
     ////////////////////////////////////////////////////////
     // 슬라이드 왼쪽 버튼클릭시 오른쪽 방향 이동 함수 //////
-    function leftSlide(){
+    // 드래그 이동시엔 left 값을 -330%가 아닌 드래그가 이동된 값을 적용한 left 값을 적용한다
+    // 함수전달변수를 leftVal="330%"로 기본입력값 처리하면 함수호출시 전달값이 없는 경우엔
+    // 기본값으로 처리하고 함수 호출시 전달값이 있으면 그 전달될 값으로 처리한다
+    // 이것을 함수 전달변수 기본입력값 처리라고 한다
+
+    function leftSlide(leftVal="-330%"){
+        console.log('왼쪽버튼이동 left값:',leftVal);
+        // leftVal - li 앞에 이동시 left값 설정      
         // 1. 슬라이드 li 새로 읽기
         let eachOne = slide.querySelectorAll('li');
 
@@ -179,8 +186,8 @@ function slideFn(selEl,slider) {
         // 놈.놈.놈 -> insertBefore(넣을놈,넣을놈전놈)
         slide.insertBefore(eachOne[eachOne.length-1], eachOne[0]);
 
-        // 3. left값 -330% 만들기 : 들어올 준비 위치!
-        slide.style.left = '-330%';
+        // 3. left값 -330% 만들기 : 들어올 준비 위치!(이동된 값이 고려되지않음)
+        slide.style.left = leftVal;
 
         // 4. 트랜지션 없애기
         slide.style.transition = 'none';
@@ -191,11 +198,11 @@ function slideFn(selEl,slider) {
           // 시간은 0이어도 비동기 처리므로 효과있음!
 
           setTimeout(() => {
-              // 5. left값 -220%으로 들어오기
-              slide.style.left = '-220%';
+              // 5. left값 -220%으로 들어오기 -> px 값으로 변환
+              slide.style.left = selEl.offsetWidth * - 2.2 + 'px';
               
               // 6. 트랜지션주기
-              slide.style.transition = TIME_SLIDE + 'ms ease-in-out';
+              slide.style.transition = TIME_SLIDE + 'ms ease-out';
           }, 0);
 
 
@@ -434,7 +441,7 @@ mFn.addEvt(dtg,'mouseup',(e) => {
 
     // 대상의 left값 찍기(px단위를 parseInt()로 없애기)
     let currentLeft = parseInt(dtg.style.left);
-    console.log('슬라이드 left:', currentLeft);
+    console.log('슬라이드 left:', currentLeft, 'x축 순수이동값:',resultX);
     // 대상 슬라이드 이동기준 분기하기
     if(currentLeft < valFirst){
       console.log('왼쪽으로 이동');
@@ -446,10 +453,14 @@ mFn.addEvt(dtg,'mouseup',(e) => {
       console.log('오른쪽으로 이동');
       // 왼쪽버튼 클릭시 오른쪽이동과 동일
       // leftSlide() 함수 호출함
-      leftSlide();
+      // 슬라이드 이동함수 호출시 드래그시 이동된 값이 계산된 -330%값을 보내준다
+      let resVal = (selEl.offsetWidth * -3.3) + resultX;
+      leftSlide(resVal+'px');
     } /// else if ///////
     else{ /// valFirst와 valSecond의 사이 범위
       console.log('제자리');
+      slide.style.left = "-220%";
+      slide.style.transition = ".3s ease-in-out";
     } /// else //////////
     
    // console.log('마우스업', dragSts);
