@@ -238,6 +238,9 @@ function slideFn(selEl) {
       rightSlide();
       // 블릿변경함수호출(오른쪽은 1)
       chgIndic(1);
+      // 중앙슬라이드 클래스 on넣기 함수 호출
+      addOnSlide(2);
+      // -> 오른쪽 이동이므로 2를 보냄
 
       // // console.log('실행!');
       // 오른쪽버튼 클릭이벤트 강제발생!
