@@ -107,49 +107,24 @@ function slideFn(selEl,slider) {
         // 1. 오른쪽 버튼 여부 알아내기
         let isRight = this.classList.contains('ab2');
 
-        // 2. 슬라이드 li 새로 읽기
-        let eachOne = slide.querySelectorAll('li');
 
-        // 3. 버튼분기하기 '.ab2' 이면 오른쪽버튼
+        // 2. 버튼분기하기 '.ab2' 이면 오른쪽버튼
         if(isRight){ // 오른쪽버튼
             // 오른쪽에서 들어오는 슬라이드함수 호출!
             rightSlide();
         } ////// if //////////////
         else{ // 왼쪽버튼
-            // 1. 맨뒤li 맨앞으로 이동
-            // 놈.놈.놈 -> insertBefore(넣을놈,넣을놈전놈)
-            slide.insertBefore(
-                eachOne[eachOne.length-1], eachOne[0]);
-            // 2. left값 -330% 만들기 : 들어올 준비 위치!
-            slide.style.left = '-330%';
-            // 3. 트랜지션 없애기
-            slide.style.transition = 'none';
-            
-            // 같은 left값을 동시에 변경하면 효과가 없음!
-            // 비동기적으로 처리해야함!
-            // -> setTimeout으로 싸주기!
-            // 시간은 0이어도 비동기 처리므로 효과있음!
-
-            setTimeout(() => {
-                // 4. left값 -220%으로 들어오기
-                slide.style.left = '-220%';
-                
-                // 5. 트랜지션주기
-                slide.style.transition = 
-                    TIME_SLIDE+'ms ease-in-out';
- 
-            }, 0);
-
-
+          leftSlide();
         } /////// else //////////////
 
-        // 4. 블릿순번 변경 함수 호출
+        // 3. 블릿순번 변경 함수 호출
         chgIndic(isRight); // 방향값을 보냄!
 
-        // 5. 자동넘김 멈춤함수 호출하기
+        // 4. 자동넘김 멈춤함수 호출하기
         clearAuto();
         
     } ////////// goSlide 함수 /////////
+
 
     // 블릿순번 변경 함수 /////////////
     function chgIndic(isRight){ // isRight(0-왼쪽,1-오른쪽)
@@ -173,7 +148,8 @@ function slideFn(selEl,slider) {
 
     } /////////// chgIndic함수 ////////////
 
-    // 슬라이드 오른쪽방향 함수 ////////////
+    ////////////////////////////////////////////////////////
+    // 슬라이드 오른쪽 버튼클릭시 왼쪽 방향 이동 함수 //////
     function rightSlide(){
         //1.대상이동하기 : -330%
         slide.style.left = '-330%';
@@ -192,6 +168,38 @@ function slideFn(selEl,slider) {
             slide.style.transition = 'none';
         }, TIME_SLIDE);
     } //////////// rightSlide 함수 ////////////
+
+    ////////////////////////////////////////////////////////
+    // 슬라이드 왼쪽 버튼클릭시 오른쪽 방향 이동 함수 //////
+    function leftSlide(){
+        // 1. 슬라이드 li 새로 읽기
+        let eachOne = slide.querySelectorAll('li');
+
+        // 2. 맨뒤li 맨앞으로 이동
+        // 놈.놈.놈 -> insertBefore(넣을놈,넣을놈전놈)
+        slide.insertBefore(eachOne[eachOne.length-1], eachOne[0]);
+
+        // 3. left값 -330% 만들기 : 들어올 준비 위치!
+        slide.style.left = '-330%';
+
+        // 4. 트랜지션 없애기
+        slide.style.transition = 'none';
+          
+          // 같은 left값을 동시에 변경하면 효과가 없음!
+          // 비동기적으로 처리해야함!
+          // -> setTimeout으로 싸주기!
+          // 시간은 0이어도 비동기 처리므로 효과있음!
+
+          setTimeout(() => {
+              // 5. left값 -220%으로 들어오기
+              slide.style.left = '-220%';
+              
+              // 6. 트랜지션주기
+              slide.style.transition = TIME_SLIDE + 'ms ease-in-out';
+          }, 0);
+
+
+    } //////////// leftSlide 함수 ////////////
 
 
     /********************************** 
@@ -424,15 +432,21 @@ mFn.addEvt(dtg,'mouseup',(e) => {
     // 마우스 업시 편손
     dtg.style.cursor = "grab";
 
-    // 대상의 left값 찍기
-    let currentLeft = dtg.style.left
+    // 대상의 left값 찍기(px단위를 parseInt()로 없애기)
+    let currentLeft = parseInt(dtg.style.left);
     console.log('슬라이드 left:', currentLeft);
     // 대상 슬라이드 이동기준 분기하기
-    if(currentLeft < valSecond){
+    if(currentLeft < valFirst){
       console.log('왼쪽으로 이동');
+      // 오른쪽 버튼 클릭시 왼쪽이동과 동일
+      // rightSlide() 함수 호출함
+      rightSlide();
     } //// if ///////
-    else if(currentLeft > valFirst){
+    else if(currentLeft > valSecond){
       console.log('오른쪽으로 이동');
+      // 왼쪽버튼 클릭시 오른쪽이동과 동일
+      // leftSlide() 함수 호출함
+      leftSlide();
     } /// else if ///////
     else{ /// valFirst와 valSecond의 사이 범위
       console.log('제자리');
