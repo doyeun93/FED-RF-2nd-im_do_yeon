@@ -270,8 +270,15 @@ dtg.style.position ='relative';
 // 배너가 left 값 -220% 기준박스에서 이동함
 // .banbx의 width값 곱하기 2.2
 // 기준위치값 변수에 할당
-let leftVal = mFn.qs('.banbx').offsetWidth*-2.2;
-// console.log('left 세팅값:', leftVal);
+let leftVal = mFn.qs('.banbx').offsetWidth * -2.2;
+// 왼쪽으로 이동할 기준값(기준위치값*1.1)
+let valFirst = leftVal*1.1;
+// 오른쪽으로 이동할 기준값(기준위치값*0.9)
+let valSecond = leftVal*0.9;
+
+console.log('기준값:', leftVal); // 기준값
+console.log('기준값의 110%:', valFirst); // 기준값
+console.log('기준값의 90%:', valSecond); // 기준값
 // left위치값 최초셋업! -> px 단위 꼭 쓸 것
 dtg.style.left = leftVal + 'px';
 
@@ -418,7 +425,18 @@ mFn.addEvt(dtg,'mouseup',(e) => {
     dtg.style.cursor = "grab";
 
     // 대상의 left값 찍기
-    console.log('슬라이드 left:', dtg.style.left);
+    let currentLeft = dtg.style.left
+    console.log('슬라이드 left:', currentLeft);
+    // 대상 슬라이드 이동기준 분기하기
+    if(currentLeft < valSecond){
+      console.log('왼쪽으로 이동');
+    } //// if ///////
+    else if(currentLeft > valFirst){
+      console.log('오른쪽으로 이동');
+    } /// else if ///////
+    else{ /// valFirst와 valSecond의 사이 범위
+      console.log('제자리');
+    } /// else //////////
     
    // console.log('마우스업', dragSts);
   
