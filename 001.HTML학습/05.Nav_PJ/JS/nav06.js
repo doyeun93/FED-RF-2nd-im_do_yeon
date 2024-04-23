@@ -1,16 +1,27 @@
 // 네비게이션 유형6 JS - nav06.js
 // 가로네비 서브별 드롭다운 전체창
 
-const myFn = {
-  // 요소선택함수 ////////
-  qs: (x) => document.querySelector(x),
-  qsEl: (el, x) => el.querySelector(x),
-  qsa: (x) => document.querySelectorAll(x),
-  qsaEl: (el, x) => el.querySelectorAll(x),
+import mFn from "./my_function.js";
 
-  // 이벤트셋팅함수
-  addEvt: (ele, evt, fn) => ele.addEventListener(evt, fn),
-}; /////// myFn 객체 /////////////
+// 배너 리스트 세팅하기
+// 대상 : .slide
+const slideBox = mFn.qs('.slide');
+
+// 슬라이드 코드변수
+let slideCode = '';
+
+
+// 슬라이드 li코드 만들기
+for (let i = 0; i <13; i++){
+
+
+} //// for문 /////////////
+
+// 리스트 코드 요소에 출력하기
+slideBox.innerHTML = slideCode;
+
+
+
 
 
 
