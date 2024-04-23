@@ -542,7 +542,7 @@ function slideFn(selEl) {
   }); ////////// mousedown ///////////
 
   // (2) 마우스 업 이벤트 함수연결하기
-  mFn.addEvt(dtg, "mouseup", (e) => {
+  mFn.addEvt(dtg, "mouseup", () => {
 
     // 0. 자동넘김 멈춤함수 호출하기
     clearAuto();
@@ -551,7 +551,7 @@ function slideFn(selEl) {
     // 드래그 상태값 false로 변경
     dFalse();
     // 마지막 위치 포인트 세팅
-    lastPoint(e);
+    lastPoint();
 
     // 마우스 업시 편손
     dtg.style.cursor = "grab";

@@ -37,7 +37,7 @@ html,body{
     width: 200%;
     height: 100%;
     z-index:99;
-    background-color: rgba(43, 55, 224, 0.5);
+    /* background-color: rgba(43, 55, 224, 0.5); */
 }
 
 .slide {
