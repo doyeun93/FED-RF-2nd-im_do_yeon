@@ -634,7 +634,7 @@ function slideFn(selEl) {
 
 
   // (4) 드래그하여 버튼, 블릿에 오버시 자동처리 호출세팅
-  mFn.qsa('.controls').forEach((ele)=> mFn.addEvt(ele,
+  mFn.qsaEl(selEl,'.controls').forEach((ele)=> mFn.addEvt(ele,
     "mouseenter",() => { moveDragSlide(); clearAuto(); })
   ); //////////////// foreach /////////////
 
