@@ -245,7 +245,7 @@ function slideFn(selEl) {
       // // console.log('실행!');
       // 오른쪽버튼 클릭이벤트 강제발생!
       // 선택요소.click()
-      //  abtn[1].click();
+      //  abtn[1].click();d:\프론드엔드과정\FED-RF-2nd-2024-TOM\FED-RF-2nd-2024-TOM\960.팀프로젝트
     }, 3000);
   } ///////// slideAuto 함수 //////////////
 
