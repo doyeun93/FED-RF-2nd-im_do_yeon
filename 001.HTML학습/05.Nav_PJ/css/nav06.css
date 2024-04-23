@@ -170,8 +170,8 @@ html,body{
 /* 서브 컨텐츠 */
 .sub-cont{
     display: flex;
+    max-width: 1200px;
     height: 500px;
-    min-width: 1200px;
     margin: 0 auto;
     padding: 50px 0;
 

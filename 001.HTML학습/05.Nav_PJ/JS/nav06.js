@@ -51,7 +51,7 @@ import setSlide from "./drag_slide.js";
   // (2) 슬라이드 li코드 만들기
   for (let i = 6; i <= 12; i++){
     // 끝번호 둘 6,7부터 시작하고 1부터 11까지 나열
-    let temp = (i>7)? (i-7) : i;
+    let temp = (i>7) ? (i-7) : i;
     // 세번째 슬라이드(이미지 1번)에만 클래스 on넣기
     slideCode += `
       <li ${temp===1? 'class="on"':''}>
@@ -64,7 +64,7 @@ import setSlide from "./drag_slide.js";
 
    // (3) 리스트 코드 요소에 출력하기
    slideBox.innerHTML = slideCode;
-   
+
 })();
 
 /////////////////////////////////////////
