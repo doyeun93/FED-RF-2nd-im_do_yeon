@@ -181,3 +181,21 @@ html,body{
     flex: 1;
     outline: 2px dashed coral;
 }
+/* 서브 컨텐츠 오른쪽 박스  */
+.cont-right-box{
+    overflow: hidden;
+}
+
+/* 서브배너 디자인 변경하기 */
+.sub-banbx {
+    left: 0;
+    width: 100%;
+}
+
+.sub-banbx .ab1 {
+    left: 15px;
+}
+
+.sub-banbx .ab2 {
+    right: 15px;
+}
