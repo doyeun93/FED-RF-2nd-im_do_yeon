@@ -62,8 +62,8 @@ function slideFn(selEl) {
   for (let i = 0; i < sldCnt; i++) {
     indic.innerHTML += `
             <li ${i == 0 ? 'class="on"' : ""}>
-                <img src="images/dot1.png" alt="흰색">
-                <img src="images/dot2.png" alt="회색">
+                <img src="./images/img_nav06/dot1.png" alt="흰색">
+                <img src="./images/img_nav06/dot2.png" alt="회색">
             </li>
         `;
   } /////// for문 ////////////
