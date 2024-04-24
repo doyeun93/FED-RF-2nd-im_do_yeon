@@ -14,11 +14,19 @@
       overflow: hidden;
     }
     .gbox ul{
-      display: flex;      
+      display: flex;
+      list-style: none;    
+      margin: 0;
+      padding: 0;  
     }
     .gbox li{
         width: 25vw;
+        padding: 1vw;
+        /* 플렉스 부모박스크기에 맞춰 줄이기 
+        -> 0을 쓰면 맞춰서 안줄이겠다는 뜻*/
+        flex-shrink: 0;
         aspect-ratio: 664/443;
+        box-sizing: border-box;
     }
     .gbox li img{
       width: 100%;
