@@ -29,7 +29,6 @@ gbox.innerHTML = hcode;
 
 ///// 갤러리 박스를 왼쪽으로 계속 움직이게하는 재귀호출함수 만들기
 
-
 // 움직일 대상 : .gbox ul
 let target = mFn.qsEl(gbox,'ul');
 
@@ -56,10 +55,9 @@ console.log('기준값:',criteria);
 let currVal = 0;
 
 
-/********************************************************************** 
-참고 링크 : https://developer.mozilla.org/en-US/docs/Web/CSS/translate
 
-**********************************************************************/
+// translate 참고 링크 : https://developer.mozilla.org/en-US/docs/Web/CSS/translate
+
 function moveGallery(){
     // 현재값 1씩 감소
 
@@ -68,7 +66,8 @@ function moveGallery(){
     // 하나 크기만큼 나가면 처리
     // 기준값을 마이너스로 하고 소수점 아래는 버림
     // Math.floor()소수점 아래 내림(버림) 함수
-    if(currVal == Math.floor(-criteria)){
+    // == 비교보다는 <= 로 해야 안전함( 창크기를 줄여도 이미지가 짤리지 않음)
+    if(currVal <= Math.floor(-criteria)){
         // 1. 맨앞 li 맨뒤로 이동 /  appendChild(맨앞 li)
         // 맨 앞 li는 새로 구해와야함(계속 변경되기때문에)
         target.appendChild(mFn.qsaEl(target,"li")[0]);

@@ -10,7 +10,7 @@ export default function setSlide(clsName) {
   // [1] 슬라이드 세팅하기
   // 슬라이드 대상요소 : .banbx
   const banBox = mFn.qsa("." + clsName);
-  // console.log('슬라이드 대상:',banBox);
+  // // console.log('슬라이드 대상:',banBox);
 
   // 슬라이드 만큼 모두 호출하기!
   banBox.forEach((ele) => {
@@ -30,7 +30,7 @@ export default function setSlide(clsName) {
 function slideFn(selEl) {
   // selEl 선택 슬라이드 부모 요소
 
-  // console.log("슬라이드 함수 호출확인!");
+  // // console.log("슬라이드 함수 호출확인!");
 
   // 0.슬라이드 공통변수 /////
   // 0-1. 광클금지상태변수 : 0-허용,1-불허용
@@ -52,7 +52,7 @@ function slideFn(selEl) {
   let indic = mFn.qsEl(sldWrap, ".indic");
 
   // 대상확인
-  // console.log('대상',abtn,slide,indic);
+  // // console.log('대상',abtn,slide,indic);
 
   // 1.4. 슬라이드 개수와 동일한 블릿동적생성
   // 대상: .indic -> indic변수
@@ -99,7 +99,7 @@ function slideFn(selEl) {
     setTimeout(() => (clickSts = 0), TIME_SLIDE); //해제!
 
     // 호출확인
-    // console.log('나야나!',this, this.classList.contains('ab2'));
+    // // console.log('나야나!',this, this.classList.contains('ab2'));
 
     // classList.contains(클래스명)
     // 선택요소에 해당클래스가 있으면 true
@@ -162,7 +162,7 @@ function slideFn(selEl) {
       .querySelectorAll("li")
       [isRight ? 1 : 0].getAttribute("data-seq");
 
-    // console.log('현재슬라이드 순번:',nowSeq);
+    // // console.log('현재슬라이드 순번:',nowSeq);
 
     // 2. 해당순번 블릿li에 클래스 on넣기
     // 블릿전체순회시 해당순번에 on넣고 나머지는 on빼기
@@ -208,7 +208,7 @@ function slideFn(selEl) {
         이것을 함수 전달변수 기본입력값 처리라고 한다
    *********************************************************/
   function leftSlide(leftVal = "-330%") {
-    console.log("왼쪽버튼이동 left값:", leftVal);
+    // console.log("왼쪽버튼이동 left값:", leftVal);
     // leftVal - li 앞에 이동시 left값 설정
     // 1. 슬라이드 li 새로 읽기
     let eachOne = slide.querySelectorAll("li");
@@ -274,7 +274,7 @@ function slideFn(selEl) {
       addOnSlide(3);
       // -> 오른쪽버튼 (왼쪽이동)이므로 3을 보냄
 
-      // // console.log('실행!');
+      // // // console.log('실행!');
       // 오른쪽버튼 클릭이벤트 강제발생!
       // 선택요소.click()
       //  abtn[1].click();d:\프론드엔드과정\FED-RF-2nd-2024-TOM\FED-RF-2nd-2024-TOM\960.팀프로젝트
@@ -294,7 +294,7 @@ function slideFn(selEl) {
   function clearAuto() {
     // 자동넘김 지우기
     // clearInterval(인터발할당변수)
-    // console.log('멈춤!!!');
+    // // console.log('멈춤!!!');
 
     // 1. 인터발 지우기
     clearInterval(autoI);
@@ -345,9 +345,9 @@ function slideFn(selEl) {
   // 오른쪽으로 이동할 기준값(기준위치값*0.9)
   let valSecond = leftVal * 0.9;
 
-  console.log("기준값:", leftVal); // 기준값
-  console.log("기준값의 110%:", valFirst); // 기준값
-  console.log("기준값의 90%:", valSecond); // 기준값
+  // console.log("기준값:", leftVal); // 기준값
+  // console.log("기준값의 110%:", valFirst); // 기준값
+  // console.log("기준값의 90%:", valSecond); // 기준값
   // left위치값 최초셋업! -> px 단위 꼭 쓸 것
   dtg.style.left = leftVal + "px";
 
@@ -385,9 +385,6 @@ function slideFn(selEl) {
   // (3) 드래그 상태시 처리 함수
   const dMove = (e) => {
 
-
-
-
     // e - 이벤트 객체 전달변수
     // 드래그 상태는 dragSts값이 true인 경우에만 허용
 
@@ -397,7 +394,7 @@ function slideFn(selEl) {
     //  clearAuto();
 
 
-      // // console.log('드래그중~!');
+      // // // console.log('드래그중~!');
       // 1. 드래그 상태에서 움직일 때 포인터 위치값
       // - 브라우저용 포인터 위치는 pageX, pageY를 사용
       // - 모바일용 터치 스크린 터치 위치는 touches[0].screenX, touches[0].screenY 사용
@@ -407,7 +404,7 @@ function slideFn(selEl) {
 
       // moveX = e.pageX;
       // moveY = e.pageY;
-      // // console.log(e.touches[0]);
+      // // // console.log(e.touches[0]);
       moveX = e.pageX || e.touches[0].screenX;
       // moveY = e.pageY || e.touches[0].screenY;
 
@@ -429,8 +426,8 @@ function slideFn(selEl) {
       // 최종 이동위치값이 더해진다
 
       // 값 확인
-      // console.log(`moveX: ${moveX}`);
-      // console.log(`resultX: ${resultX}`);
+      // // console.log(`moveX: ${moveX}`);
+      // // console.log(`resultX: ${resultX}`);
     } // if문
 
     // 드래그 중(dragSts === true)일때는 커서모양 주먹손(grabbing),
@@ -447,7 +444,7 @@ function slideFn(selEl) {
     firstX = e.pageX || e.touches[0].screenX;
     // firstY = e.pageY || e.touches[0].screenY;
 
-    // console.log('첫포인트:', firstX);
+    // // console.log('첫포인트:', firstX);
   }; ///// firstPoint 함수 /////////////
 
   // (5) 마지막 위치포인트 세팅 함수 : last x, last y 값 세팅
@@ -458,7 +455,7 @@ function slideFn(selEl) {
     // 이동 결과 계산된 최종값을 기존값에 더함(+=)
     lastX += resultX;
     // lastY += resultY;
-    // console.log('마지막포인트:', lastX);
+    // // console.log('마지막포인트:', lastX);
   }; ///// lastPoint 함수 /////////////
 
 
@@ -474,10 +471,10 @@ function slideFn(selEl) {
 
     // 대상의 left값 찍기(px단위를 parseInt()로 없애기)
     let currentLeft = parseInt(dtg.style.left);
-    console.log("슬라이드 left:", currentLeft, "x축 순수이동값:", resultX);
+    // console.log("슬라이드 left:", currentLeft, "x축 순수이동값:", resultX);
     // 대상 슬라이드 이동기준 분기하기
     if (currentLeft < valFirst) {
-      console.log("왼쪽으로 이동");
+      // console.log("왼쪽으로 이동");
       // 오른쪽 버튼 클릭시 왼쪽이동과 동일
       // rightSlide() 함수 호출함
       rightSlide();
@@ -486,7 +483,7 @@ function slideFn(selEl) {
 
     } //// if ///////
     else if (currentLeft > valSecond) {
-      console.log("오른쪽으로 이동");
+      // console.log("오른쪽으로 이동");
       // 왼쪽버튼 클릭시 오른쪽이동과 동일
       // leftSlide() 함수 호출함
       // 슬라이드 이동함수 호출시 드래그시 이동된 값이 계산된 -330%값을 보내준다
@@ -495,7 +492,7 @@ function slideFn(selEl) {
     } /// else if ///////
     else {
       /// valFirst와 valSecond의 사이 범위
-      console.log("제자리");
+      // console.log("제자리");
       slide.style.left = "-220%";
       slide.style.transition = ".3s ease-in-out";
     } /// else //////////
@@ -538,7 +535,7 @@ function slideFn(selEl) {
     // z-index 전역변수(zNum) 숫자를 1씩 높이기
     // dtg.style.zIndex = ++zNum;
 
-    // console.log('마우스다운', dragSts);
+    // // console.log('마우스다운', dragSts);
   }); ////////// mousedown ///////////
 
   // (2) 마우스 업 이벤트 함수연결하기
@@ -559,7 +556,7 @@ function slideFn(selEl) {
     // 드래그 슬라이드 이동함수 호출
     moveDragSlide();
 
-    // console.log("마우스업", lastX);
+    // // console.log("마우스업", lastX);
   }); ////////// mouseup ///////////
 
   // (3) 마우스 무브 이벤트 함수연결하기
@@ -568,7 +565,18 @@ function slideFn(selEl) {
   // (4) 마우스가 대상을 벗어나면 드래그상태값 false 처리하기
   mFn.addEvt(dtg, "mouseleave", () => {
     // 드래그 상태값 false로 변경
-    dFalse();
+
+    // 하단 컨트롤 mouseenter에서 처리하는 dragSts값 처리시
+    // mouseleave에서 처리하는 코드가 가장 나중에 처리하게 하려면
+    // 해당 코드를 setTimeout()함수에 넣는다.
+    // 결과적으로 이 코드는 큐(QUEUE)에 들어가서 기존 처리되는 
+    // 일반 요청처리 코드가 모두 스택(STACK)에서 처리가 끝날때까지
+    // 기다렸다가 큐에서 순서대로 스택으로 넘어가 처리된다
+    setTimeout(dFalse, 0);
+    
+    // dFalse();
+
+
 
     // 과도한 드래그로 아웃되면 lastX,lastY 값이 세팅되지 못한다
     // 이것을 기존 요소의 위치값으로 보정함
@@ -576,7 +584,7 @@ function slideFn(selEl) {
     // lastX = parseInt(dtg.style.left); -> 드래그 배너에서는 불필요(있으면 오작동)
     // lastY = parseInt(dtg.style.top);
 
-    // console.log('마우스 나감',dragSts);
+    // // console.log('마우스 나감',dragSts);
   }); /////// mouseleave ////////
 
   //////////////////////////////////////////////////////////
@@ -602,7 +610,7 @@ function slideFn(selEl) {
     // z-index 전역변수(zNum) 숫자를 1씩 높이기
     // dtg.style.zIndex = ++zNum;
 
-    // console.log('터치스타트', dragSts);
+    // // console.log('터치스타트', dragSts);
   }); ////////// touchstart ///////////
 
   // (2) 터치 엔드 이벤트 함수연결하기
@@ -621,9 +629,8 @@ function slideFn(selEl) {
     // 마우스 업시 편손
     // dtg.style.cursor = "grab";
 
-    // console.log('터치엔드', dragSts);
+    // // console.log('터치엔드', dragSts);
   }); ////////// touchend ///////////
-
 
 
 
@@ -631,12 +638,17 @@ function slideFn(selEl) {
   mFn.addEvt(dtg, "touchmove", dMove);
   ////////// touchmove ///////////
 
-
-
   
   // (4) 드래그하여 버튼, 블릿에 오버시 자동처리 호출세팅
+  // [조건] 드래그 상태 변수인 dragSts값이 true일 때
   mFn.qsaEl(selEl,'.controls').forEach((ele)=> mFn.addEvt(ele,
-    "mouseenter",() => { moveDragSlide(); clearAuto(); })
+    "mouseenter",() => { 
+      console.log('dradSts:',dragSts);
+      if(dragSts){ // 드래그 중일 때 처리(드래그가 true일때만 실행해라)
+        moveDragSlide(); 
+        clearAuto(); 
+      } //// if /////////
+    }) ////// mouseenter ///////////
   ); //////////////// foreach /////////////
 
   
@@ -655,10 +667,12 @@ function slideFn(selEl) {
     valSecond = leftVal * 0.9;
 
     // 호출 작동 확인
-    console.log('리사이즈 작동',originalValue,leftVal,valFirst,valSecond);
+    // console.log('리사이즈 작동',originalValue,leftVal,valFirst,valSecond);
   }); ////////// resize 함수 ////////////
 
 
 
 } ///////////////////// slideFn 함수 ///////////////////
 /////////////////////////////////////////////////////////
+
+
