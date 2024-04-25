@@ -144,7 +144,7 @@ function increasePercent(){
         // 4. 재귀 호출이 끝나면 "준비" 글자를 "출발"로 변경
         txt.innerText = "출발!";
         // 5. 바 스타일 변경하기
-        txt.style.color = "red";
+        txt.style.color = "purple";
         txt.style.fontWeight = "bold";
 
         // 5. 슬라이드 이동함수 호출하기(타임아웃호출은 주석)
