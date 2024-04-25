@@ -1,4 +1,10 @@
 // 04.리액트 컴포넌트 JSX
+
+
+
+
+
+
 /************************************************* 
     [ 리액트 컴포넌트 ]
     - 컴포넌트는 HTML요소를 반환하는 함수다!
@@ -71,9 +77,17 @@ function IronMan(){
 
 ///// [ 이미지 생성 공통 컴포넌트] //////////
 // 변수를 설정하지않아도 
-function MakeImage(props){
-  return (
-  <img src={"./images/"+props.isrc} alt={props.ialt} />);
+// 비구조화 할당(구조분해할당)을 사용하여 전달객체를 개별 변수값으로 처리할 수 있다
+// function MakeImage(props){
+// function MakeImage({ialt, isrc}){
+
+function MakeImage({ialt:ㅋㅋ, isrc:ㅎㅎ}){ // -> 비구조화 할당 방식(=구조분해할당방식) =>> 쓰는 이유는 객체가 없기 때문
+  // 하나의 변수에는 전달된 값이 보낼때 설정된 객체로 전달된다 {속성:값,속성:값,...}
+  // 순서를 바꿔서 값을 보내도, 이름을 아무거나 써도 노상관
+  // console.log(props);
+  //  return (<img src={"./images/"+props.isrc} alt={props.ialt} />);
+  // return (<img src={"./images/"+isrc} alt={ialt} />);
+  return (<img src={"./images/"+ㅎㅎ} alt={ㅋㅋ} />);
 
 } //// MakeImage 컴포넌트
 
