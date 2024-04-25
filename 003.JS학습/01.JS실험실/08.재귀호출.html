@@ -39,8 +39,6 @@
     }
     /* 준비, 출발 글자박스 */
     .txt{
-      position: relative;
-      z-index: 1;
       font-size: 40px;
       color: plum;
       line-height: 60px;
@@ -60,7 +58,21 @@
       color: #fff;
       background-color: #ccc;
     }
+    /* 퍼센트 글자박스 */
+    .pNum{
+      position: relative;
+      z-index: 1;
+      /* 표시바 보다 위 */
+    }
     /* 증가표시바 */
+    .bar{
+      position: absolute;
+      left: 0;
+      width: 50%;
+      height: 100%;
+      background-color: lightskyblue;
+
+    }
 
   </style>
 </head>
