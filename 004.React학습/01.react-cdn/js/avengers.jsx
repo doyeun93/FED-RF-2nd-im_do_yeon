@@ -8,10 +8,10 @@ export default function Avengers(){
   return (
     <React.Fragment>
       <h1>어벤져스여! 모두 모여라!</h1>
-      <img src="./images/ab.1jpg" alt="어벤져스"/>
-      <img src="./images/ab.2jpg" alt="어벤져스"/>
-      <img src="./images/ab.3jpg" alt="어벤져스"/>
-      <img src="./images/ab.4jpg" alt="어벤져스"/>
+      <img src="./images/ab1.jpg" alt="어벤져스"/>
+      <img src="./images/ab2.jpg" alt="어벤져스"/>
+      <img src="./images/ab3.jpg" alt="어벤져스"/>
+      <img src="./images/ab4.jpg" alt="어벤져스"/>
     </React.Fragment>
 
   );
