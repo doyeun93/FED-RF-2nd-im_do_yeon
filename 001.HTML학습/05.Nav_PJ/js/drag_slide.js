@@ -387,10 +387,15 @@ function slideFn(selEl) {
 
     // e - 이벤트 객체 전달변수
     // 드래그 상태는 dragSts값이 true인 경우에만 허용
-
+    
+    // 이동버튼 + 블릿 이벤트 없앰 설정하기
+    // 상위 selEl에 클래스 .no 주면 된다
+    if (dragSts) selEl.classList.add('no');
+    else selEl.classList.remove('no');
+    
     if (dragSts) {
-      
-     // 0. 자동넘김 멈춤함수 호출하기
+
+    // 0. 자동넘김 멈춤함수 호출하기
     //  clearAuto();
 
 
@@ -573,6 +578,10 @@ function slideFn(selEl) {
     // 일반 요청처리 코드가 모두 스택(STACK)에서 처리가 끝날때까지
     // 기다렸다가 큐에서 순서대로 스택으로 넘어가 처리된다
     setTimeout(dFalse, 0);
+
+
+    // 마우스가 벗어나면 이동판별함수 호출
+    if(dragSts) moveDragSlide();
     
     // dFalse();
 
@@ -586,6 +595,20 @@ function slideFn(selEl) {
 
     // // console.log('마우스 나감',dragSts);
   }); /////// mouseleave ////////
+
+
+   // (5) 드래그하여 버튼, 블릿에 오버시 자동처리 호출세팅
+  // [조건] 드래그 상태 변수인 dragSts값이 true일 때
+  // mFn.qsaEl(selEl,'.controls').forEach((ele)=> mFn.addEvt(ele,
+  //   "mouseenter",() => { 
+  //     console.log('dradSts:',dragSts);
+  //     if(dragSts){ // 드래그 중일 때 처리(드래그가 true일때만 실행해라)
+  //       moveDragSlide(); 
+  //       clearAuto(); 
+  //     } //// if /////////
+  //   }) ////// mouseenter ///////////
+  // ); //////////////// foreach /////////////
+
 
   //////////////////////////////////////////////////////////
   /////////////// 모바일 이벤트 처리 구역 //////////////////
@@ -639,18 +662,7 @@ function slideFn(selEl) {
   ////////// touchmove ///////////
 
   
-  // (4) 드래그하여 버튼, 블릿에 오버시 자동처리 호출세팅
-  // [조건] 드래그 상태 변수인 dragSts값이 true일 때
-  mFn.qsaEl(selEl,'.controls').forEach((ele)=> mFn.addEvt(ele,
-    "mouseenter",() => { 
-      console.log('dradSts:',dragSts);
-      if(dragSts){ // 드래그 중일 때 처리(드래그가 true일때만 실행해라)
-        moveDragSlide(); 
-        clearAuto(); 
-      } //// if /////////
-    }) ////// mouseenter ///////////
-  ); //////////////// foreach /////////////
-
+ 
   
 
   ////// (5) 브라우저 크기 리사이즈시 동적 변경값 업데이트 함수
