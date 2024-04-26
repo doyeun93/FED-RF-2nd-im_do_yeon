@@ -396,6 +396,12 @@ function slideFn(selEl) {
       let listLength = currList.length;
       // (3) 리스트 한개당 크기(li 가로 크기)
       let oneSize = currList[0].offsetWidth;
+      // (4) 마지막 위치 한계값 left
+      // -> 히든박스 width - 전체 슬라이드 width
+      // 전체 슬라이드 width - li 한개당 width * 슬라이드 개수
+      let limitSize = selEl.offsetWidth - (oneSize * listLength);
+      console.log('마지막한계left:', limitSize);
+
 
       // 4-1. 맨앞에서 튕기기
       if(parseInt(dtg.style.left)>0){
@@ -405,6 +411,18 @@ function slideFn(selEl) {
           dtg.style.left = "0";
           // 마지막 위치값 0
           lastX = 0;
+        }, 200);
+
+      }  ////// if /////////
+
+      // 4-2. 맨 뒤에서 튕기기
+      if(parseInt(dtg.style.left)<limitSize){
+        // 약간의 시간간격으로 조금 간 후 튕겨서 돌아오는 효과
+        setTimeout(() => {
+          // left  값 0
+          dtg.style.left = limitSize + "px";
+          // 마지막 위치값 0
+          lastX = limitSize;
         }, 200);
 
       }  ////// if /////////
@@ -485,6 +503,34 @@ function slideFn(selEl) {
     // chgIndic(slideSeq === 3 ? true : false);
   }; ////////// moveDragSlide 함수 /////////////
 
+
+// (7) 슬라이드 확정위치 이동함수
+const fixedPosition = () => {
+  
+    // 중간 위치일때 배너 위치 수정하기
+    // (1) 현재 리스트 li 수집하기
+    let currList = mFn.qsaEl(dtg,"li");
+    // (2) 리스트 한개당 크기(li 가로 크기)
+    let oneSize = currList[0].offsetWidth;
+    // (3) 한개 li 크기로 현재 left 위치 크기를 나누어서 
+    // 소수점 아래결과는 반올림해준다 -> 특정위치로 이동함
+    let divideNum = parseInt(dtg.style.left) / oneSize;
+    console.log('나눈 수:', divideNum);
+
+    divideNum = Math.round(divideNum);
+    console.log('나눈 수 반올림:', divideNum);
+
+    divideNum = Math.abs(divideNum);
+    console.log('나눈 수 반올림 후 절대값:', divideNum);
+
+    // 특정 위치로 이동하기 : 한개당 크기 * 개수 =>>> 위치값은 마이너스임
+    dtg.style.left = -(oneSize * divideNum) + "px";
+
+
+}; ////// fixedposition 함수
+
+
+
   //////////////////////////////////////
   // 4. 드래그 이벤트 설정하기 //////////
 
@@ -519,6 +565,10 @@ function slideFn(selEl) {
     // 드래그 슬라이드 이동함수 호출!
     // moveDragSlide();
 
+
+    // 슬라이드 위치 확정 이동함수 호출
+    fixedPosition();
+
     // // console.log("마우스 업!", lastX);
   }); ///////// mouseup //////////
 
@@ -530,6 +580,11 @@ function slideFn(selEl) {
   mFn.addEvt(dtg, "mouseleave", () => {
     
     setTimeout(dFalse, 0);
+
+
+    // 슬라이드 위치 확정 이동함수 호출
+    fixedPosition();
+    
     
     // 마우스가 벗어나면 이동판별함수 호출!
     // if(dragSts) moveDragSlide();
