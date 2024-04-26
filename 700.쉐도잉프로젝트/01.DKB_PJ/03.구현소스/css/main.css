@@ -10,7 +10,8 @@
 
 
 /* 드래그 슬라이드 CSS불러오기 */
-@import url(./drag_slide.css);
+/* @import url(./drag_slide.css); */
+
 
 /* 공사중 표시 */
 body * {
@@ -224,23 +225,28 @@ body * {
 .poster-box li:last-child{
   grid-row: 2/3;
 }
-/************************************ 7. 최신동영상영역 ************************************/
-.clip-video-area {
- position: relative;
- /* 부모자격 : 이동버튼의 부모 */
+/**************************************** 7. 최신동영상영역 ****************************************/
+.clip-video-area{
+  position: relative;
+  /* 부모자격 - 이동버튼의 부모 */
 }
 .clip-box ul {
   position: relative;
   left: 0;/* 이동초기값 */
   display: flex;
-  gap: 0 2%;
+  /* gap: 0 2%; */
   /* 트랜지션 */
-  transition: left .4s ease-in-out;
+  transition: left .3s ease-out;
+  user-select: none;
+  -webkit-user-drag: none;
 }
 
-.clip-box li {
-  flex-basis: calc(25.5% - 2%);
+.clip-box li {    
+  flex-basis: 25%;
   flex-shrink: 0;
+  /* 플렉스 gap 속성대신 패딩으로 처리 -> 드래그시 영역 아웃이 되기때문 */
+  padding: 0 1.1%;
+  box-sizing: border-box;
 }
 
 /* 동영상 이미지박스 */
@@ -251,7 +257,9 @@ body * {
 /* 동영상 이미지박스 이미지 */
 .clip-mv-box img {
   width: 100%;
-  border-radius: 8px;
+  border-radius: 6px;
+  user-select: none;
+  -webkit-user-drag: none;
 }
 /* 동영상 이미지박스 가상요소로 플레이버튼 */
 .clip-mv-box::after {
@@ -269,23 +277,29 @@ body * {
 .clip-box h4 {
   font-size: 18px;
   font-weight: normal;
-  /* 2줄 말줄임 세팅 */
+
+  /* 2줄 말줄임 셋팅 */
   display: -webkit-box;
   overflow: hidden;
   text-overflow: ellipsis;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+  user-select: none;
+  -webkit-user-drag: none;
 }
 
 .clip-box h3 {
   font-size: 15px;
   font-weight: normal;
   color: #555;
+  user-select: none;
+  -webkit-user-drag: none;
 }
 
 .clip-box {
   overflow: hidden;
 }
+
 
 /* 양쪽버튼만들기 */
 .btn-box button{
@@ -311,5 +325,5 @@ body * {
 /* 오른쪽버튼 */
 .btn-box button:last-child{
   right: -35px;
+  display: none;
 }
-
