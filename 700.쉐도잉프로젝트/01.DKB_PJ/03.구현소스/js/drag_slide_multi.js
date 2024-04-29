@@ -47,15 +47,23 @@ function slideFn(selEl) {
   // 1. 대상선정
   // 1-1. 슬라이드 부모요소 : 전달된 선택요소 -> selEl
   const sldWrap = selEl; // DOM요소를 직접 받음!!!
-  // 1-2.변경 대상: 선택요소 하위 .slide
+  // 1-2. 변경 대상: 선택요소 하위 .slide
   const slide = mFn.qsEl(sldWrap, ".slide");
-  // 1-3.이벤트 대상: 선택요소 하위 .abtn
+  // 1-3. 슬라이드 하위 li 요소들
+  const sList = mFn.qsaEl(slide, "li");
+  // 1-4. 슬라이드 li 개수 
+  const SLIDE_LENGTH = sList.length;
+  
+  // console.log('슬라이드 추가 : ', sList,SLIDE_LENGTH);
+
+  // 1-5. 이벤트 대상: 선택요소 하위 .abtn
   const abtn = mFn.qsaEl(sldWrap, ".abtn");
-  // 1-4.블릿박스 대상: 선택요소 하위 .indic li
+
+  // 1-6.블릿박스 대상: 선택요소 하위 .indic li
   // let indic = mFn.qsEl(sldWrap, ".indic");
 
   // 대상확인
-  // // console.log("대상", abtn, slide, indic);
+  console.log("대상", abtn);
 
   // 1.4. 슬라이드 개수와 동일한 블릿동적생성
   // 대상: .indic -> indic변수
@@ -109,7 +117,7 @@ function slideFn(selEl) {
     // 선택요소에 해당클래스가 있으면 true
 
     // 1. 오른쪽 버튼 여부 알아내기
-    let isRight = this.classList.contains("ab2");
+    let isRight = this.classList.contains("fa-chevron-right");
 
     // 2. 버튼분기하기 '.ab2' 이면 오른쪽버튼
     if (isRight) {
@@ -175,66 +183,16 @@ function slideFn(selEl) {
     기능: 왼쪽방향 이동(오른쪽버튼)
   **********************************/
   function rightSlide() {
-    //1.대상이동하기 : -330%
-    slide.style.left = "-330%";
-    //2.트랜지션주기
-    slide.style.transition = TIME_SLIDE + "ms ease-out";
-    // 이동시간 후 맨앞li 잘라서 맨뒤로 이동하기
-    // appendChild(요소)
-    setTimeout(() => {
-      // 3.맨앞li 맨뒤로 이동
-      slide.appendChild(slide.querySelectorAll("li")[0]);
-      // 4.slide left값 -220% -> 최종 left값은 px로!
-      slide.style.left = originalValue + "px";
-      // 5.트랜지션 없애기
-      slide.style.transition = "none";
-    }, TIME_SLIDE);
-
-    // 슬라이드 커버 만들기 함수 호출
-    coverDrag();
+    console.log('슬left:', slide.style.left);
   } //////////// rightSlide 함수 ////////////
-
+  
   /********************************** 
     함수명: leftSlide
     기능: 오른쪽방향 이동(왼쪽버튼)
-  **********************************/
-  function leftSlide(leftVal = "-330%") {
-    // 드래그 이동시엔 left값을 -330%가 아닌
-    // 드래그가 이동된 값을 적용한 left값을 적용한다!
-    // 함수전달변수를 leftVal="330%" 로 기본입력값 처리하면
-    // 함수호출시 전달값이 없는 경우엔 기본값으로 처리하고
-    // 함수호출시 전달값이 있으면 그 전달될 값으로 처리한다!
-    // 이것을 함수 전달변수 기본입력값 처리라고 한다!
-    // console.log("왼쪽버튼이동left값:", leftVal);
-    // leftVal - li앞에 이동시 left값 설정변수
-    // 1. 슬라이드 li 새로 읽기
-    let eachOne = slide.querySelectorAll("li");
-
-    // 2. 맨뒤li 맨앞으로 이동
-    // 놈.놈.놈 -> insertBefore(넣을놈,넣을놈전놈)
-    slide.insertBefore(eachOne[eachOne.length - 1], eachOne[0]);
-
-    // 3. left값 -330% 만들기 : 들어올 준비 위치!
-    slide.style.left = leftVal;
-
-    // 4. 트랜지션 없애기
-    slide.style.transition = "none";
-
-    // 같은 left값을 동시에 변경하면 효과가 없음!
-    // 비동기적으로 처리해야함!
-    // -> setTimeout으로 싸주기!
-    // 시간은 0이어도 비동기 처리므로 효과있음!
-
-    setTimeout(() => {
-      // 4. left값 -220%으로 들어오기 -> px값으로 변환!
-      slide.style.left = originalValue + "px";
-
-      // 5. 트랜지션주기
-      slide.style.transition = TIME_SLIDE + "ms ease-out";
-    }, 0);
-
-    // 슬라이드 커버 만들기 함수 호출
-    coverDrag();
+    **********************************/
+   function leftSlide(leftVal = "-330%") {
+    console.log('슬left:', slide.style.left);
+   
   } //////////// leftSlide 함수 ////////////
 
   /********************************** 
