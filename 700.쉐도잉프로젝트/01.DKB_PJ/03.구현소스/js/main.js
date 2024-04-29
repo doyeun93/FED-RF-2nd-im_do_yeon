@@ -18,7 +18,7 @@ import * as dkbData from "../data/dkb_data.js";
 
 
 // 드래그 슬라이드 불러오기
-import setSlide from "./drag_slide.js";
+import setSlide from "./drag_slide_multi.js";
 
 
 /******************************************************
