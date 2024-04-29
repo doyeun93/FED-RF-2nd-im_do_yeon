@@ -28,7 +28,7 @@ import setSlide from "./drag_slide_multi.js";
 
 
 // 1. 부드러운 스크롤 호출
-startSS();
+ startSS();
 
 // console.log('모듈로 메인 js 호출', document.querySelector('.top-menu'));
 
