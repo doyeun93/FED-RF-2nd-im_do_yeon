@@ -178,12 +178,32 @@ function slideFn(selEl) {
     }); ///////// forEach ///////////
   } /////////// chgIndic함수 ////////////
 
+
+  // 슬라이드 처음에 left 기본값 넣기
+  slide.style.left = "0px";
+  
+  
   /********************************** 
     함수명: rightSlide
     기능: 왼쪽방향 이동(오른쪽버튼)
   **********************************/
   function rightSlide() {
     console.log('슬left:', slide.style.left);
+    console.log('한개당 크기:', sList[0].offsetWidth);
+    // 슬라이드가 몇개 나가있는지 알아내기
+    // left값 나누기 한개당 개수
+    let outCnt = 
+    parseInt(slide.style.left)/ sList[0].offsetWidth;
+
+    outCnt = Math.abs(outCnt);
+
+    console.log('바깥에 나간 개수:', outCnt);
+
+    outCnt++;
+
+    // 이동 적용하기
+    slide.style.left = -(sList[0].offsetWidth * outCnt) + 'px';
+
   } //////////// rightSlide 함수 ////////////
   
   /********************************** 
