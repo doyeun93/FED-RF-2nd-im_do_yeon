@@ -220,13 +220,6 @@ function slideFn(selEl) {
     }); ///////// forEach ///////////
   } /////////// chgIndic함수 ////////////
 
-
-  // 슬라이드 처음에 left 기본값 넣기
-  slide.style.left = "0px";
-  // 슬라이드 버튼 부모박스에 클래스 right 넣기
-  abtn[1].parentElement.classList.add("right");
-  
-  // parentElement는 선택요소의 직계부모요소를 선택한다
   
   /********************************** 
     함수명: rightSlide
@@ -423,10 +416,16 @@ function slideFn(selEl) {
           lastX = 0;
         }, 200);
 
+
+        // 버튼 처리하기(오른쪽 버튼만 보임)
+        abtn[0].parentElement.classList.remove("left");
+        abtn[0].parentElement.classList.add("right");
+
+
       }  ////// if /////////
 
       // 4-2. 맨 뒤에서 튕기기
-      if(parseInt(dtg.style.left)<limitSize){
+       else if(parseInt(dtg.style.left)<limitSize){
         // 약간의 시간간격으로 조금 간 후 튕겨서 돌아오는 효과
         setTimeout(() => {
           // left  값 0
@@ -435,7 +434,17 @@ function slideFn(selEl) {
           lastX = limitSize;
         }, 200);
 
-      }  ////// if /////////
+
+        // 버튼 처리하기(왼쪽버튼만 보임)
+        abtn[0].parentElement.classList.add("left");
+        abtn[0].parentElement.classList.remove("right");
+
+      }  ////// else if /////////
+
+      // 그 밖의 경우는 버믄 모두 보이기
+      else{
+        abtn[0].parentElement.classList.remove("left","right");
+      }  ////// else /////////
 
     } //// if ////////
 
