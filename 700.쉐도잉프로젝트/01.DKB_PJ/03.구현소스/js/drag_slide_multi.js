@@ -96,6 +96,18 @@ function slideFn(selEl) {
   // 2. 이벤트 설정하기 : 버튼요소들 -> forEach()
   abtn.forEach((ele) => mFn.addEvt(ele, "click", goSlide));
 
+
+  //////////// [슬라이드 초기값 세팅하기] //////////////
+  // 슬라이드 처음에 left 기본값 넣기
+  slide.style.left = "0px";
+  // 슬라이드 처음 트랜지션 기본값 넣기
+  slide.style.transition = "left .3s ease-out";
+  // 슬라이드 버튼 부모박스에 클래스 right 넣기
+  abtn[1].parentElement.classList.add("right");
+  // parentElement는 선택요소의 직계부모요소를 선택한다
+  
+
+
   // 3. 함수만들기 //////////////////
   /********************************** 
     함수명: goSlide
