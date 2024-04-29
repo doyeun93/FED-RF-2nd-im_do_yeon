@@ -60,7 +60,7 @@ function moveSlide(){
   let bTop = mFn.getBCR(tpg);
   // console.log('바운딩top:', bTop);
 
-  // 2. 이동할 타겟박스 left값으로 부모 바운딩 top값 넣기
+  // 2. ★★★ 이동할 타겟박스 left값으로 부모 바운딩 top값 넣기
   // (1) 바운딩 top값이 0초과일때 처음 위치 재설정하기
   if(bTop > 0){
     target.style.left = '0px';
@@ -82,6 +82,7 @@ function moveSlide(){
 } ///////// moveSlide 함수 ////////////////////
 
 
+
 ////// ((2)) 리스트 상하 이동함수 ///////
 function upDownFn(ele,idx){ // ele = 각 li요소, idx =  각 li 순번
 
@@ -92,13 +93,14 @@ function upDownFn(ele,idx){ // ele = 각 li요소, idx =  각 li 순번
   let mVal = mFn.getBCR2(ele);
 
   // 2. 위치값을 양수로 만들고 윈도우 크기로 나눈 후 백분율. 수치가 크므로 2로 나움
-  mVal = Math.abs(mVal/window.innerWidth)*100/2;
+  mVal = Math.abs(mVal/window.innerWidth)*100/3;
   // console.log('바운딩left:',mVal);
 
   // 3. 들어온 li순번이 짝수일 경우 마이너스 처리하기
   // 짝수일 경우 마이너스를 곱하여 방향을 반대로 해준다
   // 짝수는 %연산자 사용 : 숫자%2==0 이면 짝수임
   if(idx%2==0) mVal = -mVal;
+  console.log("순번을 2로 나눈 나머지:", idx%2);
   
   // 실제 위치이동  css적용하기
   ele.style.translate = `0 ${mVal}%`;
