@@ -195,7 +195,6 @@
         background: url(./images/wan.jpg) no-repeat top/cover;
         /* 클리핑 SVG모양대로 보이게함 */
         clip-path: url(#myClip);
-
       }
       /* 패스 */
       .pa1 {
@@ -208,7 +207,7 @@
         stroke-dasharray: 340%;
         stroke-dashoffset: 340%;
         /* 트랜지션 */
-        transition: .6s ease-out;
+        transition: 0.6s ease-out;
       }
 
       /* 완다에 오버시 선그리기 */
@@ -218,6 +217,15 @@
 
       /* 미디어쿼리 */
       @media screen and (max-width: 1000px) {
+        /* 컨텐츠박스 */
+        .cbx {
+          width: 200px;
+          height: 200px;
+        }
+        /* 완다 클리핑 SVG */
+        #myClip {
+          transform: scale(0.67);
+        }
       }
     </style>
   </head>
@@ -388,7 +396,7 @@
 
         [ svg  축소확대용 속성 ]
 
-        viewBox 속성: 
+        ★★★ viewBox 속성: 
         (주의! 속성명 B대문자 필수! 대소문자구분!
         -> 최신브라우저에서 자동으로 대문자 전환해줌!)
         - 형식 : viewBox="x축위치 y축위치 width크기 height크기"
