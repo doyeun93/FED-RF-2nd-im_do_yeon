@@ -78,61 +78,60 @@
         /* 트랜스폼 적용되나?
         -> 하위 백터요소에는 일반 트랜스폼
         적용안됨! 부모요소인 svg는 적용됨! */
-        transform: rotate(-90deg);
+        /* transform: rotate(-90deg); */
+        rotate: -90deg;
       }
 
       /* circle 설정 */
       .c1 {
-        /* 채우기색 - 기본색 검정
-            투명 - transparent
-            없음 - none (뚫린상태)
-        */
-        /* fill: red; */
+        /* 채우기 색 fill(기본:검정) 
+         transparent  : 투명색 
+         none : 채우기 없앰(아래쪽 터치 가능)
+         */
         /* fill: transparent; */
         fill: none;
-        /* 선색 - 기본은 안나옴 */
+        /* 선색 : stroke(기존은 안나옴) */
         stroke: red;
-        /* 선두께 - 기본값은 1px
-        단위를 안쓰면 모두 px단위
-        선두께는 선의 중심선으로부터 생김 */
+        /* 선두께 : stroke-width 
+        - 기본두께 1px, 단위생략 가능 */
         stroke-width: 20;
 
-        /* 선끝처리 : stroke-linecap 
+        /* 데쉬설정(선-공백) stroke-dasharray 
+        선과 공백순으로 숫자를 나열하여 세팅함 
+        - 공백을 선으로 채우는 라인애니의 중요 속성임 
+        - 원리 : 선으로 모두 채우고 선크기만큼 밀어서 공백부터 나오게 함*/
+        /* stroke-dasharray: 10 8 20 10; */
+        /* stroke-dasharray: 10 8; */
+        stroke-dasharray: calc(50% * 6);
+
+        /* 
+         데쉬설정 선으로 채우기 방법 :
+         1. 값으로 50%를 줘본다
+         2. 몇 조각 나는지 세어본다
+         3. 모두 선으로 채우려면 50% X 조각수 
+         4. 데쉬옵셋으로 값을 데쉬값과 같은 값으로 세팅하면 
+            공백부터 모두 채우기 됨
+         5. 오버시나 특정 이벤트 시 데쉬옵셋값을 0으로 변경하면 
+            선이 채워지는 애니가 됨
+        */
+        /*  데쉬 시작선 밀기 속성 stroke-dashoffset */
+        stroke-dashoffset: calc(50% * 6);
+
+        /* 선 끝 둥글게하기 
+        선끝처리 : stroke-linecap 
             1) butt : 끝에 중심선이 보임(기본값)
             2) square : 끝에 사각형으로 덮음
             3) round : 끝에 둥근모양으로 덮음
         */
         stroke-linecap: round;
 
-        /* 
-        [데쉬선 속성 : stroke-dasharray] 
-        - 선,공백 순으로 데쉬선 셋팅함
-        - 선부터 전체 채우기 위해 일단 50%를
-        주고 선,공백이 몇조각나는지 센다
-        - 여기서는 50%를 주면 6조각이 나옴
-        50%*6 = 300% 로 계산하여 선으로 모두
-        채우기가 됨!
-        
-        */
-        stroke-dasharray: 300%;
-        /* 
-            [ 데쉬어레이 시작위치 밀기
-            : stroke-dashoffset ]
-            - 특정 숫자값을 주면 px만큼 밀어준다
-            - 계산된 stroke-dasharray 선채우기
-            값으로 밀어주면 공백부터 시작됨!
-        */
-        stroke-dashoffset: 300%;
-        /* 
-            [ SVG 라인 애니메이션의 원리 ]
-            - 데쉬설정을 공백부터 시작하여
-            stroke-dashoffset값을 0으로 변경할때
-            애니메이션 설정으로 하여 선이 그려지는
-            효과의 애니가 완성된다!
-        */
+        /* 시작 위치를 위에서부터 하기위해
+        트랜스폼 rotate를 여기서 주면? 
+        -> 적용안됨. 부모를 하거나 개별 회전 속성을 사용해야함*/
+        /* rotate: -90deg; */
 
-        /* 트랜지션 : 속시이지 */
-        transition: stroke-dashoffset 0.8s ease-in-out;
+        /* 트랜지션 */
+        transition: stroke-dashoffset 0.5s;
       }
       /* 오버시 선보이기 */
       .svg1:hover .c1 {
@@ -160,6 +159,7 @@
         /* 트랜지션 */
         transition: 0.6s;
       }
+
       /* 오버시 선 움직이기 */
       .svg2:hover .rt1 {
         stroke-dashoffset: 0;
@@ -195,6 +195,7 @@
         background: url(./images/wan.jpg) no-repeat top/cover;
         /* 클리핑 SVG모양대로 보이게함 */
         clip-path: url(#myClip);
+
       }
       /* 패스 */
       .pa1 {
@@ -207,8 +208,9 @@
         stroke-dasharray: 340%;
         stroke-dashoffset: 340%;
         /* 트랜지션 */
-        transition: 0.7s ease-out;
+        transition: .6s ease-out;
       }
+
       /* 완다에 오버시 선그리기 */
       .svg4:hover .pa1 {
         stroke-dashoffset: 0;
@@ -216,15 +218,6 @@
 
       /* 미디어쿼리 */
       @media screen and (max-width: 1000px) {
-        /* 컨텐츠박스 */
-        .cbx {
-          width: 200px;
-          height: 200px;
-        }
-        /* 완다 클리핑 SVG */
-        #myClip {
-          transform: scale(0.67);
-        }
       }
     </style>
   </head>
