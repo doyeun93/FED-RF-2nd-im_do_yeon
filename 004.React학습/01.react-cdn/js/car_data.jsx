@@ -26,14 +26,14 @@ const carInfo = {
       opt: { filter: "grayscale(1)" },
     },
     {
-      color: "세단핑크",
+      color: "레드",
       model: "2025년형",
-      opt: { filter: "hue-rotate(105deg)", transform: "rotateY(180deg)" },
+      opt: { filter: "hue-rotate(117deg)", transform: "rotateY(180deg)" },
     },
     {
-      color: "라잇그린",
+      color: "오렌지",
       model: "2024년형",
-      opt: { filter: "hue-rotate(215deg)" },
+      opt: { filter: "hue-rotate(146deg)" },
     },
   ],
 };

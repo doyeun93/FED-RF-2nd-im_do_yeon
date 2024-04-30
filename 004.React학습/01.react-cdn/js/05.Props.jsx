@@ -76,7 +76,7 @@ function DetailCarInfo({ brand, model, color, opt }) {
   opt.width = "600px";
   // 실제 CSS 변수형 속성명(fontSize)으로 사용해야 효과있음
   
-
+  
 
   return (
     <React.Fragment>
