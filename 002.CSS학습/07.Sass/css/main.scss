@@ -41,15 +41,66 @@
         - 부분 파일을 분리하여 공통 모듈로 합쳐서 사용한다
         - 부분 파일명 : 사스에서 언더바를 붙여서 사용하는 것이 원칙이지만, 
                         언더바를 안써도 기본적으로 부분파일처리해줌
-        - 파일 호출시 확장자 생략 가능함
+        - 파일 호출시 확장자 생략 가능함(자동으로 앞에 언더바와 확장자를 생략해준다)
         예) @import "reset";
         - 일반 CSS @import와는 다름 -> http요청을 하지않음
 
+    
+    (5) 믹스인 : 일종의 공통 css 코드를 리턴하는 함수
+        1) 세팅 형식
+
+        [1] 전달변수가 있는 믹스인
+        @mixin 믹스인이름(변수){CSS코드}
+
+        [2] 전달변수가 없는 믹스인
+        @mixin 믹스인이름{CSS코드}
+
+        [3] 전달변수가 있고 기본값도 있는 믹스인
+        @mixin 믹스인이름(변수: 기본값){CSS코드}
+
+        2) 호출 방법 : 믹스인을 포함하라(@include)
+        @include 믹스인이름(전달값);
+        @include 믹스인이름;
 
 **************************************************************************/
 
+
+
 // 외부 변수세팅 sass 불러오기
 @import "./data/variables";
+
+// 초기화 세팅 sass 불러오기
+@import "./common/reset";
+
+
+///////////////// @mixin 세팅하기 /////////////
+// (1) 타이틀 디자인 믹스인
+// [1] 전달해서 변경할 값이 없다면 전달변수 없는 믹스인 만들기
+// @mixin title-text{
+
+// [2] 글자색을 전달해서 변경해야 하므로 전달변수를 만들어준다
+// 변수는 $변수명으로 만들고 지역변수로 사용된다
+//@mixin title-text($selColor){
+    // $selColor 글자색 전달변수
+
+// [3] 전달값을 보내지 않아도 에러나지 않도록 기본값 지정하기    
+@mixin title-text($selColor:red){
+    // $selColor 글자색 전달변수
+
+    color: $selColor;
+    // font와 text를 믹스인으로 만든다(재사용)
+    // 속성 접두어 묶음기법
+        font: {
+            size: 40px;
+            family: "Times New Roman";
+        }
+        text: {
+            align: center;
+            decoration: underline;
+            underline-offset: 10px;
+            shadow: 5px 5px 4px #0000008e;
+        }
+}
 
 
 
@@ -64,8 +115,13 @@
     color: $fontColor1;
     // 네스팅 기법
     h1{
-        color: $mainColor2-2;
 
+        // 믹스인 호출
+        @include title-text;
+
+        //color: $mainColor2-2;
+
+        /* // font와 text를 믹스인으로 만든다(재사용)
         // 속성 접두어 묶음기법
         font: {
             size: 40px;
@@ -76,7 +132,7 @@
             decoration: underline;
             underline-offset: 10px;
             shadow: 5px 5px 4px #0000008e;
-        }
+        } */
         background: {
             color: lightpink;
             image: url(../images/flower.png);
@@ -86,4 +142,18 @@
         }
         padding: 20px;
     }
+}
+
+// 메인 영역
+.main-area{
+    // 메인 영역 타이틀 믹스인 호출
+    h3{
+        @include title-text(darkblue);
+    }
+
+}
+
+// 하단 타이틀
+.bottom-title{
+    @include title-text;
 }
