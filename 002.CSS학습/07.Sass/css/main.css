@@ -56,6 +56,20 @@
         @include 믹스인이름(전달값);
         @include 믹스인이름;
 
+
+    (6) 네스팅 이어붙이기 기법(&)
+    - 가상요소, 가상클래스, 특정클래스를 현재 선택요소에 세팅하는 방법
+    - & : 현재 선택요소 자신을 가르킴
+
+
+    (7) 반복코드 확장 : @extend 클래스명
+        1) 사용 이유 : 반복되는 같은 세팅을 클래스로 쉽게 도입한다
+        2) 사용 방법 : 선택자 코드 안에 (@extend 클래스명) 형식
+        3) 공통 코드 외에 다른 세팅 속성은 하단에 추가로 구현한다
+        4) 장점 : 공통코드 적용을 위해 각 요소에 클래스를 일일히 주지 않아도
+                  공통코드를 적용할 수 있다
+
+
 **************************************************************************/
 /* 기본 초기화 셋팅 */
 /* 기본 초기화 */
@@ -115,6 +129,7 @@ img {
 }
 .top-area h1 {
   color: purple;
+  margin-bottom: 40px;
   font-size: 40px;
   font-family: "Times New Roman";
   text-align: center;
@@ -140,6 +155,10 @@ img {
   background-repeat: repeat-x;
   padding: 20px;
 }
+.top-area h2 {
+  font-size: 35px;
+  line-height: 1.5;
+}
 
 .main-area section {
   border-color: pink;
@@ -150,6 +169,7 @@ img {
 }
 .main-area h3 {
   color: darkblue;
+  margin-bottom: 40px;
   font-size: 40px;
   font-family: "Times New Roman";
   text-align: center;
@@ -161,9 +181,51 @@ img {
   line-height: 2;
   font-size: 24px;
 }
+.main-area ul li, .main-area ol li, .main-area p li {
+  text-decoration: underline;
+  text-underline-offset: 10px;
+  text-decoration-thickness: 3px;
+  text-decoration-color: #9090ed;
+  text-align: center;
+  background-color: lavender;
+}
+.main-area ul li:first-child, .main-area ol li:first-child, .main-area p li:first-child {
+  color: deeppink;
+  font-weight: bold;
+  font-size: 30px;
+  text-shadow: 1px 0 #000, -1px 0 #000, 0 1px #000, 0 -1px #000;
+}
+.main-area ul li::before, .main-area ol li::before, .main-area p li::before {
+  content: "🍣";
+}
+
+.button-basic, .button-report {
+  display: inline-block;
+  border: 1px solid #222;
+  border-radius: 20px;
+  padding: 15px 30px;
+  font-size: 20px;
+  cursor: pointer;
+  margin-left: 20px;
+}
+
+.box-basic, .bottom-title, .button-box, .top-area h2 {
+  text-align: center;
+  padding: 20px 0;
+}
+
+.button-report {
+  background-color: lightyellow;
+  color: gold;
+}
+
+.button-box {
+  background-image: linear-gradient(to bottom, lavender, transparent);
+}
 
 .bottom-title {
   color: red;
+  margin-bottom: 40px;
   font-size: 40px;
   font-family: "Times New Roman";
   text-align: center;
