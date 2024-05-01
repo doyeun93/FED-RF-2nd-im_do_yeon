@@ -1,18 +1,12 @@
-// 메인 sass : main.scss
-
-
-// sass 주석 (js와 같음)
-// 주석 1
+@charset "UTF-8";
 /* 주석2 */
-
-    
 /************************************************************************** 
     [사스 핵심 사용법]
     1. 사스 확장자별 파일 구분
     (1) .scss - 사스 관리파일
     -> .sass 확장자는 중괄호, 세미콜론 사용하지않는 문법 사스파일
         따라서 scss 파일을 사용할 것
-    
+
     (2) .css.map - 사스파일과 CSS 연결정보 파일
     (3) .css - 실제로 적용되는 컴파일된 CSS
 
@@ -47,43 +41,26 @@
 
 
 **************************************************************************/
-
-// 외부 변수세팅 sass 불러오기
-@import "./data/variables";
-
-
-
-// 전체 페이지 요소
-.wrapper{
-    max-width: 1000px;
-    margin: 0 auto;
+.wrapper {
+  max-width: 1000px;
+  margin: 0 auto;
 }
 
-// 상단영역
-.top-area{
-    color: $fontColor1;
-    // 네스팅 기법
-    h1{
-        color: $mainColor2-2;
-
-        // 속성 접두어 묶음기법
-        font: {
-            size: 40px;
-            family: "Times New Roman";
-        }
-        text: {
-            align: center;
-            decoration: underline;
-            underline-offset: 10px;
-            shadow: 5px 5px 4px #0000008e;
-        }
-        background: {
-            color: lightpink;
-            image: url(../images/flower.png);
-            size: 200px;
-            position: center;
-            repeat: repeat-x;
-        }
-        padding: 20px;
-    }
+.top-area {
+  color: purple;
 }
+.top-area h1 {
+  color: #a69cf3;
+  font-size: 40px;
+  font-family: "Times New Roman";
+  text-align: center;
+  text-decoration: underline;
+  text-underline-offset: 10px;
+  text-shadow: 5px 5px 4px rgba(0, 0, 0, 0.5568627451);
+  background-color: lightpink;
+  background-image: url(../images/flower.png);
+  background-size: 200px;
+  background-position: center;
+  background-repeat: repeat-x;
+  padding: 20px;
+}/*# sourceMappingURL=main.css.map */
