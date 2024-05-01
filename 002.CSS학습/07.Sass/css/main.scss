@@ -241,6 +241,24 @@
     font-size: 20px;
     cursor: pointer;
     margin-left: 20px;
+    // 마우스 오버시 세팅하기
+    &:hover{
+        background-color: olivedrab;
+        text : {
+            decoration: overline;
+            decoration-style: wavy;
+        }    
+    }
+    // 클래스가 "my"인 경우 디자인변경
+    &.my{
+        text : {
+            decoration: underline;
+            decoration-style: dotted;
+            underline-offset: 10px;
+            decoration-thickness: 3px;
+
+        }
+    }
 }
 
 // 일반 박스 기본
