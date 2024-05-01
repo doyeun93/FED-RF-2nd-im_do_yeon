@@ -114,7 +114,7 @@ img {
   color: purple;
 }
 .top-area h1 {
-  color: red;
+  color: purple;
   font-size: 40px;
   font-family: "Times New Roman";
   text-align: center;
@@ -141,6 +141,13 @@ img {
   padding: 20px;
 }
 
+.main-area section {
+  border-color: pink;
+  border-style: dashed;
+  border-width: 7px;
+  margin-bottom: 20px;
+  padding: 20px;
+}
 .main-area h3 {
   color: darkblue;
   font-size: 40px;
