@@ -157,6 +157,10 @@ img {
   text-underline-offset: 10px;
   text-shadow: 5px 5px 4px rgba(0, 0, 0, 0.5568627451);
 }
+.main-area ul, .main-area ol, .main-area p {
+  line-height: 2;
+  font-size: 24px;
+}
 
 .bottom-title {
   color: red;
