@@ -3,7 +3,10 @@
 <head>
 <meta charset="utf-8">
 <title> 클래스 선택자  </title>
+<!-- 제이쿼리 기본 라이브러리 -->
 <script src="../jquery-3.6.3.min.js"></script>
+<!-- 제이쿼리 ui는 색상애니, 드래그기능 등 추가모듈 -->
+<script src="../jquery-ui.min.js"></script>
 	<script>
     $(()=>{
       // 미션: 클래스가 group인 요소를 선택하여
@@ -14,22 +17,55 @@
         // 그리고 개별적으로 적용되게할것!(this사용)
 
         // 대상: .group li
-      $(".group li").click(()=>{
+      $(".group li").click((e)=>{
         // 이벤트 발생요소 자신(li자신)
-        let me = event.currentTarget;
-        console.log('나야나',me);
+        let me = e.currentTarget; // "e.currentTarget" -> 제이쿼리가 아닌 js 
+        let idx = $(me).index();
+        console.log('나야나',idx);
+        // index() 메서드는 선택요소 형제순번
+
         
 
         // $().블라블라 -> 블라블라 메서드
 
         
-        // CSS 변경
-        $(me).css({
-          "background-color":"lime",
-          "font-size": "52px",
-          "transition": "all.6s"
+        
+        // 선택요소 뒤에 메서드를 계속 이어쓰는 방법을 메서드 체인(chain)이라고 함
+        // 예) $(선택요소).text().css().animate()
+        // CSS 변경(속성명을 변수형으로 사용가능)
+        // .css({
+        //   // backgroundColor :"lime",
+        //   backgroundColor :"pink",
+        //   fontSize: "52px",
+        //   transition: ".6s"
+        // }) // css 메서드
 
-        }); // css 메서드
+        $(me)
+        // 애니메이션 주기
+        // animate({CSS설정},시간,이징,콜백함수)
+        // 시간을 안쓰면 기본시간 400(0.4초)
+        // 색상변경은 제이쿼리 UI를 위에 가져온다
+        // 트랜스폼은 새로나온 개별속성을 사용한다 (translate, rotate 등)
+        // 이징 가속도는 https://easings.net/ko 에서 골라준다 -> 이름을 정확히 쓰는것이 중요
+
+        .animate({
+          backgroundColor : "lime",
+          fontSize: "52px",
+          // transform: "translateY(200px)" -> 사용안됨
+          translate: "200px",
+          rotate: "720deg",
+        },2000,"easeInOutBack", ()=>{ 
+          // 함수에서 바디 배경색 애니메이션 하기
+        $("body").animate({
+            backgroundColor: idx==0? "yellow" : idx==1? "green" : "purple",
+          },1500) //// body animate
+
+        }) // animate
+
+        // 시간: 1/1000초, 이징: 정해진 가속도 옵션주기, 함수: 애니메이션 후 작업코드
+
+        // 텍스트 변경하기 : text(내용)
+        .text(idx==0? "🍟":idx==1?"🍛":"🍤")
 
       }); // click 메서드
        
