@@ -63,12 +63,41 @@ function changeSlide(){
     // 왼쪽에서 이미지박스가 들어오므로 맨 뒤 div를 맨 앞으로 이동함
     // insertBefore(맨뒤div,맨앞div)
     // 대상 : gbx
-    // gbx.insertBefore(eachOne[eachOne.lenght-1],eachOne[0]);
-    gbx.insertBefore(
-        eachOne[eachOne.length-1],eachOne[0]);
-    // 맨 뒤 div 순번은 개수 -1
+    
+    gbx.insertBefore(eachOne[eachOne.length-1],eachOne[0]);
+    // 맨 뒤 div 순번은 개수(length) -1 
 
     } /// else문
 
 
 } //// CHANGE SLIDE 함수
+
+
+// 자동 넘김용 호출 함수
+// 오른쪽 이동함수(화살표 함수)
+const goRight = () => gbx.appendChild(mFn.qsaEl(gbx,"div")[0]);
+
+// 자동 넘김용 변수(인터발용: autoI, 타임아웃용: autoT)
+let autoI, autoT; 
+
+// 인터발 호출함수 //
+const autoSlide = () => autoI = setInterval(goRight,3000);
+
+
+// 인터발 함수 최초 호출
+autoSlide();
+
+// 인터발 지우기 함수
+const clearAuto = () => { 
+    // 인터발지우기
+    clearInterval(autoI);
+    // 타임아웃 지우기(실행쓰나미 방지)
+    clearTimeout(autoT);
+    // 일정시간 후 작동
+    autoT = setTimeout(autoSlide,5000);
+}; /// clearAuto
+
+// 버튼 클릭시 클리어 오토 함수 호출하기
+abtn.forEach(ele=>mFn.addEvt(ele,"click",clearAuto)); 
+// ele가 "클릭"이벤트를 가져서 clearAuto를 호출하라
+
