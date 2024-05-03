@@ -14,7 +14,24 @@
         // 그리고 개별적으로 적용되게할것!(this사용)
 
         // 대상: .group li
+      $(".group li").click(()=>{
+        // 이벤트 발생요소 자신(li자신)
+        let me = event.currentTarget;
+        console.log('나야나',me);
+        
 
+        // $().블라블라 -> 블라블라 메서드
+
+        
+        // CSS 변경
+        $(me).css({
+          "background-color":"lime",
+          "font-size": "52px",
+          "transition": "all.6s"
+
+        }); // css 메서드
+
+      }); // click 메서드
        
 
     }); /////////// jQB /////////////////
