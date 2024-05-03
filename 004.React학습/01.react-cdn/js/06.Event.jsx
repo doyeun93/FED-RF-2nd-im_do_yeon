@@ -40,6 +40,7 @@ function EventShow() {
     ReactDOM.render(<MakeImg isrc="./images/ala4.jpg" ialt="알라딘" />, alaBox); 
     // 컴포넌트 호출시 전달변수를 세팅하여 보내야하는데 만약 전달변수이름이 잘못되었거나 보내주지않으면 
     // 컴포넌트에서 에러가 나지않고 해당 항목을 제외하여 표시하지않는 특징이 있음
+    // 여기서 icss가 있으나 안보내주니 표시되지않는다
 
     // 3. 말풍선 박스에 글자넣기 ///
     let titBox = mFn.qs(".tit");
