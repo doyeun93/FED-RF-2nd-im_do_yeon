@@ -11,6 +11,10 @@ import mFn from "./my_function";
     예) onclick -> onClick
     4. 이벤트 핸들러 : 중괄호 안에 작성(중괄호는 JSX표현식영역)
     예) onclick="getIt()" => onClick={getIt}
+
+    5. 리액트에 속성형태로 등록하는 이벤트는 HTML요소에 등록된
+    이벤트 속성과 달리 JS 이벤트 리스너를 통한 이벤트 객체에 등록되므로
+    html 태그상 이벤트 등록 속성이 보이지 않는다
 *************************************************************/
 
 /////// 전체 이벤트 적용할 컴포넌트 구성하기 //////////////////
@@ -87,7 +91,10 @@ function EventShow() {
       right: "0",
       width: "200px",
       borderRadius: "50%",
-      transition: "2s",
+      transition: "2s, right 1s 2s",
+      zIndex: "999",
+      transform : "scale(1.2)"
+      
     };
 
     // 2. 램프 이미지 넣기
@@ -98,7 +105,36 @@ function EventShow() {
       />,
       lampBox
     );
+
+    // 3. 0.5초후 램프 이미지 중앙이동하기
+    setTimeout(() => {
+        let lampImg = mFn.qsEl(lampBox,"img").style;
+        lampImg.top = "310px";
+        lampImg.right = "calc(50% - 100px)";
+        lampImg.rotate = "720deg"; 
+    }, 500);
+
+
+    // 4. 소원빌기 버튼 3초후 보이기
+    setTimeout(() => {
+        mFn.qsa("button")[1].style.display = "inline-block";
+    }, 3000); 
+
+
   }; ////////// getLamp 함수 ///////////
+
+
+  // (3) 페라리 가져오기 함수
+  const getFerrari = () => {
+    console.log("페라리 가져와~!!!");
+    // 페라리 이미지 넣기
+    // 대상 : #ferrari
+    ReactDOM.render(<MakeImg 
+        isrc="./images/ferrari.png" ialt="페라리레드" itit="클릭하면 시운전해요" idName="fcar"
+    clickFn={moveCar}/>, mFn.qs("#ferrari"));
+    // 이미지를 대상에 넣기
+  }; ////////// getFerrari 함수 //////////
+
 
   /// 2. 리턴 코드 만들기 ////////////
   return (
@@ -106,19 +142,19 @@ function EventShow() {
       <div id="tbox" style={{ textAlign: "center" }}>
         {/* 스타일 인라인 적용시 바깥중괄호는 표현식
                 내부 중괄호는 객체형식의 스타일 설정임! */}
-        <img
-          src="./images/genie.avif"
-          alt="지니"
+        <MakeImg
+          isrc="./images/genie.avif"
+          ialt="지니"
           /* 마우스오버시 showAladin함수호출 */
-          onMouseOver={showAladin}
+          overFn={showAladin}
         />
 
         {/* 램프가 들어갈 요소 */}
         <div className="lamp"></div>
 
         {/* 버튼들 */}
-        <button onClick={getLamp}>램프가져오기~!</button>
-        <button>소원빌기~! 페라리주세요~!!!</button>
+        <button onClick={getLamp}>램프가져오기~!</button> <br/>
+        <button onClick={getFerrari}> 소원빌기~! 페라리주세요~!!!</button>
 
         {/* 소원이 무엇이냐 말풍선박스 */}
         <div className="tit"></div>
@@ -130,11 +166,19 @@ function EventShow() {
 /******************************************* 
     이미지 생성 컴포넌트 : MakeImg
 *******************************************/
-function MakeImg({ isrc, ialt , icss }) {
-  // 리턴코드
-  return <img src={isrc} alt={ialt} style={icss} />;
+function MakeImg({ isrc, ialt , icss , overFn ,clickFn, itit, idName}) {
+  // 리턴코드 : return 키워드 바로 뒤에 JSX태그를 바로 이어쓰거나
+  // 소괄호 시작부분을 같은 라인에 써야 에러가 나지 않는다
+
+  return <img src={isrc} alt={ialt} style={icss} onMouseOver={overFn} title={itit} id={idName} onClick={clickFn} />;
 } ///////////// MakeImg 컴포넌트 ////////////////
 
 // 화면출력하기 ////////////
 // ReactDOM.render(넣을코드,대상)
 ReactDOM.render(<EventShow />, mFn.qs("#root"));
+
+// 일반 함수로 페라리 움직이기 구현
+function moveCar(){
+    console.log("페라리 움직여");
+
+} //// moveCar 함수 ///////////
