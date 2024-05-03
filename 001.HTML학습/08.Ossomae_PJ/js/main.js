@@ -35,13 +35,19 @@ const TIME_SLIDE = 400;
 // 4. 함수 만들기
 // 갤러리 이동하기 함수
 function changeSlide(){
+    // 0. 광클금지 ///
+    if(stopClick) return;
+    stopClick = true;
+    setTimeout(()=>stopClick=false, TIME_SLIDE);
+
+
     // 1. 버튼 구분하기
     let isR = this.classList.contains("rb");
     // classList.contains("클래스명") -> 해당 클래스명이면 true
     console.log("나야나",isR);
 
     // 2. 이동대상 변수 할당
-    let eachOne = mFn.qsaEl(gbx,"div")
+    let eachOne = mFn.qsaEl(gbx,"div");
 
     // 3. 분기하기
     // 3-1. 오른쪽 버튼일 경우
@@ -57,7 +63,9 @@ function changeSlide(){
     // 왼쪽에서 이미지박스가 들어오므로 맨 뒤 div를 맨 앞으로 이동함
     // insertBefore(맨뒤div,맨앞div)
     // 대상 : gbx
-    gbx.insertBefore(eachOne[eachOne.lenght-1],eachOne[0]);
+    // gbx.insertBefore(eachOne[eachOne.lenght-1],eachOne[0]);
+    gbx.insertBefore(
+        eachOne[eachOne.length-1],eachOne[0]);
     // 맨 뒤 div 순번은 개수 -1
 
     } /// else문
