@@ -130,8 +130,11 @@ function EventShow() {
     // 페라리 이미지 넣기
     // 대상 : #ferrari
     ReactDOM.render(<MakeImg 
-        isrc="./images/ferrari.png" ialt="페라리레드" itit="클릭하면 시운전해요" idName="fcar"
-    clickFn={moveCar}/>, mFn.qs("#ferrari"));
+        isrc="./images/ferrari.png" ialt="페라리레드" itit="클릭하면 시운전해요" 
+        idName="fcar"
+        // 함수에 값을 보낼때는 익명함수로 처리
+    clickFn={()=>moveCar("#fcar")}/>, 
+    mFn.qs("#ferrari"));
     // 이미지를 대상에 넣기
   }; ////////// getFerrari 함수 //////////
 
@@ -178,7 +181,18 @@ function MakeImg({ isrc, ialt , icss , overFn ,clickFn, itit, idName}) {
 ReactDOM.render(<EventShow />, mFn.qs("#root"));
 
 // 일반 함수로 페라리 움직이기 구현
-function moveCar(){
-    console.log("페라리 움직여");
+function moveCar(eleName){ // eleName : 요소명
+    console.log("페라리 움직여",eleName);
+
+    // 1. 대상 요소 세팅하기
+    const tg = mFn.qs(eleName).style;
+    console.log(tg.translate,tg.scale);
+
+    // 2. 번갈아서 왔다갔다 움직이기
+    tg.translate = tg.translate == "150%"? "0": "150%";
+
+    tg.scale = tg.scale == "2"?"1":"2";
+
+    tg.transition = "2s ease-in-out";
 
 } //// moveCar 함수 ///////////
