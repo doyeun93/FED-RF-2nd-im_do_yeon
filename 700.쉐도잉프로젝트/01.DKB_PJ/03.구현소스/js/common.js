@@ -12,7 +12,12 @@ import comData from "../data/common_data.js";
 import slideFn from "./slide.js";
 // GNB 메뉴 데이터 불러오기
 import gnbData from "../data/gnb_data.js";
-console.log(gnbData);
+// console.log(gnbData);
+
+// 콤보박스 데이터 불러오기
+import comboData from "../data/combo_data.js";
+console.log(comboData);
+
 
 export default function setElement() {
   // 대상 선정 : #top-area, #ban-area, #spart-menu, #footer-area
