@@ -26,7 +26,7 @@ function LostDeveloper(){
 } //////// LostDeveloper 컴포넌트 ////////////
 
 // 3번 컴포넌트
-function MakeImage({isrc, ialt, itit}){
+function MakeImage({isrc, ialt, itit}){ // 조건할당방식
     return <img src={isrc} alt={ialt} title={itit} />
 
 } //// MakeImage 컴포넌트 
