@@ -98,7 +98,7 @@ function makeMenu() {
 
 
 
-// 콤보박스 바인딩 함수 
+//////// 콤보박스 바인딩 함수 
 function bindCombo(){
   // 1. 대상선정 : #brand , #corp 
   const brandBox = document.querySelector("#brand");
@@ -112,8 +112,9 @@ function bindCombo(){
   // 대상 요소 내부 데이터 넣기
   // 배열데이터 .map().join('') -> JS에서만 join사용가능하고 리액트에서는 join을 생략할 수 있다
   brandBox.innerHTML = 
+  `<option value="init">브랜드 바로가기</option>`+ 
     comboData.brand.map((v,i)=>`
-      <option value="brand${i}">${v}</option>
+      <option value="brand${i+1}">${v}</option>
       `).join('');
 
 
@@ -129,6 +130,7 @@ function bindCombo(){
 
   // 데이터 만들어서 넣기 //
   corpBox.innerHTML = 
+  `<option value="init">계열사 바로가기</option>`+ 
   corpData.map((v,i)=>`
   <optgroup label="${v}">
   ${
@@ -142,6 +144,48 @@ function bindCombo(){
  `).join('');
 
 
-} ///// bindCombo 함수 /////
+ // 3. 선택박스 선택변경시 링크 이동하기
+ // 3-1. 브랜드 바로가기 링크 이동하기
+ // 대상 : brandBox 변수
+ // 이벤트 : change
+ brandBox.addEventListener("change", openwindow); 
+
+ // 3-2. 계열사 바로가기 링크 이동하기
+ // 대상 : corpBox 변수
+ // 이벤트 : change
+ corpBox.addEventListener("change", openwindow); 
+
+
+} /////////// bindCombo 함수 ///////////
+
+
+// 링크 이동함수
+function openwindow(){
+  // 현재 나 자신의 아이디는?
+  // console.log(this.id);
+
+  // 0. 옵션값이 "init"일 경우 돌아가
+  // if(this.value == "init") return;
+  
+
+  // 1. 이동할 주소 : comboData.brandLink 또는 comboData.corpLink 객체 선택
+  // 객체 이름 조합을 (아이디명 + "Link")
+  // 그 하위에 option값을 url값으로 가져옴
+   let url = comboData[this.id+"Link"][this.value];
+  console.log("브랜드 어디?", url);
+
+
+  // 만약 데이터가 없으면 url변수의 값은 세팅되지 못하여 undefined 처리됨
+  // 이것을 if문으로 처리하여 아래 새창 띄우기 코드를 감싸준다
+  // url값이 세팅되지않으면 새창 열기 코드는 실행되지 않는다. 
+  // 따라서 위의 "init" 코드로 별도의 처리가 불필요
+  // undefined는 if문에서 false처리됨
+
+
+  // 2. 선택 option 값의 주소로 이동하기
+  // 새창 열기 : window.open(이동할 주소)
+  if(url) window.open(url);
+  else alert("선택을 변경해 주세요~");
+} ////////////////// open window ////////////////
 
 
