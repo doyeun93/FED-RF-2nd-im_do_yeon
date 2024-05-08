@@ -8,6 +8,7 @@ setElement(); // 함수 호출
 
 // 나의 함수 불러오기
 import myFn from "./my_function.js";
+
 //  부드러운 스크롤 불러오기
 import { startSS, setScrollPos } from "./smoothScroll23.js";
 
@@ -213,3 +214,35 @@ introMv.onclick = () => {
 // 태그 구성 후 드래그 슬라이드 호출하기
 setSlide('banbx');
 
+
+/*******************************************************
+    메인 페이지용 도깨비 메뉴 스크롤이동 제이쿼리 구현
+ *******************************************************/
+// 메뉴 클릭 대상 : .spart-menu a
+$(".spart-menu a").click(e=>{
+  // a요소 클릭시 기본이동 막기
+  e.preventDefault();
+
+  // 1. 클릭한 a요소의 글자 읽어오기
+  let txt = $(e.target).text();
+  console.log(txt);
+
+  // 2. 이동한 위치값 알아내기
+  let pos;
+  // 이동할 위치의 박스 아이디 매칭하기
+  switch (txt){
+    case "미리보기" : pos = "#preview-area"; break;
+    case "프로그램 소개" : pos = "#intro-area"; break;
+    case "동영상" : pos = "#clip-video-area"; break;
+    case "현장 포토" : pos = "#real-photo-area"; break;
+    case "대표 포스터" : pos = "#main-photo-area"; break;
+
+
+  } ////// switch case문 
+
+  // 2-2. 해당 박스 아이디의 위치값 알아내기
+  // offset().top 제이쿼리 top 위치값 정보
+  pos = $(pos).offset().top;
+  console.log("위치값:", pos);
+
+}); ///////// 도깨비 파트 메뉴 클릭 함수 ///////////////////
