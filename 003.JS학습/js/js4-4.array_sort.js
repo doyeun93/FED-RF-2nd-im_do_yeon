@@ -3,7 +3,7 @@
 // 나의 함수 불러오기
 import mFn from './my_function.js';
 
-console.log(mFn);
+// console.log(mFn);
 
 /****************************************************** 
     [ JS 배열의 정렬 ]
@@ -114,7 +114,6 @@ const arrString = ["파", "타", "하", "가", "바", "사", "다", "라", "차"
 // console.log('숫자배열 오름차순정렬sort():', arrNumber2.sort());
 // console.log('숫자배열 오름차순정렬sort((a,b)=>a-b):', arrNumber2.sort((a,b)=>a-b));
 // console.log('숫자배열 내림차순정렬sort((a,b)=>b-a):', arrNumber2.sort((a,b)=>b-a));
-
 // console.log('문자배열:',arrString);
 // console.log('문자배열 오름차순 sort():',arrString.sort());
 // console.log('문자배열 내림차순 reverse():',arrString.reverse());
@@ -136,7 +135,7 @@ const showNum = mFn.qs('.showNum');
 //   let hcode = '';
 //   // 2. 배열만큼 순회하여 태그 만들기 
 //   x.forEach(v => {
-//      //console.log('나야나',v);
+//      //// console.log('나야나',v);
 //      hcode += `
 //      <img src="./images/num/num_0${v}.png" alt="숫자${v}이미지">
 //      `;
@@ -171,12 +170,12 @@ const showImgNum = (arrObj) => { // arrObj : 전달된 배열
     -> join()을 안쓰면 배열의 기본값이 콤마로 연결되어 할당되는데, 콤마를 없애려면 반드시 써줘야한다
 
 *****************************************************************************************************/
-console.log('원본배열:',arrNumber2);
-console.log('원본배열로 태그 작성:',arrNumber2.map(v=>`<숫자>${v}</숫자>`));
-console.log('원본배열로 태그 작성한 배열을 문자열로 변경하기:',
-arrNumber2.map(v=>`<숫자>${v}</숫자>`).join('🍙')); 
+// console.log('원본배열:',arrNumber2);
+// console.log('원본배열로 태그 작성:',arrNumber2.map(v=>`<숫자>${v}</숫자>`));
+// console.log('원본배열로 태그 작성한 배열을 문자열로 변경하기:',
+arrNumber2.map(v=>`<숫자>${v}</숫자>`).join('🍙'); 
 // join을 사용하면 배열이 문자형으로 변경된다
-console.log('원본배열로 태그 작성:',arrNumber2.map((v,i)=>`🧀회원번호${i+1}:${v}포인트`));
+// console.log('원본배열로 태그 작성:',arrNumber2.map((v,i)=>`🧀회원번호${i+1}:${v}포인트`));
 
 
 // (4) 최초출력 호출
@@ -202,7 +201,7 @@ function changeSort(e,arrObj){
   let optVal = e.currentTarget.value;
   // 추가 : 이벤트발생 요소(선택박스)의 아이디 읽어오기
   let selId = e.currentTarget.id;
-  console.log('선택값:',optVal,'/아이디:',selId);
+  // console.log('선택값:',optVal,'/아이디:',selId);
 
   // 2. 정렬변경 분기하기
   // 2-1. 오름차순 : 값 1
@@ -245,9 +244,9 @@ function changeSort(e,arrObj){
   else if(selId =='sel2') showSpanText(arrObj);
 
   // 전달변수에 할당된 배열 확인하기
-  console.log('정렬 후 할당 배열:',arrObj);
+  // console.log('정렬 후 할당 배열:',arrObj);
   // 원본 배열 확인하기
-  console.log('정렬 후 원본배열:',selId=='sel'? arrNumber:arrString);
+  // console.log('정렬 후 원본배열:',selId=='sel'? arrNumber:arrString);
 } ///////////// changeSort 함수 //////////////////////
 
 
@@ -286,4 +285,79 @@ mFn.addEvt(selBox2,'change',(e)=>{changeSort(e,arrString)});
 ////////////////////////////////////////////////////////////
 // 3. 객체 데이터 배열의 정렬
 ////////////////////////////////////////////////////////////
+// 3-1. 데이터 : 객체데이터 배열
+// 데이터 구조 : (1)순번 - idx / (2) 제목 - tit / (3) 내용 - cont
+const list1 = [
+  {
+    idx: 8,
+    tit: "나는 구누?",
+    cont: "공동구매) 슬로건 공구 (계좌와 네이버폼)",
+  },
+  {
+    idx: 4,
+    tit: "여기는 어디?",
+    cont: "총공 공지] 오늘부터 일 2회, 총공 진행합니다",
+  },
+  {
+    idx: 1,
+    tit: "나야나",
+    cont: "연합 갈라 서포트 계좌오픈",
+  },
+  {
+    idx: 15,
+    tit: "이제 얼마나 남은거니?",
+    cont: "음악프로그램에 출연 요청글도 써볼까요?",
+  },
+]; /////////////// list1 /////////////
 
+// console.log(list1);
+
+
+// 3-2. 출력대상 : .showList3
+const showList3 = mFn.qs(".showList3");
+
+// 3-3. 배열데이터로 코드 만들기 함수
+const updateCode = (arrData, exBox) => {
+  // arrData : 배열 데이터
+  // exBox : 출력할 박스
+
+  //  태그 출력하기
+  exBox.innerHTML = `
+  <table>
+    <thead>
+      <tr>
+        <th>번호</th>
+        <th>제목</th>
+        <th>내용</th>
+      </tr>
+    </thead>
+    <tbody>
+    ${arrData.map(v=>`
+      <tr>
+        <td>${v.idx}</td>
+        <td>${v.tit}</td>
+        <td>${v.cont}</td>
+      </tr>
+  
+    `).join('')}
+    </tbody>
+  </table>
+  
+  `;
+}; //////////////// updateCode 함수 /////////////////////
+
+// 3-4. 코드 만들어 출력하는 함수 호출하기
+// updateCode(배열데이터, 출력박스)
+updateCode(list1,showList3);
+
+// 3-5. 정렬변경 이벤트 발생시 실제 정렬 변경하기
+// (1) 이벤트 대상 : .sel3
+const sel3 = mFn.qs(".sel3");
+// (2) 정렬 기준 대상: .cta
+const cta3 = mFn.qs(".cta");
+
+// (3) 이벤트 대상 선택 변경시 실제 정렬을 적용하여 리스트를 갱신한다
+// 정렬 적용시 정렬 기준 대상 선택 항목을 가져가야함 
+
+
+// (4) 정렬 기준 대상 선택 변경시 이벤트 대상 선택 초기화 하기("정렬선택"으로 변경)
