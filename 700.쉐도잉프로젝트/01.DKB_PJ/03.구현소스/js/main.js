@@ -240,9 +240,30 @@ $(".spart-menu a").click(e=>{
 
   } ////// switch case문 
 
+  // 만약 해당된 요소가 없으면 여기서 돌아가
+  // 위에서 할당안되면 undefined이면 if문에서 false 처리됨
+  // !(NOT) 연산자로 반대로 뒤집으면 false일때 처리함
+  if(!pos) return;
+
   // 2-2. 해당 박스 아이디의 위치값 알아내기
   // offset().top 제이쿼리 top 위치값 정보
   pos = $(pos).offset().top;
   console.log("위치값:", pos);
+
+
+  // 3. 스크롤 애니메이션 이동하기
+  // 제이쿼리는 이것을 정말 잘한다
+  // $("html, body").animate({scrollTop:몇 px}, 시간, 이징, 함수)
+  // 시간 : 1/1000 초
+  // 이징 : http://easings.net
+
+  $("html,body").animate({scrollTop: pos + "px"}, 2000, 
+  "easeInOutQuint",
+  // 이동 후 부드러운 스크롤 위치값 업데이트 필수
+  () => {
+    // 이것 안하면 위치 이동 후 스크롤시 튐
+    setScrollPos(pos); 
+   }
+);
 
 }); ///////// 도깨비 파트 메뉴 클릭 함수 ///////////////////
