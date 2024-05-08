@@ -10,7 +10,7 @@ setElement(); // 함수 호출
 import myFn from "./my_function.js";
 
 //  부드러운 스크롤 불러오기
-import { startSS, setScrollPos } from "./smoothScroll23.js";
+import SmoothScroll from "./smoothScroll23.js";
 
 
 ///// 데이터 세팅 불러오기
@@ -29,7 +29,7 @@ import setSlide from "./drag_slide_multi.js";
 
 
 // 1. 부드러운 스크롤 호출
- startSS();
+ const mySmooth = new SmoothScroll(document, 60, 25);
 
 // console.log('모듈로 메인 js 호출', document.querySelector('.top-menu'));
 
@@ -259,11 +259,26 @@ $(".spart-menu a").click(e=>{
 
   $("html,body").animate({scrollTop: pos + "px"}, 2000, 
   "easeInOutQuint",
-  // 이동 후 부드러운 스크롤 위치값 업데이트 필수
+  // 콜백함수(애니 후 호출되는 함수)
+  
   () => {
+    // 이동 후 부드러운 스크롤 위치값 업데이트 필수
     // 이것 안하면 위치 이동 후 스크롤시 튐
-    setScrollPos(pos); 
+    // 생성자 함수 하위 객체 변수로 등록된 함수를 호출함
+    mySmooth.setScrollPos();
    }
 );
 
 }); ///////// 도깨비 파트 메뉴 클릭 함수 ///////////////////
+
+$(".preview-box").css({
+  height: "200px",
+  overflow: "auto"
+})
+
+.on("wheel",e=>{
+  e.stopPropagation(); // 이벤트값 위로 올라가는거 막는거
+})
+
+// 부드러운 스크롤 개별박스 적용
+const smallSmooth = new SmoothScroll( myFn.qs(".preview-box"), 60, 20);
