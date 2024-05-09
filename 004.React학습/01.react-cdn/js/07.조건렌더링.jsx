@@ -220,12 +220,9 @@ function MovieWishList({wList}){
                     {wList.map(x=> <MakeList movieInfo={x}/>)}
                 </ul>
                 {/*  영화포스터 이미지 영화순서대로 만들기 */ }
-                {wList.map(x=> <MakeImage isrc={x.poster} ialt={x.mtit} icss={{width:"100px"}}/>)}
-                
+                {wList.map(x=> <MakeImage isrc={x.poster} ialt={x.mtit} icss={{width:"100px"}}/>)}    
             </div>
             }
-
-
 
             {/* 빈 배열인 경우 출력 */}
             {wList.length == 0 &&
