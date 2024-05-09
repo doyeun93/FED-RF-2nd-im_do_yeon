@@ -26,8 +26,11 @@ function LostDeveloper(){
 } //////// LostDeveloper 컴포넌트 ////////////
 
 // 3번 컴포넌트
-function MakeImage({isrc, ialt, itit}){ // 조건할당방식
-    return <img src={isrc} alt={ialt} title={itit} />
+function MakeImage({isrc, ialt, itit, icss}){ 
+    // -> 비구조화 할당 방식(=구조분해할당방식) =>> 쓰는 이유는 객체가 없기 때문
+    // isrc : 파일경로 , ialt : 설명, itit : 툴팁 , icss : 스타일 설정
+    // 만약 속성중 안보낸 것은 출력되지 않는다
+    return <img src={isrc} alt={ialt} title={itit} style={icss} />
 
 } //// MakeImage 컴포넌트 
 
@@ -107,15 +110,39 @@ const foods =
 
 
 // 2-2. 반복리스트를 위한 컴포넌트
-function FoodList({foodName}){
-    return <li> 개발자는 {foodName} 좋아해 </li>;
+function MakeList({foodName, movieInfo}){
+    console.log(foodName,"/",movieInfo);
+    return(
+        <li>
+            { // 음식데이터가 들어온 경우 undefined가 아니면 true이므로 &&뒤 코드(변수) 출력
+                foodName && "개발자는" + foodName + "좋아해"
+            }
+            {
+             // 영화데이터가 들어온 경우 undefined가 아니면 true이므로 &&뒤 코드(변수) 출력
+                movieInfo &&  movieInfo.year + "년도 " + movieInfo.mtit 
+            }
+        </li>
+    );
+    // 음식일 경우
+    if(foodName){
+        return (
+            <li>개발자는 {foodName} 좋아해 </li>
+        );
+    }
+    // 영화일 경우
+    else if(movieInfo){
+        return (
+            <li>{movieInfo.year}년도 {movieInfo.mtit}</li>
+        );
+    }
+    
 
-} ////// FoodList 컴포넌트 /////////////////
+} ////// MakeList 컴포넌트 /////////////////
 
 
 // 2-3. 개발자 선호 음식리스트 출력 컴포넌트 /////////
 function WishList({wList}){
-    // wList - 좋아하는 음식
+    // wList - 좋아하는 음식리스트(배열)
     // 리턴 코드 구역
     return(
         <React.Fragment>
@@ -132,7 +159,7 @@ function WishList({wList}){
                         // map()메서드는 원래 새로운 배열을 현재 자리에 출력하는 용도임
                         // 그러나 리액트는 이것을 변경하여 표현식안에서 출력시 
                         // 태그 JSX 형식으로 변환해 줌! js처럼 map.join('') 처리 불필요
-                        wList.map(v => <FoodList foodName={v}/>)
+                        wList.map(v => <MakeList foodName={v}/>)
                         }
                     </ul>
                 </div>
@@ -154,3 +181,71 @@ ReactDOM.render(<WishList wList={foods}/>, root[2]);
 
 // 컴포넌트 출력 : 배열값 없는 경우
 ReactDOM.render(<WishList wList={[]}/>, root[3]);
+
+
+
+//////////// 3. 좀 더 복잡한 리스트를 출력하는 컴포넌트 /////////////////
+// 전달할 배열변수
+const movs = [
+    {year:"2020",mtit:"남산의 부장들",poster:"https://i.namu.wiki/i/d-g1xW3vvsfh71KCQIxl2es_i0wKyMJhkwEaXKdCgDAyhJVRb4vWA_TNnRHMksw0S6pK_nFrDITK2ISIJRuRpA.webp"},
+    {year:"2021",mtit:"모가디슈",poster:"https://upload.wikimedia.org/wikipedia/ko/9/92/%EC%98%81%ED%99%94_%EB%AA%A8%EA%B0%80%EB%94%94%EC%8A%88.jpg"},
+    {year:"2022",mtit:"범죄도시2",poster:"https://upload.wikimedia.org/wikipedia/ko/b/b9/%EB%B2%94%EC%A3%84%EB%8F%84%EC%8B%9C_2_%ED%8F%AC%EC%8A%A4%ED%84%B0.jpg"},
+    {year:"2023",mtit:"가디언즈 오브 갤럭시3",poster:"https://i.namu.wiki/i/qA_v1drdO1CusnMcmQVZDEGXEspqfuS0-sAHYUFExpgZMF_GSyCSrxSh-_IWua2lqD6GnNNlqw0hMvNzXYrefA.webp"},
+    {year:"2024",mtit:"파묘",poster:"https://i.namu.wiki/i/EWdG2Jtlu36U1-03moAiO7Hmh1waKlbB0DIEvamksSTTzWCsqDXxUiiPSdcmpAQjh_tUFOwAGhR7LX7f6U0wXQ.webp"},
+];
+
+/* 
+[ 출력형태 ]
+    👨‍🔧개발자👩‍🔧가 좋아하는 영화
+    개발자가 좋아하는 영화는 최근 3년간 아래와 같습니다!
+    2021년도 영화1
+    2022년도 영화2
+    2023년도 영화3
+    ... 여기는 영화포스트 나열하기 ...
+*/
+
+// 개발자 선호 영화 리스트 출력 컴포넌트
+// 제목 컴포넌트, 리스트 컴포넌트 모두 재활용
+function MovieWishList({wList}){
+    return(
+        <React.Fragment>
+            {/* 영화 위시리스트 타이틀 출력 */}
+            <SetTitle title="영화" />
+            {wList.length > 0 &&
+            <div>
+                <h2>
+                    개발자가 좋아하는 영화는 최근 {wList.length}년간 아래와 같습니다!
+                </h2>
+                <ul>
+                    {wList.map(x=> <MakeList movieInfo={x}/>)}
+                </ul>
+                {/*  영화포스터 이미지 영화순서대로 만들기 */ }
+                {wList.map(x=> <MakeImage isrc={x.poster} ialt={x.mtit} icss={{width:"100px"}}/>)}
+                
+            </div>
+            }
+
+
+
+            {/* 빈 배열인 경우 출력 */}
+            {wList.length == 0 &&
+            <div>
+                <h2>
+                    아직 개발자 영화 리스트가 업데이트 되지않았습니다!
+                </h2>
+            </div>}
+
+        </React.Fragment>
+        // 타이틀 출력하기
+
+    );
+
+
+} //// MovieList 컴포넌트
+
+// 컴포넌트 출력 
+ReactDOM.render(<MovieWishList wList={movs}/>, root[4]);
+
+// 컴포넌트 출력 
+ReactDOM.render(<MovieWishList wList={[]}/>, root[5]);
+
