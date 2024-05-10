@@ -409,7 +409,7 @@ updateCode(list1,showList3);
 
 // (1) 정렬 종류  대상 : .sel3
 const sel3 = mFn.qs(".sel3");
-// (2) 정렬 기준 대상: .cta
+// (2) 정렬 기준 대상: .cta3
 const cta3 = mFn.qs(".cta3");
 
 // (3) 이벤트 대상 선택 변경시 실제 정렬을 적용하여 리스트를 갱신한다
@@ -436,6 +436,16 @@ function sortingFn(evt, cta, arrData, exBox) {
   // exBox - 출력 대상박스
   // console.log(evt,arrData,exBox);
 
+  
+ // 전달된 배열값을 변수에 그냥 할당하면 얕은 복사가 되어서 정렬시 원본의 
+ // 정렬변경을 막을 수 없다. 따라서 깊은 복사를 하여 원본과 분리시킨다.(값복사를 한다)
+ // 일반적인 값의 배열 깊은 복사는 ==>> 새변수 = [...원본배열 변수]
+ // 하지만 값이 객체일 경우 이 방식은 효과가 없다. 효과있는 방법은
+ // 새변수 = JSON.parse(JSON.stringify(배열원본변수))
+
+  const xxx = JSON.parse(JSON.stringify(arrData));
+  /// xxx는 원본과는 분리된 같은 배열값의 새로운 배열이다
+
   // 1. 선택값 읽어오기(오름차순:1,내림차순:2)
   let selVal = evt.target.value;
   console.log("선택값:",selVal);
@@ -446,21 +456,21 @@ function sortingFn(evt, cta, arrData, exBox) {
   // 2. 정렬분기하기 //////////////// 
   // 2-1. 오름차순 ||  0 : 아무것도 안함, 1 : 순서바꿔서 유지, -1 : 순서 유지
   if(selVal == 1){
-    arrData.sort((a,b)=> 
+    xxx.sort((a,b)=> 
     a[cta] == b[cta] ? 0 : a[cta] > b[cta] ? 1 : -1);
     
   } /// if /////
   // 2-2. 내림차순
   else if(selVal == 2){
-    arrData.sort((a,b)=> 
+    xxx.sort((a,b)=> 
     a[cta] == b[cta] ? 0 : a[cta] > b[cta] ? -1 : 1);
 
   } /// else if /////
 
-  console.log("정렬결과:",arrData);
+  console.log("정렬결과:", xxx);
 
   // 3. 정렬결과 리스트 업데이트 하기
-  updateCode(arrData,exBox);
+  updateCode(xxx,exBox);
 
 
 } /////////////// sortingFn 함수 /////////////
@@ -579,9 +589,34 @@ function searchingFn(){
  //  그 순서를 리턴해주는 메서드다. 만약 없으면 -1값을 리턴한다
 
  // 결과찍기
- console.log(result);
+ console.log("검색결과:",result);
+ console.log("원본데이터:", list2);
 
   // 5. 결과를 화면에 보여주기 : updateCode 함수 호출
   updateCode(result,showList4);
 
 } ////////// searchingFn 함수
+
+
+
+// 4-7. 정렬변경 이벤트 발생시 실제 정렬 변경하기
+// -change 이벤트 대상 선택박스들
+
+// (1) 정렬 종류  대상 : .sel4
+const sel4 = mFn.qs(".sel4");
+// (2) 정렬 기준 대상: .cta4
+const cta4 = mFn.qs(".cta4");
+
+// (3) 이벤트 대상 선택 변경시 실제 정렬을 적용하여 리스트를 갱신한다
+// 정렬 적용시 정렬 기준 대상 선택 항목을 가져가야함 
+mFn.addEvt(sel4,"change",
+(e)=>sortingFn(e,cta4.value,list2,showList4));
+
+// (4) 정렬기준 대상 선택 변경시 정렬종류 대상 초기화하기("정렬선택"으로 변경!)
+mFn.addEvt(cta4,"change", () => {
+  // 정렬종류 첫번째 값은 value가 "0"이므로 이것을 value에 할당하면 
+  // 선택박스 값이 첫번째로 변경된다
+
+  sel4.value = "0";
+  
+}); ///////// change 이벤트 함수 ////////
