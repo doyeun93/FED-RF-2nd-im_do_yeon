@@ -304,11 +304,14 @@ function ShowLikePinter({ isChange }) {
       {/* 1. 큰 제목 */}
       <SetTitle title="명화" />
       {/* 2. 변경버튼 */}
-      <button>작가변경</button>
+      <button 
+      onClick={()=>{setResult(!result)}}
+      style={{fontSize:"30px",padding:"10px", fontWeight:"bold", 
+      backgroundColor:result?"red":"blue",color:result?"yellow":"aqua"}}>작가변경</button>
       {/* 3. 작품 출력 */}
       {
         // 삼항연산자로 isChange 값에 따라 출력변경하기
-        // isChange가 아닌 상태관리변수를 사용한다
+        // isChange가 아닌 상태관리 변수를 사용한다
         result ? (
           <MakePainting painter="피카소" wname="우는 여인" />
         ) : (

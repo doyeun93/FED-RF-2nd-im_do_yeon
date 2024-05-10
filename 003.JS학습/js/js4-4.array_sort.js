@@ -380,7 +380,13 @@ const updateCode = (arrData, exBox) => {
       </tr>
     </thead>
     <tbody>
-    ${arrData.map(v=>`
+    ${arrData.length==0?
+      `<tr>
+        <td colspan="3">
+          검색하신 데이터가 없습니다.
+        </td>
+      </tr>` : 
+      arrData.map(v=>`
       <tr>
         <td>${v.idx}</td>
         <td>${v.tit}</td>
@@ -514,10 +520,31 @@ const btnSearch = mFn.qs(".sbtn");
 
 // (3) 검색어 입력창
 const keyWord = mFn.qs("#stxt");
+// (4) 전체버튼
+const btnTotal = mFn.qs(".fbtn");
+
 // console.log(searchCta4,btnSearch,keyWord);
 
 // 4-5-2. 이벤트 설정하기
+// (1) 검색버튼
 mFn.addEvt(btnSearch, "click", searchingFn);
+
+// (2) 전체버튼 클릭시 처음 리스트 보이기
+mFn.addEvt(btnTotal, "click", 
+()=>{
+  // 처음 리스트 다시 만들기
+  updateCode(list2,showList4);
+  // 검색어 지우기
+  keyWord.value = "";
+});
+// (3) 입력창 키보드입력시 엔터키 구분하여 검색하기 
+// mFn.addEvt(keyWord, "keypress", searchingFn);
+mFn.addEvt(keyWord, "keypress", (e)=>{
+  // 엔터키는 키코드가 13번임
+  if(e.keyCode == 13) {searchingFn();
+  } ///// if문
+}); 
+
 
 // 4-6. 검색 함수 만들기
 function searchingFn(){
@@ -533,6 +560,7 @@ function searchingFn(){
     return;
   }
   console.log(cta, kword);
+
 
   // 4. 검색기준으로 검색어를 사용하여 검색하기
   // 검색대상 데이터 배열 : list2
