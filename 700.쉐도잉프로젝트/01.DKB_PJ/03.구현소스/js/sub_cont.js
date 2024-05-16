@@ -125,7 +125,14 @@ export default function showSubBox() {
               <h2>${selData.subtit}</h2>
             </div>
           </div>
-          `: ``
+          `: 
+          // 5. 위의 해당사항이 없을 경우
+          `
+          <button class="cbtn">×</button>
+          <div class="sub-inbox inbox">
+            <h1>DB정보 확인 필요</h1>
+          </div>
+          `
       )
       .show();
 

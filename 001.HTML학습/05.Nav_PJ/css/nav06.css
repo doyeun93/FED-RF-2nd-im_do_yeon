@@ -19,7 +19,8 @@ html,body{
 .sub-cont{
     display: flex;
     max-width: 1200px;
-    height: 500px;
+    aspect-ratio: 2/1.1;
+    /* height: 500px; */
     margin: 0 auto;
     padding: 50px 0;
 
