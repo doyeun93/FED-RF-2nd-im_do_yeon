@@ -35,8 +35,10 @@ export default function showSubBox() {
     // 그 div박스의 클래스가 preview-box인가?
     // is(클래스명) 메서드로 알아봄
 
+    // [데이터명을 data-db에 넣고 읽어오기]
     // 사용하고자 하는 데이터 이름을 ul 태그의 data-db 속성에 담아 놓고 이것을 읽어온다
-    let db = $(this).parent().attr('data-db');
+    let db = $(this).parent().attr("data-db");
+
     // $(this).parent()는 li 바로위의 부모인 ul이다
     // attr('data-db') 속성값 읽어오기
 
@@ -44,60 +46,95 @@ export default function showSubBox() {
     // this.parentElement.parentElement
     // .classList.contains(클래스명)
 
-
     console.log("나야나!", this, db, dkbData[db]);
 
     // if (confPrt) {
-      // 1. 키속성값 읽어오기
-      let idx = $(this).attr("data-idx");
-      // attr(속성명) -> 속성값 읽어오기 메서드
-      // attr(속성명,속성값) -> 속성값 넣기 메서드
-      console.log("idx:", idx);
+    // 1. 키속성값 읽어오기
+    let idx = $(this).attr("data-idx");
+    // attr(속성명) -> 속성값 읽어오기 메서드
+    // attr(속성명,속성값) -> 속성값 넣기 메서드
+    console.log("idx:", idx);
 
-      // [ 배열순회 메서드 비교 : forEach / find ]
-      // forEach() 는 모두 순회한다!
-      // find() 는 조건에 맞을때 return true하면
-      // 해당 배열값이 변수에 할당된다!
-      // 만약 일치하는 데이터가 없으면 undefined됨!
+    // [ 배열순회 메서드 비교 : forEach / find ]
+    // forEach() 는 모두 순회한다!
+    // find() 는 조건에 맞을때 return true하면
+    // 해당 배열값이 변수에 할당된다!
+    // 만약 일치하는 데이터가 없으면 undefined됨!
 
-      // dkbData.previewData.forEach(v=>{
+    // dkbData.previewData.forEach(v=>{
 
-      // dkbData[db] -> 해당 데이터 매칭하기
+    // dkbData[db] -> 해당 데이터 매칭하기
 
-      let selData = dkbData[db].find((v) => {
-        if (v.idx == idx) {
-          // console.log("찾았다!",v);
-          return true;
-        }
-        console.log("돌아!");
-      });
+    let selData = dkbData[db].find((v) => {
+      if (v.idx == idx) {
+        // console.log("찾았다!",v);
+        return true;
+      }
+      console.log("돌아!");
+    });
 
-      console.log("검색결과:", selData);
+    console.log("검색결과:", selData);
 
-      // 서브박스에 내용 넣기
-      // 제이쿼리는 innerHTML 할당대신
-      // html() 메서드를 사용한다!
+    // 서브박스에 내용 넣기
+    // 제이쿼리는 innerHTML 할당대신
+    // html() 메서드를 사용한다!
 
-      // subContBox
-      //   .html(
-      //     `
-      //           <button class="cbtn">×</button>
-      //           <div class="sub-inbox inbox">
-      //               <h1>${selData.title}</h1>
-      //               <div class="sub-item">
-      //                   ${selData.story}
-      //               </div>
-      //           </div>
-      //       `
-      //   )
-      //   .show();
-      
-      // show() 는 display를 보여주는 메서드
-      // hide() 는 display를 숨기는 메서드
-      // toggle() 는 display를 토글하는 메서드
+    subContBox
+      .html(
+        // 1. 미리보기 출력
+        db == "previewData"
+          ? `
+          <button class="cbtn">×</button>
+          <div class="sub-inbox inbox">
+            <h1>${selData.title}</h1>
+            <div class="sub-item">
+                ${selData.story}
+            </div>
+          </div>
+        ` : 
+        // 2. 현장포토 출력
+          db == "liveData"
+          ? `
+        <button class="cbtn">×</button>
+        <div class="sub-inbox inbox">
+          <h1>현장포토 : ${selData.title}</h1>
+          <div class="sub-item">
+              <img src="./images/live_photo/${selData.imgName}.jpg" alt="${selData.title}" />
+          </div>
+        </div>
+        ` : 
+        // 3. 대표 포스터 출력 
+          db == "posterData" 
+          ? `
+          <button class="cbtn">×</button>
+          <div class="sub-inbox inbox">
+            <h1>대표 포스터 : ${selData.title}</h1>
+            <div class="sub-item">
+                <img src="./images/poster_img/${selData.imgName}.jpg" alt="${selData.title}" />
+            </div>
+          </div>
+        ` : 
+          // 4. 최신 동영상 
+          db == "clipData" 
+          ? `
+          <button class="cbtn">×</button>
+          <div class="sub-inbox inbox">
+            <h1>클립영상 : ${selData.title}</h1>
+            <div class="sub-item">
+              <iframe src="https://www.youtube.com/embed/${selData.mvid}?autoplay=1" allow="autoplay"></iframe>
+              <h2>${selData.subtit}</h2>
+            </div>
+          </div>
+          `: ``
+      )
+      .show();
 
-      // 닫기버튼 이벤트 설정하기
-      $(".cbtn").click(() => subContBox.hide());
+    // show() 는 display를 보여주는 메서드
+    // hide() 는 display를 숨기는 메서드
+    // toggle() 는 display를 토글하는 메서드
+
+    // 닫기버튼 이벤트 설정하기
+    $(".cbtn").click(() => subContBox.hide());
     // } /// if /////
   });
 } /////////// showSubBox 함수 ///////////////
