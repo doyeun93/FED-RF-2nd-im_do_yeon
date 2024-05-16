@@ -25,8 +25,8 @@ const chgLimit = () => {
 
     console.log("window크기:",winW, "/페이지수:",pgCnt,
     "/최대한계값:",maxLimit);
-    // 함수내에서 호출 후  리사이즈 이후 또 호출하게끔
-    
+    // 함수내에서 호출 후  리사이즈 이후 또 호출하게끔(리사이즈 업데이트할 때마다 호출됨)
+
 } /// chgLimit 함수 ///
 
 // 최초 한계값 계산함수 호출
@@ -34,6 +34,7 @@ const chgLimit = () => {
 
 // 윈도우 사이즈 변경시 한계값 업데이트
 $(window).resize(chgLimit);
+// resize()메서드 : 리사이즈 이벤트 함수
 
 
 
@@ -62,7 +63,15 @@ scTarget.on("wheel",(e) => {
     // animate({CSS설정},시간, 이징, 함수)
     // stop() 메서드 : 큐에 쌓인 애니메이션을 지운다
     // 중간에 쌓인 애니를 지우고 최종 애니만 실행한다
-    scTarget.stop().animate({scrollLeft:scPos+"px"},500)
+    scTarget.stop().animate(
+        // css 설정
+        {
+            scrollLeft:scPos+"px"
+        }, 
+        // 시간
+        2000, 
+        // 이징(가속도 : 처음에 빠르게 나중에 천천히)
+        "easeOutQuint");
 
 
 }); /////// wheel 이벤트 구역 ////////
