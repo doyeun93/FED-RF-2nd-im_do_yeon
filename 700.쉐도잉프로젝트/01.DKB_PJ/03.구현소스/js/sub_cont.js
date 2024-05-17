@@ -161,8 +161,8 @@ export default function showSubBox() {
     // hide() 는 display를 숨기는 메서드
     // toggle() 는 display를 토글하는 메서드
 
-    // 닫기버튼 이벤트 설정하기
-    $(".cbtn").click(() => subContBox.hide());
+    // 닫기버튼 이벤트 설정하기 : 숨기기, 내용지우기
+    $(".cbtn").click(() => {subContBox.hide().html('');});
     // } /// if /////
   });
 } /////////// showSubBox 함수 ///////////////
