@@ -46,25 +46,62 @@ function MainComponent() {
       </div>
       {/* 4. 상품리스트박스 */}
       <div className="gwrap">
-        <ul>
-          {guData.map((v) => (
-            <li>
-              <a href="#">
-                <ol className="glist">
-                  <li>
-                    <img src={`./images/vans/vans_${v.idx}.jpg`} alt="신발" />
-                  </li>
-                  <li>{v.gname}</li>
-                  <li>가격 : {v.gprice}원</li>
-                </ol>
-              </a>
-            </li>
-          ))}
-        </ul>
+        {/* {<GoodsList/>}   */}
+        {/* 상세보기 구현 */}
+        <ol style={{display:"flex", listStyle:"none", textAlign:"left"}}>
+          <li>
+            <img src="./images/vans/vans_1.jpg" alt="반스신발"/>
+          </li>
+          <li style={{lineHeight:"2", padding:"10px"}}>
+            상품명 : {guData[0].gname}<br/>
+            가격 : {guData[0].gprice}<br/>
+            소재 : {guData[0].소재}<br/>
+            색상 : {guData[0].색상}<br/>
+            치수 : {guData[0].치수}<br/>
+            제조자/수입자 : {guData[0]["제조자/수입자"]}<br/>
+            제조국 : {guData[0].제조국}<br/>
+            제조연월 : {guData[0].제조연월}<br/>
+            A/S 책임자와 전화번호 : <br/>{guData[0]["A/S 책임자와 전화번호"]}<br/>
+            Model : {guData[0].Model}<br/>
+          </li>
+        </ol>
       </div>
     </React.Fragment>
   );
 } ////////// MainComponent 컴포넌트 /////////////
+
+
+// [상품 리스트 서브 컴포넌트 : GoodsList] //
+// map()메서드는 표현식이라 중괄호 필요
+function GoodsList(){
+
+  return(
+  <ul>
+   { 
+  // 반복요소 li에 key 속성을 쓸 것을 리액트는 필수적이라고 함
+  // 어디에 쓰냐? 업데이트시 순번구분을 위함
+  // node.js 개발환경에서 안쓰면 에러남 
+   
+   guData.map((v,i) => (
+      <li key={i}>
+        <a href="#">
+          <ol className="glist">
+            <li>
+              <img src={`./images/vans/vans_${v.idx}.jpg`} alt="신발" />
+             </li>
+            <li>{v.gname}</li>
+            <li>가격 : {v.gprice}원</li>
+          </ol>
+        </a>
+      </li>
+    ))}  
+  </ul>
+  );
+
+} //// GoodsList 컴포넌트 //////////////////
+
+
+
 
 // 메인 컴포넌트 출력하기 ////////////
 ReactDOM.render(<MainComponent />, document.querySelector("#root"));
