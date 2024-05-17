@@ -15,18 +15,18 @@ import guData from "./data/gu_data";
 // 함수형 컴포넌트는 첫글자 대문자인 함수키워드로 만든다
 function MainComponent() {
   /************************************** 
-        [ 코드구성 ]
-        1. 타이틀 : h1.tit
-        2. 내용박스 : section
-        ㄴ> 제목 : h2
-        ㄴ> 이미지박스 : div.img-box > img
-        3. 기능버튼박스 : div.btn-box
-        ㄴ> 기능버튼 : button
-        4. 상품리스트박스 : div.gwrap
-        ㄴ> 상품리스트 : 
-            ul > li > ol > li > (img/text)
-        ㄴ> 상품상세보기 :
-            ol > li > (img/text/button)
+      [ 코드구성 ]
+      1. 타이틀 : h1.tit
+      2. 내용박스 : section
+      ㄴ> 제목 : h2
+      ㄴ> 이미지박스 : div.img-box > img
+      3. 기능버튼박스 : div.btn-box
+      ㄴ> 기능버튼 : button
+      4. 상품리스트박스 : div.gwrap
+      ㄴ> 상품리스트 : 
+          ul > li > ol > li > (img/text)
+      ㄴ> 상품상세보기 :
+          ol > li > (img/text/button)
     **************************************/
   // 코드리턴구역 ////////////////
   return (
