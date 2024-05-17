@@ -46,25 +46,9 @@ function MainComponent() {
       </div>
       {/* 4. 상품리스트박스 */}
       <div className="gwrap">
-        {/* {<GoodsList/>}   */}
+        {<GoodsList/>}  
         {/* 상세보기 구현 */}
-        <ol style={{display:"flex", listStyle:"none", textAlign:"left"}}>
-          <li>
-            <img src="./images/vans/vans_1.jpg" alt="반스신발"/>
-          </li>
-          <li style={{lineHeight:"2", padding:"10px"}}>
-            상품명 : {guData[0].gname}<br/>
-            가격 : {guData[0].gprice}<br/>
-            소재 : {guData[0].소재}<br/>
-            색상 : {guData[0].색상}<br/>
-            치수 : {guData[0].치수}<br/>
-            제조자/수입자 : {guData[0]["제조자/수입자"]}<br/>
-            제조국 : {guData[0].제조국}<br/>
-            제조연월 : {guData[0].제조연월}<br/>
-            A/S 책임자와 전화번호 : <br/>{guData[0]["A/S 책임자와 전화번호"]}<br/>
-            Model : {guData[0].Model}<br/>
-          </li>
-        </ol>
+        {/* <GoodsDetail/> */}
       </div>
     </React.Fragment>
   );
@@ -101,6 +85,32 @@ function GoodsList(){
 } //// GoodsList 컴포넌트 //////////////////
 
 
+////// [상품 상세보기 서브 컴포넌트 : GoodsDetail]
+function GoodsDetail(){
+  return(
+    <ol style={{display:"flex", listStyle:"none", justifyContent:"center"}}>
+          <li>
+            <img src="./images/vans/vans_1.jpg" alt="반스신발" style={{width:"100%"}}/>
+          </li>
+          <li style={{lineHeight:"2", padding:"10px", textAlign:"left"}}>
+            상품명 : {guData[0].gname}<br/>
+            가격 : {guData[0].gprice}<br/>
+            소재 : {guData[0].소재}<br/>
+            색상 : {guData[0].색상}<br/>
+            치수 : {guData[0].치수}<br/>
+            제조자/수입자 : {guData[0]["제조자/수입자"]}<br/>
+            제조국 : {guData[0].제조국}<br/>
+            제조연월 : {guData[0].제조연월}<br/>
+            A/S 책임자와 전화번호 : <br/>{guData[0]["A/S 책임자와 전화번호"]}<br/>
+            Model : {guData[0].Model}<br/>
+            <div className="btnbx" style={{textAlign:"right", padding:"15px"}}>
+            <button style={{fontSize:"24px"}}>리스트로 가기</button>
+            </div>
+          </li>
+        </ol>
+  );
+
+} ///// GoodsDetail 컴포넌트 /////////////////////
 
 
 // 메인 컴포넌트 출력하기 ////////////
