@@ -16,6 +16,7 @@ import guData from "./data/gu_data";
 function MainComponent() {
 
   // [hook 상태관리 변수 세팅]
+  // 최상위 컴포넌트에서만 Hook을 호출한다.
   // 1. 리스트 / 상세보기 전환용 상태관리 변수
   const [ viewList, setViewList] = React.useState(true);
   
@@ -55,7 +56,7 @@ function MainComponent() {
       <div className="gwrap">
         {
           // 상태 관리 변수 viewList값이 true이면 리스트보기
-          viewList?<GoodsList viewDetail={setViewList}/>:<GoodsDetail viewList={setViewList}/>
+          viewList?<GoodsList viewDetail={setViewList}/>:<GoodsDetail backList={setViewList}/>
         }  
       </div>
     </React.Fragment>
@@ -67,6 +68,7 @@ function MainComponent() {
 // map()메서드는 표현식이라 중괄호 필요
 function GoodsList({viewDetail}){
   // viewDetail : 부모 컴포넌트가 전달해준 상태변수 viewList를 업데이트하는 setViewList메서드임
+
   return(
   <ul>
    { 
@@ -101,7 +103,9 @@ function GoodsList({viewDetail}){
 
 
 ////// [상품 상세보기 서브 컴포넌트 : GoodsDetail]
-function GoodsDetail(){
+function GoodsDetail({backList}){
+  // backList : 부모 컴포넌트가 전달해준 상태변수 viewList를 업데이트하는 setViewList메서드임
+
   return(
     <ol style={{display:"flex", listStyle:"none", justifyContent:"center"}}>
           <li>
@@ -119,7 +123,8 @@ function GoodsDetail(){
             A/S 책임자와 전화번호 : <br/>{guData[0]["A/S 책임자와 전화번호"]}<br/>
             Model : {guData[0].Model}<br/>
             <div className="btnbx" style={{textAlign:"right", padding:"15px"}}>
-            <button style={{fontSize:"24px"}}>리스트로 가기</button>
+            <button onClick={()=>backList(true)}
+            style={{fontSize:"24px"}}>리스트로 가기</button>
             </div>
           </li>
         </ol>
