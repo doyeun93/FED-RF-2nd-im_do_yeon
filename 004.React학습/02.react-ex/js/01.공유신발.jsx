@@ -14,6 +14,13 @@ import guData from "./data/gu_data";
 
 // 함수형 컴포넌트는 첫글자 대문자인 함수키워드로 만든다
 function MainComponent() {
+
+  // [hook 상태관리 변수 세팅]
+  // 1. 리스트 / 상세보기 전환용 상태관리 변수
+  const [ viewList, setViewList] = React.useState(true);
+  
+
+
   /************************************** 
       [ 코드구성 ]
       1. 타이틀 : h1.tit
@@ -46,19 +53,20 @@ function MainComponent() {
       </div>
       {/* 4. 상품리스트박스 */}
       <div className="gwrap">
-        {<GoodsList/>}  
-        {/* 상세보기 구현 */}
-        {/* <GoodsDetail/> */}
+        {
+          // 상태 관리 변수 viewList값이 true이면 리스트보기
+          viewList?<GoodsList viewDetail={setViewList}/>:<GoodsDetail viewList={setViewList}/>
+        }  
       </div>
     </React.Fragment>
   );
 } ////////// MainComponent 컴포넌트 /////////////
 
 
-// [상품 리스트 서브 컴포넌트 : GoodsList] //
+// [상품 리스트 서브 컴포넌트(서브 컴포넌트는 개별 컴포넌트) : GoodsList] //
 // map()메서드는 표현식이라 중괄호 필요
-function GoodsList(){
-
+function GoodsList({viewDetail}){
+  // viewDetail : 부모 컴포넌트가 전달해준 상태변수 viewList를 업데이트하는 setViewList메서드임
   return(
   <ul>
    { 
@@ -68,7 +76,14 @@ function GoodsList(){
    
    guData.map((v,i) => (
       <li key={i}>
-        <a href="#">
+        <a href="#" onClick={(e)=> {
+          // a요소 기본 이동 막기
+          e.preventDefault(); 
+          // 상태변수 viewList 업데이트
+          // setViewList메서드가 viewDetail로 들어옴
+          viewDetail(false) }} > 
+    {/* onClick={viewDetail(false)} -> 이렇게쓰면 바로 실행되어 상품 리스트는 사라지고 바로 
+    상세리스트가 보이므로 익명함수 " ()=> "를 사용하면 상품리스트 클릭시 상세리스트로 이동한다 */}
           <ol className="glist">
             <li>
               <img src={`./images/vans/vans_${v.idx}.jpg`} alt="신발" />
