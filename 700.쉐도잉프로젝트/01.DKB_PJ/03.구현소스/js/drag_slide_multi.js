@@ -668,5 +668,13 @@ const fixedPosition = () => {
     // 5. 오른쪽으로 이동할 기준값(기준위치값*0.9)
     valSecond = leftVal * 0.9;
   }); ////////////// resize함수 //////////////////
+
+  // 해당 슬라이드 박스 (selEl) 휠 이벤트 기본 기능 막기(preventDefault)+ 버블링막기
+  mFn.addEvt(selEl, "wheel", (e) => {
+    console.log(111);
+    e.preventDefault();
+    e.stopPropagation();
+  }); ////////////// wheel 함수 //////////////////
+
 } /////////////// slideFn 함수 ///////////////
 /////////////////////////////////////////////

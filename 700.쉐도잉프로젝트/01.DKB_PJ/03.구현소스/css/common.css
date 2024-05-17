@@ -24,7 +24,6 @@
 }
 
 
-
 /************* 1. 상단영역 *************/
 /* 메인로고 */
 .mlogo img{
@@ -129,6 +128,28 @@
 .smenu h2{
   font-size: 3rem;
 }
+
+/* 햄버거 버튼 */
+.ham {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  width: 50px;
+  height: 50px;
+  background-color: transparent;
+  border: none;
+  font-size: 40px;
+  color: #555;
+  transform: scaleX(1.5);
+  display: none;
+}
+
+/* 햄버거버튼 가상요소 */
+.ham::before {
+  content: '≡';
+}
+
+
 /************* 2. 메인영역 *************/
 /* 2-1. 배너영역 */
 

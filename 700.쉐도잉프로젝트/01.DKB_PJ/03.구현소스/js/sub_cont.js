@@ -131,7 +131,7 @@ export default function showSubBox() {
           <div class="sub-inbox inbox">
             <h1>대표 포스터 : ${selData.title}</h1>
             <div class="sub-item scbar">
-                <img src="./images/poster_img/${selData.imgName}.jpg" alt="${selData.title}" />
+                <img src="./images/poster_img/${selData.imgName}_big.jpg" alt="${selData.title}" />
             </div>
           </div>
         ` : 
