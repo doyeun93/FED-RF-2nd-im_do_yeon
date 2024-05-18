@@ -132,8 +132,8 @@ function overFn(){
   // 1. 오버된 li의 left위치값 + width크기
   let posLeft = this.offsetLeft;
   let boxWidth = this.offsetWidth;
-  console.log('오버:',posLeft);
-  
+  console.log('오버:',posLeft,boxWidth);
+
   // 2. 메뉴변경 보이기 + 위치값 주기
   mbg.style.opacity = 1;
   mbg.style.left = posLeft + "px";
