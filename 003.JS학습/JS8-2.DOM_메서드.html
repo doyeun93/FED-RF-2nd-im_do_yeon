@@ -268,25 +268,22 @@
 
           // 할 일: 새로운 li요소를 만들어서 넣기
           // 변경대상은 ul임!
-          // DOM메서드를 이용하여 메모리상에
-          // 먼저 요소를 생성한다!
+          // DOM메서드를 이용하여 메모리상에 먼저 요소를 생성한다!
 
           // 1. 새로운 li를 생성하여 변수에 할당
           let newEle = document.createElement("li");
 
           // 2. 이미지 랜덤수 만들기 : 1~5사이수
-          // Math.ceil(Math.random()*최대수) -> 1부터 최대수랜덤
+          // Math.ceil(Math.random()*최대 수) -> 1부터 최대 수 랜덤
           let rdmNum = Math.ceil(Math.random()*5);
           console.log("랜덤수:", rdmNum);
 
           // 3. 이미지 alt설명 배열
-          const avengerName = 
-          ["아이언맨","딱딱이","토르","닥스","스타로드"];
+          const avengerName = ["아이언맨","딱딱이","토르","닥스","스타로드"];
 
           // [ 내부 태그넣기 방법1 ]
-          // 메모리상에 생성된 li에 이미지요소를 
-          // innerHTML로 넣기 -> DOM에 직접넣기가 아닌 메모리상
-          // 태그 넣기도 가능한가? OK!
+          // 메모리상에 생성된 li에 이미지요소를 innerHTML로 넣기 
+          // -> DOM에 직접넣기가 아닌 메모리상 태그 넣기도 가능한가? OK!
 
           // newEle.innerHTML = 
           // `<img 
