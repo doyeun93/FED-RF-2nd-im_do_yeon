@@ -77,8 +77,7 @@ const mdata = {
   },
 }; ///////////// mdata ///////////////////
 
-// 변수에 할당 후 내보낼때는 
-// export default 사용시 아래쪽에 내보낸다!
+// 변수에 할당 후 내보낼때는 export default 사용시 아래쪽에 내보낸다!
 // 단, 받을때는 아무이름이나 사용가능!!!
 export default mdata;
 
