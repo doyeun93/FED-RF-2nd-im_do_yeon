@@ -38,7 +38,7 @@ body{
 }
 
 /********* GNB박스 *********/
-.gnb {
+.gnb ul {
     display: flex;
     gap: 0 20px;
     line-height: 60px;
@@ -96,6 +96,7 @@ body{
 /* 서브 dl */
 .swrap dl{
     width: 180px;
+    padding-bottom: 30px;
 }
 /* 2차메뉴 : dt */
 .swrap dt{
