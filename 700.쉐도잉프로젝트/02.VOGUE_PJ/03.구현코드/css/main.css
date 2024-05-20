@@ -200,6 +200,11 @@ body * {
 
 /* 보그 PJ 공통 CSS - common.css */
 /* 상단, 하단 공통 모듈 CSS */
+/* 
+(6) 네스팅 이어붙이기 기법(&)
+    - 가상요소, 가상클래스, 특정클래스를 현재 선택요소에 세팅하는 방법
+    - & : 현재 선택요소 자신을 가르킴
+*/
 /******************************************* 1.상단영역 *****************************************/
 .top-area {
   /* 최소 높이 */
@@ -257,8 +262,13 @@ body * {
   /* 글자체: Roboto, 나눔바른고딕 */
   font-family: "Roboto", nbg;
   font-size: 12px;
-  /* 사이드메뉴 상위 a요소 */
-  /* 사이드메뉴 상위메뉴 첫번째li 사이구분선 */
+  /* 사이드메뉴 상위 a요소 
+  - li>a 쓰면 모든 li가 다 먹힘 
+  따라서 ->>  >li>a 써준다( >li>a = &>li>a ) */
+}
+.tmenu .sideMenu .smbx > li {
+  /* 사이드메뉴 상위메뉴 첫번째li 사이구분선
+      - &는 선택자를 명확히 구분할 때 사용한다 */
 }
 .tmenu .sideMenu .smbx > li > a {
   display: block;
@@ -268,6 +278,36 @@ body * {
 }
 .tmenu .sideMenu .smbx > li:first-child {
   border-right: 1px solid #e5e5e5;
+  /* side menu에만(직계 a요소만 오버시) 마우스커서 바꾸기 */
+}
+.tmenu .sideMenu .smbx > li:first-child > a {
+  cursor: text;
+}
+.tmenu .sideMenu .smbx > li .smsub {
+  position: absolute;
+  border: 1px solid #e5e5e5;
+  /* 박스숨기기 */
+  height: 0;
+  overflow: hidden;
+  /* display: none; */
+  opacity: 0;
+  /* 트랜지션 */
+  transition: 0.5s;
+}
+.tmenu .sideMenu .smbx > li .smsub a {
+  display: block;
+  padding: 7px 10px;
+  padding-right: 19px;
+  background-color: #fff;
+  color: #747474;
+}
+.tmenu .sideMenu .smbx > li .smsub a:hover {
+  background-color: lightpink;
+  color: #333;
+}
+.tmenu .sideMenu .smbx > li:hover .smsub {
+  opacity: 1;
+  height: auto;
 }
 
 /******************************************* 2.메인영역 *****************************************/
