@@ -19,7 +19,42 @@ function showTime(){
     // 1. 날짜 내장객체로 날짜 객체 인스턴스 생성하기
     const today = new Date();
 
-    // 2. 년도찍기
+    // 월을 부르는 이름과 매칭하기 
+    let monthName = ["하하월","파파월","카카월","토토월","코코푸월","싹스월","칸단월","차즈민월","라우딘월","차호호월","테테월","상그리아월"];
+
+    // 요일을 부르는 이름과 매칭하기
+    let dayName = ["일","월","화","수","목","금","토"];
+
+    // 2. 년도/월/일/요일 찍기
     tt[0].innerText = today.getFullYear();
+    // tt[1].innerText = monthName[today.getMonth()];
+    tt[1].innerText = today.getMonth()+1;
+    tt[2].innerText = today.getDate();
+    tt[3].innerText = dayName[today.getDay()];
+
+    // 월과 요일은 배열 순번으로 리턴된다
+    // 왜냐하면 나라마다 월과 요일을 부르는 이름이 다르기때문
+
+    // 3. 시간 /분 / 초 찍기
+    // 테스트
+    //let H = 17;
+    //let M = 5;
+    //let S = 4;
+    let H = today.getHours();
+    let M = today.getMinutes();
+    let S = today.getSeconds();
+
+
+    tt[4].innerText = H>=12? "오후":"오전";
+    // 12이상이면 오후 아니면 오전
+    H = H>12? H-12: H;
+    // 24시간 제로 값이 넘어오기때문에 12를 빼준다( 13시, 20시라고 표시하지않기 위해 )
+    // 0붙이기 리턴함수
+    const addZero = x => x < 10? "0"+ x :x;
+
+    tt[5].innerText = addZero(H); // H <10? "0"+H:H;
+    tt[6].innerText = addZero(M);
+    tt[7].innerText = addZero(S);
+    // 분(M),초(S)가 한자리일 때 두자리로 표현하기 위해(한자리 숫자는 앞에 0 자리수 넣기 ) 
 
 } /// showtime 함수 /////////////////////////
