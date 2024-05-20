@@ -89,7 +89,8 @@ function IronMan(){
 // function MakeImage(props){
 // function MakeImage({ialt, isrc}){
 
-function MakeImage({ialt:ㅋㅋ, isrc:ㅎㅎ}){ // -> 비구조화 할당 방식(=구조분해할당방식) =>> 쓰는 이유는 객체가 없기 때문
+function MakeImage({ialt:ㅋㅋ, isrc:ㅎㅎ}){ 
+  // -> 비구조화 할당 방식(=구조분해할당방식) =>> 쓰는 이유는 객체가 없기 때문
   // 하나의 변수에는 전달된 값이 보낼때 설정된 객체로 전달된다 {속성:값,속성:값,...}
   // 순서를 바꿔서 값을 보내도, 이름을 아무거나 써도 노상관
   // console.log(props);
