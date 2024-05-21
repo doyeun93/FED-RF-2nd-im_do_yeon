@@ -16,6 +16,7 @@ export default function GoodsDetail({backList, gNo, selItem}){
     // (3) selItem : 부모 컴포넌트에서 "공유" 또는 "효진" 선택 코드값, 값으로 데이터를 선택해준다
     // 공유는 guData, 효진은 hjData
 
+
     //  코드에 따른 데이터 선택하기
     const selData = selItem=="공유"? guData: selItem=="효진"?hjData:[];
 
@@ -32,14 +33,23 @@ export default function GoodsDetail({backList, gNo, selItem}){
             <li style={{lineHeight:"2", padding:"10px", textAlign:"left"}}>
               상품명 : {selData[gNo].gname}<br/>
               가격 : {selData[gNo].gprice}<br/>
-              소재 : {selData[gNo].소재}<br/>
-              색상 : {selData[gNo].색상}<br/>
-              치수 : {selData[gNo].치수}<br/>
-              제조자/수입자 : {selData[gNo]["제조자/수입자"]}<br/>
-              제조국 : {selData[gNo].제조국}<br/>
-              제조연월 : {selData[gNo].제조연월}<br/>
-              A/S 책임자와 전화번호 : <br/>{selData[gNo]["A/S 책임자와 전화번호"]}<br/>
-              Model : {selData[gNo].Model}<br/>
+              {
+                // 리액트 조건 출력하기(공유데이터에서만 사용되는 데이터들)
+                selItem=="공유" &&
+                // 코드를 가져올 때 최상위(<div>라는 태그)를 만들어서 가져오면 쉽게 세팅할 수 있다
+                // <li> 바로 밑에 있던 소재들을 중괄호안에 쓰면 문법에 안맞아서 빈 태그(<div>)로 묶어 싸넣으면 에러가 안난다
+              <div>
+                  소재 : {selData[gNo].소재}<br/>
+                  색상 : {selData[gNo].색상}<br/>
+                  치수 : {selData[gNo].치수}<br/>
+                  제조자/수입자 : {selData[gNo]["제조자/수입자"]}<br/>
+                  제조국 : {selData[gNo].제조국}<br/>
+                  제조연월 : {selData[gNo].제조연월}<br/>
+                  A/S 책임자와 전화번호 : <br/>{selData[gNo]["A/S 책임자와 전화번호"]}<br/>
+                  Model : {selData[gNo].Model}<br/>
+              </div>
+              }
+
               <div className="btnbx" style={{textAlign:"right", padding:"15px"}}>
               <button onClick={()=>backList(true)}
               style={{fontSize:"24px"}}>리스트로 가기</button>

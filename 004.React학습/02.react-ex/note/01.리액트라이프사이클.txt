@@ -59,8 +59,7 @@ const [변수, set변수] = useState(초기값);
 ☑️ useEffect
 화면에 렌더링이 완료된 후에 실행됨!
 
-componentDidMount와 componentDidUpdate, 
-componentWillUnmount가 통합된 것!
+componentDidMount와 componentDidUpdate, componentWillUnmount가 통합된 것!
 
 🍓만약 화면을 다 그리기 이전에 동기화 되어야 하는 경우
 useLayoutEffect를 활용한다!!!
