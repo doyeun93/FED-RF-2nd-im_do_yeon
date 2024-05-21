@@ -63,10 +63,9 @@ function MainComponent() {
           </h2>
         <div className="img-box">
           {
-            selItem=="공유"?"" : selItem=="효진"?"":"없음"
+            selItem=="공유"?(<img src="./images/vans/gongyoo.jpg" alt="멋진공유"/>) : 
+            selItem=="효진"? (<img src="./images/gallery/hyo.jpg" alt="엘레강스한 효진"/>):"없음"
           }
-          <img src="./images/vans/gongyoo.jpg" alt="멋진공유" />
-          <img src="./images/gallery/hyo.jpg" alt="엘레강스한 효진"/>
         </div>
       </section>
       {/* 3. 기능버튼박스 */}
@@ -79,7 +78,7 @@ function MainComponent() {
       <div className="gwrap">
         {
           // 상태 관리 변수 viewList값이 true이면 리스트보기
-         viewList?<GoodsList viewDetail={setViewList} updateIdx={setIdx}/>:<GoodsDetail backList={setViewList} gNo={idx} />
+         viewList? <GoodsList viewDetail={setViewList} updateIdx={setIdx} selItem={selItem}/>:<GoodsDetail backList={setViewList} gNo={idx} selItem={selItem}/>
         }  
       </div>
     </React.Fragment>
