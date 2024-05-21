@@ -45,7 +45,7 @@ body{
 }
 
 /* gnb공통 a */
-.gnb>ul>li:first-child>a{
+.gnb>ul>li>a{
     color: #fff;
 }
 /* 서브메뉴 박스 : 100%차지 서브영역 */
