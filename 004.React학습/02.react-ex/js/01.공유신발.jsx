@@ -20,6 +20,7 @@ function MainComponent() {
   // 최상위 컴포넌트에서만 Hook을 호출한다.
   // 1. 리스트 / 상세보기 전환용 상태관리 변수
   // React.useState(true)는 배열이 된다
+  // 배열은 순서가 중요하지만 객체는 순서가 중요하지 않다
   const [ viewList, setViewList] = React.useState(true);
 
   // 2. 상품 데이터 인덱스값 상태관리 변수
@@ -28,8 +29,11 @@ function MainComponent() {
   // 3. 선택 아이템 고유 이름 상태관리 변수
   const [selItem, setSelItem] = React.useState("공유");
 
+  // 4. 테스트용 상태관리 변수(의존성 테스트용)
+  const [test, setTest] = React.useState(true);
 
-  // 배열은 순서가 중요하지만 객체는 순서가 중요하지 않다
+
+  
 
   /************************************** 
       [ 코드구성 ]
@@ -48,26 +52,61 @@ function MainComponent() {
 
   // useEffect 테스트 함수
   const testFn = () => {
-    console.log("테스트");
-
+    setTest(test?false:true);
+    // true / false 값 상호전환변경
+    console.log("테스트! test상태 변수값",test);
+    // 의존성 테스트를 위한 상태변수 업데이트
   }; ////// testFn 함수 ////////////////////////
+
   
-  // [1. useEffect : 컴포넌트 생성, 변경, 삭제전 DOM완성 후 매번 실행되는 코드 구역 ]
+  // [1. useEffect : 의존성이 없는 경우 ]
+  // -> 컴포넌트 생성, 변경, 삭제전 DOM완성 후 매번 실행되는 코드 구역
   React.useEffect(()=>{
     console.log("DOM이 완성되었습니다.");
     // 글자커지기 테스트
-    $(".tit").animate({fontSize:"50px"},1000).animate({fontSize:"35px"},1000);
     
   });
+
+
+  // [2. useEffect : 의존성이 있는 경우 ]
+  React.useEffect(()=>{
+    console.log("의존성useEffect실행: selItem");
+    $(".tit span").css({display:"inline-block"})
+    .animate({scale:"200%"},1000).animate({scale:"100%"},1000);
+  }, [selItem,test]);
+  // -> React.useEffect(함수,[의존성변수])
+  // -> 의존성 변수는 배열안에 여러개 세팅가능
+  // -> [변수1, 변수2, 변수3]
+  // -> 공유 초이스와 효진 초이스가 변경 될 경우에만 실행하려면?
+  // useState 변수 중 원하는 변경에 해당하는 것을 선택하여 의존성 옵션을 주면
+  // 해당 변수가 변경될 때만 실행하는 랜더링 실행구역이 만들어진다
+
+
+  // [3. useEffect : 의존성이 있으나 빈 경우 ]
+  React.useEffect(()=>{
+    console.log("useEffect의존성 비어서 한번만 실행");
+    // logo 최초 한번만 애니하기
+    $("#logo").animate({scale:"200%",rotate:"360deg"},1000)
+    .animate({scale:"100%",rotate:"0deg"},1000);
+  },[]);
+  // -> React.useEffect(함수,[])
+  // -> 최초 로딩시 한번만 실행된다
+
 
   ////////////// 코드리턴구역 ////////////////
   return (
     <React.Fragment>
       {/* 1. 타이틀 */}
       <h1 className="tit">
+        <span>
+          <img 
+          id="logo"
+          style={{width:"50px", verticalAlign:"-6px", marginRight:"10px"}}
+          src="./images/logo.png" alt="로고" />
         {
           selItem=="공유"?"공유가 신고 다닌다는!":selItem=="효진"?"효진이 입고 다닌다는!":"없음"
         }
+        </span>
         </h1>
       {/* 2. 내용박스 */}
       <section>
