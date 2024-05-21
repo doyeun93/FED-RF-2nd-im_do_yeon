@@ -18,6 +18,16 @@ export default function GoodsList({viewDetail, updateIdx, selItem}){
     //  코드에 따른 데이터 선택하기
     const selData = selItem=="공유"? guData: selItem=="효진"?hjData:[];
 
+    // useEffect 구역 : 화면 업데이트 후 실행구역
+    React.useEffect(()=>{
+        console.log("나는 리스트 컴포넌트다");
+        // useEffect 함수구역에 return 함수 코드를 쓰면 컴포넌트 소멸시 실행된다
+        return(()=>{
+            console.log("리스트 컴포넌트 소멸!");
+        });
+
+    });  //// useEffect ////////////////
+
 
     return(
     <ul>

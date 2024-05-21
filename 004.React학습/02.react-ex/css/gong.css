@@ -1,5 +1,7 @@
 @charset "utf-8";
 /* 01.공유신발 CSS - gong.css */
+/* 웹폰트 */
+@import url('https://fonts.googleapis.com/css2?family=Single+Day&display=swap');
 
 /* 변수 */
 :root {
@@ -24,7 +26,10 @@ body {
 }
 /* 제목 */
 .tit {
-  color: orangered;
+  color: lightblue;
+  font-size: min(50px,5vw);
+  -webkit-text-stroke: 0.5px #000;
+  font-family: "Single Day", cursive;
 }
 /* 내용박스 */
 #root section {
