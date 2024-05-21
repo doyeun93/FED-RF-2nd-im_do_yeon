@@ -73,8 +73,13 @@ function MainComponent() {
     console.log("의존성useEffect실행: selItem");
     $(".tit span").css({display:"inline-block"})
     .animate({scale:"200%"},1000).animate({scale:"100%"},1000);
+
+    // 초이스 메인 이미지 애니
+    $(".img-box img").delay(800).fadeTo(1000,1);
+    // fadeTo( 시간, 투명도) -> opacity만 조절하는 애니 메서드
   }, [selItem,test]);
   // -> React.useEffect(함수,[의존성변수])
+  // -> 의존성 변수는 반드시 상태관리변수여야 효과가 있다
   // -> 의존성 변수는 배열안에 여러개 세팅가능
   // -> [변수1, 변수2, 변수3]
   // -> 공유 초이스와 효진 초이스가 변경 될 경우에만 실행하려면?
@@ -93,16 +98,31 @@ function MainComponent() {
   // -> 최초 로딩시 한번만 실행된다
 
 
+  // [4. useLayoutEffect : 랜더링되기 전 실행구역  ]
+  // -> 매번 화면 업데이트시 사용할 경우 의존성을 세팅하지않는다
+  // -> 별도로 화면 업데이트시 특정한 경우에만 사용하기 위해
+  //  의존성세팅을 통하여 useEffect와 같은 방법을 사용한다
+  React.useLayoutEffect(()=>{
+    console.log("랜더링전 실행구역");
+    // 메인이미지 투명하게 초기화
+    $(".img-box img").css({opacity:"0"})
+    // 스크롤 맨위로 이동하기
+    window.scrollTo(0,0);
+
+},[selItem]);
+
+
+
   ////////////// 코드리턴구역 ////////////////
   return (
     <React.Fragment>
       {/* 1. 타이틀 */}
       <h1 className="tit">
-        <span>
           <img 
           id="logo"
           style={{width:"50px", verticalAlign:"-6px", marginRight:"10px"}}
           src="./images/logo.png" alt="로고" />
+        <span>
         {
           selItem=="공유"?"공유가 신고 다닌다는!":selItem=="효진"?"효진이 입고 다닌다는!":"없음"
         }
@@ -125,7 +145,13 @@ function MainComponent() {
       {/* 3. 기능버튼박스 */}
       <div className="btn-box">
         <button
-        onClick={() => setSelItem(selItem=="공유"?"효진":"공유")}
+        onClick={() => {
+          // 초이스 종류 변경하기
+          setSelItem(selItem=="공유"?"효진":"공유")
+          // 초이스 변경시 무조건 리스트 페이지보기
+          // -> viewList 업데이트하기
+          setViewList(true);
+        }}
         >{selItem=="공유"?"효진":"공유"}초이스 바로가기</button>
         <br/>
         {/* 테스트 버튼 */}
