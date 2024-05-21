@@ -21,8 +21,13 @@ function MainComponent() {
   // 1. 리스트 / 상세보기 전환용 상태관리 변수
   // React.useState(true)는 배열이 된다
   const [ viewList, setViewList] = React.useState(true);
+
   // 2. 상품 데이터 인덱스값 상태관리 변수
   const [idx, setIdx] = React.useState(0); 
+
+  // 3. 선택 아이템 고유 이름 상태관리 변수
+  const [selItem, setSelItem] = React.useState("공유");
+
 
   // 배열은 순서가 중요하지만 객체는 순서가 중요하지 않다
 
@@ -40,21 +45,35 @@ function MainComponent() {
       ㄴ> 상품상세보기 :
           ol > li > (img/text/button)
     **************************************/
-  // 코드리턴구역 ////////////////
+  /// 코드리턴구역 ////////////////
   return (
     <React.Fragment>
       {/* 1. 타이틀 */}
-      <h1 className="tit">공유가 신고 다닌다는!</h1>
+      <h1 className="tit">
+        {
+          selItem=="공유"?"공유가 신고 다닌다는!":selItem=="효진"?"효진이 입고 다닌다는!":"없음"
+        }
+        </h1>
       {/* 2. 내용박스 */}
       <section>
-        <h2>공유는 오늘도 멋찝니다!</h2>
+        <h2>
+          {
+            selItem=="공유"?"공유는 오늘도 멋찝니다!":selItem=="효진"?"효진은 오늘도 쨍~합니다!":"없음"
+          }
+          </h2>
         <div className="img-box">
+          {
+            selItem=="공유"?"" : selItem=="효진"?"":"없음"
+          }
           <img src="./images/vans/gongyoo.jpg" alt="멋진공유" />
+          <img src="./images/gallery/hyo.jpg" alt="엘레강스한 효진"/>
         </div>
       </section>
       {/* 3. 기능버튼박스 */}
       <div className="btn-box">
-        <button>효진초이스 바로가기</button>
+        <button
+        onClick={() => setSelItem(selItem=="공유"?"효진":"공유")}
+        >{selItem=="공유"?"효진":"공유"}초이스 바로가기</button>
       </div>
       {/* 4. 상품리스트박스 */}
       <div className="gwrap">
