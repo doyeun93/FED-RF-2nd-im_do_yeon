@@ -18,10 +18,12 @@ function MainComponent() {
   // [hook 상태관리 변수 세팅]
   // 최상위 컴포넌트에서만 Hook을 호출한다.
   // 1. 리스트 / 상세보기 전환용 상태관리 변수
+  // React.useState(true)는 배열이 된다
   const [ viewList, setViewList] = React.useState(true);
   // 2. 상품 데이터 인덱스값 상태관리 변수
   const [idx, setIdx] = React.useState(0); 
 
+  // 배열은 순서가 중요하지만 객체는 순서가 중요하지 않다
 
   /************************************** 
       [ 코드구성 ]
@@ -76,7 +78,7 @@ function GoodsList({viewDetail, updateIdx}){
   // 반복요소 li에 key 속성을 쓸 것을 리액트는 필수적이라고 함
   // 어디에 쓰냐? 업데이트시 순번구분을 위함
   // node.js 개발환경에서 안쓰면 에러남  
-   guData.map((v,i) => (
+  guData.map((v,i) => (
       <li key={i}>
         <a href="#" onClick={(e)=> {
           // a요소 기본 이동 막기
