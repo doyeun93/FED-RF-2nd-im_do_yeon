@@ -3,7 +3,7 @@
 // 나의 함수 불러오기
 import mFn from "./my_function.js";
 
- /*************************************************************** 
+/*************************************************************** 
     [ JS 로컬스토리지 : localStorage ]
     - window하위객체 window.localStorage -> window는 주로 생략함!
     -> 개발자 모드 'Application' 탭에서 확인가능!!
@@ -55,43 +55,105 @@ const btnLocal = mFn.qsa(".local-box button");
 
 console.log("대상:", btnLocal);
 
-
 // 2. 버튼에 이벤트 설정하기
-btnLocal.forEach(ele => mFn.addEvt(ele,"click",localsFn));
+btnLocal.forEach((ele) => mFn.addEvt(ele, "click", localsFn));
 
 // 3. 로컬쓰 처리 함수 만들기
-function localsFn(){
-    // 1. 버튼 텍스트 읽기
-    let btxt = this.innerText;
-    console.log("로컬쓰~!", btxt);
+function localsFn() {
+  // 1. 버튼 텍스트 읽기
+  let btxt = this.innerText;
+  console.log("로컬쓰~!", btxt);
 
-    // 2. 버튼별 기능 분기하기
-    if(btxt == "처음"){
-        // (1) 로컬 스토리지 세팅하기
-        // -> localStorage.setItem(키,값)
-        localStorage.setItem("actor-name","이정재");
-        localStorage.setItem("actor-role","박평호");
-        localStorage.setItem("actor-cat","조직내 스파이를 색출하는 해외팀 안기부장");
-    } //// if ///////
-    else if(btxt == "보여줘"){
-        // 배우 이름 출력
-        mFn.qs(".local .nm").innerText = localStorage.getItem("actor-name");
-        // 역할 이름 출력
-        mFn.qs(".local .role").innerText = localStorage.getItem("actor-role");
-        // 캐릭터 정보  출력
-        mFn.qs(".local .cat").innerText = localStorage.getItem("actor-cat");
+  // 2. 버튼별 기능 분기하기
+  if (btxt == "처음") {
+    // (1) 로컬 스토리지 세팅하기
+    // -> localStorage.setItem(키,값)
+    localStorage.setItem("actor-name", "이정재");
+    localStorage.setItem("actor-role", "박평호");
+    localStorage.setItem("actor-cat", "조직내 스파이를 색출하는 해외팀 안기부장");
+  } //// if ///////
+  else if (btxt == "보여줘") {
+    // 배우 이름 출력
+    mFn.qs(".local .nm").innerText = localStorage.getItem("actor-name");
+    // 역할 이름 출력
+    mFn.qs(".local .role").innerText = localStorage.getItem("actor-role");
+    // 캐릭터 정보  출력
+    mFn.qs(".local .cat").innerText = localStorage.getItem("actor-cat");
+  } /// else if /////
+  else if (btxt == "전체삭제") {
+    // 로컬스토리지 전체 삭제
+    // 해당 url 스토리지만 대상으로 모두 지움
+    localStorage.clear();
+    // 개별 삭제는  removeItem(키)
+    // localStorage.removeItem("actor-name");
+  } /// else if /////
+  else if (btxt == "처리") {
+    // 배열,객체 만들기
+    //  1. 로컬쓰에 "minfo" 키가 없으면 새로 만들기
+    // 만약 키가 없으면 null값을 리턴한다
+    // 이것은 if문에서 false 처리 된다
+    // false일 때 처리해야하므로 NOT(!)연산자 사용
+    // 또는 빈 배열값일 경우도 생성함수호출 처리
+    console.log(localStorage.getItem("minfo"))
+    if (!localStorage.getItem("minfo")||localStorage.getItem("minfo")=="[]") {
+      // 최초 객체 데이터 만들기 함수 호출
+      makeObj();
+    } /// if ////
 
-    } /// else if /////
-    else if(btxt == "전체삭제"){
-        // 로컬스토리지 전체 삭제
-        // 해당 url 스토리지만 대상으로 모두 지움
-        localStorage.clear();
-        // 개별 삭제는  removeItem(키)
-        // localStorage.removeItem("actor-name");
-    }/// else if /////
-    else if(btxt == "처리"){
-        // 배열,객체 만들기
+    // 2. 화면에 출력하기 : 데이터 바인딩하기
+    bindData();
 
-    } /// else if /////
+
+  } /// else if /////
 } ///// localsFn 함수 //////////////////////////
 
+// "minfo" 로컬쓰 키가 없으면 객체를 만들어 넣기 함수
+function makeObj() {
+  console.log("minfo만들기");
+
+  // 1. 게시판 형식의 객체 생성하기 -> 배열안에 객체 데이터 한개 넣기 [{},]
+  let obj = [
+    {
+        idx: 1,
+        tit: "내가 왕이 될 상인가?",
+        cont: "이정재 형님은 진정한 왕이십니다."
+    },
+  ];
+
+  // 2. 로컬 스토리지에 배열/ 객체 데이터 넣기 
+  // -> 만약 배열데이터를 직접 넣으려고 하면 로컬쓰는 문자형만 받기때문에 
+  // 데이터형 이름만 문자형으로 데이터를 대신 넣게 된다. 
+  // 즉, 배열데이터는 못들어간다ㅠㅜ 그러므로 배열 데이터는 
+  // 문자형으로 변환[ JSON.stringify(배열/객체) ]하여 넣어야 로컬스토리지에 들어간다
+  localStorage.setItem("minfo", JSON.stringify(obj));
+  
+} /////// makeObj //////////////////////////
+
+
+///// 화면에 게시판을 뿌려주는 바인딩 함수 만들기
+function bindData(){
+
+    // 1. 로컬스토리지에서 데이터 읽어오기 : minfo
+    let localData = localStorage.getItem("minfo");
+
+    console.log("게시판 화면 뿌리기",localData);
+    // 출력대상 : .board
+    mFn.qs(".board").innerHTML = `
+    <table>
+        <tr>
+            <th>번호</th>
+            <th>제목</th>
+            <th>내용</th>
+            <th>삭제</th>
+        </tr>
+    <!-- 데이터에 따른 반복바인딩 -->
+    
+        <tr>
+            <td>번호</td>
+            <td>제목</td>
+            <td>내용</td>
+            <td>삭제</td>
+        </tr>
+    </table>
+    `;
+} //////// bindData 함수//////////////////////////
