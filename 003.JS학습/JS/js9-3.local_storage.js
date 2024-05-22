@@ -94,7 +94,7 @@ function localsFn() {
     // 이것은 if문에서 false 처리 된다
     // false일 때 처리해야하므로 NOT(!)연산자 사용
     // 또는 빈 배열값일 경우도 생성함수호출 처리
-    console.log(localStorage.getItem("minfo"))
+    console.log(localStorage.getItem("minfo"));
     if (!localStorage.getItem("minfo")||localStorage.getItem("minfo")=="[]") {
       // 최초 객체 데이터 만들기 함수 호출
       makeObj();
@@ -135,9 +135,14 @@ function bindData(){
 
     // 1. 로컬스토리지에서 데이터 읽어오기 : minfo
     let localData = localStorage.getItem("minfo");
+    // 2. 로컬쓰 데이터 파싱하기 : JSON.parse()
+    localData = JSON.parse(localData);
 
-    console.log("게시판 화면 뿌리기",localData);
+    console.log("게시판 화면 뿌리기", localData);
+
+
     // 출력대상 : .board
+    // 3. 화면에 출력하기 ///////////
     mFn.qs(".board").innerHTML = `
     <table>
         <tr>
@@ -147,13 +152,16 @@ function bindData(){
             <th>삭제</th>
         </tr>
     <!-- 데이터에 따른 반복바인딩 -->
-    
-        <tr>
-            <td>번호</td>
-            <td>제목</td>
-            <td>내용</td>
-            <td>삭제</td>
-        </tr>
+        ${localData.map((v,i)=>`
+            <tr>
+                <td>${v.idx}</td>
+                <td>${v.tit}</td>
+                <td>${v.cont}</td>
+                <td class="del-link">
+                    <a href="#" data-idx="${i}">×</a>
+                </td>
+            </tr>
+        `).join('')}
     </table>
     `;
 } //////// bindData 함수//////////////////////////
