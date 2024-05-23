@@ -35,9 +35,23 @@
     <!-- 3.리액트 바벨 라이브러리 -->
     <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
     
-    <!-- 상단역역 모듈 JS -->
+    <!-- 상단영역 모듈 JS -->
     <script
       src="./js/components/TopArea.jsx"
+      data-plugins="transform-es2015-modules-umd"
+      type="text/babel"
+    ></script>
+    
+    <!-- 메인영역 모듈 JS -->
+    <script
+      src="./js/components/MainArea.jsx"
+      data-plugins="transform-es2015-modules-umd"
+      type="text/babel"
+    ></script>
+
+    <!-- 하단영역 모듈 JS -->
+    <script
+      src="./js/components/FooterArea.jsx"
       data-plugins="transform-es2015-modules-umd"
       type="text/babel"
     ></script>
@@ -51,17 +65,6 @@
 
   </head>
   <body>
-    <!-- 1.상단영역 -->
-    <div id="top-area"></div>
-
-    <!-- 2.메인영역 -->
-    <div id="main-area"></div>
-
-    <!-- 3.하단영역 -->
-    <div id="footer-area"></div>
-    <!-- 위로가기버튼 -->
-  <a href="#" class="tbtn fi fi-angle-up ">
-    <span class="ir">위로가기버튼</span>
-  </a>
+    <div id="root"></div>
   </body>
 </html>
