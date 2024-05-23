@@ -202,6 +202,57 @@ font-family: 'Roboto Condensed', sans-serif;
     - & : 현재 선택요소 자신을 가르킴
 */
 /******************************************* 1.상단영역 *****************************************/
+#top-area {
+  position: relative;
+  z-index: 1;
+  box-shadow: 0 2px 8px rgba(118, 118, 118, 0.335);
+}
+#top-area.on {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #fff;
+  z-index: 999;
+  /* 1. 상단영역 최소높이 해제 */
+  /* 2. 상단메뉴 없애기 */
+  /* 3. 로고 박스 */
+  /* 4. GNB박스 */
+}
+#top-area.on .top-area {
+  min-height: 50px;
+}
+#top-area.on .tmenu {
+  display: none;
+}
+#top-area.on .logo {
+  position: absolute;
+  left: 0;
+  /* 부모는? #top-area */
+  padding: 10px;
+  height: auto;
+  margin-bottom: 0;
+  /* 로고 이미지 */
+}
+#top-area.on .logo img {
+  width: 100px;
+}
+#top-area.on .gnb {
+  min-height: 45px;
+  padding-top: 5px;
+  /* GNB메뉴 a */
+}
+#top-area.on .gnb ul {
+  gap: 0 35px;
+}
+#top-area.on .gnb a {
+  color: #333;
+  font-size: 14px;
+}
+#top-area.on .gnb a:hover {
+  color: red;
+}
+
 .top-area {
   /* 최소 높이 */
   min-height: 206px;
