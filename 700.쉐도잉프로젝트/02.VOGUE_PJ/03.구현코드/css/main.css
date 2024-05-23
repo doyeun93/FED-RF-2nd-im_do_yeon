@@ -206,6 +206,9 @@ font-family: 'Roboto Condensed', sans-serif;
   position: relative;
   z-index: 1;
   box-shadow: 0 2px 8px rgba(118, 118, 118, 0.335);
+  /****************************************************** 
+      상단영역 겉박스에 클래스 on줄 경우 슬림메뉴
+  ******************************************************/
 }
 #top-area.on {
   position: fixed;
