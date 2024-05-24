@@ -171,22 +171,30 @@ function bindData(){
             // 1. 기본속성 막기
             e.preventDefault();
 
-            // 2. 지울 순번 속성(data-idx) 읽어오기
+            // 2. 삭제시 지울지 여부 확인하기(confirm 대화창 사용)
+            // confirm(메시지) -> 확인(true) / 취소(false)
+            if(!confirm("정말 지우시겠습니까?")) return;
+            // confirm() 앞에 NOT 연산자를 써서 false일 때 리턴한다
+
+            // 3. 지울 순번 속성(data-idx) 읽어오기
             let idx = ele.getAttribute("data-idx"); 
 
-            // 3. 로컬쓰 읽어와서 파싱하기
+            // 4. 로컬쓰 읽어와서 파싱하기
             let localData = JSON.parse(localStorage.getItem("minfo"))
             console.log("지울 순번:", idx,localData);
 
-            // 4. 메모리에 있는 배열값 지우기(배열.splice(순번, 개수))
+            // 5. 메모리에 있는 배열값 지우기(배열.splice(순번, 개수))
             // 1개 삭제이므로 splice(순번,1)
             localData.splice(idx,1);
 
-            // 5. 배열값 로컬쓰에 반영하기
+            // 6. 배열값 로컬쓰에 반영하기
             localStorage.setItem("minfo",JSON.stringify(localData));
 
-            // 6. 화면 출력 함수 호출
+            // 7. 화면 출력 함수 호출
             bindData();
+
+            // 8. 수정 선택박스 업데이트하기
+            updateItemList();
 
          }; /// click //////
 
@@ -234,6 +242,13 @@ console.log("idx값 배열:", localData.map(v=>v.idx));
     // 5. 화면 출력 함수 호출하기
     bindData();
 
+    // 6. 기존 입력 데이터 지워주기
+    mFn.qs("#tit").value = "";
+    mFn.qs("#cont").value = "";
+
+    // 7. 수정 선택박스 업데이트하기
+    updateItemList();
+
 }; //////// click 함수 //////////
 
 
@@ -243,18 +258,59 @@ console.log("idx값 배열:", localData.map(v=>v.idx));
 
 //////// 수정 기능 구현하기 ///////
 
+
+
+// 수정선택박스 - #sel 
+const selBox = mFn.qs("#sel");
+
+
 // 수정항목 선택박스 업데이트 함수 호출
 updateItemList();
 
-// 수정할 항목 업데이트 함수
-function updateItemList(){
-  // 대상 : 수정선택박스 - #sel
-  const selBox = mFn.qs("#sel");
 
-  // 데이터의 idx를 순회하며 option 만들기
+/// 수정선택박스 선택변경시 이벤트 설정하기
+mFn.addEvt(selBox,"change",(e)=>{
+  // 1. 옵션값 읽어오기
+  let optVal = e.target.value;
+  console.log("선택값:", optVal);
+
+  // 2. 선택항목이 아닌 경우 걸러내기
+  if(optVal == "opt"){
+    alert("수정할 항목을 선택하세요");
+    return; // 여기서 나감
+  } /////// if ///////
+
+  // 3. 로컬쓰 데이터 읽어와서 배열로 변환
   const localData = JSON.parse(localStorage.getItem("minfo"));
 
-  selBox.innerHTML = localData.map(v=>`
+  console.log(localData);
+
+  // 4. 배열 데이터에서 읽어온 옵션값 idx와  비교하여 데이터 선택하기
+  // -> 변수 = 배열.find(v=>{if(조건){return true}})
+  let selRec = localData.find(v=>{
+    if(v.idx == optVal)return true;
+    // 선택 idx와 순회하는 배열 idx와 일치할 경우 
+    // 이것을 저장하는 시그널은 return true다
+  });
+  
+
+}); /////// change //////////
+
+
+///////////////////////////////////////////////////
+//////////// 수정할 항목 업데이트 함수 /////////////
+//////////////////////////////////////////////////
+function updateItemList(){
+  // 1. 대상 선정 : 수정선택박스 - #sel -> selBox 변수
+ 
+
+  // 2. 로컬쓰 데이터 읽어와서 배열로 변환
+  const localData = JSON.parse(localStorage.getItem("minfo"));
+  
+  // 3. 데이터의 idx를 순회하며 option 만들기
+  selBox.innerHTML = 
+  `<option value="opt">수정항목선택</option>`+
+  localData.map(v=>`
     <option value = "${v.idx}">${v.idx}</option>
   `).join('');
 }
