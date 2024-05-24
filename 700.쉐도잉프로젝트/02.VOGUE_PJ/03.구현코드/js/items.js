@@ -21,7 +21,7 @@ function Layout(){
        {/* 1. 상단영역 컴포넌트 */}
       <TopArea/>
        {/* 2. 메인영역 컴포넌트 */}
-      <ItemsArea/>
+      <ItemsArea catName="living"/>
        {/* 3. 하단영역 컴포넌트 */}
       <FooterArea/>
 
