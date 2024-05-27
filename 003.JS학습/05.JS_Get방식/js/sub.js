@@ -17,7 +17,7 @@ if(pm.indexOf("?") == -1) {
     alert("올바른 접근이 아닙니다");
     // 없으면 첫페이지로 돌아가라
     location.href = "Get01.html";
-} ///// if문
+} ///// if문 ///
 // console.log(pm.indexOf('?'));
 
 
