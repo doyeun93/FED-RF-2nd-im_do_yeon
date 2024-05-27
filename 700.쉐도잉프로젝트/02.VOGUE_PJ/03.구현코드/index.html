@@ -17,10 +17,9 @@
     <link rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/fontisto@v3.0.4/css/fontisto/fontisto.min.css"
     />
-    <!-- 메인 CSS -->
-    <link rel="stylesheet" href="./css/main.css" />
-    <!-- item CSS -->
-    <link rel="stylesheet" href="./css/items.css" />
+    <!-- 메인 CSS : #main-css -->
+    <link id = "main-css" rel="stylesheet" href="./css/main.css" />
+    
 
     
     <!-- 1.리액트 기본 라이브러리 -->
@@ -40,6 +39,13 @@
     <!-- 아이템 카테고리 데이터 JS -->
     <script
       src="./js/data/category.js"
+      data-plugins="transform-es2015-modules-umd"
+      type="text/babel"
+    ></script>
+    
+    <!-- 갤러리 모듈 JS -->
+    <script
+      src="./js/components/Gallery.jsx"
       data-plugins="transform-es2015-modules-umd"
       type="text/babel"
     ></script>
