@@ -16,6 +16,12 @@ import FooterArea from "./components/FooterArea";
 // 갤러리 불러오기
 import Gallery from "./components/Gallery";
 
+// 로그인 불러오기
+import Login from "./components/Login";
+
+// 회원가입 불러오기
+import Member from "./components/Member";
+
 
 
 
@@ -30,8 +36,12 @@ function Layout(){
         // menu 상태변수에 의존시킨다
         // 메인 css 대상 요소 : #main-css
         document.querySelector("#main-css").href= 
-        menu == "home" ? "./css/main.css" : menu == "gallery" ? "./css/gallery.css" : "./css/items.css";
-    // menu값이 "home"인 경우 main.css를 로딩하고 기타 메뉴인 경우 item.css를 로딩한다
+        menu == "home" ? "./css/main.css" 
+        : menu == "gallery" ? "./css/gallery.css" 
+        : menu == "login" ? "./css/login.css" 
+        : menu == "member" ? "./css/member.css" 
+        : "./css/items.css";
+    // menu값이 "home"인 경우 main.css를 로딩하고 기타 메뉴인 경우 main.css를 로딩한다
     // menu값이 "gallery"인 경우 gallery.css를 로딩하고 기타 메뉴인 경우 item.css를 로딩한다
     },[menu]);
 
@@ -42,7 +52,11 @@ function Layout(){
        {/* 1. 상단영역 컴포넌트 */}
       <TopArea changeMenu = {setMenu}/>
        {/* 2. 메인영역 컴포넌트 */}
-       {menu == "home"? <MainArea/> :menu == "gallery"? <Gallery/>: <ItemsArea catName = { menu }/> }
+       {menu == "home"? <MainArea/> 
+       : menu == "gallery"? <Gallery/> 
+       : menu == "login"? <Login/> 
+       : menu == "member"? <Member/>
+       : <ItemsArea catName = { menu }/> }
        
        {/* 3. 하단영역 컴포넌트 */}
       <FooterArea/>

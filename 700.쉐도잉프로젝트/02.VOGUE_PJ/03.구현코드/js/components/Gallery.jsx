@@ -3,9 +3,12 @@
 // 스와이퍼 사이트 : https://swiperjs.com/
 
 export default function Gallery() {
+  
+  // 스와이퍼 인스턴스 변수
+  let swiper;
   // 스와이퍼 인스턴스 생성 함수
   const setSwiper = () => {
-    var swiper = new Swiper(".mySwiper", {
+     swiper = new Swiper(".mySwiper", {
         // 한 화면당 슬라이드 수(아래 breakpoint로 설정)
       slidesPerView: 1,
       spaceBetween: 10,
@@ -52,6 +55,17 @@ export default function Gallery() {
   React.useLayoutEffect(() => {
     // 스와이퍼 생성 함수 호출
     setSwiper();
+
+    // 스와이퍼 API 테스트 / 참조 : https://swiperjs.com/swiper-api
+    // 갤러리 제목(.stit) 클릭시 다음 슬라이드 넘기기
+    $(".stit").click(()=>{
+      console.log("ggg");
+      // 변수에 담은 스와이퍼 인스턴스의 구체적인
+      // API 메서드를 호출하여 기능을 수행한다
+      swiper.slideNext();
+      // swiper.slidePrev();
+
+    });
   }); ////////// useLayoutEffect //////////////
 
   // 코드 리턴구역
