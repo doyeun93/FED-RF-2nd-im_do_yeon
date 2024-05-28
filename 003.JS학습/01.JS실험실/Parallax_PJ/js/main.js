@@ -36,11 +36,11 @@ setTimeout(() => {
   setPos(0);
   // 안하면 원래 위치로 스크롤시 튐!
 }, 400);
-// 0. 스크롤바 트랙을 잡고 위치이동시 위치값 반영
+// 0. 스크롤바 트랙을 잡고 위치이동시 위치값 반영 (적용 안할시 튐) -> 부드러운 스크롤때문에
 mFn.addEvt(window, "mouseup", () => setPos(window.scrollY));
 //////// mouseup /////////////
 
-// 0. 키보드 방향키 이동시 위치값 반영
+// 0. 키보드 방향키 이동시 위치값 반영 (적용 안할시 스크롤 이동시 튐) -> 부드러운 스크롤때문에
 mFn.addEvt(window, "keyup", () => setPos(window.scrollY));
 //////// mouseup /////////////
 
@@ -61,21 +61,29 @@ mFn.addEvt(window, "scroll", scrollFn);
 ///////////// 3. 함수 만들기 ////////////////
 // 3-1. 스크롤 이벤트 함수 ////
 function scrollFn() {
-  console.log('스크롤~~~!');
+  // console.log('스크롤~~~!');
 
   // 1. 대상1 : 글자박스 패럴렉스 호출!
+  txtBox.forEach(ele=>moveEl(mFn.getBCR(ele),ele,setH2));
   
-
   // 2. 대상2 : 아이콘 패럴렉스 호출!
+  icon.forEach(ele=>moveEl(mFn.getBCR(ele),ele,setH1));
   
 } /////////// scrollFn 함수 ////////
 
 // 셋팅값 변수 ////
 // 윈도우 높이값
 const winH = window.innerHeight;
+
 // 패럴렉스 범위변수
-const setH1 = 100,
-  setH2 = 200;
+const setH1 = 100,  setH2 = 250;
+
+
+// 첫번째 패럴렉스 대상이 이미 화면에 올라와 있어서 
+// 초기값 계산하여 위치 조정하기
+moveEl(mFn.getBCR(txtBox[0]),txtBox[0],setH2);
+moveEl(mFn.getBCR(icon[0]),icon[0],setH2);
+
 
 // 3-2. 패럴렉스 이동함수 /////
 function moveEl(elPos, ele, setH) {
@@ -83,14 +91,22 @@ function moveEl(elPos, ele, setH) {
   // (1) elPos - 위치값(getBCL값)
   // (2) ele - 대상요소(패럴렉스대상)
   // (3) setH - 움직일범위수(클수록 빠르게 이동)
-  // console.log(
-  //     '위치:',elPos,
-  //     '\n대상:',ele,
-  //     '\n범위:',setH);
+  // console.log('위치:',elPos, '\n대상:',ele, '\n범위:',setH);
 
   // [ 패럴렉스 범위 : 윈도우 높이값 ~ 0 ]
   // 화면에서 완전히 사라질때 범위는 0보다 작다(약간의 마이너스값)
-  
+  if(elPos < winH && elPos > -200){
+    // console.log(setH -((elPos * setH) / winH));
+
+    // 1. 위치 이동 값 계산
+    let x = setH - ((elPos * setH) / winH);
+    // - (정한범위 - 실제이동값) => 0부터 증가함
+    // 실제이동값 = 위치값*정한범위 / 전체범위
+    // 실제 이동값은 정한 범위에서 빼주고 마이너스를 준다
+
+    // 2. 해당 요소의 위치값 이동 CSS에 반영하기
+    ele.style.transform = `translateY(${-x}px)`;
+  } /// if /////
 
   /***************************** 
     [ 패럴렉스 위치계산 ]
