@@ -1,6 +1,14 @@
 // VOGUE JS 회원가입 컴포넌트
 
+// 유효성 검사 함수 불러오기
+import validateFn from "../validation";
+
 export default function Member(){
+
+  // 페이지 랜더링 후 실행구역 //
+  // React.useEffect(()=>{},[]); -> []쓰면 한번만, 안쓰면 매번 실행됨
+  React.useEffect(validateFn,[]);
+
 
     // 코드 리턴구역
     return(
