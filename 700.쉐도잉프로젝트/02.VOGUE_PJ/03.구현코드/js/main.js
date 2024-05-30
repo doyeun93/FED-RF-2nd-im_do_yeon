@@ -43,7 +43,12 @@ function Layout(){
         : "./css/items.css";
     // menu값이 "home"인 경우 main.css를 로딩하고 기타 메뉴인 경우 main.css를 로딩한다
     // menu값이 "gallery"인 경우 gallery.css를 로딩하고 기타 메뉴인 경우 item.css를 로딩한다
-    },[menu]);
+    
+    // 페이지 최상단이동코드
+    window.scrollTo(0,0);
+    
+
+},[menu]);
 
     // 리턴 코드구역
     return(
@@ -54,8 +59,8 @@ function Layout(){
        {/* 2. 메인영역 컴포넌트 */}
        {menu == "home"? <MainArea/> 
        : menu == "gallery"? <Gallery/> 
-       : menu == "login"? <Login/> 
-       : menu == "member"? <Member/>
+       : menu == "login"? <Login changeMenu = {setMenu}/> 
+       : menu == "member"? <Member changeMenu = {setMenu}/>
        : <ItemsArea catName = { menu }/> }
        
        {/* 3. 하단영역 컴포넌트 */}

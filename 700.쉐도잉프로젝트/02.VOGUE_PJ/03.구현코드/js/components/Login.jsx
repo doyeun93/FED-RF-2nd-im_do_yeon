@@ -1,9 +1,15 @@
 // VOGUE JS 로그인 컴포넌트
 
-export default function Login(){
+import validateLogin from "../vaild_login";
+
+export default function Login({changeMenu}){
+  // changeMenu : 상태변수메서드 setMenu 전달
+
+  // 페이지 랜더링 후 실행구역 ///
+  React.useEffect(()=>validateLogin(changeMenu),[]);
 
     // 코드 리턴구역
-    return(
+    return (
         <div id="main-area">
       <main className="main-area ibx">
         {/*  2-1. 로그인 페이지 상단영역  */}
@@ -21,8 +27,9 @@ export default function Login(){
                           get : get방식 전달설정
 
                   (get방식:url로 키=값 쌍으로 데이터전달)
-                  (post방식:페이지로 데이터를 전달하는 숨김방식)
-              */}
+                  (post방식:페이지로 데이터를 전달하는 숨김방식)   */}
+
+
           <form action="process.php" method="post" className="logF">
             {/*  아이디박스  */}
             <div className="minput">

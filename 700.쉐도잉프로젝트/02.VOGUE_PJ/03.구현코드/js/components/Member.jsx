@@ -3,11 +3,12 @@
 // 유효성 검사 함수 불러오기
 import validateFn from "../validation";
 
-export default function Member(){
+export default function Member({changeMenu}){
+  // changeMenu : 상태변수메서드 setMenu 전달
 
   // 페이지 랜더링 후 실행구역 //
   // React.useEffect(()=>{},[]); -> []쓰면 한번만, 안쓰면 매번 실행됨
-  React.useEffect(validateFn,[]);
+  React.useEffect(()=> validateFn(changeMenu),[]);
 
 
     // 코드 리턴구역
@@ -85,7 +86,7 @@ export default function Member(){
 
                           checked 속성 - 기본체크설정 */}
               </li>
-               {/* 이메일  */}
+               {/* 이메일 */}
               <li>
                 <label htmlFor="email1" className="itit">이메일</label>
                 <input
