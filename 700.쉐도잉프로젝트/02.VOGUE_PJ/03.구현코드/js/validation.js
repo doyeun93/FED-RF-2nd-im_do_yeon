@@ -80,7 +80,6 @@ export default function validateFn() {
         // '멋진 아이디네요~!'와 같은 메시지출력
         // 여기서 우선은 DB조회 못하므로 통과시 메시지로 출력
 
-
         $(this).siblings(".msg").text("멋진 아이디네요!").addClass("on");
         // 클래스 on을 넣으면 녹색글자임 
     }
@@ -92,7 +91,19 @@ export default function validateFn() {
         특수문자,문자,숫자포함 형태의 5~15자리
     ****************************************/
     else if(cid == "mpw"){
+        // 검사 결과
+        console.log("비번:", vReg(cv,cid));
 
+        if(!vReg(cv,cid)){// 비번 검사 불통과시
+            // false 결과시 들어와야 하므로 Not(!)연산자사용
+            // 메시지 지우기
+            $(this).siblings(".msg").text(" 특수문자,문자,숫자포함 형태의 5~15자리").removeClass("on"); 
+        } // if //
+        else{ // 맞으면 메시지 삭제
+            // $(this).siblings(".msg").text("");
+            $(this).siblings(".msg").empty("");
+            // empty()는 내용 지우기
+        }
     } ///// else if ///
 
     /**************************************** 
@@ -101,6 +112,16 @@ export default function validateFn() {
     ****************************************/
     else if(cid == "mpw2"){
 
+        if(cv!=$("#mpw").val()){// 비밀번호 검사 불통과시
+            // false 결과시 들어와야 하므로 Not(!)연산자사용
+            // 메시지 지우기
+            $(this).siblings(".msg").text("비밀번호가 일치하지 않습니다.").removeClass("on"); 
+        }
+        else{ // 맞으면 메시지 삭제
+            // $(this).siblings(".msg").empty("");
+            $(this).siblings(".msg").text("비밀번호가 일치합니다");
+            // empty()는 내용 지우기
+        }
     } ///// else if ////
 
     /**************************************** 
