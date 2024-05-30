@@ -129,7 +129,14 @@ export default function validateFn() {
         - 검사기준: 이메일 형식에 맞는지 여부
     ****************************************/
     else if(cid == "email1"){
+        // 1. 이메일 주소 만들기 : 앞 주소 @ 뒷 주소
+        let comp = eml1.val() + "@" + (seleml.val()=="free" ? eml2.val() : seleml.val());
+        // 이메일 뒷주소는 직접입력("free")이면 뒷주소 입력창
+        // 아니면 선택박스 option value를 가져온다
+        console.log("이메일:", comp);
 
+        // 2. 이메일 검사 함수 호출하기
+        resEml(comp);
     } ///// else if ////
    
    /**************************************** 
@@ -141,7 +148,69 @@ export default function validateFn() {
     } /////  else ///
 
   }); ////////////// blur 함수 /////////////
-} ////// validateFn 함수 //////
+
+
+
+   /****************************************** 
+    함수명 : resEml (result Email)
+    기능 : 이메일 검사결과 처리
+  ******************************************/
+ const resEml = comp => { // comp - 이메일주소
+    // console.log('이메일주소:',comp);
+    // console.log('이메일검사결과:',vReg(comp,'eml'));
+
+    // 이메일 정규식 검사에 따른 메시지 보이기
+    if(vReg(comp,'eml')){
+        eml1.siblings('.msg')
+        .text('적합한 이메일 형식입니다!')
+        .addClass('on');
+    } //////// if : 통과시 //////////
+    else{
+        eml1.siblings('.msg')
+        .text('맞지않는 이메일 형식입니다!')
+        .removeClass('on');
+
+      
+    } //////// else : 불통과시 ////////
+
+ }; ///////////// resEml /////////////////
+
+
+
+/////////// 이메일 관련 대상선정 /////////////
+  // 이메일 앞주소
+  const eml1 = $('#email1');
+  // 이메일 뒷주소
+  const eml2 = $('#email2');
+  // 이메일 뒷주소 선택박스
+  const seleml = $('#seleml');
+////////////////////////////////////////////
+
+
+/*********************************************** 
+    비밀번호 글자 보이기 / 숨기기 세팅
+***********************************************/
+$(".eye")
+.css({
+    textDecoration: "line-through",
+    opacity: 0.5,
+    cursor: "pointer",
+})
+.click(e=>{
+    // 투명도값 읽기
+    let opa = $(e.target).css("opacity");
+    console.log(opa);
+    // 1. 글자 보이기 전환
+    $("#mpw").attr("type", opa=="0.5"? "text" : "password");
+    // 2. CSS 디자인 전환
+    $(e.target).css({
+        textDecoration: opa=="0.5"? "none" : "line-through",
+        opacity: opa=="0.5"? "1" : "0.5",
+    });
+});
+
+
+} ///////////////////// validateFn 함수 //////////////////////
 
 
 
