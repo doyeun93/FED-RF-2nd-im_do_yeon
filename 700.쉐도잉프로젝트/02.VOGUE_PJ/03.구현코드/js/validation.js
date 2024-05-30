@@ -241,23 +241,24 @@ export default function validateFn() {
 $("#email1, #email2").on("keyup", function(){
     // 1. 현재 이벤트 발생 대상 아이디 읽어오기
     let cid = $(this).attr("id");
-    console.log("입력창 id:", cid);
+    // console.log("입력창 id:", cid);
 
 
     // 2. 이메일 뒷주소 세팅하기(선택)
-    let backEml = cid == "email1" ? seleml.val() : eml2.val();
-    // 현재 입력 아이디가 이메일1이면 선택박스 값을 읽고 아니면
-    // 두번째 이메일창에 입력하는 것이므로 두번째 이메일 
-    // 입력값을 뒷 주소로 설정함
+    let backEml = 
+    cid == "email2" ? eml2.val() : seleml.val() != "free" ? seleml.val() : eml2.val();
+    // 현재 입력 아이디가 이메일2면 직접입력 창을 읽고 아니면 선택박스 값이
+    // "free"가 아닌 경우 선택박스 값 읽고, 아니면 직접입력창 값을 뒷 주소로 설정함
+
 
     // 이메일 전체주소 만들기
     let comp = eml1.val() + "@" +backEml; 
     
     // 이메일 유효성 검사 함수 호출하기
     resEml(comp);
-    
 
-    console.log($(this).val());
+
+    // console.log($(this).val());
 
 }); ////////////// keyup ///////////////////
 
@@ -268,7 +269,7 @@ $("#email1, #email2").on("keyup", function(){
     기능 : 이메일 검사결과 처리
   ******************************************/
  const resEml = comp => { // comp - 이메일주소
-    // console.log('이메일주소:',comp);
+    console.log('이메일주소:',comp);
     // console.log('이메일검사결과:',vReg(comp,'eml'));
 
     // 이메일 정규식 검사에 따른 메시지 보이기
