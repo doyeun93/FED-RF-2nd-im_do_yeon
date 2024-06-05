@@ -34,12 +34,20 @@
           
         }); /// promise //////
         
-        
+
         // 약속받기
       
         myPromise.then((v) => {
           let res = JSON.parse(v);
           console.log(res);
+          
+          // 전체에서 일부 데이터만 재수집할 경우
+          // 조건문에 따라 데이터를 선택할 수 있다(바로 밑은 중간 데이터)
+          //res = res.filter(v=>{if(v.id>9 && v.id<20) return true;});
+          res = res.filter(v=>{if(v.id<10) return true;});
+          console.log(res);
+
+
         // 화면에 보여주기
         document.querySelector(".wrap").innerHTML = res.map( v=>
           `
