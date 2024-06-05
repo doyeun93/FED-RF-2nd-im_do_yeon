@@ -147,6 +147,8 @@
       );//// then 메서드
 
 
+
+
         // 2. 시간이 걸리는 코드를 약속객체에 넣고 처리하기
         // new Promise (function(변수){코드}) -> 하나의 변수만 쓰면 성공처리 함수 => 시간 설정 후 then 코드로 실행됨
         const 약속기다림 = new Promise(function(성공){
@@ -161,7 +163,76 @@
         }); /// then  메서드
 
 
+
+
+        // 샘플 제이슨 (사이트제공)
+        // https://jsonplaceholder.typicode.com/comments
+
+
+
+
         // 3. 파일을 전송 받은 후 실행하는 약속객체 생성하기
+        const 파일약속 = new Promise((성공함수, 실패함수)=>{
+          // (1)XMLHttpRequest 객체 인스턴스 만들기
+          const myAjax = new XMLHttpRequest();
+          
+
+          // (2) 비동기 파일요소 열기
+          // 전송기능 메모리 생성
+          myAjax.open("GET", "https://jsonplaceholder.typicode.com/comments");
+
+
+          // (3) 결과를 리턴받는 onload 이벤트 함수구역 만들기
+          myAjax.onload = function(){
+              // console.log("전송결과: ", myAjax.status, myAjax.response);
+              // 성공시 처리하기
+              if(myAjax.status == 200){
+                성공함수(myAjax.response);
+                // 프라미스 성공 후 then 메서드 실행은 성공함수로 호출해야 함
+
+              } ///// if //////
+              // 실패시 
+              else{
+                실패함수(myAjax.status);
+
+              } //// else /////
+          }; ///////////// onload 함수 //////////////
+
+
+          // (4) 비동기 요청보내기 : send()
+          myAjax.send();
+
+
+
+        }); ////////////////// Promise /////////
+
+        // 파일약속실행 후 결과 then 메서드 받기
+        // then(성공시함수,실패시함수)
+        파일약속.then(
+        // 성공시함수
+        (v)=>{
+          // response로 보내준 제이슨은 문자형이므로 JSON.parse()로 변환해준다
+          let res = JSON.parse(v);
+          console.log("성공!!", res);
+          화면뿌려(`
+          <h2>220순번 전송데이터</h2>
+            <ol>
+              <li>이름 : ${res[220].name}</li>
+              <li>이메일 : ${res[220].email}</li>
+              <li>소개 : ${res[220].body}</li>
+            </ol>
+          `);
+        }, 
+        
+        // 실패시함수
+        (v)=>{
+          console.log("실패ㅠㅠ",v);
+          
+        }
+      
+      ); //////////////////
+
+
         
       }); /////////////// load //////////////
 
