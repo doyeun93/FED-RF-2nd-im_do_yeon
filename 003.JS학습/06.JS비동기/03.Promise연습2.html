@@ -6,17 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>JS비동기 : 3. Promise 연습2</title>
     <script>
-     
       function 화면뿌려(이거) {
         document.querySelector("#show").innerHTML += 이거 + "<br>";
       }
 
       ////////// 로드구역 //////////////
       window.addEventListener("load", () => {
-      
         // 이미지 정보 데이터 사이트 : https://picsum.photos/v2/list
-        
-        const myPromise =  new Promise((sFn)=>{
+
+        const myPromise = new Promise((sFn) => {
           const myAjax = new XMLHttpRequest();
 
           // 비동기 전송 파일 열기
@@ -25,64 +23,69 @@
           // 비동기 전송파일 로드하기
           myAjax.onload = () => {
             // console.log(myAjax.response);
-            if(myAjax.status === 200){
+            if (myAjax.status === 200) {
               sFn(myAjax.response);
-            }
-            else alert("전송실패");
+            } else alert("전송실패");
           };
 
           // 비동기 전송파일 전송하기
           myAjax.send();
 
+          
         }); /// promise //////
-
-
+        
+        
         // 약속받기
-        myPromise.then(
-          (v) => {
-            let res = JSON.parse(v);
-            console.log(res);
-          }
-        ); ////////////// then ///////////
+      
+        myPromise.then((v) => {
+          let res = JSON.parse(v);
+          console.log(res);
+        // 화면에 보여주기
+        document.querySelector(".wrap").innerHTML = res.map( v=>
+          `
+            <div class="page" style="background-image: url(${v["download_url"]})">
+              ${v["author"]}
+            </div>
+          `
+        ).join('');
 
+
+        }); ////////////// promise ///////////
 
 
       }); /////////////// load //////////////
 
+
     </script>
     <style>
-      @import url("https://fonts.googleapis.com/css2?family=Gamja+Flower&display=swap");
+      @import url("https://fonts.googleapis.com/css2?family=Poetsen+One&display=swap");
+
+      html,
       body {
-        background-image: linear-gradient(to bottom, #494949, gray);
-        background-repeat: no-repeat;
-        background-attachment: fixed;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: "Poetsen One", sans-serif;
+      }
+
+      .page {
+        height: 100vh;
         text-align: center;
-      }
-      #show {
-        font-family: "Gamja Flower", cursive;
-        font-size: 4vw;
-        background-image: linear-gradient(
-          to bottom,
-          lightgreen,
-          pink,
-          orangered,
-          aquamarine
-        );
-        background-clip: text;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
+        line-height: 100vh;
+        font-size: 3vw;
+        color: #fff;
+        text-shadow: 0 0 3px #777;
+        white-space: nowrap;
+
         background-repeat: no-repeat;
-        font-weight: bold;
-      }
-      #doc {
-        width: 50%;
-        height: 50vh;
-        margin: 0 auto;
+        background-size: cover;
+        background-position: center;
       }
     </style>
   </head>
   <body>
-    <div id="show"></div>
-    <div id="doc"></div>
+      <div class="wrap"></div>
   </body>
 </html>
