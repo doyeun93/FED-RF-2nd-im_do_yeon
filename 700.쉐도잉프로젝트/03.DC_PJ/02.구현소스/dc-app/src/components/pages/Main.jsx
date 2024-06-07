@@ -10,8 +10,7 @@ export default function Main(){
            "main"이름 뒤의 숫자는 1~3사이 랜덤수 */}
            <Banner catName={"main"+Math.ceil(Math.random()*3)}/>
         
-           {/*  배너 컴포넌트 */}
-           <Banner catName="CHARACTERS"/>
+           
            
         </>
     );
