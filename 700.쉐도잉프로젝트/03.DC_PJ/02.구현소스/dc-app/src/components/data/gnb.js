@@ -1,10 +1,10 @@
 // DC.com GNB메뉴 데이터
 
 export const menu = [
-    {
-        txt:"Home",
-        link:"/",
-    },
+    // {
+    //     txt:"Home",
+    //     link:"/",
+    // },
     {
         txt:"CHARACTERS",
         link:"/character",

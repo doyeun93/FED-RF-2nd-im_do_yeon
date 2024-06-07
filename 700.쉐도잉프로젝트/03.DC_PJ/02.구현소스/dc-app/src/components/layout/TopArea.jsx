@@ -22,7 +22,9 @@ export default function TopArea() {
           <ul>
             {/* 1. 로고 컴포넌트 */}
             <li>
-              <Logo logoStyle="top" />
+              <Link to="/">
+                <Logo logoStyle="top" />
+              </Link>
             </li>
               {menu.map((v,i)=>
               <li key={i}>
