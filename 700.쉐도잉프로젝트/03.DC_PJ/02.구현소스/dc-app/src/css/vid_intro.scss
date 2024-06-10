@@ -4,13 +4,13 @@
 .vidbox{
     position: relative;
     /* margin-top: 30px; */
-    /* 속박스 */
-    & > div{
-        max-width: 1320px;
-        margin: 0 auto;
-        padding: 24px;
-        display: flex;
-    }
+}
+/* 속박스 */
+.vidbox>div{
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 24px;
+    display: flex;
 }
 
 /* 클래스 "on" 적용시 배경색,글자색 변경적용 */
