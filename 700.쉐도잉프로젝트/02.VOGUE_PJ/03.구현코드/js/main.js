@@ -51,7 +51,7 @@ function Layout(){
     // menu값이 "home"인 경우 main.css를 로딩하고 기타 메뉴인 경우 main.css를 로딩한다
     // menu값이 "gallery"인 경우 gallery.css를 로딩하고 기타 메뉴인 경우 item.css를 로딩한다
     
-    // 페이지 최상단이동코드
+    // 페이지 최상단이동코드 : scrollTo(가로 스크롤, 세로 스크롤)
     window.scrollTo(0,0);
     
 
@@ -67,22 +67,58 @@ function Layout(){
     // 슬림적용 대상 : #top-area
     const topMenu = document.querySelector("#top-area");
 
+    // 상단 이동 버튼 대상 : .tbtn
+    const tbtn = document.querySelector(".tbtn");
+
+    // 상단 이동 기능
+    tbtn.onclick = (e) => {
+        // 기본이동 막기
+        e.preventDefault();
+        // 상단 이동하기 : 부드러운 스크롤 위치값 업데이트
+        setPos(0);
+        // 위치값 이동하기 -> 한번에 바로 위로 감
+        window.scrollTo(0,0);
+    };
+
+
     // 슬림 메뉴 적용하기 : "home"에서만 적용
     const chkSlim = () => {
-        let scTop = window.scrollY;
-        console.log("슬림적용",scTop);
+        console.log("현재메뉴", menu);
+        if(menu == "home"){
 
-        if(scTop > 200) topMenu.classList.add("on");
-        else topMenu.classList.remove("on");
+            // 스크롤 위치값 구하기
+            let scTop = window.scrollY;
+            console.log("슬림적용",scTop);
+
+            // 슬림 메뉴 적용
+            if(scTop > 200) topMenu.classList.add("on");
+            else topMenu.classList.remove("on");
+    
+            // 상단 이동 버튼 적용
+            if(scTop > 300) tbtn.classList.add("on");
+            else tbtn.classList.remove("on");
+
+        }// 메뉴 "home" 일때만 적용//////////
+        else {
+
+        }
 
     }; ///// chkSlim 함수 /////////
 
 
     // 스크롤 이벤트 적용하기 : scroll 이벤트
     // home에서만 적용하기
-    if(menu == "home")
-    window.addEventListener("scroll", chkSlim);
-    else window.removeEventListener("scroll", chkSlim);
+    if(menu == "home"){
+        console.log("홈이야~");
+        setPos(0);
+        window.addEventListener("scroll", chkSlim);
+    }
+    else{
+        console.log("서브야~");
+        setPos(0);
+        window.removeEventListener("scroll", chkSlim);
+    }
+        
 
 },[menu]);
 
