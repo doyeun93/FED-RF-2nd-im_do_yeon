@@ -1,6 +1,7 @@
 // 코믹 페이지 컴포넌트 ///
 
 import Banner from "../modules/Banner";
+import VidIntro from "../modules/VidIntro";
 
 export default function Comics(){
     //// 코드 리턴 구역
@@ -8,6 +9,8 @@ export default function Comics(){
         <>
            {/* 1. 배너 컴포넌트 */}
            <Banner catName="COMICS"/>
+           {/* 2. 비디오 소개 컴포넌트 */}
+           <VidIntro catName="COMICS" clsName="on" />
         </>
     );
 } //////////// Comics 함수 ////////

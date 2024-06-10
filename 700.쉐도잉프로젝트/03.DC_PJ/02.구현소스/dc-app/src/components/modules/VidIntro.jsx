@@ -24,9 +24,11 @@ function VidIntro({ catName, clsName }) {
 
     <>
     {data[0]}
-    <a href={selData.link[1]}
+    <a 
+    href={selData.link[1]}
         target="_blank"
-    >{selData.link[0]}</a> 
+    >
+        {selData.link[0]}</a> 
     {data[1]};
 
     </>
@@ -36,25 +38,32 @@ function VidIntro({ catName, clsName }) {
 
   return (
     <section className={"vidbox " + clsName}>
-      <div>
-        {/* 1. 비디오 파트 */}
-        <div className="vd1">
-          <iframe src={selData.vsrc} title={selData.btit}></iframe>
-        </div>
-
-        {/* 2. 타이틀 /  설명파트 */}
-        <div className="vd2">
-          {/* 작은 제목 */}
-          <h3>{selData.stit}</h3>
-          {/* 큰 제목 */}
-          <h2>{selData.btit}</h2>
-          {/* 요약소개(링크포함) : sum */}
-          <p>{selData.sum.indexOf("*") == -1 ? selData.sum : linkCode(selData.sum)}</p>
-          {/* 설명(링크포함) : desc */}
-          <p>{selData.desc.indexOf("*") == -1 ? selData.desc : linkCode(selData.desc)}</p>
-        </div>
+    <div>
+      {/* 1. 비디오파트 */}
+      <div className="vb1">
+        <iframe src={selData.vsrc} title={selData.btit}></iframe>
       </div>
-    </section>
+      {/* 2. 타이틀 / 설명파트 */}
+      <div className="vb2">
+        {/* 작은제목 */}
+        <h3>{selData.stit}</h3>
+        {/* 큰제목 */}
+        <h2>{selData.btit}</h2>
+        {/* 요약소개(링크포함) : sum */}
+        <p>{
+          selData.sum.indexOf("*") == -1 
+              ? selData.sum 
+              : linkCode(selData.sum)
+        }</p>
+        {/* 설명(링크포함) : desc */}
+        <p>{
+          selData.desc.indexOf("*") == -1 
+              ? selData.desc 
+              : linkCode(selData.desc)          
+        }</p>
+      </div>
+    </div>
+  </section>
   );
 }
 

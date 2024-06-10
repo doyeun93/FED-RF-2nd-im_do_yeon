@@ -18,7 +18,7 @@ export default function Main(){
            
            {/* 3. 비디오 소개 컴포넌트 
            catName : 카테고리명 , clsName : 배경색 넣을 클래스(on / off) */}
-           <VidIntro catName="main" clsName="off"/>
+           <VidIntro catName="main" clsName="off" />
            
         </>
     );
