@@ -18,7 +18,13 @@ export default function MainArea() {
   React.useLayoutEffect(()=>{
 
     // 스크롤 등장 대상에 클래스 넣기 : .hide-el
-    // $();
+    // [제이쿼리용 forEach메서드]
+    // each((idx,ele)=>{코드}) 
+    $(".main-area>section").each((idx,ele)=>{
+      // 첫번째를 제외한 나머지 모두 클래스 넣기
+      if(idx != 0)  
+      $(ele).addClass("hide-el");
+    }); //////////////// each ////////////
 
 
     // 스크롤 등장 함수 호출
@@ -54,7 +60,7 @@ export default function MainArea() {
 
 
         // 위치값 이동하기 -> 한번에 바로 위로 감
-        // window.scrollTo(0,0);
+        
     };
 
 
@@ -83,17 +89,16 @@ export default function MainArea() {
     
     window.addEventListener("scroll", chkSlim);
 
-    // 부드러운 스크롤 초기값 0
-    setPos(0);
-   
-        
     
+      // 부드러운 스크롤 초기값 0
+      setPos(0);
     
       console.log("MainArea시작!");
 
 
       // 컴포넌트 소멸시(unmounting) 리턴 함수 사용
       // 리턴함수안에 함수나 함수구역이 소멸시 실행된다
+
 
       return(()=>{
         console.log("MainArea종료!");
@@ -102,10 +107,23 @@ export default function MainArea() {
         // 그대로 존재하게 되므로 이벤트를 removeEventListener로 지운다
 
 
+        // [0] 부드러운 스크롤 초기값 0
+        setPos(0);
+   
+
         // [1] 부드러운 스크롤 이벤트 삭제
         document.removeEventListener("wheel", scrolled, {passive:false});
         // [2] 슬림 스크롤 이벤트 삭제
         window.removeEventListener("scroll", chkSlim);
+        
+
+        // [3] 클래스가 들어가 있을 수 있으므로 삭제코드 실행
+        topMenu.classList.remove("on");
+        tbtn.classList.remove("on");
+
+
+        // [4] 스크롤 위치값 초기값
+        window.scrollTo(0,0);
 
         // 참고로 이벤트를 개별 세팅한 요소의 이벤트를 지울 경우
         // 속성할당방식의 이벤트는 빈값을 할당해서 지우거나
