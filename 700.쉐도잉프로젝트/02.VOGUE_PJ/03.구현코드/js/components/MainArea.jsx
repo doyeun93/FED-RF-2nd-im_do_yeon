@@ -1,6 +1,128 @@
 // 메인영역 컴포넌트 ////
 
+
+// 부드러운 스크롤 불러오기
+import { scrolled, setPos } from "../smoothScroll24";
+// import { scrolled, setPos } from "../../js/smoothScroll24";
+
+
+// 스크롤 등장 함수 불러오기
+import scrollShowFn from "../scroll_show";
+
+
+
 export default function MainArea() {
+  
+
+  // 컴포넌트 화면 랜더링직전 로드구역 
+  React.useLayoutEffect(()=>{
+
+    // 스크롤 등장 대상에 클래스 넣기 : .hide-el
+    // $();
+
+
+    // 스크롤 등장 함수 호출
+    scrollShowFn();
+
+
+    /////////////////////////////////////////////////
+    // [이벤트 해제는 removeEventListener를 사용한다]
+    // 부드러운 스크롤은 "home"에서만 적용함
+   
+    document.addEventListener("wheel", scrolled, {passive:false});
+
+   
+
+
+    // 슬림적용 대상 : #top-area
+    const topMenu = document.querySelector("#top-area");
+
+    // 상단 이동 버튼 대상 : .tbtn
+    const tbtn = document.querySelector(".tbtn");
+
+    // 상단 이동 기능
+    tbtn.onclick = (e) => {
+        // 기본이동 막기
+        e.preventDefault();
+        // 상단 이동하기 : 부드러운 스크롤 위치값 업데이트
+        setPos(0);
+
+
+
+        // 제이쿼리 애니메이션 상단이동
+        $("html, body").animate({scrollTop: "0"},500);
+
+
+        // 위치값 이동하기 -> 한번에 바로 위로 감
+        // window.scrollTo(0,0);
+    };
+
+
+    // 슬림 메뉴 적용하기 : "home"에서만 적용
+    const chkSlim = () => {
+      
+      
+            // 스크롤 위치값 구하기
+            let scTop = window.scrollY;
+            // console.log("슬림적용",scTop);
+
+            // 슬림 메뉴 적용
+            if(scTop > 200) topMenu.classList.add("on");
+            else topMenu.classList.remove("on");
+    
+            // 상단 이동 버튼 적용
+            if(scTop > 300) tbtn.classList.add("on");
+            else tbtn.classList.remove("on");
+
+       
+
+    }; ///// chkSlim 함수 /////////
+
+
+    // 스크롤 이벤트 적용하기 : scroll 이벤트
+    
+    window.addEventListener("scroll", chkSlim);
+
+    // 부드러운 스크롤 초기값 0
+    setPos(0);
+   
+        
+    
+    
+      console.log("MainArea시작!");
+
+
+      // 컴포넌트 소멸시(unmounting) 리턴 함수 사용
+      // 리턴함수안에 함수나 함수구역이 소멸시 실행된다
+
+      return(()=>{
+        console.log("MainArea종료!");
+        // 이 구역에서 전역적으로 세팅된 이벤트 함수를 삭제처리하면 된다
+        // window, document, body 이 세가지의 경우는 컴포넌트가 소멸해도
+        // 그대로 존재하게 되므로 이벤트를 removeEventListener로 지운다
+
+
+        // [1] 부드러운 스크롤 이벤트 삭제
+        document.removeEventListener("wheel", scrolled, {passive:false});
+        // [2] 슬림 스크롤 이벤트 삭제
+        window.removeEventListener("scroll", chkSlim);
+
+        // 참고로 이벤트를 개별 세팅한 요소의 이벤트를 지울 경우
+        // 속성할당방식의 이벤트는 빈값을 할당해서 지우거나
+        // 예 ) tbtn.onclik = "";
+        // 제이쿼리일 경우 off() 메서드로 삭제한다
+        // 예 ) $(".my").off("click");
+        // 이벤트 등록으로 설정한 것은 removeEventListener로 삭제
+
+
+      }); /////////////// 소멸시 return 함수 /////////
+
+
+  },[]); ///// useLayoutEffect 구역 /////////////////////////
+
+
+
+
   // 코드 리턴구역 ///
   return (
     <div id="main-area">
