@@ -14,7 +14,8 @@ section.vidswbox >
 import React from "react";
 
 // 데이터 불러오기
-import { catTit } from "../data/vid_swipe";
+// import { catTit } from "../data/vid_swipe";
+import {catTit} from "../data/vid_swipe"
 import { SwiperApp } from "../plugin/SwiperApp";
 
 function VidSwipe({catName}) {
