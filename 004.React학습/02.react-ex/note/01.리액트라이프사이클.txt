@@ -148,7 +148,7 @@ https://ko.legacy.reactjs.org/docs/hooks-reference.html
 [2. React.memo]
 [3. useCallback]
 
-🍓 메모이제이션(Memoization)
+🍓 메모이제이션(Memoization) - 리랜더링
 메모이제이션은 컴퓨터가 동일한 계산을 반복해야 할 때, 
 이전에 계산한 값을 메모리에 저장함으로서 중복계산을 피하여
 데이터 속도를 높이는 기술.보통 애플리케이션의 최적화를 위해 사용
