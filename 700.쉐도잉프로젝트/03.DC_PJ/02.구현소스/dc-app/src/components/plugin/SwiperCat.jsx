@@ -1,4 +1,4 @@
-//  비디오 스와이프 모듈 스와이퍼 플러그인 컴포넌트
+// 캐릭터 모듈 스와이퍼 플러그인 컴포넌트
 
 import React from "react";
 // Import Swiper React components
@@ -12,14 +12,11 @@ import $ from "jquery";
 import "swiper/css";
 import "swiper/css/navigation";
 
-// 폰트어썸 불러오기
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faCirclePlay } from "@fortawesome/free-regular-svg-icons"
 
 
 
 // 스와이퍼 비디오 모듈 CSS
-import "./css/swiper_vid.scss";
+import "./css/swiper_cat.scss";
 
 // 데이터 불러오기
 import { swVidData } from "../data/swiper_vid";
@@ -29,7 +26,7 @@ import { swVidData } from "../data/swiper_vid";
 // ( 여기서는 네비게이션 - 양쪽 이동 버튼 )
 import { Navigation } from "swiper/modules";
 
-export function SwiperVid({ catName }) {
+export function SwiperCat({ catName }) {
   // catName : 카테고리명
 
   // 선택데이터 변수 할당
@@ -128,4 +125,4 @@ export function SwiperVid({ catName }) {
       </Swiper>
     </>
   );
-} /////////// SwiperVid 컴포넌트 ///////////
+} /////////// SwiperCat 컴포넌트 ///////////
