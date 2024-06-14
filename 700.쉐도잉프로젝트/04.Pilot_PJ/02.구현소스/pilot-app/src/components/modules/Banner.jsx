@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
+
+
 
 // 배너 모듈 CSS
 import "../../css/banner.scss";
+import { dragBanner } from "../../func/drag_banner";
 
 function Banner(props) {
     // 배너리스트 개수
@@ -45,6 +48,13 @@ function Banner(props) {
         return hcode;
 
     };///////// makeList 함수 /////////
+
+    // 화면 랜더링 실행 구역 
+    useEffect(()=>{
+        // 배너 기능 함수 호출
+      dragBanner();
+
+    },[]);
 
 
     // 코드 리턴 구역
