@@ -14,8 +14,8 @@ import SearchingCat from "./SearchingCat";
 
 
 function Searching({kword}) {
-    console.log("kword:",kword);
-    console.log("data:",catListData);
+    console.log("kword:", kword);
+    console.log("data:", catListData);
     // kword : 전달 받은 키워드
 
     // 검색어가 있는 데이터 필터하기
