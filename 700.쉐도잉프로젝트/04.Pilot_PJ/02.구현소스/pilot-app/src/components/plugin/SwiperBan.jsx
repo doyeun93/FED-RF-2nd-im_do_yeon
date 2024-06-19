@@ -28,12 +28,17 @@ export function SwiperBan({cat}) {
       temp[x] = (
         <SwiperSlide key={x}>
           {
-            cat == "men" && x==2?
-            
-            <video src={"./images/sub/" + cat + "/banner/cgv.mp4"} style={{width:"100%",height:"100%",objectFit:"cover"}} muted loop  className="vid" />:
-            <img
+            (cat == "men" || cat == "women") && x==0?
+            (
+            <video src={"./images/sub/" + cat + "/banner/mv.mp4"} style={{width:"100%",height:"100%",objectFit:"cover"}} 
+            // muted 
+            loop 
+            className={cat+"-vid"}
+            // autoPlay
+            /> ):
+            ( <img
               src={"./images/sub/" + cat + "/banner/ban" + (x + 1) + ".png"}
-            />
+            /> )
             
 
           }
@@ -64,14 +69,26 @@ export function SwiperBan({cat}) {
         /* 사용할 모듈을 여기에 적용시킨다 */
         modules={[Pagination, Navigation, Autoplay]}
         className="mySwiper"
+        // 슬라이드 이동 후 실행코드 구역
         onSlideChange={(swp)=>{
             // swp : 내부로 전달되는 스와이퍼 자신 객체
-            console.log("슬라이드순번: ", swp.activeIndex);
-            if(swp.activeIndex == 2){
-                document.querySelector(".vid").play();
+            // activeIndex는 loop시 오류있음
+            // realIndex는 loop에도 잘 나옴
+
+            // 현재 진짜 순번
+            let idx = swp.realIndex;
+
+            // 현재 하위 요소 슬라이드
+            // let tg = swp.slides[idx];
+
+            console.log("슬라이드순번: ", idx);
+            
+
+            if(idx == 0){
+                document.querySelector(`.${cat}-vid`).play();
             }
             else{
-                document.querySelector(".vid").pause();
+                document.querySelector(`.${cat}-vid`).pause();
             }
 
         }}
