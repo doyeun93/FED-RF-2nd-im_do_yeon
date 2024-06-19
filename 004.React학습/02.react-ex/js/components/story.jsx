@@ -17,6 +17,7 @@ export default function 이야기(){
 
     // 산정보는 배열이므로 순회하여 해당 데이터를 할당함
     // 선택된 산 정보 변수 할당하기
+    // mtName을 사용하기 위해 useContext를 사용해줌. 전역변수 사용하는 리액트 방식
     const selMtInfo = mtInfo.find(v=>{
         if(v.이름 == 나야나.mtName) return true;
     });
