@@ -7,8 +7,12 @@ import { pCon } from "../modules/pCon";
 
 // css 불러오기
 import "../../css/fashion.scss";
+import { SwiperBan } from "../plugin/SwiperBan";
 
-function Fashion(props) {
+function Fashion({subCat}) {
+    // subCat : 서브 카테고리명
+    // 값 : men / women / style
+
 
   // 컨텍스트 API 사용하기
   const myCon = useContext(pCon);
@@ -41,7 +45,7 @@ function Fashion(props) {
     // 소멸자 구역
     return () => {
         document.removeEventListener("wheel", scrolled, { passive: false });
-        
+
         // 스크롤바 없애기
         $("html, body").css({overflow: "hidden"});
 
@@ -75,7 +79,10 @@ useEffect(()=>{
   return (
     <>
       {/* 1. 배너영역 */}
-      <section id="ban" className="page"></section>
+      <section id="ban" className="page">
+        <SwiperBan cat={subCat} />
+        
+      </section>
       {/* 2. 신상품영역 */}
       <section id="c1" className="cont sc-ani c1"></section>
       {/* 2.5. 상세보기박스 */}
