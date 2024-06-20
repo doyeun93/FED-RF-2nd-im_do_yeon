@@ -1,7 +1,7 @@
 import React from 'react';
 import Searching from '../modules/Searching';
 
-// 라우터 전달변수값을 받기위해 useLocation을 불러옴
+// 라우터 전달 변수 값을 받기 위해 useLocation을 불러옴
 import { useLocation } from 'react-router-dom';
 
 function SearchPage() {

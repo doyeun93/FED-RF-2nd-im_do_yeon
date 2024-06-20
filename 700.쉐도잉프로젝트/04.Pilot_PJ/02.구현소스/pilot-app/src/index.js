@@ -32,7 +32,7 @@ function MainComponent(props) {
       <MainArea page={pgName}/>
       <FooterArea />
     
-    
+    setPgName
     </pCon.Provider>
     
   );

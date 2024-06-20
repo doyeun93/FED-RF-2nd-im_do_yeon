@@ -19,13 +19,17 @@ function MainCont(props) {
       window.addEventListener("wheel",wFn.wheelFn);
 
 
-      // 2. 메뉴 + 인디케이터 이벤트 기능설정함수 호출
+      // 2. 메뉴 + 인디케이터 이벤트 기능 설정함수 호출
       wFn.evtFn();
 
 
       // 3. 등장요소 CSS 초기화 함수 호출
       wFn.initSet();
       
+
+      // 4. 페이지번호 초기화 함수 
+      wFn.zeroPno();
+
 
       // 컴포넌트 소멸시 이벤트 삭제하기
       return(()=>{

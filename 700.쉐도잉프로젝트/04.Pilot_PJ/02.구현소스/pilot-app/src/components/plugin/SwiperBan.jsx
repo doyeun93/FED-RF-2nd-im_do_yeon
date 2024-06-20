@@ -18,6 +18,7 @@ import { useRef, useState } from "react";
 
 export function SwiperBan({cat}) {
     // cat : 카테고리명 
+    console.log("배너카테고리명:",cat);
 
 
   // 리스트만들기 함수 ////
@@ -74,6 +75,9 @@ export function SwiperBan({cat}) {
             // swp : 내부로 전달되는 스와이퍼 자신 객체
             // activeIndex는 loop시 오류있음
             // realIndex는 loop에도 잘 나옴
+
+            // style에는 없으므로 여기서 리턴
+            if(cat == "style") return;
 
             // 현재 진짜 순번
             let idx = swp.realIndex;
