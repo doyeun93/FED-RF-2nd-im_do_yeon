@@ -1,6 +1,7 @@
-import React, { useContext, useEffect, useLayoutEffect } from "react";
+import React, { useContext, useEffect, useLayoutEffect, useState } from "react";
 import { scrolled, setPos } from "../../func/smoothScroll24";
 import $ from "jquery";
+
 
 // 컨텍스트 API 불러오기
 import { pCon } from "../modules/pCon";
@@ -8,6 +9,7 @@ import { pCon } from "../modules/pCon";
 // css 불러오기
 import "../../css/fashion.scss";
 import { SwiperBan } from "../plugin/SwiperBan";
+import SinSang from "../modules/SinSang";
 
 function Fashion({subCat}) {
     // subCat : 서브 카테고리명
@@ -25,9 +27,9 @@ function Fashion({subCat}) {
     document.addEventListener("wheel", scrolled, { passive: false });
 
     /* 이벤트 설정시 passive:false 설정의 이유는 기본 설정값은 true이고 
-        이것은 window,document,body 이 세가지에 preventDefault() 기본 작동 막기를 
-        할 경우 이것을 사용할 수 없도록 설정된 값이 treu다!
-        passive모드를 false로 꺼놔야 window,document,body에 대한 기본 막기가 가능함!(여기서는 스크롤 기능임!) */
+      이것은 window,document,body 이 세가지에 preventDefault() 기본 작동 막기를 
+      할 경우 이것을 사용할 수 없도록 설정된 값이 treu다!
+      passive모드를 false로 꺼놔야 window,document,body에 대한 기본 막기가 가능함!(여기서는 스크롤 기능임!) */
 
     // 부드러운 스크롤 위치 초기화
     // setPos(0);
@@ -74,6 +76,22 @@ useEffect(()=>{
   },[]); ////////////// useEffect ////////////////////////
 
 
+    // 후크 상태변수
+    const [item, setItem] = useState("m1");
+
+
+  // 신상컴포넌트에서 상세컴포넌트로 값을 전하기 위한
+  // 상태변수를 셋팅하여 함수로 이것을 변경하게 해준다!
+  // 프롭스 펑션다운~!!
+  const chgItem = (v) => {
+    console.log("상품정보:", v);
+    // 상태변수 업데이트
+    setItem(v);
+    // 상세박스 슬라이드 애니로 보이기
+    $(".bgbx").slideDown(400);
+  }; /////////// chgItem 함수 //////
+
+
 
   /// 코드 리턴구역
   return (
@@ -84,7 +102,9 @@ useEffect(()=>{
         
       </section>
       {/* 2. 신상품영역 */}
-      <section id="c1" className="cont sc-ani c1"></section>
+      <section id="c1" className="cont sc-ani c1">
+        <SinSang cat={subCat} chgItemFn={chgItem}/>
+      </section>
       {/* 2.5. 상세보기박스 */}
       <div className="bgbx"></div>
       {/* 3. 패럴랙스 영역 : 리액트용 패럴랙스 적용 */}
