@@ -29,6 +29,13 @@ function Searching({kword}) {
     const [sort,setSort] = useState("asc");
     // 값 : 오름차순 - asc / 내림차순 - desc 
 
+    // [3] 체크 박스 체크여부 상태관리변수
+    const [chk,setChk] = useState([true,true,true]);
+    // 배열로 만들고 체크박스 상태를 묶어서 관리함
+    console.log("체크 훅 배열:", chk);
+
+
+
     // 검색어가 있는 데이터 필터하기
     // filter()는 검색결과가 항상 배열로 나옴
 
@@ -44,14 +51,26 @@ function Searching({kword}) {
 
         // 문자열이 있는 값만 배열로 재수집
 
-        if(newVal.indexOf(key)!== -1)
-        return true;
+        if(
+          // 1번과 2번 조건이 모두 true여야 함
+          // 1. 검색어 조건 (cname속성)
+          (newVal.indexOf(key)!== -1) &&
+          // 2. 체크박스 항목 조건 (alignment 속성)
+          (
+            chk[0] ? v.alignment == "hero" : true ||
+            chk[1] ? v.alignment == "comp" : true ||
+            chk[2] ? v.alignment == "villain" : true 
+          )
+          // true && (true || true || true)
+        
+        ) return true;
         // 문자열.indexOf(문자) 문자열 위치번호 리턴함
         // 그런데 결과가 없으면 -1을 리턴함
         // 그래서 -1이 아닐 경우 true를 리턴하면
         // filter에서 변수에 저장할 배열로 수집된다
 
     }); ////// filter /////////////////
+
 
 
     // [ 결과 내 재검색 : 데이터 항목 중 alignment값으로 검색함 ]
@@ -139,10 +158,14 @@ function Searching({kword}) {
                     Heroes
                     {/* 숨긴 체크박스 */}
                     <input type="checkbox" id="hero" className="chkhdn" 
+                    // 체크 박스 체크속성값을 훅(상태관리변수) 연결
+                    checked={chk[0]}
                     // 체크 변경시 change 이벤트 발생
-                    onChange={(e)=>{
+                    onChange = {(e)=>{
                       // 체크박스의 checked 속성은 체크시 ture, 불체크시 false 리턴
                       console.log(e.target.checked);
+                      // 훅값 업데이트
+                      setChk([e.target.checked,chk[1],chk[2]]);
                     }}/>
                     {/* 디자인노출 라벨 */}
                     <label htmlFor="hero" className="chklb"></label>
@@ -150,14 +173,32 @@ function Searching({kword}) {
                   <li>
                     It's Complicated
                     {/* 숨긴 체크박스 */}
-                    <input type="checkbox" id="comp" className="chkhdn" />
+                    <input type="checkbox" id="comp" className="chkhdn" 
+                    // 체크 박스 체크속성값을 훅(상태관리변수) 연결
+                    checked={chk[1]}
+                     // 체크 변경시 change 이벤트 발생
+                     onChange = {(e)=>{
+                      // 체크박스의 checked 속성은 체크시 ture, 불체크시 false 리턴
+                      console.log(e.target.checked);
+                      // 훅값 업데이트
+                      setChk([chk[0],e.target.checked,chk[2]]);
+                    }}/>
                     {/* 디자인노출 라벨 */}
                     <label htmlFor="comp" className="chklb"></label>
                   </li>
                   <li>
                     Villains
                     {/* 숨긴 체크박스 */}
-                    <input type="checkbox" id="villain" className="chkhdn" />
+                    <input type="checkbox" id="villain" className="chkhdn" 
+                    // 체크 박스 체크속성값을 훅(상태관리변수) 연결
+                    checked={chk[2]} 
+                     // 체크 변경시 change 이벤트 발생
+                     onChange = {(e)=>{
+                      // 체크박스의 checked 속성은 체크시 ture, 불체크시 false 리턴
+                      console.log(e.target.checked);
+                      // 훅값 업데이트
+                      setChk([chk[0],chk[1], e.target.checked]);
+                    }}/>
                     {/* 디자인노출 라벨 */}
                     <label htmlFor="villain" className="chklb"></label>
                   </li>
