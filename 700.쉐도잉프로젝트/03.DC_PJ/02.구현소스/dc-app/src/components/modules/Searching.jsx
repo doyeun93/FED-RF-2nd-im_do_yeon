@@ -25,6 +25,8 @@ function Searching({kword}) {
     // [1] 검색어 상태관리 변수
     const [kw,setKw] = useState(kword);
     // 초기 값으로 전달받은 검색어 변수를 넣어준다
+    // setKw(kword);
+    
     // [2] 정렬기준 상태관리 변수 
     const [sort,setSort] = useState("asc");
     // 값 : 오름차순 - asc / 내림차순 - desc 
@@ -55,16 +57,23 @@ function Searching({kword}) {
           // 1번과 2번 조건이 모두 true여야 함
           // 1. 검색어 조건 (cname속성)
           (newVal.indexOf(key)!== -1) &&
+
           // 2. 체크박스 항목 조건 (alignment 속성)
+          // 주의 : 조건문 내의 삼항 연산자는 반드시 소괄호로 
+          // 묶어서 논리연산자(&&,||,!)와의 충돌을 막아줘야 함
+          // OR문의 결과가 false이려면 모두 false여야 함
+          // 체크박스 모두 불체크시 false로 처리
           (
-            chk[0] ? v.alignment == "hero" : true ||
-            chk[1] ? v.alignment == "comp" : true ||
-            chk[2] ? v.alignment == "villain" : true 
+            (chk[0] ? v.alignment == "hero" : false) ||
+            (chk[1] ? v.alignment == "comp" : false) ||
+            (chk[2] ? v.alignment == "villain" : false) 
           )
-          // true && (true || true || true)
+          // true && (true || false || false)
+          // -> &&문은 모두 true여야 true고 ||문은 하나만 true여도 true다
         
         ) return true;
-        // 문자열.indexOf(문자) 문자열 위치번호 리턴함
+        
+        // 문자열.indexOf(문자) 문자열 위치 번호 리턴함
         // 그런데 결과가 없으면 -1을 리턴함
         // 그래서 -1이 아닐 경우 true를 리턴하면
         // filter에서 변수에 저장할 배열로 수집된다
@@ -133,10 +142,15 @@ function Searching({kword}) {
             // 검색어 상태 변수만 업데이트 하면 됨 -> setKw(검색어)
             onKeyUp={(e)=>{
               if(e.key == "Enter") {
-                // 검색어 상태값 변경
+                // 1. 검색어 상태값 변경
                 setKw(e.target.value);
-                // 처음 검색시 정렬은 기본 정렬 오름차순(asc)
+
+                // 2. 처음 검색시 정렬은 기본 정렬 오름차순(asc)
                 setSort("asc");
+
+                // 3. 처음 검색시 모두 체크
+                setChk([true,true,true]);
+
                 // 정렬 선택 박스 선택 값 변경(DOM에서 보이기 변경)
                 document.querySelector("#sel").value = "asc";
               } //// if //////////
