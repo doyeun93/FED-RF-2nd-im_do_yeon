@@ -37,7 +37,7 @@ export default function Logo({logoStyle}) {
      return(
         
         <h1 style={myStyle[logoStyle]}>
-            <img style={imgStyle[logoStyle]} src={isrc.logo} alt="dc logo" />
+            <img style={imgStyle[logoStyle]} src={process.env.PUBLIC_URL+isrc.logo} alt="dc logo" />
         </h1>
         
      );
