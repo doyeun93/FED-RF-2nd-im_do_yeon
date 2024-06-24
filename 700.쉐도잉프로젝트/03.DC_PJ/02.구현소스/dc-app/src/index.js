@@ -58,7 +58,10 @@ import "../src/css/index.scss";
 export default function MainComponent() {
   return (
     // 라우터 루트로 라우터 구성시작
-    <BrowserRouter>
+    // basename 속성은 package.json의 "homepage" 속성 값을 읽어옴
+    // 읽는 방법은 " process.env.PUBLIC_URL "
+    
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
       <Routes>
         {/* 중요 : 레이아웃 컴포넌트를 루트로 설정함 
         루트 Route는 홀로 닫지말고 반드시 다른 하위 라우트를 감싸도록한다 */}
