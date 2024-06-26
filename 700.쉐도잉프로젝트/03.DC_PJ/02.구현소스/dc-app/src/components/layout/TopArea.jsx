@@ -120,7 +120,19 @@ export default function TopArea() {
                 {/* 검색입력박스 */}
                 <div className="searchingGnb" >
                   {/* 검색버튼 돋보기 아이콘 */}
-                  <FontAwesomeIcon icon={faSearch} className="schbtnGnb" title="Open search"/>
+                  <FontAwesomeIcon icon={faSearch} className="schbtnGnb" title="Open search" 
+                  onClick={(e)=>{ 
+                    // 검색어 읽기
+                    let stxt = e.currentTarget.nextElementSibling.value;
+                    if(stxt.trim()!=""){
+                      // 검색하기
+                      goSearch(stxt);
+                    }
+                    else{
+                      // 검색어 비었을 때 메시지
+                       alert("Please enter a search term!");
+                    }
+                  }}/>
                   {/* 입력창 */}
                   <input type="text" name="schinGnb" id="schinGnb" placeholder="Filter by Keyword" onKeyUp={enterKey}/>
                 </div>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 
 // 폰트어썸
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -35,6 +35,29 @@ function Searching({kword}) {
     const [chk,setChk] = useState([true,true,true]);
     // 배열로 만들고 체크박스 상태를 묶어서 관리함
     console.log("체크 훅 배열:", chk);
+
+
+    // 상단 메뉴 검색창에서 다시 검색할 경우 
+    // 검색 가능하도록 검색어 비교를 위한 검색어를 저장한다
+    // 리랜더링 없이 값만 저장하는 후크는 useRef(참조변수) 사용-> 컴포넌트가 사라져야 사라진다
+    // useRef를 쓰면 참조변수는 객체가 된다
+
+    const beforeKword = useRef(kword);
+    //  참조변수는 객체이므로 하위 속성 중 current 속성으로 값을 읽거나 업데이트한다
+    console.log("참조변수객체:", beforeKword);
+    
+    // 만약 조금전 저장된 검색어와 지금 검색어가 다르다면 검색어 상태변수를 업데이트한다
+    if (beforeKword.current != kword){
+      console.log(beforeKword.current, "==?", kword);
+        // 1. 컴포넌트 리랜더링(검색결과 변경)
+        setKw(kword);
+        // 2. 다음 검색을 위해 현재 검색어를 참조변수에 저장
+        beforeKword.current = kword;
+        // 3. 상단 검색어를 현재 검색창에 넣기
+        document.querySelector("#schin").value = kword; 
+
+    } /////////////// if ////////////
+
 
 
 
@@ -224,7 +247,7 @@ function Searching({kword}) {
         {/* 2. 결과리스트박스 */}
         <div className="listbx">
           {/* 2-1. 결과 타이틀 */}
-          <h2 className="restit">BROWSE CHARACTERS</h2>
+          <h2 className="restit">BROWSE CHARACTERS({newList.length})</h2>
           {/* 2-2. 정렬선택박스 */}
           <aside className="sortbx">
             <select name="sel" 
