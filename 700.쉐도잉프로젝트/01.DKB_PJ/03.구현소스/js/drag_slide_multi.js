@@ -453,7 +453,7 @@ function slideFn(selEl) {
 
       }  ////// else if /////////
 
-      // 그 밖의 경우는 버믄 모두 보이기
+      // 그 밖의 경우는 버튼 모두 보이기
       else{
         abtn[0].parentElement.classList.remove("left","right");
       }  ////// else /////////
