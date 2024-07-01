@@ -29,16 +29,19 @@ const comData = {
               </li>
             </ul>
           </nav>
-          <!-- GNB메뉴 -->
-          <nav class="gnb">
-          
-        </nav>
+        
       </div>
     </div>
     <button class="ham"></button>
   </header>
 
     `,
+    // 전제메뉴코드
+    navArea : 
+    `
+      <nav class="gnb"></nav>
+    `,
+
     // 2. 하단영역 코드
     footerArea:`
       
