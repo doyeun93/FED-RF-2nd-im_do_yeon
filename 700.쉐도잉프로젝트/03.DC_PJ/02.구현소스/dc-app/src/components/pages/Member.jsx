@@ -152,8 +152,120 @@ function Member(props) {
     // 실제 userId 상태변수값이 업데이트 되어야만 화면에 출력된다
     setUserId(val);
 
-  };
+  }; ////// changeUserId 함수
 
+  // 2. 비밀번호 유효성 검사 ///////////
+  const changePwd = (e) => {
+    // 입력된 값 읽기
+    let val = e.target.value;
+
+    // 1. 비밀번호 유효성 검사식(따옴표로 싸지 말것!)
+    const valid = /^.*(?=^.{5,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
+
+    // 2. 입력값 확인 : e.target -> 이벤트가 발생한 요소
+    // console.log(val);
+
+    // 3. 에러에 따른 상태값 변경
+    if (valid.test(val)) setPwdError(false);
+    else setPwdError(true);
+
+    // 4. 기존입력값 반영하기
+    setPwd(val);
+  }; ///////// changePwd 함수 //////////
+
+
+
+  // 3. 비밀번호확인 유효성 검사 ///////////
+  const changeChkPwd = (e) => {
+    // 입력된 값읽기
+    let val = e.target.value;
+    
+    // 1. 비밀번호 입력내용과 일치여부 확인
+    if (pwd === val) setChkPwdError(false);
+    else setChkPwdError(true);
+
+    // 2. 기존입력값 반영하기
+    setChkPwd(val);
+  }; ///////// changeChkPwd 함수 //////////
+
+
+
+  // 4. 사용자이름 유효성 검사 ///////////
+  const changeUserName = (e) => {
+    // 입력된 값읽기
+    let val = e.target.value;
+    
+    // 1. 빈값체크
+    if (val !== "") setUserNameError(false);
+    else setUserNameError(true);
+
+    // 2. 기존입력값 반영하기
+    setUserName(val);
+  }; ///////// changeUserName 함수 //////////
+
+
+
+  // 5. 이메일 유효성 검사 ///////////
+  const changeEmail = (e) => {
+    // 입력된 값읽기
+    let val = e.target.value;
+    
+    // 1. 이메일 유효성 검사식(따옴표로 싸지 말것!)
+    const valid =
+      /^(([^<>()\[\].,;:\s@"]+(\.[^<>()\[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
+
+    // 2. 입력값 확인 : e.target -> 이벤트가 발생한 요소
+    // console.log(val);
+
+    // 3. 에러에 따른 상태값 변경
+    if (valid.test(val)) setEmailError(false);
+    else setEmailError(true);
+
+    // 4. 기존입력값 반영하기
+    setEmail(val);
+  }; ///////// changeEmail 함수 //////////
+
+
+
+    // [ 전체 유효성검사 체크함수 ] ///////////
+    const totalValid = () => {
+    // 1. 모든 상태변수에 빈값일때 에러상태값 업데이트!
+    if (!userId) setUserIdError(true);
+    if (!pwd) setPwdError(true);
+    if (!chkPwd) setChkPwdError(true);
+    if (!userName) setUserNameError(true);
+    if (!email) setEmailError(true);
+
+    // 2. 통과시 true, 불통과시 false 리턴처리
+    // 통과조건 : 빈값아님 + 에러후크변수가 모두 false
+    if (
+      userId &&
+      pwd &&
+      chkPwd &&
+      userName &&
+      email &&
+      !userIdError &&
+      !pwdError &&
+      !chkPwdError &&
+      !userNameError &&
+      !emailError
+    )
+      return true;
+    // 하나라도 false이면 false를 리턴함!
+    else return false;
+  }; /////////// totalValid 함수 ///////////
+
+
+  // [submit 기능 함수]
+  const onSubmit = e =>{
+    /// 1. 기본 서브밋 막기 
+    e.preventDefault();
+    // 2. 유효성검사 전체 통과시
+    if(totalValid()){
+
+    } ///// if /////
+
+  }; /////////// onSubmit 함수 /////////////
 
   // 코드 리턴 구역
   return (
@@ -194,8 +306,19 @@ function Member(props) {
                 type="password"
                 maxLength="20"
                 placeholder="Please enter your Password"
-                
+                value={pwd} onChange={changePwd}
               />
+               {
+              /* 에러일 경우 메시지 출력 */
+              // 조건문 && 출력요소
+              // 조건 추가 : pwdError가 입력 전일 때 안보임처리
+              // pwd가 입력전엔 false로 리턴됨
+              (pwdError && pwd) &&(
+              <div className="msg">
+                <small style={{color:"red", fontSize:"11px"}}>{msgEtc.pwd}</small>
+              </div>
+              )
+              }
             </li>
             <li>
               <label>Confirm Password : </label>
@@ -203,19 +326,52 @@ function Member(props) {
                 type="password"
                 maxLength="20"
                 placeholder="Please enter your Confirm Password"
-                
+                value={chkPwd} onChange={changeChkPwd}
               />
+               {
+              /* 에러일 경우 메시지 출력 */
+              // 조건문 && 출력요소
+              // 조건 추가 : chkPwdError가 입력 전일 때 안보임처리
+              // chkPwd가 입력전엔 false로 리턴됨
+              (chkPwdError && chkPwd) &&(
+              <div className="msg">
+                <small style={{color:"red", fontSize:"11px"}}>{msgEtc.confPwd}</small>
+              </div>
+              )
+              }
             </li>
             <li>
               <label>User Name : </label>
-              <input type="text" maxLength="20" placeholder="Please enter your Name"  />
+              <input type="text" maxLength="20" placeholder="Please enter your Name" value={userName} onChange={changeUserName} />
+              {
+              /* 에러일 경우 메시지 출력 */
+              // 조건문 && 출력요소
+              // 조건 추가 : userNameError가 입력 전일 때 안보임처리
+              // userName가 입력전엔 false로 리턴됨
+              (userNameError && userName) &&(
+              <div className="msg">
+                <small style={{color:"red", fontSize:"11px"}}>{msgEtc.req}</small>
+              </div>
+              )
+              }
             </li>
             <li>
               <label>Email : </label>
-              <input type="text" maxLength="50" placeholder="Please enter your Email"  />
+              <input type="text" maxLength="50" placeholder="Please enter your Email" value={email} onChange={changeEmail} />
+              {
+              /* 에러일 경우 메시지 출력 */
+              // 조건문 && 출력요소
+              // 조건 추가 : emailError가 입력 전일 때 안보임처리
+              // email이 입력전엔 false로 리턴됨
+              (emailError && email) &&(
+              <div className="msg">
+                <small style={{color:"red", fontSize:"11px"}}>{msgEtc.email}</small>
+              </div>
+              )
+              }
             </li>
             <li style={{ overflow: "hidden" }}>
-              <button className="sbtn">Submit</button>
+              <button className="sbtn" onClick={onSubmit}>Submit</button>
             </li>
             <li>
               Are you already a Member?<Link to="/login">Log In</Link>
