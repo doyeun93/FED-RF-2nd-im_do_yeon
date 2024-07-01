@@ -260,12 +260,62 @@ function Member(props) {
   const onSubmit = e =>{
     /// 1. 기본 서브밋 막기 
     e.preventDefault();
+
+    console.log("최종검사:", totalValid());
+
     // 2. 유효성검사 전체 통과시
     if(totalValid()){
+        console.log("모두통과! 저장!");
+
+        // [회원정보를 로컬스토리지에 저장하기]
+
+        // 1. 로컬스 체크함수 호출(없으면 생성)
+        initData();
+
+        // 2. 로컬스 변수할당
+        let memData = localStorage.getItem("mem-data");
+
+        // 3. 로컬스 객체변환
+        memData = JSON.parse(memData);
+        
+        // 최대수를 위한 배열값 뽑기 (idx항목)
+        let temp = memData.map(v=>v.idx);
+        // 다음 번호는 항상 최대수 +1이다
+
+        // 4. 새로운 데이터 구성하기
+        let newData = {
+            idx : Math.max(...temp)+1,
+                uid : userId,
+                pwd : pwd,
+                unm: userName,
+                eml: email,
+        };
+
+        // 5. 데이터 추가하기 : 배열에 데이터 추가 push()
+        memData.push(newData);
+
+        // 6. 로컬스에 반영하기 :  문자화해서 넣어야함
+        localStorage.setItem("mem-data", JSON.stringify(memData));
 
     } ///// if /////
+    // 3. 불통과시
+    else{
+        alert("Change your input!");
+
+    } ///// onSubmit 함수 ///////////////////
 
   }; /////////// onSubmit 함수 /////////////
+
+  // 최대수 테스트 
+  const arr = [{"idx":"100"}, {"idx":"77"}, {"idx":"3"}, {"idx":"44"}, {"idx":"5"}];
+  const newArr = arr.map(v =>v.idx);
+  // ... 배열변수  -> 스프레드 연산자로 배열값만 가져온다
+  const maxValue = Math.max(...newArr);
+  const minValue = Math.min(...newArr);
+//   const maxValue = Math.max("77","55","33");
+  console.log(newArr);
+  console.log("최대수:", maxValue);
+  console.log("최소수:", minValue);
 
   // 코드 리턴 구역
   return (
