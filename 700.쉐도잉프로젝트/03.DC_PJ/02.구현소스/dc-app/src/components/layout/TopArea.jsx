@@ -141,6 +141,13 @@ export default function TopArea() {
                   <FontAwesomeIcon icon={faSearch} />
                 </a>
             </li>
+            {/* 회원가입, 로그인 버튼 */}
+            <li>
+              <Link to="/member">JOIN US</Link>
+            </li>
+            <li>
+              <Link to="/login">LOG IN</Link>
+            </li>
           </ul>
         </nav>
       </header>
