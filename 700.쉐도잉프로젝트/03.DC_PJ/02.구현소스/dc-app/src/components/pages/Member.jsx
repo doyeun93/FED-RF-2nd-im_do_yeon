@@ -330,9 +330,9 @@ function Member() {
   const maxValue = Math.max(...newArr);
   const minValue = Math.min(...newArr);
 //   const maxValue = Math.max("77","55","33");
-  console.log(newArr);
-  console.log("최대수:", maxValue);
-  console.log("최소수:", minValue);
+  // console.log(newArr);
+  // console.log("최대수:", maxValue);
+  // console.log("최소수:", minValue);
 
   // 코드 리턴 구역
   return (

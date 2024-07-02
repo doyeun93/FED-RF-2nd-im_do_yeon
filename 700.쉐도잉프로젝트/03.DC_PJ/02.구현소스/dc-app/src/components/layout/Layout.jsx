@@ -1,9 +1,9 @@
 // 전체 레이아웃 컴포넌트 ///
 
 import { useEffect, useState } from "react";
-import FooterArea from "./FooterArea";
+import {FooterArea} from "./FooterArea";
 import MainArea from "./MainArea";
-import TopArea from "./TopArea";
+import {TopArea} from "./TopArea";
 import { useNavigate } from "react-router-dom";
 
 // 컨텍스트 API 불러오기
@@ -20,7 +20,7 @@ export default function Layout(){
 
     // 2. 로그인 환영 메시지 상태변수
     const [loginMsg, setLoginMsg] = useState(null);
-    console.log(loginMsg);
+    // console.log(loginMsg);
 
     // [ 공통 함수]
     // 1. 라우팅 이동 함수
