@@ -1,6 +1,6 @@
 //// 로그인 페이지 컴포넌트 - login.jsx
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 // css 불러오기
 import "../../css/member.scss";
@@ -67,8 +67,7 @@ function Login(props) {
         // (1) 메세지 띄우기(필수입력 메세지)
         setIdMsg(msgId[0]);
         // (2) 에러상태값 변경하기
-        setUserIdError(true);
-        
+        setUserIdError(true); 
     };
 
     // 실제 userId 상태변수값이 업데이트 되어야만 화면에 출력된다
@@ -142,6 +141,46 @@ function Login(props) {
 
       // 3. 로컬스 객체변환
       memData = JSON.parse(memData);
+      console.log(memData);
+
+
+      // 4. 아이디 존재 여부 검사하기
+      // 배열.find() -> 있을 경우 레코드 저장. 데이터 확인 후
+      // filter와 달리 배열로 저장하지 않고 값만 저장함 그래서 결과값이 없으면 undefined를 리턴함
+      let result = memData.find(v=>{
+        if(v.uid === userId) return true;
+      });
+      console.log("결과:", result);
+      
+
+      // 4-1. 결과값이 없으면 메시지 보이기
+      if(!result){
+        // (1) 에러메시지 선택하기
+        setIdMsg(msgId[1]);
+        // (2) 에러메시지 보이기
+        setUserIdError(true);
+    } //// if ////////////
+    
+    // 4-2. 결과값이 있으면 비밀번호검사
+    else{
+        // (1) 아이디 에러메시지 숨기기
+        setUserIdError(false);
+        // (2) 비밀번호 검사 : 입력비번 == 결과 비번
+        // -> 원래 비밀번호는 암호화되어 있으므로 백엔드 비밀번호 검사 모듈로 대부분 검사한다
+        if (pwd === result.pwd){
+            // 같을 경우 로그인 성공처리 
+            alert("Login Success!");
+        } /// if ////
+        // 로그인 실패시 메시지 출력
+        else {
+            // (1) 비밀번호 에러 메시지 선택하기
+            setPwdMsg(msgPwd[1]);
+            // (2) 비밀번호 에러 메시지 보이기
+            setPwdError(true);
+        } /// else ///
+
+
+      } /// else //////
 
       
     } ///// if /////
@@ -152,6 +191,13 @@ function Login(props) {
     } ///// onSubmit 함수 ///////////////////
   }; /////////// onSubmit 함수 /////////////
 
+
+  // 화면 랜더링 구역 /////////
+  useEffect(()=>{
+    // 아이디 입력창 포커스
+    document.querySelector("#user-id").focus();
+  },[]);
+
   return (
     <div className="outbx">
       <section className="membx" style={{ minHeight: "300px" }}>
@@ -160,11 +206,11 @@ function Login(props) {
           <ul>
             <li>
               <label>ID : </label>
-              <input type="text" maxLength="20" placeholder="Please enter your ID" value={userId} onChange={changeUserId} />
+              <input id="user-id" type="text" maxLength="20" placeholder="Please enter your ID" value={userId} onChange={changeUserId} />
               {
               /* 에러일 경우 메시지 출력 */
               // 조건문 && 출력요소
-              (userIdError && userId) &&(
+              userIdError  &&(
               <div className="msg">
                 <small style={{color:"red", fontSize:"11px"}}>{idMsg}</small>
               </div>
@@ -182,9 +228,7 @@ function Login(props) {
               {
               /* 에러일 경우 메시지 출력 */
               // 조건문 && 출력요소
-              // 조건 추가 : pwdError가 입력 전일 때 안보임처리
-              // pwd가 입력전엔 false로 리턴됨
-              (pwdError && pwd) &&(
+              pwdError  &&(
               <div className="msg">
                 <small style={{color:"red", fontSize:"11px"}}>{pwdMsg}</small>
               </div>
@@ -192,7 +236,7 @@ function Login(props) {
               }
             </li>
             <li style={{ overflow: "hidden" }}>
-              <button className="sbtn">Submit</button>
+              <button className="sbtn" onClick={onSubmit}>Submit</button>
             </li>
           </ul>
         </form>

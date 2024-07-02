@@ -5,6 +5,10 @@ import MainArea from "./MainArea";
 import TopArea from "./TopArea";
 
 export default function Layout(){
+    // 상태관리 변수 ///
+    // 1. 로그인 상태관리 변수 
+    
+
     //// 코드 리턴 구역
     return(
         <>
