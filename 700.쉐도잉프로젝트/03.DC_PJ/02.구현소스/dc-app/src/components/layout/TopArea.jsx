@@ -11,8 +11,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 import $ from "jquery";
+import { useContext } from "react";
+import { dCon } from "../modules/dCon";
 
 export default function TopArea() {
+  // 컨텍스트 사용하기
+  const myCon = useContext(dCon);
+
+
   // 이동함수
   const goNav = useNavigate();
   // 사용시 goNav(라우터 주소, {전달객체})
@@ -74,6 +80,7 @@ export default function TopArea() {
       {/* 1.상단영역 */}
       <header className="top-area">
         {/* 로그인 환영메시지 박스 */}
+        <div className="logmsg">{myCon.loginMsg}</div>
         {/* <div className="logmsg">{logMsg}</div> */}
         {/* 네비게이션 GNB파트 */}
         <nav className="gnb">
@@ -141,13 +148,29 @@ export default function TopArea() {
                   <FontAwesomeIcon icon={faSearch} />
                 </a>
             </li>
-            {/* 회원가입, 로그인 버튼 */}
-            <li>
-              <Link to="/member">JOIN US</Link>
-            </li>
-            <li>
-              <Link to="/login">LOG IN</Link>
-            </li>
+            {/* 회원가입, 로그인 버튼은 로그인 상태가 null일때 나옴 */
+            myCon.loginSts === null &&
+            <>
+              <li>
+                <Link to="/member">JOIN US</Link>
+              </li>
+              <li>
+                <Link to="/login">LOG IN</Link>
+              </li>
+            </>
+            }
+            {/* 로그인 상태면 로그아웃버튼 보임 */
+            myCon.loginSts !== null &&
+            <>
+              <li>
+                <a href="#" onClick={(e)=>{
+                  e.preventDefault();
+                  // 로그아웃처리함수 호출
+                  myCon.logoutFn();
+                }}>LOGOUT</a>
+              </li>
+            </>
+            }
           </ul>
         </nav>
       </header>

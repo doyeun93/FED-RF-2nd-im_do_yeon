@@ -175,7 +175,7 @@ function Login(props) {
         // -> 원래 비밀번호는 암호화되어 있으므로 백엔드 비밀번호 검사 모듈로 대부분 검사한다
         if (pwd === result.pwd){
             // 같을 경우 로그인 성공처리 
-            alert("Login Success!");
+            // alert("Login Success!");
 
 
             /********************** [로그인 후 세팅작업] **********************/

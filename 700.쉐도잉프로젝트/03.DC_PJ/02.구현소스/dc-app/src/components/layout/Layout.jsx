@@ -1,6 +1,6 @@
 // 전체 레이아웃 컴포넌트 ///
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import FooterArea from "./FooterArea";
 import MainArea from "./MainArea";
 import TopArea from "./TopArea";
@@ -10,6 +10,9 @@ import { useNavigate } from "react-router-dom";
 import { dCon } from "../modules/dCon";
 
 export default function Layout(){
+
+
+
     // 상태관리 변수 ///
     // 1. 로그인 상태관리 변수 -> 초기값으로 세션스토리지 "minfo"를 할당함
     const [loginSts, setLoginSts] = 
@@ -32,11 +35,42 @@ export default function Layout(){
         setLoginMsg(`Welcome ${name} ${usrIcon[rdm]}`);
     }; ////// makeMsg 함수 ///////////
 
+    // 3. 로그아웃 함수
+    const logoutFn = () => {
+        // 1. 로그인 상태값 null
+        setLoginSts(null);
+        // 2. 세션스 지우기 : minfo
+        sessionStorage.removeItem("minfo");
+        // 3. 로그인 메시지 초기화
+        setLoginMsg(null);
+
+        // 4. 메인 페이지로 돌아가기
+        goPage("/");
+
+    } /////// logoutFn 함수 /////////
+
+     // 4. 로그인 상태 체크함수 -> 화면 랜더링 상태 체크 
+     useEffect(()=>{
+        // 만약 세션스(minfo)의 값이 null이 아니면
+        // 로그인 상태변수를 업데이트 한다
+        // -> null이 아니면 조건문이 true 처리됨
+        if(sessionStorage.getItem("minfo")){
+            // 세션스 변수 할당
+            let ss = sessionStorage.getItem("minfo");
+            // 로그인 상태값
+            setLoginSts(ss);
+            // 로그인 메시지 업데이트 : 세션스값의 unm(이름값)을 보내준다
+            makeMsg(JSON.parse(ss).unm);
+            
+        } ////// if ///////
+
+     },[]);
+
 
     //// 코드 리턴 구역
     return(
         // Provider value 속성으로 전역노출 변수를 설정함
-        <dCon.Provider value={{loginSts, setLoginSts,setLoginMsg,goPage,makeMsg,}}>
+        <dCon.Provider value={{loginSts, setLoginSts,loginMsg,setLoginMsg,goPage,makeMsg,logoutFn}}>
         {/* 1. 상단영역 */}
         <TopArea/>
         {/* 2. 메인영역 */}
