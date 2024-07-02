@@ -19,6 +19,7 @@ import Member from "./components/pages/Member";
 
 // 전체 공통 css 불러오기
 import "../src/css/index.scss";
+import Login from "./components/pages/Login";
 
 
 /********************************************************************** 
@@ -83,6 +84,7 @@ export default function MainComponent() {
           <Route path="detail" element={< CatDetail /> } />
           <Route path="search" element={<SearchPage />}/>
           <Route path="member" element={<Member />}/>
+          <Route path="login" element={<Login />}/>
         </Route>
         {/* Layout 루트 Route 하위 Route를 감싼다 */}
       </Routes>

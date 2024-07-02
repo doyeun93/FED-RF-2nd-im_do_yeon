@@ -1,3 +1,5 @@
+//// 회원가입 페이지 컴포넌트 - member.jsx
+
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -8,7 +10,7 @@ import "../../css/member.scss";
 import { initData } from "../func/mem_fn";
 
 
-function Member(props) {
+function Member() {
   // [회원가입 페이지 요구사항]
   // 1. 각 입력항목별로 유효성 검사를 실행함
   // 2. 상태체크를 통하여 적절한 유효성 검사시, 유효성 체크 에러 메시지를 출력한다
@@ -327,7 +329,9 @@ function Member(props) {
             <li>
                 {/* 1. 아이디 */}
               <label>ID : </label>
-              <input type="text" maxLength="20" placeholder="Please enter your ID" value={userId} onChange={changeUserId}/>
+              <input type="text" maxLength="20" placeholder="Please enter your ID" 
+              // defaultValue={gg} -> 기본으로 씀
+              value={userId} onChange={changeUserId}/>
               {
               /* 에러일 경우 메시지 출력 */
               // 조건문 && 출력요소
