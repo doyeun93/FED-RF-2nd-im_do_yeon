@@ -1,16 +1,22 @@
 //// 로그인 페이지 컴포넌트 - login.jsx
 
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 // css 불러오기
 import "../../css/member.scss";
 import { initData } from "../func/mem_fn";
+import { dCon } from "../modules/dCon";
 
 
 
 
 function Login(props) {
   /////// [상태관리 변수]  ////////////
+  // 컨텍스트 확인
+    const myCon = useContext(dCon);
+    console.log(myCon.loginSts);
+
+
   // [1] 입력요소 상태변수
 
   // 1. 아이디변수
