@@ -11,29 +11,40 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 import $ from "jquery";
-import { memo, useContext } from "react";
-import { dCon } from "../modules/dCon";
+import { memo} from "react";
+// import { dCon } from "../modules/dCon";
 
 
 // 메모이제이션 적용하기! /////
 // -> 그.러.나... 단순히 적용하면 효과가 없음!
 // 이유는? 컨텍스트 API가 전역적인 함수/변수를 전달하고 있어서
-// 매번 새롭게 리랜더링 됨으로 인해 메모이제이션 갱신을 하게끔 하기에 효가가 없는것!!!
+// 매번 새롭게 리랜더링 됨으로 인해 메모이제이션 갱신을 하게끔 하기에 효과가 없는것!!!
 // ->>> 방법은? 컨텍스트API를 사용하지 말고
 // props로 전달하는 방식으로 전환하면 효과를 볼 수 있다!
 // -> React.memo는 전달속성이 변경됨을 기준하여
 // 메모이제이션 기능를 제공하기 때문이다!
 // -> 전달되는 함수가 반드시 useCallback() 처리가 되어야 한다!!!
+// 객체, 배열, 함수는 모두 값 저장이 아니고 주소 저장임
+// -> 그래서 이 주소를 고정해줘야 같은 값으로 인식하여 메모이제이션 된다
 
 
-export const TopArea = memo(() =>{
+export const TopArea = memo(({loginMsg,loginSts,logoutFn,goPage}) =>{
+  // 전달값
+  // 1. loginMsg : 로그인 메시지 변수
+  // 2. loginSts : 로그인 상태 변수
+  // 3. logoutFn : 로그아웃 함수###
+
+
   console.log("상단영역");
   // 컨텍스트 사용하기 -> 리랜더링이 계속 됨
-  const myCon = useContext(dCon);
+  // const myCon = useContext(dCon);-> 메모이션을 위해 사용안함
+  
+  
+ 
 
 
   // 이동함수
-  const goNav = useNavigate();
+  // const goNav = useNavigate();
   // 사용시 goNav(라우터 주소, {전달객체})
   // 전달객체는 없으면 비워도 됨
 
@@ -83,7 +94,7 @@ export const TopArea = memo(() =>{
     console.log("나는 검색하러 간다");
     // 라우터 이동함수로 이동하기
     // 네비게이트 메서드(라우터 주소,{state:{보낼객체}})
-    goNav("search",{state:{keyword:txt}})
+    goPage("search",{state:{keyword:txt}})
   }; /////////////// goSearch //////////
 
 
@@ -93,7 +104,7 @@ export const TopArea = memo(() =>{
       {/* 1.상단영역 */}
       <header className="top-area">
         {/* 로그인 환영메시지 박스 */}
-        <div className="logmsg">{myCon.loginMsg}</div>
+        <div className="logmsg">{loginMsg}</div>
         {/* <div className="logmsg">{logMsg}</div> */}
         {/* 네비게이션 GNB파트 */}
         <nav className="gnb">
@@ -104,7 +115,7 @@ export const TopArea = memo(() =>{
                 // 기본 이동 막기
                 e.preventDefault(); 
                 // 라우터 이동 메서드 호출
-                goNav("/")}} > {/* goNav에 이동만 하고싶으면 전달객체를 안써도 된다 */}
+                goPage("/")}} > {/* goNav에 이동만 하고싶으면 전달객체를 안써도 된다 */}
                 <Logo logoStyle="top" />
               </a>
               {/* <Link to="/">
@@ -162,7 +173,7 @@ export const TopArea = memo(() =>{
                 </a>
             </li>
             {/* 회원가입, 로그인 버튼은 로그인 상태가 null일때 나옴 */
-            myCon.loginSts === null &&
+            loginSts === null &&
             <>
               <li>
                 <Link to="/member">JOIN US</Link>
@@ -173,13 +184,13 @@ export const TopArea = memo(() =>{
             </>
             }
             {/* 로그인 상태면 로그아웃버튼 보임 */
-            myCon.loginSts !== null &&
+            loginSts !== null &&
             <>
               <li>
                 <a href="#" onClick={(e)=>{
                   e.preventDefault();
                   // 로그아웃처리함수 호출
-                  myCon.logoutFn();
+                  logoutFn();
                 }}>LOGOUT</a>
               </li>
             </>

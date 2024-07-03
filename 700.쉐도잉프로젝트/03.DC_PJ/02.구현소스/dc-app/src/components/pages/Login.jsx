@@ -10,7 +10,7 @@ import { dCon } from "../modules/dCon";
 
 
 
-function Login(props) {
+function Login() {
   /////// [상태관리 변수]  ////////////
   // 컨텍스트 확인
     const myCon = useContext(dCon);
