@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ios에서 전체 높이값이 100svh로 컨트롤러 제외한 경우</title>
+    <style>
+        html,body{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            height: 3000px;
+            background: url(https://images.pexels.com/photos/255379/pexels-photo-255379.jpeg?cs=srgb&dl=pexels-padrinan-255379.jpg&fm=jpg) repeat-y 0/100%;
+        }
+        .wrap
+        {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            /* 
+            [ svh 단위 : vh 와 달리 short vh로써 컨트롤러 제외 높이단위 ] 
+            100svh는 ios에서 컨트롤러를 제외한 화면 높이가되어서
+            하단부분이 모두 보인다! 단, 컨트롤러가 내려가면 빈 공간이
+            생기므로 min-height: -webkit-fill-available 속성과
+            함께 사용해야 컨트롤러가 내려가지 않게된다. 
+             ->  가장 보편적으로 쉽게 사용하려면 단위를 dvh로 사용하기!!
+            */
+            height: 100svh;
+            background-color: #20b2ab74;
+            box-sizing: border-box;
+        }
+        h1{
+            font-size: 12vw;
+            text-align: center;
+            color: #fff;
+        }
+        button{
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            font-size: 7vw;
+            transform: translateX(-50%);
+            background-color: darkred;
+            color: #fff;
+            padding: 20px;
+            white-space: nowrap;
+            border-radius: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <h1>ios 테스트</h1>
+        <button>나는 버튼이닷!</button>
+    </div>
+</body>
+</html>
