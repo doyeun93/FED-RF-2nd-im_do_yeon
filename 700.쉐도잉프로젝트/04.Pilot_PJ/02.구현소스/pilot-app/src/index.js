@@ -27,12 +27,9 @@ function MainComponent(props) {
   /// 코드 리턴 구역  
   return (
     <pCon.Provider value={{setPgName}}>
-   
       <TopArea />
       <MainArea page={pgName}/>
       <FooterArea />
-    
-    setPgName
     </pCon.Provider>
     
   );
