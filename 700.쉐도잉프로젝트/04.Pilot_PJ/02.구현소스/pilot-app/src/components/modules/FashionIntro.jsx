@@ -30,7 +30,7 @@ function FashionIntro({ catName, subCat, opt }) {
       <ul className="pgc" style={{ flexDirection: opt ? "row-reverse" : "row" }}>
         {/* 1. 첫번째 이미지 박스 */}
         <li className="imgc">
-          <img src={selData.isrc[0]} alt={selData.ialt[0]} />
+          <img src={process.env.PUBLIC_URL+selData.isrc[0]} alt={selData.ialt[0]} />
         </li>
 
         {/* 2. 두번째 글자 박스 */}
@@ -66,7 +66,7 @@ function FashionIntro({ catName, subCat, opt }) {
           // 스타일인 경우 li이미지박스 생성
           catName == "style" && (
             <li className="imgc">
-              <img src={selData.isrc[1]} alt={selData.ialt[1]} />
+              <img src={process.env.PUBLIC_URL+selData.isrc[1]} alt={selData.ialt[1]} />
             </li>
           )
         }
