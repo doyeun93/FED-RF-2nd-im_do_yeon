@@ -25,8 +25,11 @@ export function SwiperBan({ cat }) {
   // 스와이퍼 객체를 담기 위한 참조변수 
   const swpObj = useRef(null);
 
+  // 스와이퍼 슬라이드의 동영상 변수
+  let mvEle;
+
   // 화면 랜더링구역 ///////
-  useEffect( ()=>{
+  useEffect( () => {
     // 스와이퍼 배너 첫페이지로 이동하기
     // 스와이퍼 객체 -> 한번 만들어뒀기때문에 다른곳에서도 사용가능
     let objSwp = swpObj.current.swiper;
@@ -75,6 +78,75 @@ export function SwiperBan({ cat }) {
     return temp;
   }; ///////////// makeList 함수 //////////
 
+
+
+  // 화면 랜더링 구역 : 한번만 ///
+  useEffect(()=>{
+
+    // 스와이퍼 객체 : ref로 외부에 노출한 스와이퍼 객체
+    let objSwp = swpObj.current.swiper;
+
+    // 화면절반크기 기준값
+    const winCta = window.innerHeight / 2;
+    // 스크롤시 호출함수
+    const scrollFn = () => {
+        if (window.scrollY > winCta) {
+            // 영상플레이시 자동넘김 끄기
+            objSwp.autoplay.stop();
+            objSwp.autoplay.running = false;
+            // 영상멈추기
+            mvEle.pause();
+        } else {
+            // 자동넘김 시작
+            objSwp.autoplay.start();
+            // 자동넘김 속성 true전환!
+            objSwp.autoplay.running = true;
+            // 영상재생
+            mvEle.play();
+        }
+    };  ////////////// scrollFn ///////////////
+
+    // 스크롤 이동시 기준값에 따라 동영상 재생/ 멈춤
+    // 단, 동영상 객체가 있을때만 걸어준다
+    if(mvEle)
+    window.addEventListener("scroll", scrollFn);
+  
+  // 소멸자 만들기 ///////////////
+  return(()=>{
+    // 동영상 변수가 null이 아닐때만 이벤트 삭제
+    if(mvEle){
+      // 동영상 시간 업데이트 이벤트 설정제거
+      mvEle.removeEventListener("timeupdate", actionVideo);
+      // 스크롤 이벤트 설정 제거
+      window.addEventListener("scroll", scrollFn);
+    } // if
+
+      console.log("난 스와이퍼 소멸자!!!");
+    });
+ },[]); ///// useEffect ///////
+
+
+ //// 동영상 재생시 작동 함수 ////////////
+ const actionVideo = (e) => {
+  // 스와이퍼 객체
+  let objSwp = swpObj.current.swiper;
+  // 비디오가 멈추면 멈춤속성값이 true임
+  // 멈춤속성 -> paused
+  // console.log("비디오 재생 중!",e.target.paused);
+  // 비디오가 멈추면 슬라이드 이동
+  if(e.target.paused){
+    // 슬라이드 이동 
+    swp.slideNext();
+    // 자동 넘김 시작
+    swp.autoplay.start();
+    // 자동 넘김 속성(값을 읽어오거나 할당) true 전환
+    swp.autoplay.running = true; /* 자동넘김 켬 */
+
+  } ///// if ///////
+
+}  /////// actionVideo ///////////
+
+
   // 리턴코드 ///////////////////
   return (
     <>
@@ -116,8 +188,8 @@ export function SwiperBan({ cat }) {
          } ///// if ////
             
 
-          // 선택 동영상
-          let mvEle = document.querySelector(`.${cat}-vid`);
+          // 선택 동영상 : 상단 전역변수로 선언 //
+          mvEle = document.querySelector(`.${cat}-vid`);
 
           // 현재 진짜 순번
           let idx = swp.realIndex;
@@ -135,27 +207,18 @@ export function SwiperBan({ cat }) {
 
             // 비디오가 재생시 발생이벤트 체크 
             // timeupdate : 비디오 재생 이벤트
-            mvEle.addEventListener("timeupdate", (e) => {
-              // 비디오가 멈추면 멈춤속성값이 true임
-              // 멈춤속성 -> paused
-              console.log("비디오 재생 중!",e.target.paused);
-              // 비디오가 멈추면 슬라이드 이동
-              if(e.target.paused){
-                // 슬라이드 이동 
-                swp.slideNext();
-                // 자동 넘김 시작
-                swp.autoplay.start();
-                // 자동 넘김 속성(값을 읽어오거나 할당) true 전환
-                swp.autoplay.running = true; /* 자동넘김 켬 */
-
-              } ///// if ///////
-
-            }); //////////////
+            mvEle.addEventListener("timeupdate", actionVideo); //////////////
 
           } /////// if ////////////
           // 기타 페이지는 영상 멈춤
           else {
-            mvEle.pause();
+            // mvEle.pause(); -> 에러남
+            let playPromise = mvEle.play();
+              if (playPromise !== undefined) 
+                playPromise.then(() => mvEle.pause());
+              // 원래 then()메서드는 Promise 객체를 만들고 쓰는것
+              // 플레이 메서드가 기본적으로 프라미스를 구성하고 있음
+              // 그래서 then()메서드 사용가능
           }
         }}
       >
