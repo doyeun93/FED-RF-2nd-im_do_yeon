@@ -19,7 +19,7 @@ import { useEffect, useRef, useState } from "react";
 export function SwiperBan({ cat }) {
 
   // cat : 카테고리명
-  console.log("배너카테고리명:", cat);
+  // console.log("배너카테고리명:", cat);
 
 
   // 스와이퍼 객체를 담기 위한 참조변수 
@@ -40,8 +40,8 @@ export function SwiperBan({ cat }) {
 
     
     // 스와이퍼 객체는 어디있지?
-    console.log("랜더링:", swpObj);
-    console.log("랜더링:", swpObj.current.swiper);
+    // console.log("랜더링:", swpObj);
+    // console.log("랜더링:", swpObj.current.swiper);
     // 플러그인 스와이퍼 컴포넌트 객체 생성시 ref 속성에 useRef 변수를 넣으면
     // 거기에 스와이퍼 객체가 담겨진다 -> 외부에서 사용 가능
     // 사용법 : (1) 요소로 사용할 때 : 참조변수.current
@@ -129,7 +129,7 @@ export function SwiperBan({ cat }) {
  //// 동영상 재생시 작동 함수 ////////////
  const actionVideo = (e) => {
   // 스와이퍼 객체
-  let objSwp = swpObj.current.swiper;
+  let swp = swpObj.current.swiper;
   // 비디오가 멈추면 멈춤속성값이 true임
   // 멈춤속성 -> paused
   // console.log("비디오 재생 중!",e.target.paused);
