@@ -4,12 +4,13 @@ import $ from "jquery";
 import { useContext } from "react";
 import { pCon } from "./pCon";
 
-function ItemDetail({ cat, ginfo, dt, setGinfo }) {
+function ItemDetail({ cat, ginfo, dt, setGinfo ,gIdx }) {
   // cat - 카테고리
   // ginfo - 상품정보
   // dt - 상품데이터
   // setGinfo - ginfo값 변경메서드
-  console.log(cat, ginfo);
+  // gIdx - 상품 고유 번호
+  console.log(cat, ginfo, gIdx);
 
 
   // 전역 카트 사용여부값 업데이트 사용위해 전역 컨텍스트 사용
@@ -65,8 +66,8 @@ function ItemDetail({ cat, ginfo, dt, setGinfo }) {
 
       // (3) 증감반영하기(0은 false,1은 true 처리)
       sum.val(seq == 0 ? ++num : num == 1 ? 1 : --num);
-      // seq가0이냐?그럼 증가:아니면 (num이 1이냐)
-      // 그럼1 아니면 감소 -> num이 1이하면 안되니까!
+      // seq가 0이냐? 그럼 증가:아니면 (num이 1이냐)
+      // 그럼 1 아니면 감소 -> num이 1이하면 안되니까!
       // 증감기호가 변수 앞에 있어야 먼저증감하고 할당함!
       console.log("ginfo 전달변수확인:", ginfo);
       console.log("getGinfo 참조변수확인:", getGinfo.current);
@@ -232,7 +233,32 @@ function ItemDetail({ cat, ginfo, dt, setGinfo }) {
             <div>
               <button className="btn btn1">BUY NOW</button>
               <button className="btn"
-              onClick={()=>myCon.setCartSts(true)}>SHOPPING CART</button>
+              onClick={()=>{
+                // 로컬스에 넣기
+                // -> 로컬스 없으면 만들어라
+                if(!localStorage.getItem("cart-data")){
+                  localStorage.setItem("cart-data", "[]");
+                } ///// if ////////
+
+                // 로컬스 읽어와서 파싱하기
+                let locals = localStorage.getItem("cart-data");
+                locals = JSON.parse(locals);
+
+                // 로컬스에 객체 데이터 추가하기
+                locals.push({
+                  num : 1,
+                  idx : gIdx,
+                  cat: cat,
+                  ginfo : ginfo,
+                });
+                
+                // 로컬스에 문자화하여 입력하기
+                localStorage.setItem("cart-data", JSON.stringify(locals));
+
+                // 카트 상태값 변경
+                myCon.setCartSts(true);
+                }}>
+                  SHOPPING CART</button>
               <button className="btn">WISH LIST</button>
             </div>
           </section>
@@ -243,3 +269,5 @@ function ItemDetail({ cat, ginfo, dt, setGinfo }) {
 }
 
 export default ItemDetail;
+
+

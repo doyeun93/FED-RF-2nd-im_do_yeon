@@ -35,7 +35,8 @@ function CartList(props) {
             <th>합계</th>
             <th>삭제</th>
           </tr>
-          <tr data-v="[object Object]">
+          {/* 카트 데이터 연동 */}
+          <tr>
             <td>
               <img src={process.env.PUBLIC_URL + "/images/goods/women/m8.png"} alt="item" />
             </td>

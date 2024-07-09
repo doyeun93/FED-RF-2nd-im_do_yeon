@@ -112,7 +112,7 @@ export default function Board() {
             selRecord.current = v;
             // 해당 데이터 저장하기
           }}>
-            {v.cont}
+            {v.tit}
           </a>
         </td>
         <td>{v.unm}</td>
