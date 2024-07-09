@@ -1,21 +1,18 @@
-import React, { useEffect, useRef } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import { addComma } from "../../func/common_fn";
 import $ from "jquery";
-import { useContext } from "react";
 import { pCon } from "./pCon";
 
-function ItemDetail({ cat, ginfo, dt, setGinfo ,gIdx }) {
+function ItemDetail({ cat, ginfo, dt, setGinfo, gIdx }) {
   // cat - 카테고리
   // ginfo - 상품정보
   // dt - 상품데이터
   // setGinfo - ginfo값 변경메서드
-  // gIdx - 상품 고유 번호
+  // gIdx - 상품고유번호
   console.log(cat, ginfo, gIdx);
-
 
   // 전역 카트 사용여부값 업데이트 사용위해 전역 컨텍스트 사용
   const myCon = useContext(pCon);
-
 
   // 제이쿼리 이벤트함수에 전달할 ginfo값 참조변수
   const getGinfo = useRef(ginfo);
@@ -66,8 +63,8 @@ function ItemDetail({ cat, ginfo, dt, setGinfo ,gIdx }) {
 
       // (3) 증감반영하기(0은 false,1은 true 처리)
       sum.val(seq == 0 ? ++num : num == 1 ? 1 : --num);
-      // seq가 0이냐? 그럼 증가:아니면 (num이 1이냐)
-      // 그럼 1 아니면 감소 -> num이 1이하면 안되니까!
+      // seq가0이냐?그럼 증가:아니면 (num이 1이냐)
+      // 그럼1 아니면 감소 -> num이 1이하면 안되니까!
       // 증감기호가 변수 앞에 있어야 먼저증감하고 할당함!
       console.log("ginfo 전달변수확인:", ginfo);
       console.log("getGinfo 참조변수확인:", getGinfo.current);
@@ -93,13 +90,14 @@ function ItemDetail({ cat, ginfo, dt, setGinfo ,gIdx }) {
     $("#total").text(addComma(ginfo[3]) + "원");
   }); ////////// useEffect //////
 
+  // 코드리턴구역 /////////////
   return (
     <>
       <a
         href="#"
         className="cbtn"
         onClick={(e) => {
-          // 기본 이동 막기
+          // 기본이동막기
           e.preventDefault();
           // 창닫기
           $(".bgbx").hide();
@@ -112,12 +110,18 @@ function ItemDetail({ cat, ginfo, dt, setGinfo ,gIdx }) {
           <section className="gimg">
             {/* 선택한 상품 큰이미지 */}
             <img
-              src={process.env.PUBLIC_URL + `/images/goods/${cat}/${ginfo[0]}.png`}
+              src={
+                process.env.PUBLIC_URL + `/images/goods/${cat}/${ginfo[0]}.png`
+              }
               alt="큰 이미지"
             />
-            {/* 작은 상품이미지 - 본 상품을 제외한 5개의 상품이 나열되고 클릭시
-              본 화면에 상품을 변경해 준다. 단, 같은 카테고리 상품 상위 5개
-              -> 배열을 임의로 만들고 값도 임의로 넣고 map을 사용하여 코드를 만들어보자*/}
+            {/* [작은 상품이미지]
+            - 본 상품을 제외한 5개의 상품이 나열되고
+            클릭시 본 화면에 상품을 변경해 준다!
+            단, 같은 카테고리 상품 상위 5개임 
+            -> 배열을 임의로 만들고 값도 임의로 넣고
+            map을 사용하여 코드를 만들어보자!!!
+            */}
             <div className="small">
               {Array(5)
                 .fill("")
@@ -135,12 +139,14 @@ function ItemDetail({ cat, ginfo, dt, setGinfo ,gIdx }) {
                       href="#"
                       key={i}
                       onClick={(e) => {
-                        // 기본 이동 막기
+                        // 기본이동막기
                         e.preventDefault();
-                        // 선택 데이터 찾기 -> cat항목 값 + ginfo[0]항목
+                        // 선택 데이터 찾기
+                        // -> cat항목값 + ginfo[0]항목
                         let res = dt.find((v) => {
-                          if (v.cat == cat && v.ginfo[0] == "m" + num) return true;
-                        });//// find /////
+                          if (v.cat == cat && v.ginfo[0] == "m" + num)
+                            return true;
+                        }); //// find /////
                         console.log(res);
                         // 상품상세모듈 전달 상태변수 변경
                         // find에서 받은값은 객체값
@@ -150,7 +156,10 @@ function ItemDetail({ cat, ginfo, dt, setGinfo ,gIdx }) {
                       }}
                     >
                       <img
-                        src={process.env.PUBLIC_URL + `/images/goods/${cat}/m${num}.png`}
+                        src={
+                          process.env.PUBLIC_URL +
+                          `/images/goods/${cat}/m${num}.png`
+                        }
                         alt="썸네일 이미지"
                       />
                     </a>
@@ -164,22 +173,36 @@ function ItemDetail({ cat, ginfo, dt, setGinfo ,gIdx }) {
               <ol>
                 <li>
                   <img
-                    src={process.env.PUBLIC_URL + "/images/dx_ico_new-28143800.gif"}
+                    src={
+                      process.env.PUBLIC_URL + "/images/dx_ico_new-28143800.gif"
+                    }
                     alt="new버튼"
                   />
                 </li>
                 <li id="gtit">상품명: {ginfo[1]}</li>
                 <li>
                   <img
-                    src={process.env.PUBLIC_URL + "/images/icon_type02_social01.gif"}
+                    src={
+                      process.env.PUBLIC_URL +
+                      "/images/icon_type02_social01.gif"
+                    }
                     alt="페이스북"
                   />
                   <img
-                    src={process.env.PUBLIC_URL + "/images/icon_type02_social02.gif"}
+                    src={
+                      process.env.PUBLIC_URL +
+                      "/images/icon_type02_social02.gif"
+                    }
                     alt="트위터"
                   />
-                  <img src={process.env.PUBLIC_URL + "/images/icon_mail02.gif"} alt="이메일" />
-                  <img src={process.env.PUBLIC_URL + "/images/btn_source_copy.gif"} alt="URL복사" />
+                  <img
+                    src={process.env.PUBLIC_URL + "/images/icon_mail02.gif"}
+                    alt="이메일"
+                  />
+                  <img
+                    src={process.env.PUBLIC_URL + "/images/btn_source_copy.gif"}
+                    alt="URL복사"
+                  />
                 </li>
                 <li>
                   <span>판매가</span>
@@ -188,7 +211,10 @@ function ItemDetail({ cat, ginfo, dt, setGinfo ,gIdx }) {
                 <li>
                   <span>적립금</span>
                   <span>
-                    <img src={process.env.PUBLIC_URL + "/images/icon_my_m02.gif"} alt="적립금" />
+                    <img
+                      src={process.env.PUBLIC_URL + "/images/icon_my_m02.gif"}
+                      alt="적립금"
+                    />
                     4,950(5%적립)
                   </span>
                 </li>
@@ -197,7 +223,10 @@ function ItemDetail({ cat, ginfo, dt, setGinfo ,gIdx }) {
                   <span>
                     부분 무이자 할부 혜택
                     <img
-                      src={process.env.PUBLIC_URL + "/images/view_btn_nointerest_card.gif"}
+                      src={
+                        process.env.PUBLIC_URL +
+                        "/images/view_btn_nointerest_card.gif"
+                      }
                       alt="무이자카드보기"
                     />
                   </span>
@@ -213,8 +242,14 @@ function ItemDetail({ cat, ginfo, dt, setGinfo ,gIdx }) {
                   <span>
                     <input type="text" id="sum" defaultValue="1" />
                     <b className="chg_num">
-                      <img src={process.env.PUBLIC_URL + "/images/cnt_up.png"} alt="증가" />
-                      <img src={process.env.PUBLIC_URL + "/images/cnt_down.png"} alt="감소" />
+                      <img
+                        src={process.env.PUBLIC_URL + "/images/cnt_up.png"}
+                        alt="증가"
+                      />
+                      <img
+                        src={process.env.PUBLIC_URL + "/images/cnt_down.png"}
+                        alt="감소"
+                      />
                     </b>
                   </span>
                 </li>
@@ -232,33 +267,37 @@ function ItemDetail({ cat, ginfo, dt, setGinfo ,gIdx }) {
             </div>
             <div>
               <button className="btn btn1">BUY NOW</button>
-              <button className="btn"
-              onClick={()=>{
-                // 로컬스에 넣기
-                // -> 로컬스 없으면 만들어라
-                if(!localStorage.getItem("cart-data")){
-                  localStorage.setItem("cart-data", "[]");
-                } ///// if ////////
+              <button
+                className="btn"
+                onClick={() => {
+                  // 로컬스에 넣기
+                  // 로컬스 없으면 만들어라!
+                  if (!localStorage.getItem("cart-data")) {
+                    localStorage.setItem("cart-data", "[]");
+                  } //// if /////
 
-                // 로컬스 읽어와서 파싱하기
-                let locals = localStorage.getItem("cart-data");
-                locals = JSON.parse(locals);
+                  // 로컬스 읽어와서 파싱하기
+                  let locals = localStorage.getItem("cart-data");
+                  locals = JSON.parse(locals);
 
-                // 로컬스에 객체 데이터 추가하기
-                locals.push({
-                  num : 1,
-                  idx : gIdx,
-                  cat: cat,
-                  ginfo : ginfo,
-                });
-                
-                // 로컬스에 문자화하여 입력하기
-                localStorage.setItem("cart-data", JSON.stringify(locals));
+                  // 로컬스에 객체 데이터 추가하기
+                  locals.push({
+                    num: 1,
+                    idx: gIdx,
+                    cat: cat,
+                    ginfo: ginfo,
+                  });
 
-                // 카트 상태값 변경
-                myCon.setCartSts(true);
-                }}>
-                  SHOPPING CART</button>
+                  // 로컬스에 문자화하여 입력하기
+                  localStorage.setItem(
+                    "cart-data", JSON.stringify(locals));
+
+                  // 카트 상태값 변경
+                  myCon.setCartSts(true);
+                }}
+              >
+                SHOPPING CART
+              </button>
               <button className="btn">WISH LIST</button>
             </div>
           </section>

@@ -61,7 +61,6 @@ function ItemList() {
                 // console.log("data:",v);
             }}>
                 [{i+1}]
-                {/* [{v.idx}] */}
               <img src={process.env.PUBLIC_URL+`/images/goods/${v.cat}/${v.ginfo[0]}.png` } alt="dress" />
               <aside>
                 <h2>{v.ginfo[1]}</h2>
