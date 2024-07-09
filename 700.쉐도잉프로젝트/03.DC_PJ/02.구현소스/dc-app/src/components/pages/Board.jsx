@@ -214,23 +214,50 @@ export default function Board() {
     // 2. 글쓰기 서브밋 (mode == "W")
     if(mode == "W") {
 
-      // 오늘날짜
+      // 현재 로그인 사용자 정보 파싱하기 
+      let person = JSON.parse(sts);
+
+      // [1] 오늘날짜 생성하기
       let today = new Date();
       // yy-mm-dd 형식으로 구하기
       // 제이슨 날짜 형식 : toJSON()
       // ISO 표준형식 : toISOString() -> 시간까지 나오므로 앞에 10자리만 가져간다
       // => 문자열.substr(0,10)
+
+      // [2] 글번호 만들기
+      // 전체 데이터 중 idx만 모아서 배열만들기
+      let arrIdx = baseData.map(v=>parseInt(v.idx));
+      // console.log(arrIdx);
+      // 최대값 찾기 :  스프레드 연산자로 배열값만 넣음
+      let maxNum = Math.max(...arrIdx);
+      // console.log(maxNum);
+  
+      // [3] 입력 데이터 객체 형식으로 바꾸기 
         let data ={
-          "idx" : "글 idx 최대값 +1",
+          "idx" : maxNum+1,
           "tit" : title,
           "cont" : cont,
           "att" : "",
-          "date" : today.toJSON(),
-          "uid" : sts.uid,
-          "unm" : sts.unm,
+          "date" : today.toJSON().substr(0,10),
+          "uid" : person.uid,
+          "unm" : person.unm,
           "cnt" : "0"
         }
-        console.log("글쓰기 서브밋:", data);
+        // console.log("글쓰기 서브밋:", data);
+
+        // [4] 로컬스에 입력하기 
+        // (1) 로컬스에 파싱
+        let locals = localStorage.getItem("board-data");
+        locals = JSON.parse(locals);
+        // (2) 파싱 배열에 push
+        locals.push(data);
+        // (3) 새배열을 문자화하여 로컬스에 넣기 
+        localStorage.setItem("board-data", JSON.stringify(locals));
+
+        // 로컬스 확인
+        // console.log(localStorage.getItem("board-data"));
+        // [5]리스트로 돌아가기 -> 모드 변경 "L"
+        setMode("L");
     }
     // 3. 수정모드 서브밋(mode == "M")
 
