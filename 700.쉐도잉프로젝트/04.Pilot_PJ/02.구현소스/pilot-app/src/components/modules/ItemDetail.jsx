@@ -3,21 +3,27 @@ import { addComma } from "../../func/common_fn";
 import $ from "jquery";
 import { pCon } from "./pCon";
 
-function ItemDetail({ cat, ginfo, dt, setGinfo, gIdx }) {
+function ItemDetail({ tot, dt, setTot }) {
+  // tot - 상품 토탈 정보
+  // dt - 상품데이터
+  // setTot - 상품 토탈정보 업데이트 함수
   // cat - 카테고리
   // ginfo - 상품정보
-  // dt - 상품데이터
-  // setGinfo - ginfo값 변경메서드
   // gIdx - 상품고유번호
+
+  // 상품 정보 개별 셋업
+  let cat = tot.cat;
+  let ginfo = tot.ginfo;
+  let gIdx = tot.idx;
+
   console.log(cat, ginfo, gIdx);
 
-  // 전역 카트 사용여부값 업데이트 사용위해 전역 컨텍스트 사용
+  // 전역 카트 사용 여부값 업데이트 사용위해 전역 컨텍스트 사용
   const myCon = useContext(pCon);
 
-  // 제이쿼리 이벤트함수에 전달할 ginfo값 참조변수
+  // 제이쿼리 이벤트 함수에 전달할 ginfo값 참조변수
   const getGinfo = useRef(ginfo);
-  // getGinfo참조변수는 새로들어온 ginfo전달값이 달라진 경우
-  // 업데이트한다!
+  // getGinfo참조 변수는 새로 들어온 ginfo전달 값이 달라진 경우 업데이트한다!
   if (getGinfo.current != ginfo) getGinfo.current = ginfo;
 
   // [ 배열 생성 테스트 ]
@@ -89,7 +95,7 @@ function ItemDetail({ cat, ginfo, dt, setGinfo, gIdx }) {
     // 총합계 초기화
     $("#total").text(addComma(ginfo[3]) + "원");
   }); ////////// useEffect //////
-
+  
   // 코드리턴구역 /////////////
   return (
     <>
@@ -101,6 +107,11 @@ function ItemDetail({ cat, ginfo, dt, setGinfo, gIdx }) {
           e.preventDefault();
           // 창닫기
           $(".bgbx").hide();
+          // 창 닫을때 수량 초기화하기
+          $("#sum").val(1);
+          // 총합계 초기화
+          $("#total").text(addComma(ginfo[3]) + "원");
+          
         }}
       >
         <span className="ir">닫기버튼</span>
@@ -110,18 +121,13 @@ function ItemDetail({ cat, ginfo, dt, setGinfo, gIdx }) {
           <section className="gimg">
             {/* 선택한 상품 큰이미지 */}
             <img
-              src={
-                process.env.PUBLIC_URL + `/images/goods/${cat}/${ginfo[0]}.png`
-              }
+              src={process.env.PUBLIC_URL + `/images/goods/${cat}/${ginfo[0]}.png`}
               alt="큰 이미지"
             />
             {/* [작은 상품이미지]
-            - 본 상품을 제외한 5개의 상품이 나열되고
-            클릭시 본 화면에 상품을 변경해 준다!
+            - 본 상품을 제외한 5개의 상품이 나열되고클릭시 본 화면에 상품을 변경해 준다!
             단, 같은 카테고리 상품 상위 5개임 
-            -> 배열을 임의로 만들고 값도 임의로 넣고
-            map을 사용하여 코드를 만들어보자!!!
-            */}
+            -> 배열을 임의로 만들고 값도 임의로 넣고 map을 사용하여 코드를 만들어보자!!! */}
             <div className="small">
               {Array(5)
                 .fill("")
@@ -144,22 +150,17 @@ function ItemDetail({ cat, ginfo, dt, setGinfo, gIdx }) {
                         // 선택 데이터 찾기
                         // -> cat항목값 + ginfo[0]항목
                         let res = dt.find((v) => {
-                          if (v.cat == cat && v.ginfo[0] == "m" + num)
-                            return true;
+                          if (v.cat == cat && v.ginfo[0] == "m" + num) return true;
                         }); //// find /////
                         console.log(res);
                         // 상품상세모듈 전달 상태변수 변경
                         // find에서 받은값은 객체값
-                        // 그중 ginfo속성값만 필요함!
-                        setGinfo(res.ginfo);
-                        // 카테고리값은 바꿀필요없음!
+                        // 상품 토탈 정보로 모든 객체값을 업데이트함
+                        setTot(res);
                       }}
                     >
                       <img
-                        src={
-                          process.env.PUBLIC_URL +
-                          `/images/goods/${cat}/m${num}.png`
-                        }
+                        src={process.env.PUBLIC_URL + `/images/goods/${cat}/m${num}.png`}
                         alt="썸네일 이미지"
                       />
                     </a>
@@ -173,36 +174,22 @@ function ItemDetail({ cat, ginfo, dt, setGinfo, gIdx }) {
               <ol>
                 <li>
                   <img
-                    src={
-                      process.env.PUBLIC_URL + "/images/dx_ico_new-28143800.gif"
-                    }
+                    src={process.env.PUBLIC_URL + "/images/dx_ico_new-28143800.gif"}
                     alt="new버튼"
                   />
                 </li>
                 <li id="gtit">상품명: {ginfo[1]}</li>
                 <li>
                   <img
-                    src={
-                      process.env.PUBLIC_URL +
-                      "/images/icon_type02_social01.gif"
-                    }
+                    src={process.env.PUBLIC_URL + "/images/icon_type02_social01.gif"}
                     alt="페이스북"
                   />
                   <img
-                    src={
-                      process.env.PUBLIC_URL +
-                      "/images/icon_type02_social02.gif"
-                    }
+                    src={process.env.PUBLIC_URL + "/images/icon_type02_social02.gif"}
                     alt="트위터"
                   />
-                  <img
-                    src={process.env.PUBLIC_URL + "/images/icon_mail02.gif"}
-                    alt="이메일"
-                  />
-                  <img
-                    src={process.env.PUBLIC_URL + "/images/btn_source_copy.gif"}
-                    alt="URL복사"
-                  />
+                  <img src={process.env.PUBLIC_URL + "/images/icon_mail02.gif"} alt="이메일" />
+                  <img src={process.env.PUBLIC_URL + "/images/btn_source_copy.gif"} alt="URL복사" />
                 </li>
                 <li>
                   <span>판매가</span>
@@ -211,10 +198,7 @@ function ItemDetail({ cat, ginfo, dt, setGinfo, gIdx }) {
                 <li>
                   <span>적립금</span>
                   <span>
-                    <img
-                      src={process.env.PUBLIC_URL + "/images/icon_my_m02.gif"}
-                      alt="적립금"
-                    />
+                    <img src={process.env.PUBLIC_URL + "/images/icon_my_m02.gif"} alt="적립금" />
                     4,950(5%적립)
                   </span>
                 </li>
@@ -223,10 +207,7 @@ function ItemDetail({ cat, ginfo, dt, setGinfo, gIdx }) {
                   <span>
                     부분 무이자 할부 혜택
                     <img
-                      src={
-                        process.env.PUBLIC_URL +
-                        "/images/view_btn_nointerest_card.gif"
-                      }
+                      src={process.env.PUBLIC_URL + "/images/view_btn_nointerest_card.gif"}
                       alt="무이자카드보기"
                     />
                   </span>
@@ -242,14 +223,8 @@ function ItemDetail({ cat, ginfo, dt, setGinfo, gIdx }) {
                   <span>
                     <input type="text" id="sum" defaultValue="1" />
                     <b className="chg_num">
-                      <img
-                        src={process.env.PUBLIC_URL + "/images/cnt_up.png"}
-                        alt="증가"
-                      />
-                      <img
-                        src={process.env.PUBLIC_URL + "/images/cnt_down.png"}
-                        alt="감소"
-                      />
+                      <img src={process.env.PUBLIC_URL + "/images/cnt_up.png"} alt="증가" />
+                      <img src={process.env.PUBLIC_URL + "/images/cnt_down.png"} alt="감소" />
                     </b>
                   </span>
                 </li>
@@ -282,15 +257,23 @@ function ItemDetail({ cat, ginfo, dt, setGinfo, gIdx }) {
 
                   // 로컬스에 객체 데이터 추가하기
                   locals.push({
-                    num: 1,
+                    num: locals.length+1,
                     idx: gIdx,
                     cat: cat,
                     ginfo: ginfo,
+                    cnt : $("#sum").val(),
                   });
+                  /************************************ 
+                        [데이터 구조 정의]
+                          1. num : 카트 리스트 순번
+                          2. idx : 상품 고유 번호
+                          3. cat : 카테고리
+                          4. ginfo : 상품 정보
+                          5. cnt : 상품 개수 
+                  ************************************/
 
                   // 로컬스에 문자화하여 입력하기
-                  localStorage.setItem(
-                    "cart-data", JSON.stringify(locals));
+                  localStorage.setItem("cart-data", JSON.stringify(locals));
 
                   // 카트 상태값 변경
                   myCon.setCartSts(true);
@@ -308,5 +291,3 @@ function ItemDetail({ cat, ginfo, dt, setGinfo, gIdx }) {
 }
 
 export default ItemDetail;
-
-

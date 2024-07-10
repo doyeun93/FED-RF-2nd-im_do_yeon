@@ -13,16 +13,16 @@ import "../../css/item_list.scss";
 import ItemDetail from "../modules/ItemDetail";
 import { useRef } from "react";
 
+
+
+
 function ItemList() {
-    // 상태변수 만들기
-    // [1] 카테고리 정보
-    const [cat, setCat] = useState(itemListData[0].cat);
-    // [2] 상품 정보
-    const [ginfo, setGinfo] = useState(itemListData[0].ginfo);
+  // 상태변수 만들기
+  // 상품 토탈 정보
+  const [tot, setTot] = useState(itemListData[0]);
 
-    // 상품 고유 번호 참조 변수
-    const gIdx = useRef(0); 
 
+  
 
 
 
@@ -51,11 +51,8 @@ function ItemList() {
             <a href="#" onClick={(e) => {
                 // 기본 이동 막기
                 e.preventDefault();
-                // 상품 상세 모듈 전달 상태변수 변경
-                setCat(v.cat);
-                setGinfo(v.ginfo);
-                // 상품고유번호 idx 업데이트
-                gIdx.current = v.idx;
+                // 상품 토탈 정보 업데이트
+                setTot(v);
                 // 상세상품정보 박스 보이기
                 $(".bgbx").show();
                 // console.log("data:",v);
@@ -86,10 +83,10 @@ function ItemList() {
         }}
       >
         {/* 아이템 디테일 컴포넌트 불러오기 
-        cat - 카테고리, ginfo - 상품정보, 
-          dt - 상품데이터, setGinfo - ginfo값 변경메서드
-          gIdx - 상품 고유 번호 전달*/}
-        <ItemDetail cat={cat} ginfo={ginfo} dt={itemListData} setGinfo={setGinfo} gIdx={gIdx.current}/>
+        dt - 상품데이터, 
+        seTot -  
+        tot - 상품 토탈정보 */}
+        <ItemDetail  tot={tot} dt={itemListData} setTot={setTot} />
       </div>
     </main>
   );

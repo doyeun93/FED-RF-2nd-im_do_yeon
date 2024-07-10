@@ -3,28 +3,35 @@ import React from "react";
 import "../../css/cart_list.scss";
 import { useContext } from "react";
 import { pCon } from "./pCon";
+import { addComma } from "../../func/common_fn";
 
 function CartList(props) {
-    // 컨텍스트 사용
-    const myCon = useContext(pCon);
+  // 컨텍스트 사용
+  const myCon = useContext(pCon);
 
+  // 로컬쓰 데이터 가져오기
+  const selData = JSON.parse(localStorage.getItem("cart-data"));
+  console.log("로컬스:", selData);
 
-    // 코드 리턴구역
+  // 코드 리턴구역
   return (
-    <section id="cartlist" style={{right: "0px"}}>
-      <a href="#" className="cbtn cbtn2"
-      onClick={e=>{
-        e.preventDefault();
-        // 카트 상태값 업데이트 
-        myCon.setCartSts(false);
-    }}>
+    <section id="cartlist" style={{ right: "0px" }}>
+      <a
+        href="#"
+        className="cbtn cbtn2"
+        onClick={(e) => {
+          e.preventDefault();
+          // 카트 상태값 업데이트
+          myCon.setCartSts(false);
+        }}
+      >
         <span>닫기버튼</span>
       </a>
       <table>
         <caption>
           <h1> 카트 리스트</h1>
         </caption>
-        <tbody>
+        <thead>
           <tr>
             <th>상품</th>
             <th>번호</th>
@@ -35,47 +42,92 @@ function CartList(props) {
             <th>합계</th>
             <th>삭제</th>
           </tr>
-          {/* 카트 데이터 연동 */}
+        </thead>
+        {/* 테이블 메인 영역 */}
+        <tbody>
           <tr>
-            <td>
-              <img src={process.env.PUBLIC_URL + "/images/goods/women/m8.png"} alt="item" />
-            </td>
-            <td>6</td>
-            <td>[여성]베이직 솔리드 래쉬가드</td>
-            <td>DMSW15731-BK </td>
-            <td>49,000원</td>
-            <td className="cnt-part">
-              <div>
-                <span>
-                  <input type="text" className="item-cnt" readOnly="" defaultValue="1" />
-                  <button className="btn-insert" data-idx="20">
-                    반영
-                  </button>
-                  <b className="btn-cnt">
-                    <img src={process.env.PUBLIC_URL +"/images/cnt_up.png"} alt="증가" />
-                    <img src={process.env.PUBLIC_URL +"/images/cnt_down.png"} alt="감소" />
-                  </b>
-                </span>
+            <td colSpan={8}>
+              {/* 내부 */}
+              <div style={{ overflowY: "auto", height: "40vh", width: "100%" }}>
+                {/* 내부용 스크롤 되는 테이블 */}
+                <table>
+                  <tbody>
+                    {
+                      /* 카트 데이터 연동 *
+             /************************************ 
+                  [데이터 구조 정의]
+                    1. num : 카트 리스트 순번
+                    2. idx : 상품 고유 번호
+                    3. cat : 카테고리
+                    4. ginfo : 상품 정보
+                    5. cnt : 상품 개수 
+             ************************************/
+
+                      selData.map((v, i) => (
+                        <tr key={i}>
+                          <td>
+                            <img
+                              src={
+                                process.env.PUBLIC_URL + `/images/goods/${v.cat}/${v.ginfo[0]}.png`
+                              }
+                              alt="item"
+                            />
+                          </td>
+                          <td>{v.num}</td>
+                          <td>{v.ginfo[1]}</td>
+                          <td>{v.ginfo[2]} </td>
+                          <td>{addComma(v.ginfo[3])}원</td>
+                          <td className="cnt-part">
+                            <div>
+                              <span>
+                                <input
+                                  type="text"
+                                  className="item-cnt"
+                                  readOnly=""
+                                  value={v.cnt}
+                                  onChange={() => {}}
+                                />
+                                <button className="btn-insert" data-idx="20">
+                                  반영
+                                </button>
+                                <b className="btn-cnt">
+                                  <img
+                                    src={process.env.PUBLIC_URL + "/images/cnt_up.png"}
+                                    alt="증가"
+                                  />
+                                  <img
+                                    src={process.env.PUBLIC_URL + "/images/cnt_down.png"}
+                                    alt="감소"
+                                  />
+                                </b>
+                              </span>
+                            </div>
+                          </td>
+                          <td>{addComma(v.ginfo[3] * v.cnt)}원</td>
+                          <td>
+                            <button className="cfn" data-idx="20">
+                              ×
+                            </button>
+                          </td>
+                        </tr>
+                      ))
+                    }
+                  </tbody>
+                </table>
               </div>
             </td>
-            <td>49,000원</td>
-            <td>
-              <button className="cfn" data-idx="20">
-                ×
-              </button>
-            </td>
           </tr>
-         
+        </tbody>
+        {/* 테이블 하단 영역 */}
+        <tfoot>
           <tr>
             <td colSpan="6">총합계 :</td>
             <td>662,000원</td>
             <td></td>
           </tr>
-        </tbody>
-        <tfoot>
           <tr>
             <td colSpan="8" className="paging">
-              <a href="#">1</a> | <b>2</b>
+              <button>Buy Now</button>
             </td>
           </tr>
         </tfoot>
