@@ -19,6 +19,15 @@ $.cookie('the_cookie', 'the_value', { expires: 7 });
 $.cookie('the_cookie', 'the_value', { expires: -1 });
 
 
+
+**************************************
+((페이지에서 import하기)) -> useEffect 구역에서 쓰기
+-> 제이쿼리 import 아래서 패키지만씀!
+import $ from "jquery";
+import "jquery.cookie";
+**************************************
+
+
 4. 쿠키에 대한 일반적인 상식
 ___________________________________________________________
     쿠키란?(cookie)
