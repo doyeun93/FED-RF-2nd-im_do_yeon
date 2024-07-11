@@ -38,29 +38,26 @@ function CartList(props) {
   }; //// totalFn /////////
 
 
-  /// 화면 랜더링 구역 : selData 의존성 ///////
+  /// 화면 랜더링 구역 : dataCnt 의존성 ///////
   useEffect(()=>{
     // $("#cartlist").animate({right:"-60vw"},400);
     // 카트 버튼 나타나기
-    $("#mycart").removeClass("on").fadeIn(300, function(){
+    $("#mycart").removeClass("on").delay(500) // 애니메이션 지연시간 
+    .fadeIn(300, function(){
       $(this).addClass("on");
     }); //// fadeIn ///////
-  },[selData]);
+    
+    // 총합계 찍기 : 3자리마다 콤마함수 호출도함
+    $(".total-num").text(addComma(totalFn()));
 
 
-  // 화면 랜더링 구역 : 한번만 /////////////
-  useEffect(()=>{
-    // 카트 버튼 나타나기
-    $("#mycart").fadeIn(300,function(){
-      // 나타난 후 클래스 넣기
-       $(this).addClass("on");
-    });
-
-      // 총합계 찍기 : 3자리마다 콤마함수 호출도함
-      $(".total-num").text(addComma(totalFn()));
+  },[dataCnt]); // -> 숫자값은 할당이므로 변함없음
+  // },[selData]); -> 리랜더링시 객체 주소값이 변경되어 매번 새로운 값이 업데이트되기 때문에 부적격임
 
 
-  },[]); //////////// useEffect 구역 //////////
+  // // 화면 랜더링 구역 : 한번만 /////////////
+  // useEffect(()=>{
+  //  },[]); //////////// useEffect 구역 //////////
 
 
 
@@ -82,8 +79,8 @@ function CartList(props) {
         <table>
           {/* 항목별 세로 비율 설정 */}
           <colgroup>
-            <col span="1" style={{width: "8%"}}/>
-            <col span="1" style={{width: "5%"}}/>
+            <col span="1" style={{width: "7%"}}/>
+            <col span="1" style={{width: "10%"}}/>
             <col span="1" style={{width: "38%"}}/>
             <col span="1" style={{width: "14%"}}/>
             <col span="1" style={{width: "10%"}}/>
@@ -93,13 +90,13 @@ function CartList(props) {
           </colgroup>
           {/* 테이블 제목 */}
           <caption>
-            <h1> 카트 리스트</h1>
+            <h1> 카트 리스트 ({dataCnt})</h1>
           </caption>
           {/* 테이블 상단영역 : 분류항목 출력 */}
           <thead>
             <tr>
-              <th>상품</th>
               <th>번호</th>
+              <th>상품</th>
               <th>상품명</th>
               <th>상품코드</th>
               <th>단가</th>
@@ -128,15 +125,13 @@ function CartList(props) {
                ************************************/
                         selData.map((v, i) => (
                           <tr key={i}>
+                              {/* 일련번호 */}
+                              <td>{i+1}</td>
+                            {/* 상품이미지 */}
                             <td>
                               <img
-                                src={
-                                  process.env.PUBLIC_URL + `/images/goods/${v.cat}/${v.ginfo[0]}.png`
-                                }
-                                alt="item"
-                              />
+                                src={process.env.PUBLIC_URL + `/images/goods/${v.cat}/${v.ginfo[0]}.png`}alt="item" />
                             </td>
-                            <td>{v.num}</td>
                             <td>{v.ginfo[1]}</td>
                             <td>{v.ginfo[2]} </td>
                             <td>{addComma(v.ginfo[3])}원</td>
@@ -175,7 +170,27 @@ function CartList(props) {
                                 <input className="sum-num2" type="hidden" defaultValue={v.ginfo[3] * v.cnt} />
                             </td>
                             <td>
-                              <button className="cfn" data-idx="20">
+                              {/* 데이터 삭제 기능 버튼 */}
+                              <button className="cfn" 
+                              onClick={()=>{ 
+                                // confirm()의 "확인" 클릭시 true -> console이 찍힘
+                                  if(window.confirm("해당 상품을 삭제하시겠습니까?")){
+                                    console.log("삭제함");
+
+
+                                   /*  let aa = [];
+                                    aa.splice(지울순번, 지울개수 ); */
+
+                                    let selSeq = 
+                                    selData.find((val,i)=>{
+                                      if(val.idx==val.idx) return i;
+                                    });
+
+                                    console.log(selSeq);
+
+
+                                  } ///// if //////
+                              }}>
                                 ×
                               </button>
                             </td>

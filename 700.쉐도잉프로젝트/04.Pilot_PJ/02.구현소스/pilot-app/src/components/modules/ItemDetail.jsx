@@ -259,9 +259,29 @@ function ItemDetail({ tot, dt, setTot }) {
                   // 파싱된 로컬스 데이터 중 idx 항목을 검사하여 
                   // gIdx로 넣을 상품 idx와 같은 것이 있으면 메시지와 
                   // 함께 리턴처리하여 입력을 막아준다
-                  let retSts = locals.some(v=>{
-                    if(v.idx == gIdx) return true;
-                  });
+
+
+                  // [ 방법1 ]
+                  // 배열 중복검사시 사용하는 메서드 : some()
+                  // -> some은 중복 데이터 발생시 true 리턴 시켜서 구분해준다
+                  // let retSts = locals.some(v=>{
+                  //   if(v.idx == gIdx) return true;
+                  // });
+
+                  // [ 방법2 ]
+                  // 배열.includes(비교값)
+                  // 주의사항 : 배열값이 단일값이어야 비교가 된다
+                  // 예) let aa = [11, 22, 33]
+                  // aa.includes(22) -> 있으면 결과 true 
+                  
+
+                  // idx 값만 모아서 다른 배열만들기
+                  let newLocals = locals.map(v=>v.idx);
+                  console.log("idx새배열:", newLocals);
+
+                  // 인클루드 비교 
+                  let retSts = newLocals.includes(gIdx);
+                  
 
                   console.log("중복상태:", retSts);
                   if(retSts){
