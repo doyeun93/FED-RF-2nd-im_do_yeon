@@ -142,13 +142,67 @@ function CartList(props) {
                                     type="text"
                                     className="item-cnt"
                                     readOnly=""
-                                    value={v.cnt}
-                                    onChange={() => {}}
-                                  />
-                                  <button className="btn-insert" data-idx="20">
+                                    defaultValue={v.cnt}
+                                    onBlur={() => {
+                                      console.log("ㅎㅎ");
+                                    }}
+                                    />
+                                    {/* 반영 버튼 */}
+                                  <button className="btn-insert" onClick={(e)=>{
+                                      // 클릭시 실제 데이터 수량변경 반영하기
+                                      // 대상 : selData -> 배열 변환 데이터
+                                      // i는 배열 순번(map돌 때 i가 들어옴)
+                                      selData[i].cnt = $(e.currentTarget).siblings(".item-cnt").val();
+                                      console.log("수량업데이트:", selData);
+
+                                      // 2. 데이터 문자화하기 : 변경된 원본을 문자화
+                                      let res = JSON.stringify(selData);
+
+                                      // 3.로컬스 "cart-data"반영하기
+                                      localStorage.setItem("cart-data", res);
+
+                                      // 4. 카트리스트 전역상태변수 변경
+                                      myCon.setLocalsCart(res);
+                                      
+                                      // 5. 반영 버튼 숨기기
+                                      $(e.currentTarget).css({width:"0"}); 
+
+                                      // 6. 전체 총합계 계산 다시하기
+                                      $(".total-num").text(addComma(totalFn()));
+
+                                  }}>
                                     반영
                                   </button>
-                                  <b className="btn-cnt">
+                                  <b className="btn-cnt"
+                                    onClick={(e)=>{
+                                    // 업데이트 대상(input박스)
+                                    let tg = $(e.currentTarget).siblings("input");
+                                    
+                                    // 입력창의 blur 이벤트 발생을 위해 강제로 포커스를 준다
+                                    // tg.focus();
+
+                                    // 하위 클릭된 이미지 종류 파악하기 (currentTarget :이벤트가 걸린 요소 자신 ) / target : 하위요소 
+                                    // e.target으로 설정하여 하위요소인 이미지가 선택되게 해준다
+                                    let btnAlt = $(e.target).attr("alt");
+                                    console.log(btnAlt);
+                                    // 증가 감소 분기하여 숫자 변경반영하기
+                                    if(btnAlt == "증가"){
+                                      // tg 값을 읽어와서 1을 더한다
+                                      tg.val(Number(tg.val()) + 1 );
+                                    } ////// if 문 ///////////
+                                    else if(btnAlt == "감소"){
+                                      // tg 값을 읽어와서 1을 뺀다
+                                      // 단, 1보다 작아지지 않게 한다
+                                      tg.val(Number(tg.val()) == 1? 1 : Number (tg.val() - 1));
+
+                                    } ///// else if //////////
+
+                                    // 클릭시 반영버튼 나타나기
+                                    $(e.currentTarget).siblings(".btn-insert").css({width:"auto"});
+
+
+
+                                  }}>
                                     <img
                                       src={process.env.PUBLIC_URL + "/images/cnt_up.png"}
                                       alt="증가"
@@ -193,7 +247,7 @@ function CartList(props) {
                                     localStorage.setItem("cart-data", res);
 
                                     
-                                    // 4. 카트리스트 전역상태변수 변경 -> 리랜더링 위함
+                                    // 4. 카트리스트 전역상태변수 변경 -> 리랜더링 하기위함
                                     myCon.setLocalsCart(res)
 
 

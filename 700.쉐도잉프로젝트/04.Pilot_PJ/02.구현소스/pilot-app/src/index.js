@@ -59,7 +59,7 @@ function MainComponent(props) {
   /// 코드 리턴 구역  
   return (
     <pCon.Provider value={{ setLocalsCart, setPgName, setCartSts, localsCart, }}>
-      <TopArea />
+      <TopArea pgName={pgName}/>
       <MainArea page={pgName}/>
       <FooterArea />
       {/* 카트 리스트 : 카트상태값 true 출력 */}

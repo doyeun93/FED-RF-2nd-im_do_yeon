@@ -6,7 +6,8 @@ import { TotalMenu } from '../modules/TotalMenu';
 // 제이쿼리
 import $ from "jquery";
 
-function TopArea(props) {
+function TopArea({pgName}) {
+  // pgName : 이동할 페이지 이름
 
   // 전체 메뉴 열기 닫기 함수
   const showHideMenu = (e) => {
@@ -36,8 +37,7 @@ function TopArea(props) {
 
 
     // 햄버거 버튼에 클래스 "on" 있으면 재생, 없으면 멈춤
-    $(e.currentTarget).is(".on")? 
-    bgm.get(0).play() : bgm.get(0).pause();
+    $(e.currentTarget).is(".on")? bgm.get(0).play() : bgm.get(0).pause();
     // play()재생, pause()는 멈춤 메서드
 
     // 비교해서 js는 선택 후 바로 play(), pause()를 사용함
@@ -60,7 +60,7 @@ function TopArea(props) {
             <nav className="gnb">
               <ul>
                 <li className="bld">배너순번 li 숨기기</li>
-                {gnbData.main.map((v,i)=>
+                {gnbData[pgName].map((v,i)=>
                 <li key={i}>
                     <a href="#"> {v} </a>
                 </li>)}
