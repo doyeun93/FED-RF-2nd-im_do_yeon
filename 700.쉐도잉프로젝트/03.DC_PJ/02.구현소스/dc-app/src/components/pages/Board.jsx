@@ -315,6 +315,16 @@ export default function Board() {
                   </>
                 )
               }
+              {
+                // 4. 수정 상태일 경우
+                mode == "M" && (
+                  <>
+                    <button onClick={clickButton}>Submit</button>
+                    <button onClick={clickButton}>Delete</button>
+                    <button onClick={clickButton}>List</button>
+                  </>
+                )
+              }
             </td>
           </tr>
         </tbody>
