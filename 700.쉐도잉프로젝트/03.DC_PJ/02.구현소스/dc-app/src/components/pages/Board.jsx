@@ -15,7 +15,7 @@ import "../../css/board.scss";
 import "../../css/board_file.scss";
 
 // 로컬 스토리지 확인 JS
-import { Fragment, useContext, useRef, useState } from "react";
+import { Fragment, useContext, useEffect, useRef, useState } from "react";
 import { initBoardData } from "../func/board_fn";
 import { dCon } from "../modules/dCon";
 
@@ -209,8 +209,31 @@ export default function Board() {
     } ////// if 문
     // 1. 해당 항목 idx 담기
     let currIdx = selRecord.current.idx;
-    // 2. find()로 순회하여 해당 항목 삭제하기
-  };
+    // 2. some()로 순회하여 해당 항목 삭제하기
+    // find와 달리 some()은 결과값을 boolean값으로 리턴하여 처리한다
+    // 이것을 이용하여 코드 처리 해보자
+    baseData.some((v,i)=>{
+      if(v.idx == currIdx){
+        // 해당 순번 배열값을 삭제하자
+        // 배열삭제는 splice(순번,1)
+        baseData.splice(i,1);
+        // return true할 경우 종료
+        return true;
+      } /////// if ////////
+    }); //// some
+    
+      // 3. 로컬스에 업데이트하기
+       localStorage.setItem("board-data", JSON.stringify(baseData));
+
+       // 4. 삭제 후 리스트 리랜더링시 리스트 불일치로 인한 
+       // 에러를 방지하기 위하여 전체 개수를 바로 업데이트한다
+       totalCount.current = baseData.length;
+ 
+       // 4. 리스트로 돌아가기(리랜더링) -> 모드 변경 "L"
+       setMode("L");
+    //  } ////// if ///////
+
+  }; //////// deleteFn /////////////////
 
 
   // 서브밋 처리함수
@@ -272,7 +295,11 @@ export default function Board() {
 
       // 로컬스 확인
       // console.log(localStorage.getItem("board-data"));
-      // [5]리스트로 돌아가기 -> 모드 변경 "L"
+      // 4. 추가후 리스트 리랜더링시 리스트 불일치로 인한
+      // 에러를 방지하기 위하여 전체 개수를 바로 업데이트한다!
+      totalCount.current = baseData.length;
+
+      // [5]리스트로 돌아가기(리랜더링) -> 모드 변경 "L"
       setMode("L");
     }
 
@@ -326,6 +353,10 @@ export default function Board() {
     } ///// else if
 
   }; ///// submitFn ///////
+
+
+
+
 
   //// 코드 리턴 구역
   return (
