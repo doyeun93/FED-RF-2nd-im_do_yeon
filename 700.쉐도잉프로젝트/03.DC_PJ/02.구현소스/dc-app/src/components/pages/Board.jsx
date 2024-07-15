@@ -31,6 +31,10 @@ export default function Board() {
 
   // 로컬쓰 데이터 변수 할당하기
   const baseData = JSON.parse(localStorage.getItem("board-data"));
+  // 베이스데이터에 정렬 적용하기 : 내림차순
+  baseData.sort((a, b) =>
+  Number(a.idx) > Number(b.idx) ? -1 : Number(a.idx) < Number(b.idx) ? 1 : 0
+);
 
   // [상태관리 변수]
   // 1. 페이지번호
@@ -189,8 +193,25 @@ export default function Board() {
       case "Modify":
         setMode("M");
         break;
+      // 삭제일 경우 삭제 함수 호출
+      case "Delete":
+        deleteFn();
+        break;
     } ///// switch /////
   }; /////// clickButton  ///////
+
+  
+  // 삭제 처리 함수
+  const deleteFn = () => {
+    // 삭제 여부 확인
+    if(window.confirm("Are you sure you want to delete?")){
+
+    } ////// if 문
+    // 1. 해당 항목 idx 담기
+    let currIdx = selRecord.current.idx;
+    // 2. find()로 순회하여 해당 항목 삭제하기
+  };
+
 
   // 서브밋 처리함수
   const submitFn = () => {
@@ -254,7 +275,56 @@ export default function Board() {
       // [5]리스트로 돌아가기 -> 모드 변경 "L"
       setMode("L");
     }
+
     // 3. 수정모드 서브밋(mode == "M")
+    else if (mode == "M") {
+     
+
+      // [1] 오늘날짜 생성하기
+      // -> 수정시 수정날짜 항목을 새로 만들고 입력함
+      let today = new Date();
+      // yy-mm-dd 형식으로 구하기
+      // 제이슨 날짜 형식 : toJSON()
+      // ISO 표준형식 : toISOString() -> 시간까지 나오므로 앞에 10자리만 가져간다
+      // => 문자열.substr(0,10)
+
+
+      // [2] 현재 데이터 idx값
+      let currIdx = selRecord.current.idx;
+      // [3] 기존 데이터로 찾아서 변경하기 : 로컬스 데이터(basedata)
+      // find()는 특정항목을 찾아서 리턴하여 데이터를 가져오고, 업데이트 등 작업도 가능함
+      baseData.find(v=>{
+        console.log(v,selRecord);
+        if(v.idx == currIdx){
+          // [ 업데이트 작업하기 ]
+          // 이미 선택된 selRecord 참조변수의 글번호인 idx로 원본 데이터를 조회하여 기존 데이터를 업데이트함
+          // 기존 항목 변경 : tit, cont
+          // (1) 글제목 : tit
+          v.tit = title;
+          // (2) 글내용 : cont
+          v.cont = cont;
+          // 추가항목(원래는 확정된 DB 스크마에 따라 입력해야하지만 우리가 사용하는
+          // 로컬 스토리지의 확장성에 따라 필요한 항목을 추가하여 넣는다)
+          // (3) 수정일 : mdate
+          v.mdate = today.toJSON().substr(0, 10); // 수정일
+
+          // 해당 항목을 만나면 끝남
+          return true;
+        }
+      }) /////// find /////
+
+
+      // [4] 로컬스에 업데이트하기
+      localStorage.setItem("board-data", JSON.stringify(baseData));
+
+      // 로컬스 확인
+      // console.log(localStorage.getItem("board-data"));
+
+      // [5]리스트로 돌아가기 -> 모드 변경 "L"
+      setMode("L");
+
+    } ///// else if
+
   }; ///// submitFn ///////
 
   //// 코드 리턴 구역
