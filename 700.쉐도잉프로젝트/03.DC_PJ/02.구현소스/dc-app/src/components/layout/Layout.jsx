@@ -9,6 +9,9 @@ import { useNavigate } from "react-router-dom";
 // 컨텍스트 API 불러오기
 import { dCon } from "../modules/dCon";
 
+import $ from "jquery";
+// import "jquery.cookie";
+
 export default function Layout(){
 
 
@@ -74,14 +77,14 @@ export default function Layout(){
             makeMsg(JSON.parse(ss).unm);
             
         } ////// if ///////
-
-     },[]);
+        // $.cookie("aa","bb",{expires: 2});
+    }, []);
 
 
     //// 코드 리턴 구역
     return(
         // Provider value 속성으로 전역노출 변수를 설정함
-        <dCon.Provider value={{loginSts, setLoginSts,loginMsg,setLoginMsg,goPage,makeMsg,logoutFn}}>
+        <dCon.Provider value={{loginSts, setLoginSts,loginMsg,setLoginMsg,goPage,makeMsg,logoutFn,}}>
         {/* 1. 상단영역 : 메모이제이션을 위해 직접값 전달 */}
         <TopArea loginMsg={loginMsg} loginSts={loginSts} logoutFn={logoutFn} goPage={goPage}/>
         {/* 2. 메인영역 */}
