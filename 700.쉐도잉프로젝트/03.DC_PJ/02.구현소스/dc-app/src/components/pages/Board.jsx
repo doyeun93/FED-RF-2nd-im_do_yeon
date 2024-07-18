@@ -231,6 +231,8 @@ export default function Board() {
  
        // 4. 리스트로 돌아가기(리랜더링) -> 모드 변경 "L"
        setMode("L");
+       // -> 삭제 후 첫페이지로 이동
+       setPageNum(1);
     //  } ////// if ///////
 
   }; //////// deleteFn /////////////////
@@ -301,6 +303,8 @@ export default function Board() {
 
       // [5]리스트로 돌아가기(리랜더링) -> 모드 변경 "L"
       setMode("L");
+       // -> 추가 후 첫페이지로 이동
+       setPageNum(1);
     }
 
     // 3. 수정모드 서브밋(mode == "M")
@@ -487,6 +491,39 @@ const ReadMode = ({ selRecord }) => {
   // console.log("전달된 참조변수:", selRecord.current);
   // 전달된 데이터 객체를 변수에 할당
   const data = selRecord.current;
+
+  // [조회수 증가하기]
+  // 규칙1 : 자신의 글은 증가하지않는다
+  // 규칙2 : 타인의 글은 증가한다
+  // 규칙3 : 로그인한 상태에서 한번만 증가한다
+  // (( 조회된 글 저장 방법 ))
+  // -> 세션스토리지 / 쿠키 / 참조변수(전역변수)
+  // =>> 참조변수는 새로고침하면 초기화되므로 사용불가
+  // =>> 쿠키는 삭제 방법이 즉각적이지 않아 사용불가 
+  // =>> 세션스토리지는 적합 : 창을 닫으면 사라지므로
+
+  // 1. 없으면 세션스 만들기 
+  if(!sessionStorage.getItem("bd-rec")){
+    sessionStorage.setItem("bd-rec", "[]");
+  }
+
+  
+  // 2. 세션스에 글번호 저장하기
+
+  // (1) 세션스 파싱하여 변수할당
+  let rec = JSON.parse(sessionStorage.getItem("bd-rec"));
+
+  // (2) 기존 배열값에 현재글번호 존재여부 검사하기
+  let isRec = rec.includes(data.idx);
+  console.log("이미있니?", isRec);
+
+  // () 배열에 값 추가하기
+  rec.push(data.idx);
+
+  // () 다시 세션스에 저장하기
+  sessionStorage.getItem("bd-rec",JSON.stringify(rec));
+  
+   
 
   return (
     <>
