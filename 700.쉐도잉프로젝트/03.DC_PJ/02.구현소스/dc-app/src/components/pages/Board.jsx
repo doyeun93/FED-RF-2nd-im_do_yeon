@@ -747,7 +747,7 @@ const PagingList = ({ totalCount, unitSize, pageNum, setPageNum, pgPgNum, pgPgSi
       <Fragment key={i}>
         {
           // 페이징 번호와 현재 페이지 번호 일치시 b요소
-          i+1 === pageNum -1 ? (
+          i+1 === pageNum  ? (
             <b>{i+1}</b>
           ) : (
             <a
