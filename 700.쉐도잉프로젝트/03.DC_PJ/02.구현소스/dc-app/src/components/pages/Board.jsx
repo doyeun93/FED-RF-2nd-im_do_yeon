@@ -773,16 +773,16 @@ const PagingList = ({ totalCount, unitSize, pageNum, setPageNum, pgPgNum, pgPgSi
     // 기준 : 1페이지가 아니면 보여라
     // 배열 맨앞추가는 unshift()
     pgCode.unshift(
-      pgPgNum.current === pgPgCount ? "" : 
+      pgPgNum.current === 1 ? "" : 
       // for문으로 만든 리스트에 추가하는 것이므로 key값이 있어야함 
       // 단, 중복되면 안됨. 중복안되는 수인 마이너스로 세팅한다
-      <Fragment key={-2}>
+      <Fragment key={-1}>
           &nbsp;&nbsp;
           <a href="#" onClick={(e)=>{
               e.preventDefault();
               goPaging(-1,false);
           }}
-            title="move next end"
+            title="move previous end"
             style={{marginLeft:"10px"}}
           >
             «
@@ -791,11 +791,12 @@ const PagingList = ({ totalCount, unitSize, pageNum, setPageNum, pgPgNum, pgPgSi
             e.preventDefault();
             goPaging(-1,true);
           }}
-            title="move next"
+            title="move previous"
             style={{marginLeft:"10px"}}
           >
             ◀
           </a>
+          &nbsp;&nbsp;
       </Fragment>
     );
   }
@@ -827,6 +828,7 @@ const PagingList = ({ totalCount, unitSize, pageNum, setPageNum, pgPgNum, pgPgSi
           >
             »
           </a>
+          &nbsp;&nbsp;
       </Fragment>
     );
   }
@@ -843,8 +845,9 @@ const PagingList = ({ totalCount, unitSize, pageNum, setPageNum, pgPgNum, pgPgSi
     // 1. opt 옵션에 따라 페이징의 페이징 이동 번호 만들기
     // (1) 일반 페이징 이동은 현재 페이징 번호에 증감
     if(opt) newPgPgNum = pgPgNum.current + dir;
-    // (2) 끝 페이징이동은 
-    else newPgPgNum = dir;
+    // (2) 끝 페이징이동은 오른쪽(1)일 경우 맨 끝 페이징번호로 이동(pgPgCount)
+    // 왼쪽(-1)일 경우 맨앞 페이징번호로 이동(1)
+    else newPgPgNum = dir==1?pgPgCount:1;
 
     // 2. 페이징의 페이징 번호 업데이트하기
     pgPgNum.current = newPgPgNum;
