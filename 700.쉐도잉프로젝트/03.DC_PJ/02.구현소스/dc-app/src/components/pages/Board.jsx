@@ -33,10 +33,10 @@ export default function Board() {
   const baseData = JSON.parse(localStorage.getItem("board-data"));
   // 베이스데이터에 정렬 적용하기 : 내림차순
   baseData.sort((a, b) =>
-  Number(a.idx) > Number(b.idx) ? -1 : Number(a.idx) < Number(b.idx) ? 1 : 0
-);
+    Number(a.idx) > Number(b.idx) ? -1 : Number(a.idx) < Number(b.idx) ? 1 : 0
+  );
 
-  // [상태관리 변수]
+  /////////////////////// [상태관리 변수]  //////////////////////////
   // 1. 페이지번호
   const [pageNum, setPageNum] = useState(1);
 
@@ -48,7 +48,7 @@ export default function Board() {
   // (4) 수정 모드(M) : Modify Mode (삭제포함)
 
   // [참조변수]
-  // [1] 전체 개수 - 매번 계산하지 않도록 참조변수로
+  // [1] 전체 개수 - 매번 계산하지 않도록 참조변수로 (필요할때마다 업데이트)
   const totalCount = useRef(baseData.length);
   // console.log("전체개수:", totalCount);
 
@@ -56,13 +56,22 @@ export default function Board() {
   const selRecord = useRef(null);
   // -> 특정 리스트 글 제목 클릭시 데이터 저장함
 
-  // 페이지당 개수
-  const unitSize = 8;
+  // [3] 페이징의 페이징 번호(로딩했을 때 첫번째 페이지)
+  const pgPgNum = useRef(1);
+
+
+  // [일반 변수로 매번 같은 값을 유지하면 되는 변수 ]
+  // 페이지당 개수 : 페이지당 레코드수
+  const unitSize = 4;
+
+  // 페이징의 페이징 개수 : 한번에 보여줄 페이징 개수
+  // const pgPgSize = 5;
+  const pgPgSize = 4;
 
   /*********************************************************** 
         함수명 : bindList
         기능 : 페이지별 리스트를 생성하여 바인딩함
-    ***********************************************************/
+  ***********************************************************/
   const bindList = () => {
     // 1. 전체 원본데이터 선택
     let orgData = baseData;
@@ -119,57 +128,6 @@ export default function Board() {
     ));
   }; ///// bindList 함수 ////////
 
-  /********************************************************
-   *  함수명 : pagingList
-   *  기능 : 게시판 리스트의 페이징 기능 목록
-   ********************************************************/
-  const pagingList = () => {
-    // 전체 페이징 개수 : 전체레코드수 / 페이지당 개수
-    // 유의점 : 나머지가 있는지 검사해서 있으면 +1
-
-    // 1. 페이징 개수
-    let pagingCount = Math.floor(totalCount.current / unitSize);
-
-    // 나머지가 있으면 다음 페이지가 필요함
-    // 나머지가 0이 아니면 1더하기
-    if (totalCount.current % unitSize > 0) {
-      pagingCount++;
-    }
-    // console.log("페이징개수:", pagingCount, "나머지개수:", totalCount.current % unitSize);
-
-    // 링크코드 만들기
-    const pgCode = [];
-
-    // 1부터 페이지 끝번호까지 돌면서 코드만들기
-    for (let i = 1; i <= pagingCount; i++) {
-      pgCode.push(
-        <Fragment key={i}>
-          {
-            // 페이징번호와 현재페이지번호 일치시 b요소
-            i === pageNum ? (
-              <b>{i}</b>
-            ) : (
-              <a
-                href="#"
-                onClick={(e) => {
-                  e.preventDefault();
-                  setPageNum(i);
-                }}
-              >
-                {i}
-              </a>
-            )
-          }
-          {/* 사이에 바 넣기 */}
-          {i !== pagingCount && " | "}
-        </Fragment>
-      );
-    } ///// for /////
-
-    // 코드 리턴
-    return pgCode;
-  }; ///// pagingList 함수 //////////////
-
   // 버튼 클릭시 변경함수 ////
   const clickButton = (e) => {
     // 버튼 글자 읽기
@@ -200,43 +158,39 @@ export default function Board() {
     } ///// switch /////
   }; /////// clickButton  ///////
 
-  
   // 삭제 처리 함수
   const deleteFn = () => {
     // 삭제 여부 확인
-    if(window.confirm("Are you sure you want to delete?")){
-
+    if (window.confirm("Are you sure you want to delete?")) {
     } ////// if 문
     // 1. 해당 항목 idx 담기
     let currIdx = selRecord.current.idx;
     // 2. some()로 순회하여 해당 항목 삭제하기
     // find와 달리 some()은 결과값을 boolean값으로 리턴하여 처리한다
     // 이것을 이용하여 코드 처리 해보자
-    baseData.some((v,i)=>{
-      if(v.idx == currIdx){
+    baseData.some((v, i) => {
+      if (v.idx == currIdx) {
         // 해당 순번 배열값을 삭제하자
         // 배열삭제는 splice(순번,1)
-        baseData.splice(i,1);
+        baseData.splice(i, 1);
         // return true할 경우 종료
         return true;
       } /////// if ////////
     }); //// some
-    
-      // 3. 로컬스에 업데이트하기
-       localStorage.setItem("board-data", JSON.stringify(baseData));
 
-       // 4. 삭제 후 리스트 리랜더링시 리스트 불일치로 인한 
-       // 에러를 방지하기 위하여 전체 개수를 바로 업데이트한다
-       totalCount.current = baseData.length;
- 
-       // 4. 리스트로 돌아가기(리랜더링) -> 모드 변경 "L"
-       setMode("L");
-       // -> 삭제 후 첫페이지로 이동
-       setPageNum(1);
+    // 3. 로컬스에 업데이트하기
+    localStorage.setItem("board-data", JSON.stringify(baseData));
+
+    // 4. 삭제 후 리스트 리랜더링시 리스트 불일치로 인한
+    // 에러를 방지하기 위하여 전체 개수를 바로 업데이트한다
+    totalCount.current = baseData.length;
+
+    // 4. 리스트로 돌아가기(리랜더링) -> 모드 변경 "L"
+    setMode("L");
+    // -> 삭제 후 첫페이지로 이동
+    setPageNum(1);
     //  } ////// if ///////
-
   }; //////// deleteFn /////////////////
-
 
   // 서브밋 처리함수
   const submitFn = () => {
@@ -303,14 +257,12 @@ export default function Board() {
 
       // [5]리스트로 돌아가기(리랜더링) -> 모드 변경 "L"
       setMode("L");
-       // -> 추가 후 첫페이지로 이동
-       setPageNum(1);
+      // -> 추가 후 첫페이지로 이동
+      setPageNum(1);
     }
 
     // 3. 수정모드 서브밋(mode == "M")
     else if (mode == "M") {
-     
-
       // [1] 오늘날짜 생성하기
       // -> 수정시 수정날짜 항목을 새로 만들고 입력함
       let today = new Date();
@@ -319,14 +271,13 @@ export default function Board() {
       // ISO 표준형식 : toISOString() -> 시간까지 나오므로 앞에 10자리만 가져간다
       // => 문자열.substr(0,10)
 
-
       // [2] 현재 데이터 idx값
       let currIdx = selRecord.current.idx;
       // [3] 기존 데이터로 찾아서 변경하기 : 로컬스 데이터(basedata)
       // find()는 특정항목을 찾아서 리턴하여 데이터를 가져오고, 업데이트 등 작업도 가능함
-      baseData.find(v=>{
-        console.log(v,selRecord);
-        if(v.idx == currIdx){
+      baseData.find((v) => {
+        console.log(v, selRecord);
+        if (v.idx == currIdx) {
           // [ 업데이트 작업하기 ]
           // 이미 선택된 selRecord 참조변수의 글번호인 idx로 원본 데이터를 조회하여 기존 데이터를 업데이트함
           // 기존 항목 변경 : tit, cont
@@ -342,8 +293,7 @@ export default function Board() {
           // 해당 항목을 만나면 끝남
           return true;
         }
-      }) /////// find /////
-
+      }); /////// find /////
 
       // [4] 로컬스에 업데이트하기
       localStorage.setItem("board-data", JSON.stringify(baseData));
@@ -353,14 +303,8 @@ export default function Board() {
 
       // [5]리스트로 돌아가기 -> 모드 변경 "L"
       setMode("L");
-
     } ///// else if
-
   }; ///// submitFn ///////
-
-
-
-
 
   //// 코드 리턴 구역
   return (
@@ -368,11 +312,19 @@ export default function Board() {
       <h1 className="tit">OPINION</h1>
       {
         // 1. 리스트 모드일 경우 리스트 출력하기
-        mode == "L" && <ListMode bindList={bindList} pagingList={pagingList} />
+        mode == "L" && (
+          <ListMode
+            bindList={bindList}
+            totalCount={totalCount}
+            unitSize={unitSize}
+            pageNum={pageNum}
+            setPageNum={setPageNum}
+          />
+        )
       }
       {
         // 2. 읽기 모드일 경우 상세보기 출력하기
-        mode == "R" && <ReadMode selRecord={selRecord} sts={sts}/>
+        mode == "R" && <ReadMode selRecord={selRecord} sts={sts} />
       }
       {
         // 3. 쓰기 모드일 경우 로그인 정보 보내기
@@ -442,7 +394,17 @@ export default function Board() {
                 리스트 모드 서브 컴포넌트  
  **********************************************************/
 
-const ListMode = ({ bindList, pagingList }) => {
+const ListMode = ({ bindList, totalCount, unitSize, pageNum, setPageNum }) => {
+  /********************************************** 
+      [ 전달변수 ] - 2~5까지는 페이징 전달변수 
+      1. bindList : 리스트 결과 요소
+      2. totalCount : 전체 레코드 개수
+      3. unitSize : 게시판 리스트 당 레코드 개수
+      4. pageNum : 현재 페이지 번호 
+      5. setPageNum : 현재 페이지번호 변경 메소드
+  ***********************************************/
+
+  // 코드 리턴 구역
   return (
     <>
       <div className="selbx">
@@ -472,7 +434,14 @@ const ListMode = ({ bindList, pagingList }) => {
         <tfoot>
           <tr>
             <td colSpan="5" className="paging">
-              {pagingList()}
+              {
+                <PagingList
+                  totalCount={totalCount}
+                  unitSize={unitSize}
+                  pageNum={pageNum}
+                  setPageNum={setPageNum}
+                />
+              }
             </td>
           </tr>
         </tfoot>
@@ -484,7 +453,7 @@ const ListMode = ({ bindList, pagingList }) => {
 /**********************************************************
                 읽기 모드 서브 컴포넌트  
  **********************************************************/
-const ReadMode = ({ selRecord , sts }) => {
+const ReadMode = ({ selRecord, sts }) => {
   // selRecord : 현재글 정보
   // sts : 로그인 사용자 정보
   // 읽기모드가 호출되었다는 것은 리스트의 제목이 클릭되었다는 것을 의미
@@ -501,15 +470,14 @@ const ReadMode = ({ selRecord , sts }) => {
   // (( 조회된 글 저장 방법 ))
   // -> 세션스토리지 / 쿠키 / 참조변수(전역변수)
   // =>> 참조변수는 새로고침하면 초기화되므로 사용불가
-  // =>> 쿠키는 삭제 방법이 즉각적이지 않아 사용불가 
+  // =>> 쿠키는 삭제 방법이 즉각적이지 않아 사용불가
   // =>> 세션스토리지는 적합 : 창을 닫으면 사라지므로
 
-  // 1. 없으면 세션스 만들기 
-  if(!sessionStorage.getItem("bd-rec")){
+  // 1. 없으면 세션스 만들기
+  if (!sessionStorage.getItem("bd-rec")) {
     sessionStorage.setItem("bd-rec", "[]");
   }
 
-  
   // 2. 세션스에 글번호 저장하기
 
   // (1) 세션스 파싱하여 변수할당
@@ -519,47 +487,42 @@ const ReadMode = ({ selRecord , sts }) => {
   // 결과가 true면 조회수를 증가하지 않는다
   let isRec = rec.includes(data.idx);
   console.log("이미있니?", isRec);
-  
+
   // (3) 로그인한 사용자의 글이면 isRec값을 true처리
   // sts가 true면 즉, 로그인한 사용하지면 처리
-  if(sts){
-    console.log("선택글 아이디 : ", data.uid, 
-  "로그인 사용자 아이디:", JSON.parse(sts).uid);
+  if (sts) {
+    console.log("선택글 아이디 : ", data.uid, "로그인 사용자 아이디:", JSON.parse(sts).uid);
     // 글쓴이 아이디와 로그인 사용자 아이디가 같은가?
-    if(data.uid == JSON.parse(sts).uid){
+    if (data.uid == JSON.parse(sts).uid) {
       // 글번호 저장과 조회수 증가를 하지 않도록 isRec값을 true로 변경한다
       isRec = true;
     } // if ///
-
   } //// if ///
 
   // (4) 배열에 값 추가하기 : 기존값에 없으면 넣기
-  if(!isRec)rec.push(data.idx);
+  if (!isRec) rec.push(data.idx);
 
   // (5) 다시 세션스에 저장하기
-  sessionStorage.setItem("bd-rec",JSON.stringify(rec));
+  sessionStorage.setItem("bd-rec", JSON.stringify(rec));
 
   // 3. 글번호 증가하기
   // -> 게시판 원본 데이터에 조회수 업데이트하기
-  if(!isRec) {
+  if (!isRec) {
     // (1) 게시판 로컬스 데이터 파싱
-    let bdData =JSON.parse(localStorage.getItem("board-data"));
+    let bdData = JSON.parse(localStorage.getItem("board-data"));
     // (2) 게시판 해당 데이터 cnt값 증가
     // 조건 : isRec값이 false일때
-    bdData.some(v=>{
-      if(v.idx == data.idx) {
+    bdData.some((v) => {
+      if (v.idx == data.idx) {
         // 기존값에 1증가하여 넣기
-        v.cnt = Number(v.cnt)+1;
+        v.cnt = Number(v.cnt) + 1;
         return true;
       } ///// if /////
     }); ////////// some /////////
-    
-      // (3) 다시 로컬스에 저장하기
-      localStorage.setItem("board-data", JSON.stringify(bdData));
-       
 
+    // (3) 다시 로컬스에 저장하기
+    localStorage.setItem("board-data", JSON.stringify(bdData));
   } ///// if : (!isRec) ////
-
 
   return (
     <>
@@ -661,7 +624,6 @@ const WriteMode = ({ sts }) => {
   );
 }; ////// WriteMode //////////////////////////
 
-
 /**********************************************************
                 수정 모드 서브 컴포넌트  
  **********************************************************/
@@ -693,12 +655,7 @@ const ModifyMode = ({ selRecord }) => {
           <tr>
             <td>Content</td>
             <td>
-              <textarea
-                className="content"
-                cols="60"
-                rows="10"
-                defaultValue={data.cont}
-              ></textarea>
+              <textarea className="content" cols="60" rows="10" defaultValue={data.cont}></textarea>
             </td>
           </tr>
           <tr>
@@ -710,3 +667,71 @@ const ModifyMode = ({ selRecord }) => {
     </>
   );
 }; ////// ModifyMode //////////////////////////
+
+/********************************************************
+   *  PagingList : 페이징 기능 컴포넌트 
+  
+********************************************************/
+const PagingList = ({ totalCount, unitSize, pageNum, setPageNum }) => {
+  /********************************************** 
+      [ 전달변수 ]
+      1. totalCount : 전체 레코드 개수
+      2. unitSize : 게시판 리스트 당 레코드 개수
+      3. pageNum : 현재 페이지 번호 
+      4. setPageNum : 현재 페이지번호 변경 메소드
+  ***********************************************/
+
+  // 전체 페이징 개수 : 전체레코드수 / 페이지당 개수
+  // 유의점 : 나머지가 있는지 검사해서 있으면 +1
+
+  // 1. 페이징 개수
+  let pagingCount = Math.floor(totalCount.current / unitSize);
+
+  // 나머지가 있으면 다음 페이지가 필요함
+  // 나머지가 0이 아니면 1더하기
+  if (totalCount.current % unitSize > 0) {
+    pagingCount++;
+  }
+  // console.log("페이징개수:", pagingCount, "나머지개수:", totalCount.current % unitSize);
+
+
+    // [ 페이징의 페이징 하기 ]
+    // [1] 페이징 블록 - 한 페이징블록수 : pgPgSize 변수(4)
+    // [2] 페이징의 페이징 현재번호 : pgPgNum 변수(기본값1)
+    // 페이징의 페이징 한계수 더하기
+
+
+
+  // 링크코드 만들기
+  const pgCode = [];
+
+  // 1부터 페이지 끝번호까지 돌면서 코드만들기
+  for (let i = 1; i <= pagingCount; i++) {
+    pgCode.push(
+      <Fragment key={i}>
+        {
+          // 페이징번호와 현재페이지번호 일치시 b요소
+          i === pageNum ? (
+            <b>{i}</b>
+          ) : (
+            <a
+              href="#"
+              onClick={(e) => {
+                e.preventDefault();
+                setPageNum(i);
+              }}
+            >
+              {i}
+            </a>
+          )
+        }
+        {/* 사이에 바 넣기 */}
+        {i !== pagingCount && " | "}
+      </Fragment>
+    );
+  } ///// for /////
+
+
+  // 코드 리턴
+  return pgCode;
+}; ///// pagingList 함수 //////////////
