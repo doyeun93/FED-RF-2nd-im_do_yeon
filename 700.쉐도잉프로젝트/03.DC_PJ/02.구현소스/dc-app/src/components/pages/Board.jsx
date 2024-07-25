@@ -47,6 +47,11 @@ export default function Board() {
   // (3) 글쓰기 모드(W) : Write Mode
   // (4) 수정 모드(M) : Modify Mode (삭제포함)
 
+  // 3. 검색어 저장 변수 : 배열[기준,검색어]
+  const [keyword, setKeyword] = useState(['','']);
+  console.log("[기준,키워드]", keyword);
+  
+
   // [참조변수]
   // [1] 전체 개수 - 매번 계산하지 않도록 참조변수로 (필요할때마다 업데이트)
   const totalCount = useRef(baseData.length);
@@ -74,7 +79,33 @@ export default function Board() {
   ***********************************************************/
   const bindList = () => {
     // 1. 전체 원본데이터 선택
-    let orgData = baseData;
+
+    let orgData;
+
+    // 1-1. 검색어가 있는 경우 필터하기
+    // ketword[0] : 검색기준 / keyword[1] : 검색어
+    if(keyword[1] != ''){
+      orgData = baseData.filter(v=>{
+        // 소문자 처리하기
+        // (1) 검색원본 데이터
+        let orgTxt = v[keyword[0]].toLowerCase();
+        // (2) 검색어 데이터
+        let txt = keyword[1].toLowerCase();
+
+        // console.log(v[keyword[0]].indexOf(keyword[1]));
+        // 필터 검색조건에 맞는 데이터 수집하기
+        if(v[keyword[0]].indexOf(keyword[1]) != -1) return true;
+      });
+    } ////////// if /////////
+
+    // 1-2. 검색어가 없는 경우 전체 넣기
+    else{
+      orgData = baseData;
+    } ///// else ///////
+
+    // 1-3. 새로 데이터를 담은 후 바로 전체개수 업데이트 필수
+    totalCount.current = orgData.length;
+    
 
     // 2. 정렬 적용하기 : 내림차순
     orgData.sort((a, b) =>
@@ -101,31 +132,50 @@ export default function Board() {
       selData.push(orgData[i]);
     } ////// for ////////
 
-    // console.log("일부데이터:", selData);
+    console.log("일부데이터:", selData);
+    console.log("여기:", selData.length);
 
-    return selData.map((v, i) => (
-      <tr key={i}>
-        {/* 시작번호(i+1)를 더하여 페이지별 순번을 변경 */}
-        <td>{i + 1 + sNum}</td>
-        <td>
-          <a
-            href="#"
-            onClick={(e) => {
-              e.preventDefault();
-              // 읽기모드 변경
-              setMode("R");
-              selRecord.current = v;
-              // 해당 데이터 저장하기
-            }}
-          >
-            {v.tit}
-          </a>
-        </td>
-        <td>{v.unm}</td>
-        <td>{v.date}</td>
-        <td>{v.cnt}</td>
-      </tr>
-    ));
+    // if (selData.length == 0) setPageNum(pageNum - 1);
+    // 이 코드가 없으면 맨 끝페이지에서 검색하면 검색 데이터가 있어도 검색되지않음
+    // -> 리스트 모드 컴포넌트가 업데이트 되는 동안에 
+    // 리스트 관련 상태변수를 업데이트하면 업데이트 불가 에러 메시지가 발생한다
+    // 따라서 이런 코드는 다른 방식으로 변경해야함
+
+
+
+    return (
+      // 전체 데이터 개수가 0 초과일 경우 출력
+      // 0초과 ? map돌기 : 없음 코드
+        totalCount.current > 0 ?
+          selData.map((v, i) => (
+          <tr key={i}>
+            {/* 시작번호(i+1)를 더하여 페이지별 순번을 변경 */}
+            <td>{i + 1 + sNum}</td>
+            <td>
+              <a
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault();
+                  // 읽기모드 변경
+                  setMode("R");
+                  selRecord.current = v;
+                  // 해당 데이터 저장하기
+                }}
+              >
+                {v.tit}
+              </a>
+            </td>
+            <td>{v.unm}</td>
+            <td>{v.date}</td>
+            <td>{v.cnt}</td>
+          </tr>
+        )) : (
+          // 데이터가 없을 때 출력
+        <tr>
+          <td colSpan="5">There is no data.</td>
+        </tr>
+        )
+    ); 
   }; ///// bindList 함수 ////////
 
   // 버튼 클릭시 변경함수 ////
@@ -142,6 +192,8 @@ export default function Board() {
       // 리스트 모드로 변경
       case "List":
         setMode("L");
+        // 검색시에도 전체 데이터 나오게 함
+        setKeyword(['','']);
         break;
       // 서브밋일 경우 함수 호출
       case "Submit":
@@ -321,6 +373,7 @@ export default function Board() {
             setPageNum={setPageNum}
             pgPgNum={pgPgNum}
             pgPgSize={pgPgSize}
+            setKeyword={setKeyword}
           />
         )
       }
@@ -396,7 +449,7 @@ export default function Board() {
                 리스트 모드 서브 컴포넌트  
  **********************************************************/
 
-const ListMode = ({ bindList, totalCount, unitSize, pageNum, setPageNum, pgPgNum, pgPgSize }) => {
+const ListMode = ({ bindList, totalCount, unitSize, pageNum, setPageNum, pgPgNum, pgPgSize, setKeyword }) => {
   /********************************************** 
       [ 전달변수 ] - 2~5까지는 페이징 전달변수 
       1. bindList : 리스트 결과 요소
@@ -420,7 +473,31 @@ const ListMode = ({ bindList, totalCount, unitSize, pageNum, setPageNum, pgPgNum
           <option value="1">Ascending</option>
         </select>
         <input id="stxt" type="text" maxLength="50" />
-        <button className="sbtn">Search</button>
+        <button className="sbtn" 
+        onClick={(e)=>{
+          // 검색기준값 읽어오기
+          let creteria = $(e.target).siblings('.cta').val();
+          console.log("기준값:", creteria);
+          // 검색어 읽어오기
+          let txt = $(e.target).prev().val();
+          console.log(typeof txt, "/검색어:", txt);
+          // input값은 안쓰면 빈스트링이 넘어옴
+          if(txt!=''){
+              console.log("검색해!");
+              // [검색기준,검색어] -> setKeyword 업데이트
+              setKeyword([creteria,txt]);
+              // 검색후엔 첫페이지로 보내기
+              setPageNum(1);
+              // 검색후엔 페이지의 페이징 번호 초기화(1)
+              pgPgNum.current = 1;
+          }
+          // 빈 값일 경우
+          else{
+            alert("please enter a keyword!");
+          }
+          // target 이벤트 먹이려는 태그의 자손들이 먹음
+          // currentTarget 버블링됐더라도 이벤트가 먹은 자신
+        }}>Search</button>
       </div>
       <table className="dtbl" id="board">
         <thead>
@@ -437,6 +514,8 @@ const ListMode = ({ bindList, totalCount, unitSize, pageNum, setPageNum, pgPgNum
           <tr>
             <td colSpan="5" className="paging">
               {
+                // 데이터 개수가 0이상일때만 출력
+                totalCount.current > 0 &&
                 <PagingList
                   totalCount={totalCount}
                   unitSize={unitSize}
@@ -698,7 +777,7 @@ const PagingList = ({ totalCount, unitSize, pageNum, setPageNum, pgPgNum, pgPgSi
     pagingCount++;
   }
   
-  // console.log("페이징개수:", pagingCount, "나머지개수:", totalCount.current % unitSize);
+  console.log("페이징개수:", pagingCount, "전체레코드수:", totalCount.current, "나머지개수:", totalCount.current % unitSize);
 
 
     // [ 페이징의 페이징 하기 ]
@@ -720,6 +799,8 @@ const PagingList = ({ totalCount, unitSize, pageNum, setPageNum, pgPgNum, pgPgSi
     } /// if
 
     console.log("페이징의 페이징 개수:", pgPgCount);
+    console.log("페이징의 페이징 개수:", pgPgNum.current);
+    // 검색시 페이징번호 초기화필요!
 
 
     // (2) 리스트 시작값 / 한계값 구하기
