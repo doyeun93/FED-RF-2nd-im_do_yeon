@@ -62,6 +62,9 @@ export default function MainComponent() {
     // 라우터 루트로 라우터 구성시작
     // basename 속성은 package.json의 "homepage" 속성 값을 읽어옴
     // 읽는 방법은 " process.env.PUBLIC_URL "
+    // <HashRouter>
+    // basename속성을 쓰지 않는다.
+    // 해쉬라우터는 homepage 속성값을 자동으로 연결해준다!
     
     <BrowserRouter basename={process.env.PUBLIC_URL}>
       {/* 라우터 경로 변경시 최상단 이동 컴포넌트 */}
@@ -89,6 +92,7 @@ export default function MainComponent() {
         {/* Layout 루트 Route 하위 Route를 감싼다 */}
       </Routes>
     </BrowserRouter>
+    // </HashRouter>
   );
 }
 
