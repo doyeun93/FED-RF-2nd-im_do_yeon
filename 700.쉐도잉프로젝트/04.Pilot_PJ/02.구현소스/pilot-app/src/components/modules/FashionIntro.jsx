@@ -38,7 +38,7 @@ function FashionIntro({ catName, subCat, opt, seq }) {
 
         {/* 2. 두번째 글자 박스 */}
         <li className="txtc">
-          <h2 className={catName == "style" ? "tm" : " "}>
+          <h2 className={catName == "style" || (catName == "sub"&& seq == 0 )? "tm" : " "}>
             {/* [[참고]] : 데이터에 태그가(br /) 있어서 이를 html로 넣으려면 
             <a href="#" dangerouslySetInnerHTML={{__html:데이터}}> 속성을 사용한다 */}
             <a href="#" onClick={(e)=>{
@@ -67,7 +67,7 @@ function FashionIntro({ catName, subCat, opt, seq }) {
 
         {
           // 스타일인 경우 li이미지박스 생성
-          catName == "style" && (
+          (catName == "style" || (catName == "sub" && seq == 1)) && (
             <li className="imgc">
               <img src={process.env.PUBLIC_URL+selData.isrc[1]} alt={selData.ialt[1]} />
             </li>

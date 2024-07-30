@@ -120,7 +120,7 @@ function Fashion({ subCat }) {
    
       {/* 5. 스타일상품영역 */}
       <section id="c4" className="cont c4">
-        <FashionIntro catName="sub" subCat={subCat} opt={true} seq={1}/>
+        <FashionIntro catName="sub" subCat={subCat} opt={false} seq={1}/>
         </section>
     </>
   );
