@@ -2,22 +2,23 @@ import React, { useContext, useEffect, useLayoutEffect, useState } from "react";
 import { scrolled, setPos } from "../../func/smoothScroll24";
 import $ from "jquery";
 
-
 // 컨텍스트 API 불러오기
 import { pCon } from "../modules/pCon";
 
 // css 불러오기
 import "../../css/fashion.scss";
 import SinSang from "../modules/SinSang";
-import { menu } from "../../../../../../03.DC_PJ/02.구현소스/dc-app/src/components/data/gnb";
+
+// gnb 데이터 가져오기
+import { gnbData } from "../../js/data/gnb.js";
 import { SwiperBan } from "../plugin/SwiperBan";
 // 리액트용 패럴랙스 - 설치 : npm i react-parallax
 import { Parallax } from "react-parallax";
+import FashionIntro from "../modules/FashionIntro.jsx";
 
-function Fashion({subCat}) {
-    // subCat : 서브 카테고리명
-    // 값 : men / women / style
-
+function Fashion({ subCat }) {
+  // subCat : 서브 카테고리명
+  // 값 : men / women / style
 
   // 컨텍스트 API 사용하기
   const myCon = useContext(pCon);
@@ -46,42 +47,33 @@ function Fashion({subCat}) {
       overflowX: "hidden",
     });
 
-    
     // 소멸자 구역
     return () => {
-        document.removeEventListener("wheel", scrolled, { passive: false });
+      document.removeEventListener("wheel", scrolled, { passive: false });
 
-        // 스크롤바 없애기
-        $("html, body").css({overflow: "hidden"});
+      // 스크롤바 없애기
+      $("html, body").css({ overflow: "hidden" });
 
-        // 부드러운 스크롤 위치 초기화
-        setPos(0);
+      // 부드러운 스크롤 위치 초기화
+      setPos(0);
 
-        // 실제 스크롤 위치값 초기화
-        window.scrollTo(0, 0);
-
-      
+      // 실제 스크롤 위치값 초기화
+      window.scrollTo(0, 0);
     };
-}, []); /////////////// useLayoutEffect ////////////
+  }, []); /////////////// useLayoutEffect ////////////
 
-
-
-// 화면 랜더링 코드 구역 -> 화면에 요소가 실제로 출력된 후 
-// DOM 이벤트 설정시 여기서 코딩해야 적용됨
-useEffect(()=>{
+  // 화면 랜더링 코드 구역 -> 화면에 요소가 실제로 출력된 후
+  // DOM 이벤트 설정시 여기서 코딩해야 적용됨
+  useEffect(() => {
     // 로고 클릭시 페이지 이동하기
     $("#logo a").on("click", (e) => {
       e.preventDefault();
       myCon.setPgName("main");
     }); ////////// click /////////////
-    
+  }, []); ////////////// useEffect ////////////////////////
 
-  },[]); ////////////// useEffect ////////////////////////
-
-
-    // 후크 상태변수
-    const [item, setItem] = useState("m1");
-
+  // 후크 상태변수
+  const [item, setItem] = useState("m1");
 
   // 신상컴포넌트에서 상세컴포넌트로 값을 전하기 위한
   // 상태변수를 셋팅하여 함수로 이것을 변경하게 해준다!
@@ -94,19 +86,16 @@ useEffect(()=>{
     $(".bgbx").slideDown(400);
   }; /////////// chgItem 함수 //////
 
-
-
   /// 코드 리턴구역
   return (
     <>
       {/* 1. 배너영역 */}
       <section id="ban" className="page">
         <SwiperBan cat={subCat} />
-        
       </section>
       {/* 2. 신상품영역 */}
       <section id="c1" className={"cont sc-ani c1 " + subCat}>
-        <SinSang cat={subCat} chgItemFn={chgItem} setPos={setPos}/>
+        <SinSang cat={subCat} chgItemFn={chgItem} setPos={setPos} />
       </section>
       {/* 2.5. 상세보기박스 */}
       <div className="bgbx"></div>
@@ -115,20 +104,24 @@ useEffect(()=>{
         <Parallax
           className="c2"
           // 패럴랙스할 배경이미지 설정속성 bgImage
-          bgImage={process.env.PUBLIC_URL+"/images/sub/" + 
-          props.cat + "/02.special.png"}
+          bgImage={process.env.PUBLIC_URL + "/images/sub/" + subCat + "/02.special.png"}
           // 패럴랙스 이동정도 조정속성 strength
           // 수치범위 :  -500 ~ 1000 -> 높은 숫자는 반대방향
           strength={200}
         >
-          <h2 className="c2tit sc-ani">2024 {gnbData[props.cat][1]}</h2>
+          <h2 className="c2tit sc-ani">2024 {gnbData[subCat][1]}</h2>
         </Parallax>
       </section>
-     
+
       {/* 4. 단일상품영역 */}
-      <section id="c3" className="cont c3"></section>
+      <section id="c3" className="cont c3">
+        <FashionIntro catName="sub" subCat={subCat} opt={true} seq={0}/>
+      </section>
+   
       {/* 5. 스타일상품영역 */}
-      <section id="c4" className="cont c4"></section>
+      <section id="c4" className="cont c4">
+        <FashionIntro catName="sub" subCat={subCat} opt={true} seq={1}/>
+        </section>
     </>
   );
 }
