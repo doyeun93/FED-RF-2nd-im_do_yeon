@@ -532,6 +532,7 @@ const ListMode = ({
   setPageNum,
   pgPgNum,
   pgPgSize,
+  keyword,
   setKeyword,
   sort,
   setSort,
@@ -760,6 +761,9 @@ const ReadMode = ({ selRecord, sts }) => {
     // (3) 다시 로컬스에 저장하기
     localStorage.setItem("board-data", JSON.stringify(bdData));
   } ///// if : (!isRec) ////
+
+   // 이미지 미리보기 대상 이미지 확장자 배열변수
+   const imgExt = ["jpg", "png", "gif"];
 
   return (
     <>
