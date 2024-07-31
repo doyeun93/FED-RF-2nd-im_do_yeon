@@ -88,9 +88,14 @@ export default function Board() {
 
 
   // 검색기능을 위한 리듀서 함수 
-  const reducerFn = (state, action) => {
+  const reducerFn = (gval, action) => {
+    // gval - '지가 밸류래' 의 줄임말ㅋㅋㅋ
+    // -> 리듀서 변수가 들어옴 : 기존값을 활용하여 업데이트 하기 위해 들어옴
+    console.log("지발:", gval);
+
     // 1. 구조 분해 할당으로 객체의 배열값 받기
     const [key, ele] = action.type;
+    // 배열값 구조 : [ 구분 문자열 , 이벤트 발생 대상 요소 ]
     // action.type은 리듀서 호출 시 보낸 객체값(배열임)
     console.log("key:",key, "\nele:",ele);
     // 2. key값에 따라 분기하기
@@ -99,10 +104,10 @@ export default function Board() {
       case "search":
         {
           // 검색기준값 읽어오기
-          let creteria = $(e.target).siblings(".cta").val();
+          let creteria = $(ele).siblings(".cta").val();
           console.log("기준값:", creteria);
           // 검색어 읽어오기
-          let txt = $(e.target).prev().val();
+          let txt = $(ele).prev().val();
           console.log(typeof txt, "/검색어:", txt);
           // input값은 안쓰면 빈스트링이 넘어옴
           if (txt != "") {
@@ -120,22 +125,68 @@ export default function Board() {
           }
           // target 이벤트 먹이려는 태그의 자손들이 먹음
           // currentTarget 버블링됐더라도 이벤트가 먹은 자신
+
+          // 리턴 코드값은 리듀서 변수에 할당
+          return gval+(gval!=''?"*":"")+txt;
+          // return gval+"*"+txt;
         }
-        // 리턴 코드값은 리듀서 변수에 할당
-        return true;
 
         // (2) 전체 리스트 돌아가기 실행코드
         case "back": 
         {
-
+          // 검색어 초기화
+          setKeyword(["", ""]);
+          // 검색어삭제(input이니까 val())
+          $(ele).siblings("#stxt").val("");
+          // 검색항목초기화
+          $(ele).siblings("#cta").val("tit");
+          // 정렬초기화
+          setSort(1);
+          // 정렬항목초기화
+          setSortCta("idx");
+          // 첫페이지번호변경
+          setPageNum(1);
         }
-        return false;
-        
+        // return false;
+       return gval;
     }
   };
 
   // 검색기능 지원 후크 리듀서 : useReducer
-  const [state, dispach] = useReducer(reducerFn, null);
+  const [memory, dispach] = useReducer(reducerFn, '');
+
+
+
+/*********************************************** 
+ * [ 리듀서 후크 : useReducer ]
+ * 복잡한 리액트 변수값/코드 처리를 해주는 후크
+ *******************************************
+ 호출 때 보낸 객체 : return문에 type: 값
+
+function 리듀서함수(리듀서변수, 호출 때 보낸 객체) {
+  switch (호출 때 보낸 객체.type) {
+    case 값1:
+      처리코드;
+      return 처리값;
+    case 값2:
+      처리코드;
+      return 처리값;
+    default:
+      처리코드;
+      return 처리값;
+  }
+}
+
+function 컴포넌트() {
+  const [리듀서변수, 호출메서드] = 
+  useReducer(리듀서함수, 리듀서변수초기값);
+
+  return(
+    <요소 on이벤트={()=>{
+      호출메서드({ type: 값 });      
+    } />
+  );
+} ///// 컴포넌트끝 ///////
 
 
 
@@ -503,6 +554,8 @@ export default function Board() {
             setSort={setSort}
             sortCta={sortCta}
             setSortCta={setSortCta}
+            dispach={dispach}
+            memory={memory}
           />
         )
       }
@@ -592,6 +645,8 @@ const ListMode = ({
   setSort,
   sortCta,
   setSortCta,
+  dispach,
+  memory,
 }) => {
   /********************************************** 
       [ 전달변수 ] - 2~5까지는 페이징 전달변수 
@@ -644,7 +699,11 @@ const ListMode = ({
         />
         <button
           className="sbtn"
-          onClick={(e) => {}}
+          onClick={(e) => {
+            // 리듀서 메서드 호출
+            dispach({type:["search", e.target]});
+            // 보낼 값 구성 : [구분 문자열, 이벤트 발생 요소]
+          }}
         >
           Search
         </button>
@@ -654,18 +713,9 @@ const ListMode = ({
             <button
               className="back-total-list"
               onClick={(e) => {
-                // 검색어 초기화
-                setKeyword(["", ""]);
-                // 검색어삭제(input이니까 val())
-                $(e.currentTarget).siblings("#stxt").val("");
-                // 검색항목초기화
-                $(e.currentTarget).siblings("#cta").val("tit");
-                // 정렬초기화
-                setSort(1);
-                // 정렬항목초기화
-                setSortCta("idx");
-                // 첫페이지번호변경
-                setPageNum(1);
+                // 리듀서 메서드 호출
+                dispach({type:["back", e.target]});
+               // 보낼 값 구성 : [구분 문자열, 이벤트 발생 요소]  
               }}
             >
               Back to Total List
@@ -685,6 +735,7 @@ const ListMode = ({
           <option value="idx">Recent</option>
           <option value="tit">Title</option>
         </select>
+        <b>{memory}</b>
       </div>
       <table className="dtbl" id="board">
         <thead>
