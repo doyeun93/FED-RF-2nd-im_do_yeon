@@ -15,7 +15,7 @@ import "../../css/board.scss";
 import "../../css/board_file.scss";
 
 // 로컬 스토리지 확인 JS
-import { Fragment, useContext, useReducer, useRef, useState } from "react";
+import { Fragment, useContext, useRef, useState } from "react";
 import { initBoardData } from "../func/board_fn";
 import { dCon } from "../modules/dCon";
 
@@ -85,60 +85,6 @@ export default function Board() {
   // 페이징의 페이징 개수 : 한번에 보여줄 페이징 개수
   // const pgPgSize = 5;
   const pgPgSize = 4;
-
-
-  // 검색기능을 위한 리듀서 함수 
-  const reducerFn = (state, action) => {
-    // 1. 구조 분해 할당으로 객체의 배열값 받기
-    const [key, ele] = action.type;
-    // action.type은 리듀서 호출 시 보낸 객체값(배열임)
-    console.log("key:",key, "\nele:",ele);
-    // 2. key값에 따라 분기하기
-    switch(key){
-      // (1) 검색일 경우 실행코드
-      case "search":
-        {
-          // 검색기준값 읽어오기
-          let creteria = $(e.target).siblings(".cta").val();
-          console.log("기준값:", creteria);
-          // 검색어 읽어오기
-          let txt = $(e.target).prev().val();
-          console.log(typeof txt, "/검색어:", txt);
-          // input값은 안쓰면 빈스트링이 넘어옴
-          if (txt != "") {
-            console.log("검색해!");
-            // [검색기준,검색어] -> setKeyword 업데이트
-            setKeyword([creteria, txt]);
-            // 검색후엔 첫페이지로 보내기
-            setPageNum(1);
-            // 검색후엔 페이지의 페이징 번호 초기화(1)
-            pgPgNum.current = 1;
-          }
-          // 빈 값일 경우
-          else {
-            alert("please enter a keyword!");
-          }
-          // target 이벤트 먹이려는 태그의 자손들이 먹음
-          // currentTarget 버블링됐더라도 이벤트가 먹은 자신
-        }
-        // 리턴 코드값은 리듀서 변수에 할당
-        return true;
-
-        // (2) 전체 리스트 돌아가기 실행코드
-        case "back": 
-        {
-
-        }
-        return false;
-        
-    }
-  };
-
-  // 검색기능 지원 후크 리듀서 : useReducer
-  const [state, dispach] = useReducer(reducerFn, null);
-
-
-
 
   /*********************************************************** 
         함수명 : bindList
@@ -644,7 +590,30 @@ const ListMode = ({
         />
         <button
           className="sbtn"
-          onClick={(e) => {}}
+          onClick={(e) => {
+            // 검색기준값 읽어오기
+            let creteria = $(e.target).siblings(".cta").val();
+            console.log("기준값:", creteria);
+            // 검색어 읽어오기
+            let txt = $(e.target).prev().val();
+            console.log(typeof txt, "/검색어:", txt);
+            // input값은 안쓰면 빈스트링이 넘어옴
+            if (txt != "") {
+              console.log("검색해!");
+              // [검색기준,검색어] -> setKeyword 업데이트
+              setKeyword([creteria, txt]);
+              // 검색후엔 첫페이지로 보내기
+              setPageNum(1);
+              // 검색후엔 페이지의 페이징 번호 초기화(1)
+              pgPgNum.current = 1;
+            }
+            // 빈 값일 경우
+            else {
+              alert("please enter a keyword!");
+            }
+            // target 이벤트 먹이려는 태그의 자손들이 먹음
+            // currentTarget 버블링됐더라도 이벤트가 먹은 자신
+          }}
         >
           Search
         </button>
