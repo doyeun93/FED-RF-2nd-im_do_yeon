@@ -735,7 +735,12 @@ const ListMode = ({
           <option value="idx">Recent</option>
           <option value="tit">Title</option>
         </select>
-        <b>{memory}</b>
+        <button style={{position:"relative"}}>
+          <b style={{position:"absolute", lineHeight:"1.8"}}>{
+            memory.indexOf("*")!== -1 &&
+          memory.split("*").map(v=><div><a href="#">{v}</a></div>)
+          }</b>
+          History</button>
       </div>
       <table className="dtbl" id="board">
         <thead>
