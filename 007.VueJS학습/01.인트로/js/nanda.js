@@ -75,6 +75,43 @@ const vm = new Vue({
         // -> 배열 리터럴로 선언과 할당
     },
 
+    // 3. 뷰인스턴스 초기화 완료단계 : created
+    // 이 단계에서 데이터 세팅함
+    created() {
+        // 상품 데이터 클래스를 호출하여 객체를 생성하자
+        // 1. 상품명 배열
+        const goods = ["프레이컷", "아일렛기모", "베어부클", "포멀믹스톤"];
+
+        // 2. 상품정보 객체 클래스를 for문으로 호출
+        // 1부터 18번 이미지까지 생성
+        for (let i = 1; i < 19; i++) {
+            // 2-1. 정해진 상품명 시작부분 랜덤하게 넣기
+            // 위의 배열 4가지중 한가지 랜덤(0~3)
+            let rdm1 = Math.floor(Math.random() * 4);
+
+            // 2-2. 다양한 가격을 위해 4~20사이의 난수곱 
+            let rdm2 = Math.ceil(Math.random() *17)+3;
+            // 먼저 1~17 난수를 만들고 3을 더해 4~20만든다
+            // console.log("랜덤1:",rdm1,"/랜덤2:",rdm2);
+
+            // 2-3. 뷰 인스턴스의 itemData 배열값 넣기
+            // this키워드로 접근한다 this.itemData
+            this.itemData.push(
+                new GetList(
+                    i, // 일련번호 
+                    goods[rdm1]+i, // 상품명
+                    `nanda_${i}`, // 이미지명
+                    20000 * rdm2 // 상품가격
+                )
+            ); /// push ///
+            // 생성된 데이터 확인
+            console.log("itemData:", this.itemData);
+
+
+        } ////// for ///////
+
+    }, ///// created /////
+
 }); ////// vue ////
 
 // 상품 정보 생성을 위한 생성자 클래스 ///////
