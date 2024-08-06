@@ -149,6 +149,39 @@ export default function Board() {
         }
         // return false;
        return gval;
+
+        // (3) 기존 키워드 재검색일 경우 실행코드
+      case "again":
+        {
+          // 검색기준값 읽어오기
+          let creteria = $(ele).siblings(".cta").val();
+          console.log("기준값:", creteria);
+          // 검색어 읽어오기
+          let txt = $(ele).text();
+          console.log(typeof txt, "/검색어:", txt);
+          // 검색어 input 검색어 존에 넣기
+          $("#stxt").val(txt);
+          // input값은 안쓰면 빈스트링이 넘어옴
+          if (txt != "") {
+            console.log("검색해!");
+            // [검색기준,검색어] -> setKeyword 업데이트
+            setKeyword([creteria, txt]);
+            // 검색후엔 첫페이지로 보내기
+            setPageNum(1);
+            // 검색후엔 페이지의 페이징 번호 초기화(1)
+            pgPgNum.current = 1;
+          }
+          // 빈 값일 경우
+          else {
+            alert("please enter a keyword!");
+          }
+          // target 이벤트 먹이려는 태그의 자손들이 먹음
+          // currentTarget 버블링됐더라도 이벤트가 먹은 자신
+
+          // 리턴 코드값은 리듀서 변수에 할당
+          return gval+(gval!=''?"*":"")+txt;
+          // return gval+"*"+txt;
+        }
     }
   };
 
@@ -736,10 +769,15 @@ const ListMode = ({
           <option value="tit">Title</option>
         </select>
         <button style={{position:"relative"}}>
-          <b style={{position:"absolute", lineHeight:"1.8"}}>{
+          <ol style={{position:"absolute", lineHeight:"1.8"}}>{
             memory.indexOf("*")!== -1 &&
-          memory.split("*").map(v=><div><a href="#">{v}</a></div>)
-          }</b>
+            memory.split("*").map(v=><li><b onClick={(e)=>{
+              // 리듀서 메서드 호출
+            dispach({type:["again", e.target]});
+            // 보낼 값 구성 : [구분 문자열, 이벤트 발생 요소]
+            }}
+            >{v}</b></li>)
+          }</ol>
           History</button>
       </div>
       <table className="dtbl" id="board">
