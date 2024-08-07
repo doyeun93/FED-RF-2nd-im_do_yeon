@@ -75,6 +75,7 @@ console.log('\n3.객체값 배열의 얕은복사(Shallow Copy)');
 let ee = [{ 김: 55 }, { 이: 66 }, { 박: 77 }];
 console.log("원본ee", ee);
 let ff = ee;
+console.log("원본ff", ff);
 // 배열의 객체값 변경하기
 ff[0]["김"] = 999;
 
