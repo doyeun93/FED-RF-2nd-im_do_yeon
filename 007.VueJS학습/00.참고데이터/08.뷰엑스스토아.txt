@@ -22,7 +22,7 @@
 
 1. actions -> 2. mutations -> 3. state
 
-- 흐름 : 먼저 비동기 메서드처리후 
+- 흐름 : 먼저 비동기 메서드 처리 후 
     일반 메서드처리 결과를 state변수에 반영함!
 
 (참고: 뷰엑스 관리흐름도
@@ -31,10 +31,10 @@ https://docs.google.com/document/d/1xT3IMlWO_kY7pJqNJSDpI4IPe6BtpfoYq9r5M5_YiRE/
 [ 뷰엑스 스토어 메서드 호출방법 ]
 
 1. actions 내부 메서드 호출 : 
-dispatch("메서드명",전달변수)
+dispatch("메서드명", 전달변수)
 
 2. mutations 내부 메서드 호출 : 
-commit("메서드명",전달변수)
+commit("메서드명", 전달변수)
 
 => actions 와 mutations 내부의 메서드는
 다음과 같은 형태로 구성된다!
