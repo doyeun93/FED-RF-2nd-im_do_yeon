@@ -781,9 +781,30 @@ const ListMode = ({
           <option value="idx">Recent</option>
           <option value="tit">Title</option>
         </select>
-        <button style={{position:"relative"}}>
-          <ol style={{position:"absolute", lineHeight:"1.8"}}>{
-            memory.indexOf("*")!== -1 &&
+        <button style={{position:"relative"}}
+          onClick={(e)=>{
+            $(e.currentTarget).find("ol").show();
+          }}
+        >
+
+        History
+        <ol
+            style={{
+              position: "absolute",
+              lineHeight: "1.7",
+              padding: "5px 15px",
+              border: "1px solid gray",
+              borderRadius: "10px",
+              backgroundColor: "#f8f8ffcc",
+              display: "none",
+            }}
+            onMouseLeave={(e)=>{
+              // 아웃시 숨기기
+              $(e.currentTarget).hide();
+            }}
+          >
+            
+            {memory.indexOf("*")!== -1 &&
             memory.split("*").map(v=><li><b onClick={(e)=>{
               // 리듀서 메서드 호출
             dispach({type:["again", e.target]});
@@ -791,7 +812,7 @@ const ListMode = ({
             }}
             >{v}</b></li>)
           }</ol>
-          History</button>
+          </button>
       </div>
       <table className="dtbl" id="board">
         <thead>
