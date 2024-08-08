@@ -136,7 +136,7 @@ const vm = new Vue({
         )
       ); /// push ///
       // 생성된 데이터 확인
-      console.log("itemData:", this.itemData);
+      // console.log("itemData:", this.itemData);
     } ////// for ///////
   }, //////////// created //////////////
 
@@ -159,7 +159,7 @@ const vm = new Vue({
         // $(상품리스트박스).offset().top
             $("html,body").animate({
                 scrollTop: $(".gwrap").offset().top+"px"
-            }, 600, "easeInOutExpo")
+            }, 600, "easeInOutExpo");
         }
     );
   }, //////////////// mounted //////////////
