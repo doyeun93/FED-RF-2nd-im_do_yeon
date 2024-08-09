@@ -1,7 +1,10 @@
 <!-- 1. 템플릿 구역 -->
 <template>
-  <div class="app">
+  <!-- 원래 루트인 #app은 대체된다 -->
+  <div id="app">
     <TopArea />
+    <MainArea />
+    <FooterArea />
   </div>
 </template>
 
@@ -9,12 +12,17 @@
 <script>
 // 여기서 import 해준다
 import TopArea from "./components/TopArea.vue";
+import MainArea from "./components/MainArea.vue";
+import FooterArea from "./components/FooterArea.vue";
+
 export default {
   // 내보낼 컴포넌트 이름
   name: 'App',
   // 내보낼 컴포넌트 등록
   components: {
     TopArea,
+    MainArea,
+    FooterArea,
   }
 }
 </script>
@@ -22,12 +30,9 @@ export default {
 
 <!-- 3. 스타일 구역(css)-> 전역적으로 쓰려면 <style> , 지역적으로 쓰려면 <script scoped> -->
 <style>
+/* 최상위요소 */
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  max-width: 500px;
+  margin: 0 auto;
 }
 </style>
