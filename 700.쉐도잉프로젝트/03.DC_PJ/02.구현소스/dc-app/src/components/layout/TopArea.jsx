@@ -1,7 +1,7 @@
 // 상단영역 컴포넌트 ///
 
 // gnb데이터 불러오기
-import { Link,useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { menu } from "../data/gnb";
 
 // 상단 영역 CSS 불러오기
@@ -11,9 +11,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 import $ from "jquery";
-import { memo} from "react";
+import { memo, useEffect } from "react";
 // import { dCon } from "../modules/dCon";
-
 
 // 메모이제이션 적용하기! /////
 // -> 그.러.나... 단순히 적용하면 효과가 없음!
@@ -27,21 +26,15 @@ import { memo} from "react";
 // 객체, 배열, 함수는 모두 값 저장이 아니고 주소 저장임
 // -> 그래서 이 주소를 고정해줘야 같은 값으로 인식하여 메모이제이션 된다
 
-
-export const TopArea = memo(({loginMsg,loginSts,logoutFn,goPage}) =>{
+export const TopArea = memo(({ loginMsg, loginSts, logoutFn, goPage }) => {
   // 전달값
   // 1. loginMsg : 로그인 메시지 변수
   // 2. loginSts : 로그인 상태 변수
   // 3. logoutFn : 로그아웃 함수###
 
-
   console.log("상단영역");
   // 컨텍스트 사용하기 -> 리랜더링이 계속 됨
   // const myCon = useContext(dCon);-> 메모이션을 위해 사용안함
-  
-  
- 
-
 
   // 이동함수
   // const goNav = useNavigate();
@@ -49,13 +42,12 @@ export const TopArea = memo(({loginMsg,loginSts,logoutFn,goPage}) =>{
   // 전달객체는 없으면 비워도 됨
 
   // 사용법: 반드시 useNavigate()메서드를 변수에 담아
-    // 이동할 라우터 주소를 쓰면 이동한다
-    // 예) goNav('/news') -> 뉴스페이지 이동
-    // 예) goNav('news') -> 뉴스페이지 이동,  슬래시 없이 써도 루트로 인식함
-    // 예) goNav('/') -> 첫페이지 이동
-    // 예) goNav('') -> 첫페이지 이동 => 빈값이면 루트로 이동함
-    // 이동주소는 대소문자 구분없음!
-
+  // 이동할 라우터 주소를 쓰면 이동한다
+  // 예) goNav('/news') -> 뉴스페이지 이동
+  // 예) goNav('news') -> 뉴스페이지 이동,  슬래시 없이 써도 루트로 인식함
+  // 예) goNav('/') -> 첫페이지 이동
+  // 예) goNav('') -> 첫페이지 이동 => 빈값이면 루트로 이동함
+  // 이동주소는 대소문자 구분없음!
 
   // 검색 관련 함수들
   // 1. 검색창 보이기 함수
@@ -67,35 +59,50 @@ export const TopArea = memo(({loginMsg,loginSts,logoutFn,goPage}) =>{
     // show() : display를 보이게 함
     // 2) 입력창에 포커스 보내기
     $("#schinGnb").focus();
-  
   }; /////// showSearch /////////////////////////////////
   // 2. 검색창에 엔터키 누르면 검색함수 호출
   const enterKey = (e) => {
     // e.keyCode는 숫자, e.key문자로 리턴함
-    console.log(e.key,e.keyCode);
-    if(e.key == "Enter"){
+    console.log(e.key, e.keyCode);
+    if (e.key == "Enter") {
       // 입력창의 입력값 읽어오기 : val() 사용
       let txt = $(e.target).val().trim();
       console.log(txt);
       // 빈 값이 아니면 검색함수 호출(검색어 전달)
-      if(txt!=''){
+      if (txt != "") {
         // 입력창 비우고 부모박스 닫기
         $(e.target).val("").parent().hide();
         // 검색 보내기
         goSearch(txt);
       }
     } // if
-
   }; /////// enterKey ///////////////////
 
-
-  // 3. 검색 페이지로 검색어와 함께 이동하기 함수 
-  const goSearch = txt => {
+  // 3. 검색 페이지로 검색어와 함께 이동하기 함수
+  const goSearch = (txt) => {
     console.log("나는 검색하러 간다");
     // 라우터 이동함수로 이동하기
     // 네비게이트 메서드(라우터 주소,{state:{보낼객체}})
-    goPage("search",{state:{keyword:txt}})
+    goPage("search", { state: { keyword: txt } });
   }; /////////////// goSearch //////////
+
+
+  // 햄버거용 함수 : 전체메뉴 보이기
+  const showMenu = () => $(".top-area").toggleClass('on');
+
+  // 랜더링후 실행구역 ///////////////
+  useEffect(()=>{
+
+    // GNB a요소 클릭시 전체메뉴 닫기
+    // 대상: .gnb a[href!='#'] 
+    // -> href가 '#'이 아닌 gnb 하위 모든 a요소
+    // -> != 은 제이쿼리전용!
+    $(".gnb a[href!='#']").on('click',()=>{
+      $(".top-area").removeClass('on');
+    }); /////////// click //////////
+
+  }); ///////// useEffect /////////
+
 
 
   //// 코드 리턴 구역
@@ -111,11 +118,17 @@ export const TopArea = memo(({loginMsg,loginSts,logoutFn,goPage}) =>{
           <ul>
             {/* 1. 로고 컴포넌트 */}
             <li>
-              <a href="#" onClick={(e) =>{ 
-                // 기본 이동 막기
-                e.preventDefault(); 
-                // 라우터 이동 메서드 호출
-                goPage("/")}} > {/* goNav에 이동만 하고싶으면 전달객체를 안써도 된다 */}
+              <a
+                href="#"
+                onClick={(e) => {
+                  // 기본 이동 막기
+                  e.preventDefault();
+                  // 라우터 이동 메서드 호출
+                  goPage("/");
+                }}
+              >
+                {" "}
+                {/* goNav에 이동만 하고싶으면 전달객체를 안써도 된다 */}
                 <Logo logoStyle="top" />
               </a>
               {/* <Link to="/">
@@ -123,81 +136,101 @@ export const TopArea = memo(({loginMsg,loginSts,logoutFn,goPage}) =>{
               </Link> */}
             </li>
             {/* 2. GNB 메뉴 데이터 배열로 만들기 */}
-              {menu.map((v,i)=>
+            {menu.map((v, i) => (
               <li key={i}>
                 {
-                  // 하위 메뉴가 있으면 일반 a요소에 출력 
+                  // 하위 메뉴가 있으면 일반 a요소에 출력
                   // 없으면 Link 라우팅 출력
                   v.sub ? <a href="#">{v.txt}</a> : <Link to={v.link}>{v.txt}</Link>
-         
                 }
                 {
                   // 서브 메뉴 데이터가 있으면 하위 그리기
-                  v.sub && <div className="smenu">
-                    <ol>
-                      {
-                        v.sub.map((v,i)=>
-                        <li key={i}>
-                          <Link to={v.link}> {v.txt} </Link>
-                        </li>)
-                      }
-                    </ol>
-                  </div>
+                  v.sub && (
+                    <div className="smenu">
+                      <ol>
+                        {v.sub.map((v, i) => (
+                          <li key={i}>
+                            <Link to={v.link}> {v.txt} </Link>
+                          </li>
+                        ))}
+                      </ol>
+                    </div>
+                  )
                 }
-                
-              </li>)}
+              </li>
+            ))}
             {/* 3. 검색, 회원가입, 로그인 링크 */}
-            <li style={{marginLeft:"auto", marginRight:"25px"}}>
-                {/* 검색입력박스 */}
-                <div className="searchingGnb" >
-                  {/* 검색버튼 돋보기 아이콘 */}
-                  <FontAwesomeIcon icon={faSearch} className="schbtnGnb" title="Open search" 
-                  onClick={(e)=>{ 
+            <li style={{ marginLeft: "auto", marginRight: "25px" }}>
+              {/* 검색입력박스 */}
+              <div className="searchingGnb">
+                {/* 검색버튼 돋보기 아이콘 */}
+                <FontAwesomeIcon
+                  icon={faSearch}
+                  className="schbtnGnb"
+                  title="Open search"
+                  onClick={(e) => {
                     // 검색어 읽기
                     let stxt = e.currentTarget.nextElementSibling.value;
-                    if(stxt.trim()!=""){
+                    if (stxt.trim() != "") {
                       // 검색하기
                       goSearch(stxt);
-                    }
-                    else{
+                    } else {
                       // 검색어 비었을 때 메시지
-                       alert("Please enter a search term!");
+                      alert("Please enter a search term!");
                     }
-                  }}/>
-                  {/* 입력창 */}
-                  <input type="text" name="schinGnb" id="schinGnb" placeholder="Filter by Keyword" onKeyUp={enterKey}/>
-                </div>
-                {/* 검색기능링크 - 클릭시 검색창 보이기 */}
-                <a href="#" onClick={showSearch}>
-                  <FontAwesomeIcon icon={faSearch} />
-                </a>
+                  }}
+                />
+                {/* 입력창 */}
+                <input
+                  type="text"
+                  name="schinGnb"
+                  id="schinGnb"
+                  placeholder="Filter by Keyword"
+                  onKeyUp={enterKey}
+                />
+              </div>
+              {/* 검색기능링크 - 클릭시 검색창 보이기 */}
+              <a href="#" onClick={showSearch}>
+                <FontAwesomeIcon icon={faSearch} />
+              </a>
             </li>
-            {/* 회원가입, 로그인 버튼은 로그인 상태가 null일때 나옴 */
-            loginSts === null &&
-            <>
-              <li>
-                <Link to="/member">JOIN US</Link>
-              </li>
-              <li>
-                <Link to="/login">LOG IN</Link>
-              </li>
-            </>
+            {
+              /* 회원가입, 로그인 버튼은 로그인 상태가 null일때 나옴 */
+              loginSts === null && (
+                <>
+                  <li>
+                    <Link to="/member">JOIN US</Link>
+                  </li>
+                  <li>
+                    <Link to="/login">LOG IN</Link>
+                  </li>
+                </>
+              )
             }
-            {/* 로그인 상태면 로그아웃버튼 보임 */
-            loginSts !== null &&
-            <>
-              <li>
-                <a href="#" onClick={(e)=>{
-                  e.preventDefault();
-                  // 로그아웃처리함수 호출
-                  logoutFn();
-                }}>LOGOUT</a>
-              </li>
-            </>
+            {
+              /* 로그인 상태면 로그아웃버튼 보임 */
+              loginSts !== null && (
+                <>
+                  <li>
+                    <a
+                      href="#"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        // 로그아웃처리함수 호출
+                        logoutFn();
+                      }}
+                    >
+                      LOGOUT
+                    </a>
+                  </li>
+                </>
+              )
             }
           </ul>
         </nav>
+        {/* 모바일용 햄버거 버튼 */}
+        <button className="hambtn" onClick={showMenu}></button>
       </header>
     </>
   );
-}) //////////// TopArea 함수 ////////
+}); //////////// TopArea 함수 ////////

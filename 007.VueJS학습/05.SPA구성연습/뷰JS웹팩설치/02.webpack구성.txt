@@ -4,7 +4,7 @@
     (1) build : webpack 빌드전용 스크립트
     (2) config : webpack 빌드설정
     (3) dist : 빌드되고 나면 생성되는 폴더 (빌드된 파일이 위치함)
-    (4) node_modules : 뷰JS 사용모듈설치폴더
+    (4) node_modules : 뷰JS 사용 모듈 설치 폴더
     (5) src : 빌드할 파일폴더
     (6) static : Loader에서 사용하지 않고 곧바로 dist에 넣을파일(이미지등 정적컨텐츠)
     (7) index.html : SPA의 인텍스 HTML 템플릿

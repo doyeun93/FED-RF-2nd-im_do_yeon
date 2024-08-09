@@ -87,6 +87,29 @@ export default function Board() {
   const pgPgSize = 4;
 
 
+    // [ 리듀서함수에서 쓸 리턴값 만들기 함수 ] ///
+    const retVal = (gval, txt) => {
+      return (
+        // 1. 별구분자가 있는가?
+        gval.indexOf("*") !== -1
+          ? // 2. true면 split으로 잘라서 배열값 검사하기
+            gval.split("*").includes(txt)
+            ? // 2-1. 배열값에 있으면 true이므로 gval추가안함
+              gval
+            : // 2-2. false면 gval에 현재값 별 넣고 추가
+              gval + (gval != "" ? "*" : "") + txt
+          : // 3. 전체 false이면 빈값이 아니면 문자열검사하기
+          gval == txt
+          ? // 3-1. 값이 서로 같으면 추가하지 말기
+            gval
+          : // 3-2. 그밖의 경우엔 추가하기
+            gval + (gval != "" ? "*" : "") + txt
+      );
+    }; ////// retVal함수 ///////////////
+
+
+
+
   // 검색기능을 위한 리듀서 함수 
   const reducerFn = (gval, action) => {
     // gval - '지가 밸류래' 의 줄임말ㅋㅋㅋ
@@ -129,19 +152,8 @@ export default function Board() {
           // 리턴 코드값은 리듀서 변수에 할당
           // return gval+(gval!=''?"*":"")+txt;
           // return gval+"*"+txt;
-          return (
-            // 숙제: *문자열이 있으면 split으로 잘라서
-            // 배열로 만들고 배열값중 현재 입력된 txt가
-            // 배열중에 없으면 새로 등록하고 있으면
-            // 등록하지 않는다를 코드로 작성할것!
-            // 힌트1: 등록않는다는 gval만 넣으면 됨
-            // 힌트2: 배열값 중 단순비교는 includes()사용!
-            gval.indexOf("*")!==-1
-            ? gval.split("*").includes(txt)
-            ? gval
-            : gval + (gval != "" ? "*" : "") + txt
-            : gval + (gval != "" ? "*" : "") + txt
-          );
+          return retVal(gval, txt);
+          
         }
 
         // (2) 전체 리스트 돌아가기 실행코드
@@ -192,7 +204,8 @@ export default function Board() {
           // currentTarget 버블링됐더라도 이벤트가 먹은 자신
 
           // 리턴 코드값은 리듀서 변수에 할당
-          return gval+(gval!=''?"*":"")+txt;
+          return retVal(gval, txt);
+          // return gval+(gval!=''?"*":"")+txt;
           // return gval+"*"+txt;
         }
     }

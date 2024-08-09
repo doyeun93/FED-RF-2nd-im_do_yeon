@@ -82,6 +82,7 @@
     (1) 프로젝트 생성명령어
         vue init webpack 프로젝트명
         예) vue init webpack my-vue-app
+        
 
         (webpack은 무엇인가?)
         -> Vue CLI의 코드제작 템플릿(하나의 파일구성틀)이다!
@@ -139,3 +140,6 @@
 (3) 라우터를 수동 설치해야할 경우
     npm i vue-router@3
 
+
+
+* 확장프로그램설치 : Vue-official
