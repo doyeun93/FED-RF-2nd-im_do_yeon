@@ -21,7 +21,7 @@
 1. width: 가로크기
 2. height: 세로크기
 3. padding: 안쪽여백
-4. marging: 바깥여백
+4. margin: 바깥여백
 5. border: 경계선
     -> border: 두께 종류 색상; (두종색)
     - 두께(border-width) : 보더의 두께 사이즈 지정(px,em 등)
