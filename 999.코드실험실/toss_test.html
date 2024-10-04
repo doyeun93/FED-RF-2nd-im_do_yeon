@@ -1,0 +1,40 @@
+<head>
+    <meta charset="utf-8" />
+    <script src="https://js.tosspayments.com/v1/payment-widget"></script>
+  </head>
+  <body>
+    <div id="payment-method"></div>
+    <div id="agreement"></div>
+    <button id="payment-button">결제하기</button>
+    <script>
+      const clientKey = "test_ck_D5GePWvyJnrK0W0k6q8gLzN97Eoq"
+      const customerKey = "mOOpaZ2F43o0asvyfol1x" // 내 상점에서 고객을 구분하기 위해 발급한 고객의 고유 ID
+      const button = document.getElementById("payment-button")
+      // ------  결제위젯 초기화, 렌더링 ------
+      const paymentWidget = PaymentWidget(clientKey, customerKey)
+      paymentWidget.renderPaymentMethods(
+        "#payment-method",
+        { value: 15000 }
+      )
+      paymentWidget.renderAgreement('#agreement')
+      // ------ '결제하기' 버튼 누르면 결제창 띄우기 ------
+      button.addEventListener("click", function () {
+        paymentWidget.requestPayment({
+          orderId: "t9JI0Bs1SVdJxRs8yjiQJ",
+          orderName: "토스 티셔츠 외 2건",
+          // successUrl: "https://my-store.com/success",
+          // failUrl: "https://my-store.com/fail",
+          // windowTarget: "self"
+        })
+        .then(function (data) {
+          console.log(data);
+        })
+        .catch(function (error) {
+          if (error.code == "NEED_CARD_PAYMENT_DETAIL") {
+            console.log(error.message);
+          }
+        })
+      })
+    </script>
+  </body>
+  
